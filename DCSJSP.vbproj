@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C824C3BB-D665-40F4-815C-352FC9A761FB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>Sub Main</StartupObject>
+    <RootNamespace>DCSJSP</RootNamespace>
+    <AssemblyName>DCSJSP</AssemblyName>
+    <ProjectTypeGuids>{68B1623D-7FB9-47D8-8664-7ECEA3297D4F};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
+    <PlatformFamilyName>WindowsCE</PlatformFamilyName>
+    <PlatformID>E2BECB1F-8C8C-41ba-B736-9BE7D946A398</PlatformID>
+    <OSVersion>5.0</OSVersion>
+    <MyType>WindowsForms</MyType>
+    <DeployDirSuffix>DCSComs</DeployDirSuffix>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionStrict>Off</OptionStrict>
+    <OptionInfer>On</OptionInfer>
+    <NativePlatformName>Windows CE</NativePlatformName>
+    <FormFactorID>
+    </FormFactorID>
+    <DeployDirPrefix>%25CSIDL_PROGRAM_FILES%25</DeployDirPrefix>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>$(PlatformFamilyName)=TRUE</DefineConstants>
+    <DocumentationFile>DCSJSP.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <FileAlignment>512</FileAlignment>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>$(PlatformFamilyName)=TRUE</DefineConstants>
+    <DocumentationFile>DCSJSP.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <FileAlignment>512</FileAlignment>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Windowsce.Forms" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SqlClient, Version=3.0.3600.0, Culture=neutral, PublicKeyToken=3be235df1c8d2ad3, processorArchitecture=MSIL" />
+    <Reference Include="System.Data.SqlServerCe, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3be235df1c8d2ad3, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class\clsConnection.vb" />
+    <Compile Include="Class\clsDataTransfer.vb" />
+    <Compile Include="Forms\frmMain.Designer.vb">
+      <DependentUpon>frmMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmProgress.Designer.vb">
+      <DependentUpon>frmProgress.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmProgress.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSetting.Designer.vb">
+      <DependentUpon>frmSetting.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSetting.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Receiving\frmCdioReceiving.Designer.vb">
+      <DependentUpon>frmCdioReceiving.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Receiving\frmCdioReceiving.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Supply\frmBigPart.Designer.vb">
+      <DependentUpon>frmBigPart.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Supply\frmBigPart.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Supply\frmChildPart.Designer.vb">
+      <DependentUpon>frmChildPart.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Supply\frmChildPart.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Supply\frmProgressLane.Designer.vb">
+      <DependentUpon>frmProgressLane.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Supply\frmProgressLane.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Supply\frmRobbing.Designer.vb">
+      <DependentUpon>frmRobbing.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Supply\frmRobbing.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Unpacking\frmUnpack.Designer.vb">
+      <DependentUpon>frmUnpack.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Unpacking\frmUnpack.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Module\GeneralFunction.vb" />
+    <Compile Include="Module\GeneralVariables.vb" />
+    <Compile Include="Module\SQLCEFunction.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\DCSWebService\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\OraWebService\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\frmMain.resx">
+      <DependentUpon>frmMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmProgress.resx">
+      <DependentUpon>frmProgress.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSetting.resx">
+      <DependentUpon>frmSetting.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Receiving\frmCdioReceiving.resx">
+      <DependentUpon>frmCdioReceiving.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Supply\frmBigPart.resx">
+      <DependentUpon>frmBigPart.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Supply\frmChildPart.resx">
+      <DependentUpon>frmChildPart.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Supply\frmProgressLane.resx">
+      <DependentUpon>frmProgressLane.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Supply\frmRobbing.resx">
+      <DependentUpon>frmRobbing.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Unpacking\frmUnpack.resx">
+      <DependentUpon>frmUnpack.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\DCSWebService\DCSWebService.disco" />
+    <None Include="Web References\DCSWebService\DCSWebService.wsdl" />
+    <None Include="Web References\DCSWebService\DCSWebService.xsd" />
+    <None Include="Web References\DCSWebService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\OraWebService\processServicePartService.wsdl" />
+    <None Include="Web References\OraWebService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="D:\Projects\Latest Source Code\Perodua\DCSComs\DCSComs\bin\Debug\processServicePartService.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\OraWebService\</RelPath>
+      <UpdateFromURL>D:\Projects\Latest Source Code\Perodua\DCSComs\DCSComs\bin\Debug\processServicePartService.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://172.20.14.126:8084/">
+      <UrlBehavior>Static</UrlBehavior>
+      <RelPath>Web References\DCSWebService\</RelPath>
+      <UpdateFromURL>http://172.20.14.126:8084/</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DBDCSJSP.sdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Abnormal.png" />
+    <Content Include="Images\BigPart.png" />
+    <Content Include="Images\CDIO.png" />
+    <Content Include="Images\ChildPart.png" />
+    <Content Include="Images\Delete.png" />
+    <Content Include="Images\Post.png" />
+    <Content Include="Images\ProgressLane.png" />
+    <Content Include="Images\Robbing.png" />
+    <Content Include="Images\Scan.png" />
+    <Content Include="Images\Setting.png" />
+    <Content Include="Images\Supply.png" />
+    <Content Include="Images\Unpack.png" />
+    <Content Include="Images\View.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.VisualBasic.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{F184B08F-C81C-45F6-A57F-5ABD9991F28F}">
+        <HostingProcess disable="1" />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="PlatformVerificationTask">
+  </Target>
+</Project>
