@@ -6,6 +6,7 @@ Imports System.Text.RegularExpressions
 Imports DCSJSP.GeneralFunction
 Imports DCSJSP.DCSWebService.DCSWebService
 Imports System.Diagnostics
+'test
 
 Public Class frmProgress
 
