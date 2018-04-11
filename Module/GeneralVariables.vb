@@ -32,7 +32,9 @@ Module GeneralVariables
 
     Public gAppName As String = "SERVICE PART"
     Public gProgPath As String = Path.GetDirectoryName([Assembly].GetExecutingAssembly.GetName.CodeBase) & "\" '+ System.Reflection.Assembly.GetExecutingAssembly.GetName.Name 'System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).ToString & " \ ""
-    Public gDBPath As String = "/Application/DCSServicePart/"
+    'Public gFullPath As String = gProgPath + gDatabaseName
+    'Public gDBPath As String = "/Application/DCSServicePart/"
+    Public gDBPath As String = gProgPath '/ProgramFiles/DCSComs
     Public gScannerID As String = getDeviceID()
     Public gScnPrefix As String = ""
     Public gScnSuffix As String = ""
@@ -40,13 +42,15 @@ Module GeneralVariables
     Public gDatabaseName As String = "DBDCSServicePart.sdf"
     Public gDatabasePwd As String = ""
     Public ConnStr As String = "Data Source=" & gDBPath + gDatabaseName & ";password=" & gDatabasePwd
-    Public gStrDCSWebServiceURL As String = "http://172.20.13.204:8086/" '"http://172.20.13.160:8888/"
-    'Public ws_dcsClient As DCSWebService.DCSWebService = New DCSWebService.DCSWebService
+    'Public gStrDCSWebServiceURL As String = "http://192.168.170.169:8084/DCSWebService.svc" '"http://172.20.13.204:8086/" '"http://172.20.13.160:8888/"
+    Public gStrDCSWebServiceURL As String = "http://192.168.170.169:8084/DCSWebService.svc"
+    Public ws_dcsClient As DCSWebService.DCSWebService = New DCSWebService.DCSWebService
+    ' MAKE WEBSERVICE OFFLINE MODE AND TRY ABNORMAL SERVICE
 
     Public gStrOracleWebServiceURL As String = "http://10.1.115.94:4559/ws/perodua.eai.process.inventory.ws.servicePart:processServicePartService/perodua_eai_process_inventory_ws_servicePart_processServicePartService_Port"
     Public gStrOraUserID As String = "promiseusr"
     Public gStrOraUserPwd As String = "promiseusr"
-    'Public ws_oracleClient As OraWebService.processServicePartService = New OraWebService.processServicePartService
+    Public ws_oracleClient As OraWebService.processServicePartService = New OraWebService.processServicePartService
 
     Public SQLServerName As String
     Public SQLServerPort As String
@@ -59,17 +63,23 @@ Module GeneralVariables
 
    
     '---Master Table -----------------------------------------------
-    Public TblUserDb As String = "SEP_LOGIN_V"
     Public TblSettingDb As String = "TBLSetting"
-    Public TblSEPPackVDb As String = "SEP_PACK_IMPORTER_V"
-    Public TblSEPImporterVDb As String = "SEP_RB_IMPORTER_V"
-    Public TblSEPCaseTypeVDb As String = "SEP_CASE_TYPE_V"
-    Public TblSEPRBCurrLocDb As String = "SEP_RB_CURR_LC_V"
-    Public TblSEPRBJobDb As String = "SEP_RB_JOB_V"
-    Public TblSEPRBReasonDb As String = "SEP_RB_REASON_V"
-    Public TblSEPRBTypeDb As String = "SEP_RB_TYPE_V"
-    Public TblSEPStopperDb As String = "SEP_RB_STOPPER_QTY_V"
-    Public TblSEPSupplierDb As String = "SEP_SUPPLIER_V"
+    Public TblUserDb As String = "SEP_LOGIN_V"
+    Public TblJSPOrganizationDb As String = "JSP_ORGANIZATION_HEADERS"
+    Public TblJSPSupplyBPHeaderDb As String = "JSP_SUPPLY_BP_HEADERS"
+    Public TblJSPSupplyCPHeaderDb As String = "JSP_SUPPLY_CP_HEADERS"
+    Public TblJSPAbnormalReasonCodeDb As String = "JSP_ABNORMAL_REASON_CODE"
+
+    '---- Not using ---------------------
+    'Public TblSEPPackVDb As String = "SEP_PACK_IMPORTER_V"
+    'Public TblSEPImporterVDb As String = "SEP_RB_IMPORTER_V"
+    'Public TblSEPCaseTypeVDb As String = "SEP_CASE_TYPE_V"
+    'Public TblSEPRBCurrLocDb As String = "SEP_RB_CURR_LC_V"
+    'Public TblSEPRBJobDb As String = "SEP_RB_JOB_V"
+    'Public TblSEPRBReasonDb As String = "SEP_RB_REASON_V"
+    'Public TblSEPRBTypeDb As String = "SEP_RB_TYPE_V"
+    'Public TblSEPStopperDb As String = "SEP_RB_STOPPER_QTY_V"
+    'Public TblSEPSupplierDb As String = "SEP_SUPPLIER_V"
 
 
     '----Main ------------
@@ -87,14 +97,38 @@ Module GeneralVariables
 
     '----Setting --------
     Public sUser As String = ""
+    Public sOrganization As String = ""
     Public sReason As String = ""
-    Public sRBType As String = ""
-    Public sImporter As String = ""
-    Public sVendor As String = ""
-    Public sCustomer As String = ""
-    Public sCaseType As String = ""
-    Public sStopperType As String = ""
+    Public sShop As String = ""
+    Public sSupply As String = ""
     Public iInterval As Integer = 0
+
+    Public chkOffline As Boolean = False
+
+    'Public sReason As String = ""
+    'Public sRBType As String = ""
+    'Public sImporter As String = ""
+    'Public sVendor As String = ""
+    'Public sCustomer As String = ""
+    'Public sCaseType As String = ""
+    'Public sStopperType As String = ""
+    'Public iInterval As Integer = 0
+
+    Public ImpShop As Boolean = False
+    Public ImpSupplier As Boolean = False
+    Public ImpReason As Boolean = False
+    Public ImpOrganization As Boolean = False
+    Public ImpUser As Boolean = False
+
+    '----TEMP --------
+    Public chkUser As Boolean = False
+    Public chkReason As Boolean = False
+    Public chkRBType As Boolean = False
+    Public chkImporter As Boolean = False
+    Public chkVendor As Boolean = False
+    Public chkCustomer As Boolean = False
+    Public chkCaseType As Boolean = False
+    Public chkStopperType As Boolean = False
 
     '----Others --------
     Public gStrRefErrorMsg As String = ""

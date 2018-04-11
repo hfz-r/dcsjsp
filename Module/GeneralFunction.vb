@@ -2,7 +2,8 @@ Imports System
 Imports System.IO
 Imports System.Text
 Imports System.Data
-'Imports System.Data.SqlServerCe
+Imports System.Data.SqlClient
+Imports System.Data.SqlServerCe
 Imports System.Collections
 Imports System.Windows.Forms
 Imports System.Data.Common
@@ -89,25 +90,25 @@ Module GeneralFunction
     '    End Try
     'End Sub
 
-    'Public Function getData(ByVal sSQL As String) As DataTable
-    '    Dim dt As DataTable = New DataTable
-    '    Try
+    Public Function getData(ByVal sSQL As String) As DataTable
+        Dim dt As DataTable = New DataTable
+        Try
 
-    '        Dim dbReader As SqlCeDataReader = Nothing
-
-
-    '        dbReader = OpenRecordset(sSQL, objConn)
+            Dim dbReader As SqlCeDataReader = Nothing
 
 
-    '        dt.Load(dbReader)
+            dbReader = OpenRecordset(sSQL, objConn)
 
-    '        dbReader.Close()
 
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message, MsgBoxStyle.Critical, gAppName)
-    '    End Try
-    '    Return dt
-    'End Function
+            dt.Load(dbReader)
+
+            dbReader.Close()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, gAppName)
+        End Try
+        Return dt
+    End Function
 
     Public Function postData(ByVal batchID As String, ByVal processType As Integer, ByRef msgCode As String, ByRef msgDesc As String) As Boolean
         postData = False
@@ -207,7 +208,6 @@ Module GeneralFunction
 
     Public Sub Main()
 
-
         Dim frm As New frmProgress
         frm.AutoScroll = False
         frm.ShowDialog()
@@ -215,75 +215,79 @@ Module GeneralFunction
 
     End Sub
 
+    Public Function checkConnection() As Boolean
+
+    End Function
+
     Public Function LoadSetting() As DataTable
         Dim dt As DataTable = New DataTable
-        'Dim dbReader As SqlCeDataReader = Nothing
+        Dim dbReader As SqlCeDataReader = Nothing
 
-        'Try
+        Try
 
-        '    Dim sSQL As String = "SELECT * FROM TBLSETTING "
-        '    dbReader = OpenRecordset(sSQL, objConn)
-        '    dt.Load(dbReader)
+            Dim sSQL As String = "SELECT * FROM TBLSETTING "
+            dbReader = OpenRecordset(sSQL, objConn)
+            dt.Load(dbReader)
 
-        '    For i As Integer = 0 To dt.Rows.Count - 1
-        '        If dt.Rows(i).Item("SettingCode") = "SCNID" Then
-        '            gScannerID = dt.Rows(i).Item("SettingValue").ToString
-        '        ElseIf dt.Rows(i).Item("SettingCode") = "PREFIX" Then
-        '            gScnPrefix = dt.Rows(i).Item("SettingValue").ToString
-        '        ElseIf dt.Rows(i).Item("SettingCode") = "SUFFIX" Then
-        '            gScnSuffix = dt.Rows(i).Item("SettingValue").ToString
-        '        ElseIf dt.Rows(i).Item("SettingCode") = "URLDCSSP" Then
-        '            gStrDCSWebServiceURL = dt.Rows(i).Item("SettingValue").ToString
-        '            ws_dcsClient = New DCSWebService.DCSWebService
-        '        ElseIf dt.Rows(i).Item("SettingCode") = "URLORACLE" Then
-        '            gStrOracleWebServiceURL = dt.Rows(i).Item("SettingValue").ToString
-        '        ElseIf dt.Rows(i).Item("SettingCode") = "URLORAUSERID" Then
-        '            gStrOraUserID = dt.Rows(i).Item("SettingValue").ToString
-        '        ElseIf dt.Rows(i).Item("SettingCode") = "URLORAUSERPWD" Then
-        '            gStrOraUserPwd = dt.Rows(i).Item("SettingValue").ToString
-        '        ElseIf dt.Rows(i).Item("SettingCode") = "DBPATH" Then
-        '            gDBPath = dt.Rows(i).Item("SettingValue").ToString
-        '        ElseIf dt.Rows(i).Item("SettingCode") = "DBNAME" Then
-        '            gDatabaseName = dt.Rows(i).Item("SettingValue").ToString
-        '        ElseIf dt.Rows(i).Item("SettingCode") = "DBPASSWORD" Then
-        '            gDatabasePwd = dt.Rows(i).Item("SettingValue").ToString
-        '        ElseIf dt.Rows(i).Item("SettingCode") = "INTERVAL" Then
-        '            iInterval = dt.Rows(i).Item("SettingValue")
+            For i As Integer = 0 To dt.Rows.Count - 1
+                If dt.Rows(i).Item("SettingCode") = "SCNID" Then
+                    gScannerID = dt.Rows(i).Item("SettingValue").ToString
+                ElseIf dt.Rows(i).Item("SettingCode") = "PREFIX" Then
+                    gScnPrefix = dt.Rows(i).Item("SettingValue").ToString
+                ElseIf dt.Rows(i).Item("SettingCode") = "SUFFIX" Then
+                    gScnSuffix = dt.Rows(i).Item("SettingValue").ToString
+                ElseIf dt.Rows(i).Item("SettingCode") = "URLDCSSP" Then
+                    gStrDCSWebServiceURL = dt.Rows(i).Item("SettingValue").ToString
+                    Dim ws_dcsClient As New DCSWebService.DCSWebService
+                ElseIf dt.Rows(i).Item("SettingCode") = "URLORACLE" Then
+                    gStrOracleWebServiceURL = dt.Rows(i).Item("SettingValue").ToString
+                ElseIf dt.Rows(i).Item("SettingCode") = "URLORAUSERID" Then
+                    gStrOraUserID = dt.Rows(i).Item("SettingValue").ToString
+                ElseIf dt.Rows(i).Item("SettingCode") = "URLORAUSERPWD" Then
+                    gStrOraUserPwd = dt.Rows(i).Item("SettingValue").ToString
+                ElseIf dt.Rows(i).Item("SettingCode") = "DBPATH" Then
+                    gDBPath = dt.Rows(i).Item("SettingValue").ToString
+                ElseIf dt.Rows(i).Item("SettingCode") = "DBNAME" Then
+                    gDatabaseName = dt.Rows(i).Item("SettingValue").ToString
+                ElseIf dt.Rows(i).Item("SettingCode") = "DBPASSWORD" Then
+                    gDatabasePwd = dt.Rows(i).Item("SettingValue").ToString
+                ElseIf dt.Rows(i).Item("SettingCode") = "INTERVAL" Then
+                    iInterval = dt.Rows(i).Item("SettingValue")
 
-        '            '-- import
-        '        ElseIf dt.Rows(i).Item("SettingCode") = "USER" Then
-        '            sUser = dt.Rows(i).Item("SettingValue").ToString
-        '        ElseIf dt.Rows(i).Item("SettingCode") = "REASON" Then
-        '            sReason = dt.Rows(i).Item("SettingValue").ToString
-        '        ElseIf dt.Rows(i).Item("SettingCode") = "RBTYPE" Then
-        '            sRBType = dt.Rows(i).Item("SettingValue").ToString
-        '        ElseIf dt.Rows(i).Item("SettingCode") = "CASETYPE" Then
-        '            sCaseType = dt.Rows(i).Item("SettingValue").ToString
-        '        ElseIf dt.Rows(i).Item("SettingCode") = "CUSTOMER" Then
-        '            sCustomer = dt.Rows(i).Item("SettingValue").ToString
-        '        ElseIf dt.Rows(i).Item("SettingCode") = "IMPORTER" Then
-        '            sImporter = dt.Rows(i).Item("SettingValue").ToString
-        '        ElseIf dt.Rows(i).Item("SettingCode") = "VENDOR" Then
-        '            sVendor = dt.Rows(i).Item("SettingValue").ToString
-        '        ElseIf dt.Rows(i).Item("SettingCode") = "STOPPERTYPE" Then
-        '            sStopperType = dt.Rows(i).Item("SettingValue").ToString
-        '        End If
-        '    Next
-        '    dbReader.Close()
+                    '-- import
+                    'ElseIf dt.Rows(i).Item("SettingCode") = "USER" Then
+                    '    sUser = dt.Rows(i).Item("SettingValue").ToString
+                    'ElseIf dt.Rows(i).Item("SettingCode") = "REASON" Then
+                    '    sReason = dt.Rows(i).Item("SettingValue").ToString
+                    'ElseIf dt.Rows(i).Item("SettingCode") = "RBTYPE" Then
+                    '    sRBType = dt.Rows(i).Item("SettingValue").ToString
+                    'ElseIf dt.Rows(i).Item("SettingCode") = "CASETYPE" Then
+                    '    sCaseType = dt.Rows(i).Item("SettingValue").ToString
+                    'ElseIf dt.Rows(i).Item("SettingCode") = "CUSTOMER" Then
+                    '    sCustomer = dt.Rows(i).Item("SettingValue").ToString
+                    'ElseIf dt.Rows(i).Item("SettingCode") = "IMPORTER" Then
+                    '    sImporter = dt.Rows(i).Item("SettingValue").ToString
+                    'ElseIf dt.Rows(i).Item("SettingCode") = "VENDOR" Then
+                    '    sVendor = dt.Rows(i).Item("SettingValue").ToString
+                    'ElseIf dt.Rows(i).Item("SettingCode") = "STOPPERTYPE" Then
+                    '    sStopperType = dt.Rows(i).Item("SettingValue").ToString
+                End If
+            Next
+            dbReader.Close()
 
-        '    ConnStr = "Data Source=" & gDBPath + gDatabaseName & ";password=" & gDatabasePwd
+            ConnStr = "Data Source=" & gDBPath + gDatabaseName & ";password=" & gDatabasePwd
 
-        '    ws_oracleClient.Url = gStrOracleWebServiceURL
-        '    Dim oraCred As NetworkCredential = New NetworkCredential(gStrOraUserID, gStrOraUserPwd)
-        '    'Dim oraCache As CredentialCache = New CredentialCache
-        '    'oraCache.Add(New Uri("www.contoso.com"), "Basic", myCred)
-        '    'oraCache.Add(New Uri("app.contoso.com"), "Basic", myCred)
-        '    ws_oracleClient.Credentials = oraCred
-        '    ws_oracleClient.PreAuthenticate = True
+            'ws_oracleClient.Url = gStrOracleWebServiceURL
+            'Dim oraCred As NetworkCredential = New NetworkCredential(gStrOraUserID, gStrOraUserPwd)
+            ''Dim oraCache As CredentialCache = New CredentialCache
+            ''oraCache.Add(New Uri("www.contoso.com"), "Basic", myCred)
+            ''oraCache.Add(New Uri("app.contoso.com"), "Basic", myCred)
+            'ws_oracleClient.Credentials = oraCred
+            'ws_oracleClient.PreAuthenticate = True
 
-        'Catch ex As Exception
-        '    MsgBox(ex.Message, MsgBoxStyle.Critical, gAppName)
-        'End Try
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, gAppName)
+        End Try
         Return dt
     End Function
 

@@ -40,7 +40,7 @@ Partial Public Class frmSetting
         Me.TabScannerNo = New System.Windows.Forms.TabPage
         Me.Label24 = New System.Windows.Forms.Label
         Me.Label23 = New System.Windows.Forms.Label
-        Me.TextBox1 = New System.Windows.Forms.TextBox
+        Me.txtSTBatchID = New System.Windows.Forms.TextBox
         Me.TabWebServices = New System.Windows.Forms.TabPage
         Me.Label7 = New System.Windows.Forms.Label
         Me.txtSTWSORAUserPwd = New System.Windows.Forms.TextBox
@@ -258,6 +258,7 @@ Partial Public Class frmSetting
         Me.txtSTPassword.Location = New System.Drawing.Point(95, 69)
         Me.txtSTPassword.MaxLength = 50
         Me.txtSTPassword.Name = "txtSTPassword"
+        Me.txtSTPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtSTPassword.Size = New System.Drawing.Size(182, 21)
         Me.txtSTPassword.TabIndex = 2
         '
@@ -273,7 +274,7 @@ Partial Public Class frmSetting
         '
         Me.TabScannerNo.Controls.Add(Me.Label24)
         Me.TabScannerNo.Controls.Add(Me.Label23)
-        Me.TabScannerNo.Controls.Add(Me.TextBox1)
+        Me.TabScannerNo.Controls.Add(Me.txtSTBatchID)
         Me.TabScannerNo.Location = New System.Drawing.Point(4, 25)
         Me.TabScannerNo.Name = "TabScannerNo"
         Me.TabScannerNo.Size = New System.Drawing.Size(312, 158)
@@ -295,12 +296,12 @@ Partial Public Class frmSetting
         Me.Label23.Size = New System.Drawing.Size(137, 20)
         Me.Label23.Text = "Scanner No in Batch ID"
         '
-        'TextBox1
+        'txtSTBatchID
         '
-        Me.TextBox1.Location = New System.Drawing.Point(26, 63)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(124, 23)
-        Me.TextBox1.TabIndex = 0
+        Me.txtSTBatchID.Location = New System.Drawing.Point(26, 63)
+        Me.txtSTBatchID.Name = "txtSTBatchID"
+        Me.txtSTBatchID.Size = New System.Drawing.Size(124, 23)
+        Me.txtSTBatchID.TabIndex = 0
         '
         'TabWebServices
         '
@@ -408,28 +409,28 @@ Partial Public Class frmSetting
         '
         'Label21
         '
-        Me.Label21.Location = New System.Drawing.Point(69, 88)
+        Me.Label21.Location = New System.Drawing.Point(69, 87)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(100, 20)
         Me.Label21.Text = "Organization"
         '
         'Label20
         '
-        Me.Label20.Location = New System.Drawing.Point(69, 70)
+        Me.Label20.Location = New System.Drawing.Point(69, 69)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(100, 20)
         Me.Label20.Text = "Reason"
         '
         'Label19
         '
-        Me.Label19.Location = New System.Drawing.Point(69, 52)
+        Me.Label19.Location = New System.Drawing.Point(69, 51)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(100, 20)
         Me.Label19.Text = "Supplier"
         '
         'Label17
         '
-        Me.Label17.Location = New System.Drawing.Point(69, 34)
+        Me.Label17.Location = New System.Drawing.Point(69, 33)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(100, 20)
         Me.Label17.Text = "Shop"
@@ -437,7 +438,7 @@ Partial Public Class frmSetting
         'Label10
         '
         Me.Label10.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Label10.Location = New System.Drawing.Point(10, 33)
+        Me.Label10.Location = New System.Drawing.Point(10, 32)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(62, 20)
         Me.Label10.Text = "Master: "
@@ -660,7 +661,6 @@ Partial Public Class frmSetting
         Me.txtAUTUNM.Location = New System.Drawing.Point(32, 81)
         Me.txtAUTUNM.MaxLength = 50
         Me.txtAUTUNM.Name = "txtAUTUNM"
-        Me.txtAUTUNM.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtAUTUNM.Size = New System.Drawing.Size(265, 21)
         Me.txtAUTUNM.TabIndex = 86
         '
@@ -806,6 +806,6 @@ Partial Public Class frmSetting
     Friend WithEvents TabScannerNo As System.Windows.Forms.TabPage
     Friend WithEvents Label24 As System.Windows.Forms.Label
     Friend WithEvents Label23 As System.Windows.Forms.Label
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents txtSTBatchID As System.Windows.Forms.TextBox
 
 End Class

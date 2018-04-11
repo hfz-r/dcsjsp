@@ -4,14 +4,18 @@ Imports System.Windows.Forms
 Imports System.Data.SqlServerCe
 Imports System.Text.RegularExpressions
 Imports DCSJSP.GeneralFunction
+Imports DCSJSP.DCSWebService.DCSWebService
+Imports System.Diagnostics
 
 Public Class frmProgress
 
     Dim clsDataTransfer As New clsDataTransfer
+    Dim gFullPath As String = gDBPath + gDatabaseName
 
     Public Sub Init()
 
         If Not System.IO.File.Exists(gDBPath + gDatabaseName) Then
+
             Try
                 '----Create table if db not exist in local
                 If clsDataTransfer.PrepareTable(lblMessage, ProgressBar) = True Then
@@ -19,20 +23,20 @@ Public Class frmProgress
                     Call LoadSetting()
 
                     Try
-                        'ws_dcsClient.Url = gStrDCSWebServiceURL
-                        'If ws_dcsClient.isConnected() Then
-                        '    'verify if Oracle inside webservice is connected
-                        '    If ws_dcsClient.isOracleConnected() Then
-                        '        Dim dt As String = ws_dcsClient.getTime()
-                        '        SetLocalTime(dt)
-                        '        mode = True
-                        '    Else
-                        '        MsgBox("Oracle database down. Logout and login abnormal!", MsgBoxStyle.Critical, Me.Text)
-                        '        Exit Sub
-                        '    End If
-                        'Else
-                        '    mode = False
-                        'End If
+                        ws_dcsClient.Url = gStrDCSWebServiceURL
+                        If ws_dcsClient.isConnected() Then
+                            'verify if Oracle inside webservice is connected
+                            If ws_dcsClient.isOracleConnected() Then
+                                Dim dt As String = ws_dcsClient.getTime()
+                                SetLocalTime(dt)
+                                mode = True
+                            Else
+                                MsgBox("Oracle database down. Logout and login abnormal!", MsgBoxStyle.Critical, Me.Text)
+                                Exit Sub
+                            End If
+                        Else
+                            mode = False
+                        End If
                     Catch ex As Exception
                         mode = False
                         MsgBox("No connection! Empty database. Please retry to import again.", MsgBoxStyle.Information, "Import")
@@ -63,40 +67,40 @@ Public Class frmProgress
 
         'check online / webservice connected
         Try
-            'ws_dcsClient.Url = gStrDCSWebServiceURL
-            'If ws_dcsClient.isConnected() Then
-            '    'verify if Oracle inside webservice is connected
-            '    If ws_dcsClient.isOracleConnected() Then
-            '        Dim dt As String = ws_dcsClient.getTime()
-            '        SetLocalTime(dt)
-            '        mode = True
-            '    Else
-            '        MsgBox("Oracle database down. Logout and login abnormal!", MsgBoxStyle.Critical, Me.Text)
-            '        Exit Sub
-            '    End If
-            'Else
-            '    mode = False
-            'End If
+            ws_dcsClient.Url = "http://192.168.170.169:8084/DCSWebService.svc" 'gStrDCSWebServiceURL
+            If ws_dcsClient.isConnected() Then
+                'verify if Oracle inside webservice is connected
+                If ws_dcsClient.isOracleConnected() Then
+                    Dim dt As String = ws_dcsClient.getTime()
+                    SetLocalTime(dt)
+                    mode = True
+                Else
+                    MsgBox("Oracle database down. Logout and login abnormal!", MsgBoxStyle.Critical, Me.Text)
+                    Exit Sub
+                End If
+            Else
+                mode = False
+            End If
         Catch ex As Exception
             mode = False
-
+            Console.WriteLine(ex.Message.ToString())
         End Try
 
         If mode = True Then
 
             Try
                 '------ Check Device Name -----
-                'If VerifyScannerID() = False Then
-                '    Call UpdateScannerID()
-                'End If
+                If VerifyScannerID() = False Then
+                    Call UpdateScannerID()
+                End If
 
 
                 'test to set the import time to yesterday so can invoke import
-                'Dim lala As String = "UPDATE TblSetting SET SettingValue = '" & Format(DateTime.Today.AddDays(-1), gStrTimeFormatSQLCE) & "' WHERE SettingCode = 'IMPORTDATETIME' "
-                'If Not ExecuteSQL(lala) Then
-                '    MsgBox("Error updating Import Time.", MsgBoxStyle.Information, "Import")
-                '    Exit Sub
-                'End If
+                Dim lala As String = "UPDATE TblSetting SET SettingValue = '" & Format(DateTime.Today.AddDays(-1), gStrTimeFormatSQLCE) & "' WHERE SettingCode = 'IMPORTDATETIME' "
+                If Not ExecuteSQL(lala) Then
+                    MsgBox("Error updating Import Time.", MsgBoxStyle.Information, "Import")
+                    Exit Sub
+                End If
 
                 '------check day schedule ----
                 If CheckDataImportOnSchedule() = True Then
@@ -248,10 +252,10 @@ Public Class frmProgress
             dbReader = OpenRecordset("SELECT COUNT(SettingValue) FROM TblSetting WHERE SettingCode = 'IMPORTDATETIME' AND SettingValue >= '" & Format(Now, "yyyy-MM-dd") & "' ", objConn)
             If dbReader.Read Then
                 If CInt(dbReader(0)) = 0 Then
-                    'sSQL = "UPDATE TblSetting SET SettingValue = '" & Format(Now, gStrTimeFormatSQLCE) & "' WHERE SettingCode = 'IMPORTDATETIME' "
-                    'If ExecuteSQL(sSQL) Then
-                    '    CheckDataImportOnToday = True
-                    'End If
+                    sSQL = "UPDATE TblSetting SET SettingValue = '" & Format(Now, gStrTimeFormatSQLCE) & "' WHERE SettingCode = 'IMPORTDATETIME' "
+                    If ExecuteSQL(sSQL) Then
+                        CheckDataImportOnToday = True
+                    End If
                     CheckDataImportOnToday = True
                 End If
             End If
@@ -288,7 +292,13 @@ Public Class frmProgress
         pnlProgress.Visible = True
         pnlDataTransfer.Visible = True
         pnlDataTransfer.BringToFront()
+        'Try
 
+        'Catch ex As Exception
+
+        'End Try
+        
         Call Init()
     End Sub
+
 End Class

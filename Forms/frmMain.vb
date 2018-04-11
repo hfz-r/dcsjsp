@@ -43,17 +43,17 @@ Public Class frmReceiving
             TimerCheckOnline.Enabled = True
             footerStatusBar.Visible = False
 
-            'If gBoolAbnormal = True Then
-            '    chkOffline.Checked = True
-            'Else
-            '    chkOffline.Checked = False
-            'End If
+            If gBoolAbnormal = True Then
+                chkOffline = True ' CHECK ONLINE OFFLINE FOR ABNORMAL OR NORMAL MODE UPON DISCONNECTION
+            Else
+                chkOffline = False
+            End If
 
             'txtUsername.Focus()
             bringPanelToFront(pnlMainMenu, pnlSetDatetime)
 
         Catch ex As Exception
-            'setScannerDate()
+            setScannerDate()
         End Try
     End Sub
 
@@ -79,7 +79,7 @@ Public Class frmReceiving
     Private Sub btnDateSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDateSave.Click
         'Try
         '    If SetLocalTime(dtScannerDate.Value.ToString(gStrTimeFormat)) Then
-        '        'chkOffline.Checked = True
+        '        'chkOffline = True
         '        'txtUsername.Focus()
         '        bringPanelToFront(pnlLogin, pnlSetDatetime)
         '    End If
@@ -94,7 +94,7 @@ Public Class frmReceiving
         ShowWait(True)
         'Check connection --> if offline --> force user to use offline mode --> if user don't want --> don't allow use
         'Try
-        '    If chkOffline.Checked = False Then
+        '    If chkOffline = False Then
         '        'ws_dcsClient.Url = gStrDCSWebServiceURL
         '        'ws_dcsClient.isConnected()
         '        mode = True
@@ -105,7 +105,7 @@ Public Class frmReceiving
         'Catch ex As Exception
         '    MsgBox(ex.Message)
         '    If MsgBox("No connection! Proceed abnormal mode?", MsgBoxStyle.YesNo, Me.Text) = MsgBoxResult.Yes Then
-        '        chkOffline.Checked = True
+        '        chkOffline = True
         '        mode = True
         '    Else
         '        ShowWait(False)
@@ -114,7 +114,7 @@ Public Class frmReceiving
         'End Try
 
         'Try
-        '    mode = IIf(chkOffline.Checked, False, True)
+        '    mode = IIf(chkOffline, False, True)
 
         '    If txtUsername.Text.Trim = "" Or txtPassword.Text.Trim = "" Then
         '        MsgBox("Username/Password is blank!", MsgBoxStyle.Critical, Me.Text)
@@ -273,13 +273,16 @@ Public Class frmReceiving
     Private Sub TimerCheckOnline_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TimerCheckOnline.Tick
         Try
             If mode = False Then
-                'If ws_dcsClient.isConnected Then
-                '    mode = True
-                '    MsgBox("Connection resolved. Logout and start online mode?", MsgBoxStyle.Information, Me.Text)
-                '    Application.Exit()
-                'End If
+                If ws_dcsClient.isConnected Then
+                    If ws_dcsClient.isOracleConnected Then
+                        mode = True
+                        MsgBox("Connection resolved. Logout and start online mode?", MsgBoxStyle.Information, Me.Text)
+                        Application.Exit()
+                    End If
+                End If
             End If
         Catch ex As Exception
+            MsgBox("Connection not resolved!", MsgBoxStyle.Critical, "Offline")
             'ws_dcsClient.isConnected throwing error means connection not resolved, ignore.
         End Try
     End Sub
