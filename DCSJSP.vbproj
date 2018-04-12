@@ -237,6 +237,7 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Config.xml" />
     <Content Include="Images\Abnormal.png" />
     <Content Include="Images\BigPart.png" />
     <Content Include="Images\CDIO.png" />

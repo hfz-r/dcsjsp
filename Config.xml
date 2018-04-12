@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+  <!-- SQL DATABASE -->
+  <SQLServerName>\Program Files\DCSComs\</SQLServerName>
+  <SQLDatabaseName>DBDCSServicePart.sdf</SQLDatabaseName>
+  <SQLUserID></SQLUserID>
+  <SQLPassword></SQLPassword>
+  
+  <!-- WEB SERVICE ORACLE -->
+  <WSOraURL>http://10.1.115.94:4559/ws/perodua.eai.process.inventory.ws.servicePart:processServicePartService/perodua_eai_process_inventory_ws_servicePart_processServicePartService_Port</WSOraURL>
+  <WSOraUserID>promiseusr</WSOraUserID>
+  <WSOraPassword>promiseusr</WSOraPassword>
+  
+  <!-- WEB SERVICE PERODUA -->
+  <WSDcsURL>http://192.168.170.169:8084/DCSWebService.svc</WSDcsURL>
+</Configuration>
