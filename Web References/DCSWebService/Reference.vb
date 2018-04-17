@@ -34,7 +34,7 @@ Namespace DCSWebService
         '''<remarks/>
         Public Sub New()
             MyBase.New
-            Me.Url = "http://172.20.14.126:8084/DCSWebService.svc"
+            Me.Url = "http://192.168.170.169:8084/DCSWebService.svc"
         End Sub
         
         '''<remarks/>

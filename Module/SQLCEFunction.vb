@@ -54,11 +54,31 @@ Module SQLCEFunction
 
     End Function
 
+    Public Function GetServerDateTime() As String
+        Dim gDay As String = ""
+        Try
+            If ws_dcsClient.isConnected() Then
+                Dim serverDate As String = ws_dcsClient.getTime()
+                gDay = WeekdayName(Weekday(serverDate))
+            Else
+                gDay = "Monday"
+            End If
+        Catch ex As Exception
+            MsgBox("Connection lost! Please connect to the internet", MsgBoxStyle.Critical, "Server")
+        End Try
+
+        Return gDay
+    End Function
+
     Public Function DownloadMasterData(ByRef prgProgress As ProgressBar) As Boolean
 
         Dim clsDataTransfer As New clsDataTransfer
         Dim ErrLoc As String = ".DownloadMasterData"
         Dim status As Boolean = True
+        Dim chkFirstTime As Boolean = False
+
+        Dim sSQL As String = ""
+        Dim dt As DataTable = New DataTable
 
         progressbar = prgProgress
         progressbar.Value = 0
@@ -74,19 +94,92 @@ Module SQLCEFunction
             If System.IO.File.Exists(gDBPath + gDatabaseName) Then
                 Application.DoEvents()
 
-                If sUser = "Y" Then clsDataTransfer.ImportMasterData(TblUserDb)
-                If sReason = "Y" Then clsDataTransfer.ImportMasterData(TblSEPRBReasonDb)
-                If sRBType = "Y" Then clsDataTransfer.ImportMasterData(TblSEPRBTypeDb)
-                If sImporter = "Y" Then clsDataTransfer.ImportMasterData(TblSEPImporterVDb)
-                If sVendor = "Y" Then clsDataTransfer.ImportMasterData(TblSEPSupplierDb)
-                If sCustomer = "Y" Then clsDataTransfer.ImportMasterData(TblSEPPackVDb)
-                If sCaseType = "Y" Then clsDataTransfer.ImportMasterData(TblSEPCaseTypeVDb)
-                If sStopperType = "Y" Then clsDataTransfer.ImportMasterData(TblSEPStopperDb)
+                clsDataTransfer.ImportMasterData(TblUserDb)
+                sUser = "Y"
+
+                clsDataTransfer.ImportMasterData(TblJSPOrganizationDb)
+                sOrganization = "Y"
+
+                clsDataTransfer.ImportMasterData(TblJSPAbnormalReasonCodeDb)
+                sReason = "Y"
+
+                clsDataTransfer.ImportMasterData(TblJSPSupplyBPHeaderDb)
+                sShop = "Y"
+
+                clsDataTransfer.ImportMasterData(TblJSPSupplyCPHeaderDb)
+                sSupply = "Y"
+
+                'sSQL = "SELECT * FROM TBLSetting"
+                'dt = getData(sSQL)
+
+                'For i As Integer = 0 To dt.Rows.Count - 1
+                '    If dt.Rows(i).Item(2) = "FIRSTTIME" Then
+                '        Dim gValue As String = dt.Rows(i).Item(3).ToString()
+                '        If gValue = "Y" Then
+                '            chkFirstTime = True
+                '        Else
+                '            chkFirstTime = False
+                '        End If
+                '    End If
+                'Next
+
+                'If chkFirstTime = True Then
+                '    clsDataTransfer.ImportMasterData(TblUserDb)
+                '    UpdateTBLSettingOnSchedule("Y", "USER")
+                '    sUser = "Y"
+
+                '    clsDataTransfer.ImportMasterData(TblJSPOrganizationDb)
+                '    UpdateTBLSettingOnSchedule("Y", "ORGANIZATION")
+                '    sOrganization = "Y"
+
+                '    clsDataTransfer.ImportMasterData(TblJSPAbnormalReasonCodeDb)
+                '    UpdateTBLSettingOnSchedule("Y", "REASON")
+                '    sReason = "Y"
+
+                '    clsDataTransfer.ImportMasterData(TblJSPSupplyBPHeaderDb)
+                '    UpdateTBLSettingOnSchedule("Y", "SHOP")
+                '    sShop = "Y"
+
+                '    clsDataTransfer.ImportMasterData(TblJSPSupplyCPHeaderDb)
+                '    UpdateTBLSettingOnSchedule("Y", "SUPPLIER")
+                '    sSupply = "Y"
+
+                '    sSQL = "UPDATE TBLSetting SET SettingValue = 'N' WHERE SettingCode = 'FIRSTTIME'"
+                '    ExecuteSQL(sSQL)
+                'End If
+
+                'If chkFirstTime = False Then
+                '    sSQL = "SELECT * FROM TBLSetting"
+                '    dt = getData(sSQL)
+
+                '    For i As Integer = 0 To dt.Rows.Count - 1
+                '        If dt.Rows(i).Item(2) = "USER" Then
+                '            Dim gValue = dt.Rows(i).Item(3).ToString()
+                '            If gValue = sUser Then
+                '                clsDataTransfer.ImportMasterData(TblUserDb)
+                '                UpdateTBLSettingOnSchedule("Y", "USER")
+                '                sUser = "Y"
+                '            Else
+                '                sUser = "N"
+                '            End If
+                '        End If
+                '    Next
+                'End If
+                
+
+                '' ======= NOT IN USE =========
+                'If sReason = "Y" Then clsDataTransfer.ImportMasterData(TblSEPRBReasonDb)
+                'If sRBType = "Y" Then clsDataTransfer.ImportMasterData(TblSEPRBTypeDb)
+                'If sImporter = "Y" Then clsDataTransfer.ImportMasterData(TblSEPImporterVDb)
+                'If sVendor = "Y" Then clsDataTransfer.ImportMasterData(TblSEPSupplierDb)
+                'If sCustomer = "Y" Then clsDataTransfer.ImportMasterData(TblSEPPackVDb)
+                'If sCaseType = "Y" Then clsDataTransfer.ImportMasterData(TblSEPCaseTypeVDb)
+                'If sStopperType = "Y" Then clsDataTransfer.ImportMasterData(TblSEPStopperDb)
 
                 'Check scanner serial to get scanner number
-                If Not clsDataTransfer.ImportScannerNumber() Then
-                    status = False
-                End If
+                'If Not clsDataTransfer.ImportScannerNumber() Then
+                '    status = False
+                'End If
 
 
             End If
@@ -103,6 +196,11 @@ Module SQLCEFunction
         Return status
 
     End Function
+
+    Private Sub UpdateTBLSettingOnSchedule(ByVal YesNo As String, ByVal SettingCode As String)
+        Dim sSQL As String = "UPDATE TBLSetting SET = 'Y' WHERE SettingCode = '" + SettingCode + "'"
+        ExecuteSQL(sSQL)
+    End Sub
 
 #End Region
 
@@ -128,6 +226,69 @@ Module SQLCEFunction
                 SQL.Append(") ")
                 If ExecuteSQL(SQL.ToString) = False Then
                     MsgBox("Failed to create table login!", MsgBoxStyle.Critical, "Import")
+                    Exit Function
+                End If
+                progressbar.Value = progressbar.Value + 2
+            End If
+
+            If Not TblJSPOrganizationDb.Equals("") Then
+                SQL = Nothing
+                SQL = New System.Text.StringBuilder("")
+                SQL.Append("CREATE TABLE [" + TblJSPOrganizationDb + "] (")
+                SQL.Append("ID INT IDENTITY ")
+                SQL.Append(",ORG_ID INTEGER ")
+                SQL.Append(",ORG_NAME NVARCHAR(100) ")
+                SQL.Append(") ")
+                If ExecuteSQL(SQL.ToString) = False Then
+                    MsgBox("Failed to create table organization!", MsgBoxStyle.Critical, "Import")
+                    Exit Function
+                End If
+                progressbar.Value = progressbar.Value + 2
+            End If
+
+            If Not TblJSPSupplyBPHeaderDb.Equals("") Then
+                SQL = Nothing
+                SQL = New System.Text.StringBuilder("")
+                SQL.Append("CREATE TABLE [" + TblJSPSupplyBPHeaderDb + "] (")
+                SQL.Append("ID INT IDENTITY ")
+                SQL.Append(",SHOP_ID INTEGER ")
+                SQL.Append(",SHOP_NAME NVARCHAR(20) ")
+                SQL.Append(",ORG_ID INTEGER ")
+                SQL.Append(") ")
+                If ExecuteSQL(SQL.ToString) = False Then
+                    MsgBox("Failed to create table shop!", MsgBoxStyle.Critical, "Import")
+                    Exit Function
+                End If
+                progressbar.Value = progressbar.Value + 2
+            End If
+
+            If Not TblJSPSupplyCPHeaderDb.Equals("") Then
+                SQL = Nothing
+                SQL = New System.Text.StringBuilder("")
+                SQL.Append("CREATE TABLE [" + TblJSPSupplyCPHeaderDb + "] (")
+                SQL.Append("ID INT IDENTITY ")
+                SQL.Append(",VENDOR_ID INTEGER ")
+                SQL.Append(",VENDOR_NAME NVARCHAR(100) ")
+                SQL.Append(",ORG_ID INTEGER ")
+                SQL.Append(") ")
+                If ExecuteSQL(SQL.ToString) = False Then
+                    MsgBox("Failed to create table supply!", MsgBoxStyle.Critical, "Import")
+                    Exit Function
+                End If
+                progressbar.Value = progressbar.Value + 2
+            End If
+
+            If Not TblJSPAbnormalReasonCodeDb.Equals("") Then
+                SQL = Nothing
+                SQL = New System.Text.StringBuilder("")
+                SQL.Append("CREATE TABLE [" + TblJSPAbnormalReasonCodeDb + "] (")
+                SQL.Append("ID INT IDENTITY ")
+                SQL.Append(",REASON_CODE INTEGER ")
+                SQL.Append(",REASON NVARCHAR(100) ")
+                SQL.Append(",ORG_ID INTEGER ")
+                SQL.Append(") ")
+                If ExecuteSQL(SQL.ToString) = False Then
+                    MsgBox("Failed to create table AbnormalReason!", MsgBoxStyle.Critical, "Import")
                     Exit Function
                 End If
                 progressbar.Value = progressbar.Value + 2
@@ -176,7 +337,8 @@ Module SQLCEFunction
                 End If
 
                 sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
-                & " VALUES ('WS','URLDCSSP','http://10.2.111.103:8080/') "
+                & " VALUES ('WS','URLDCSSP','http://192.168.170.169:8084/DCSWebService.svc') "
+                '& " VALUES ('WS','URLDCSSP','http://10.2.111.103:8080/') "
                 '& " VALUES ('WS','URLDCSSP','http://170.20.14.192:8084/') "
                 If ExecuteSQL(sSQL) = False Then
                     MsgBox("Failed to insert url DCS WebService!", MsgBoxStyle.Critical, "Import")
@@ -205,7 +367,7 @@ Module SQLCEFunction
                 End If
 
                 sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
-                & " VALUES ('DB','DBPATH','/Application/DCSServicePart/') "
+                & " VALUES ('DB','DBPATH','" + gProgPath + "') "
                 If ExecuteSQL(sSQL) = False Then
                     MsgBox("Failed to insert database path!", MsgBoxStyle.Critical, "Import")
                     Exit Function
@@ -226,67 +388,88 @@ Module SQLCEFunction
                 End If
 
                 sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
-                & " VALUES ('IMPORT','SCHEDULE','MONDAY') "
+                & " VALUES ('IMPORT','SCHEDULE','" + GetServerDateTime() + "') "
                 If ExecuteSQL(sSQL) = False Then
                     MsgBox("Failed to insert import schedule!", MsgBoxStyle.Critical, "Import")
                     Exit Function
                 End If
 
                 sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
-                & " VALUES ('IMPORT','USER','Y') "
+                & " VALUES ('IMPORT','USER','N') "
                 If ExecuteSQL(sSQL) = False Then
                     MsgBox("Failed to insert import user master data!", MsgBoxStyle.Critical, "Import")
                     Exit Function
                 End If
 
                 sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
-                & " VALUES ('IMPORT','REASON','Y') "
+                & " VALUES ('IMPORT','REASON','N') "
                 If ExecuteSQL(sSQL) = False Then
                     MsgBox("Failed to insert import reason master data!", MsgBoxStyle.Critical, "Import")
                     Exit Function
                 End If
 
                 sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
-               & " VALUES ('IMPORT','RBTYPE','Y') "
+                & " VALUES ('IMPORT','SUPPLIER','N')"
                 If ExecuteSQL(sSQL) = False Then
-                    MsgBox("Failed to insert import case type master data!", MsgBoxStyle.Critical, "Import")
+                    MsgBox("Failed to insert import supplier master data!", MsgBoxStyle.Critical, "Import")
                     Exit Function
                 End If
 
                 sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
-                & " VALUES ('IMPORT','CASETYPE','Y') "
+                & " VALUES ('IMPORT','SHOP','N')"
                 If ExecuteSQL(sSQL) = False Then
-                    MsgBox("Failed to insert import case type master data!", MsgBoxStyle.Critical, "Import")
+                    MsgBox("Failed to insert import shop master data!", MsgBoxStyle.Critical, "Import")
                     Exit Function
                 End If
 
                 sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
-                & " VALUES ('IMPORT','CUSTOMER','Y') "
+                & " VALUES ('IMPORT','ORGANIZATION','N')"
                 If ExecuteSQL(sSQL) = False Then
-                    MsgBox("Failed to insert import customer master data!", MsgBoxStyle.Critical, "Import")
+                    MsgBox("Failed to insert import organization master data!", MsgBoxStyle.Critical, "Import")
                     Exit Function
                 End If
 
                 sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
-                & " VALUES ('IMPORT','IMPORTER','Y')"
+                & " VALUES ('CHKIMPORT','FIRSTTIME','Y')"
                 If ExecuteSQL(sSQL) = False Then
-                    MsgBox("Failed to insert import importer master data!", MsgBoxStyle.Critical, "Import")
+                    MsgBox("Failed to insert chkimport First Time!", MsgBoxStyle.Critical, "Import")
                     Exit Function
                 End If
 
-                sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
-                & " VALUES ('IMPORT','VENDOR','Y')"
-                If ExecuteSQL(sSQL) = False Then
-                    MsgBox("Failed to insert import vendor master data!", MsgBoxStyle.Critical, "Import")
-                    Exit Function
-                End If
+                ' sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
+                '& " VALUES ('IMPORT','RBTYPE','Y') "
+                ' If ExecuteSQL(sSQL) = False Then
+                '     MsgBox("Failed to insert import case type master data!", MsgBoxStyle.Critical, "Import")
+                '     Exit Function
+                ' End If
 
-                sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
-                & " VALUES ('IMPORT','STOPPERTYPE','Y') "
-                If ExecuteSQL(sSQL) = False Then
-                    MsgBox("Failed to insert import stopper type master data!", MsgBoxStyle.Critical, "Import")
-                    Exit Function
-                End If
+                'sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
+                '& " VALUES ('IMPORT','CASETYPE','Y') "
+                'If ExecuteSQL(sSQL) = False Then
+                '    MsgBox("Failed to insert import case type master data!", MsgBoxStyle.Critical, "Import")
+                '    Exit Function
+                'End If
+
+                'sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
+                '& " VALUES ('IMPORT','CUSTOMER','Y') "
+                'If ExecuteSQL(sSQL) = False Then
+                '    MsgBox("Failed to insert import customer master data!", MsgBoxStyle.Critical, "Import")
+                '    Exit Function
+                'End If
+
+                'sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
+                '& " VALUES ('IMPORT','IMPORTER','Y')"
+                'If ExecuteSQL(sSQL) = False Then
+                '    MsgBox("Failed to insert import importer master data!", MsgBoxStyle.Critical, "Import")
+                '    Exit Function
+                'End If
+
+                'sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
+                '& " VALUES ('IMPORT','STOPPERTYPE','Y') "
+                'If ExecuteSQL(sSQL) = False Then
+                '    MsgBox("Failed to insert import stopper type master data!", MsgBoxStyle.Critical, "Import")
+                '    Exit Function
+                'End If
 
                 sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
                 & "VALUES ('IMPORT','IMPORTDATETIME','" & Format(DateTime.Today.AddDays(-7), gStrTimeFormatSQLCE) & "')"
@@ -311,111 +494,111 @@ Module SQLCEFunction
                 progressbar.Value = progressbar.Value + 2
             End If
 
-            If Not TblSEPImporterVDb.Trim.Equals("") Then
-                SQL = Nothing
-                SQL = New System.Text.StringBuilder("")
-                SQL.Append("CREATE TABLE [" + TblSEPImporterVDb + "] (")
-                SQL.Append(" ID INT IDENTITY ")
-                SQL.Append(",CUSTOMER_ID INTEGER ")
-                SQL.Append(",CUSTOMER_NAME NVARCHAR(100) ")
-                SQL.Append(") ")
-                If ExecuteSQL(SQL.ToString) = False Then
-                    MsgBox("Failed to create table customer!", MsgBoxStyle.Critical, "Import")
-                    Exit Function
-                End If
-                progressbar.Value = progressbar.Value + 2
-            End If
+            'If Not TblSEPImporterVDb.Trim.Equals("") Then
+            '    SQL = Nothing
+            '    SQL = New System.Text.StringBuilder("")
+            '    SQL.Append("CREATE TABLE [" + TblSEPImporterVDb + "] (")
+            '    SQL.Append(" ID INT IDENTITY ")
+            '    SQL.Append(",CUSTOMER_ID INTEGER ")
+            '    SQL.Append(",CUSTOMER_NAME NVARCHAR(100) ")
+            '    SQL.Append(") ")
+            '    If ExecuteSQL(SQL.ToString) = False Then
+            '        MsgBox("Failed to create table customer!", MsgBoxStyle.Critical, "Import")
+            '        Exit Function
+            '    End If
+            '    progressbar.Value = progressbar.Value + 2
+            'End If
 
-            If Not TblSEPPackVDb.Trim.Equals("") Then
-                SQL = Nothing
-                SQL = New System.Text.StringBuilder("")
-                SQL.Append("CREATE TABLE [" + TblSEPPackVDb + "] (")
-                SQL.Append(" ID INT IDENTITY ")
-                SQL.Append(",CUSTOMER_ID INTEGER ")
-                SQL.Append(",CUSTOMER_NAME NVARCHAR(100) ")
-                SQL.Append(") ")
-                If ExecuteSQL(SQL.ToString) = False Then
-                    MsgBox("Failed to create table importer!", MsgBoxStyle.Critical, "Import")
-                    Exit Function
-                End If
-                progressbar.Value = progressbar.Value + 2
-            End If
+            'If Not TblSEPPackVDb.Trim.Equals("") Then
+            '    SQL = Nothing
+            '    SQL = New System.Text.StringBuilder("")
+            '    SQL.Append("CREATE TABLE [" + TblSEPPackVDb + "] (")
+            '    SQL.Append(" ID INT IDENTITY ")
+            '    SQL.Append(",CUSTOMER_ID INTEGER ")
+            '    SQL.Append(",CUSTOMER_NAME NVARCHAR(100) ")
+            '    SQL.Append(") ")
+            '    If ExecuteSQL(SQL.ToString) = False Then
+            '        MsgBox("Failed to create table importer!", MsgBoxStyle.Critical, "Import")
+            '        Exit Function
+            '    End If
+            '    progressbar.Value = progressbar.Value + 2
+            'End If
 
-            If Not TblSEPCaseTypeVDb.Trim.Equals("") Then
-                SQL = Nothing
-                SQL = New System.Text.StringBuilder("")
-                SQL.Append("CREATE TABLE [" + TblSEPCaseTypeVDb + "] (")
-                SQL.Append(" ID INT IDENTITY ")
-                SQL.Append(",CASE_ID INTEGER ")
-                SQL.Append(",CASE_TYPE NVARCHAR(30) ")
-                SQL.Append(") ")
-                If ExecuteSQL(SQL.ToString) = False Then
-                    MsgBox("Failed to create table case type!", MsgBoxStyle.Critical, "Import")
-                    Exit Function
-                End If
-                progressbar.Value = progressbar.Value + 2
-            End If
+            'If Not TblSEPCaseTypeVDb.Trim.Equals("") Then
+            '    SQL = Nothing
+            '    SQL = New System.Text.StringBuilder("")
+            '    SQL.Append("CREATE TABLE [" + TblSEPCaseTypeVDb + "] (")
+            '    SQL.Append(" ID INT IDENTITY ")
+            '    SQL.Append(",CASE_ID INTEGER ")
+            '    SQL.Append(",CASE_TYPE NVARCHAR(30) ")
+            '    SQL.Append(") ")
+            '    If ExecuteSQL(SQL.ToString) = False Then
+            '        MsgBox("Failed to create table case type!", MsgBoxStyle.Critical, "Import")
+            '        Exit Function
+            '    End If
+            '    progressbar.Value = progressbar.Value + 2
+            'End If
 
-            If Not TblSEPStopperDb.Trim.Equals("") Then
-                SQL = Nothing
-                SQL = New System.Text.StringBuilder("")
-                SQL.Append("CREATE TABLE [" + TblSEPStopperDb + "] (")
-                SQL.Append(" ID INT IDENTITY ")
-                SQL.Append(",STOPPER_TYPE NVARCHAR(20) ")
-                SQL.Append(",BOX_TYPE NVARCHAR(20) ")
-                SQL.Append(",QTY NUMERIC ")
-                SQL.Append(") ")
-                If ExecuteSQL(SQL.ToString) = False Then
-                    MsgBox("Failed to create table stopper type!", MsgBoxStyle.Critical, "Import")
-                    Exit Function
-                End If
-                progressbar.Value = progressbar.Value + 2
-            End If
+            'If Not TblSEPStopperDb.Trim.Equals("") Then
+            '    SQL = Nothing
+            '    SQL = New System.Text.StringBuilder("")
+            '    SQL.Append("CREATE TABLE [" + TblSEPStopperDb + "] (")
+            '    SQL.Append(" ID INT IDENTITY ")
+            '    SQL.Append(",STOPPER_TYPE NVARCHAR(20) ")
+            '    SQL.Append(",BOX_TYPE NVARCHAR(20) ")
+            '    SQL.Append(",QTY NUMERIC ")
+            '    SQL.Append(") ")
+            '    If ExecuteSQL(SQL.ToString) = False Then
+            '        MsgBox("Failed to create table stopper type!", MsgBoxStyle.Critical, "Import")
+            '        Exit Function
+            '    End If
+            '    progressbar.Value = progressbar.Value + 2
+            'End If
 
-            If Not TblSEPRBReasonDb.Trim.Equals("") Then
-                SQL = Nothing
-                SQL = New System.Text.StringBuilder("")
-                SQL.Append("CREATE TABLE [" + TblSEPRBReasonDb + "] (")
-                SQL.Append(" ID INT IDENTITY ")
-                SQL.Append(",REASON_ID INTEGER ")
-                SQL.Append(",REASON_DESC NVARCHAR(100) ")
-                SQL.Append(") ")
-                If ExecuteSQL(SQL.ToString) = False Then
-                    MsgBox("Failed to create table reason!", MsgBoxStyle.Critical, "Import")
-                    Exit Function
-                End If
-                progressbar.Value = progressbar.Value + 2
-            End If
+            'If Not TblSEPRBReasonDb.Trim.Equals("") Then
+            '    SQL = Nothing
+            '    SQL = New System.Text.StringBuilder("")
+            '    SQL.Append("CREATE TABLE [" + TblSEPRBReasonDb + "] (")
+            '    SQL.Append(" ID INT IDENTITY ")
+            '    SQL.Append(",REASON_ID INTEGER ")
+            '    SQL.Append(",REASON_DESC NVARCHAR(100) ")
+            '    SQL.Append(") ")
+            '    If ExecuteSQL(SQL.ToString) = False Then
+            '        MsgBox("Failed to create table reason!", MsgBoxStyle.Critical, "Import")
+            '        Exit Function
+            '    End If
+            '    progressbar.Value = progressbar.Value + 2
+            'End If
 
-            If Not TblSEPRBTypeDb.Trim.Equals("") Then
-                SQL = Nothing
-                SQL = New System.Text.StringBuilder("")
-                SQL.Append("CREATE TABLE [" + TblSEPRBTypeDb + "] (")
-                SQL.Append(" ID INT IDENTITY ")
-                SQL.Append(",RB_TYPE NVARCHAR(20) ")
-                SQL.Append(",RB_CODE INTEGER ")
-                SQL.Append(") ")
-                If ExecuteSQL(SQL.ToString) = False Then
-                    MsgBox("Failed to create table rb type!", MsgBoxStyle.Critical, "Import")
-                    Exit Function
-                End If
-                progressbar.Value = progressbar.Value + 2
-            End If
+            'If Not TblSEPRBTypeDb.Trim.Equals("") Then
+            '    SQL = Nothing
+            '    SQL = New System.Text.StringBuilder("")
+            '    SQL.Append("CREATE TABLE [" + TblSEPRBTypeDb + "] (")
+            '    SQL.Append(" ID INT IDENTITY ")
+            '    SQL.Append(",RB_TYPE NVARCHAR(20) ")
+            '    SQL.Append(",RB_CODE INTEGER ")
+            '    SQL.Append(") ")
+            '    If ExecuteSQL(SQL.ToString) = False Then
+            '        MsgBox("Failed to create table rb type!", MsgBoxStyle.Critical, "Import")
+            '        Exit Function
+            '    End If
+            '    progressbar.Value = progressbar.Value + 2
+            'End If
 
-            If Not TblSEPSupplierDb.Trim.Equals("") Then
-                SQL = Nothing
-                SQL = New System.Text.StringBuilder("")
-                SQL.Append("CREATE TABLE [" + TblSEPSupplierDb + "] (")
-                SQL.Append(" ID INT IDENTITY ")
-                SQL.Append(",SUPPLIER_ID INTEGER ")
-                SQL.Append(",SUPPLIER_NAME NVARCHAR(100) ")
-                SQL.Append(") ")
-                If ExecuteSQL(SQL.ToString) = False Then
-                    MsgBox("Failed to create table supplier!", MsgBoxStyle.Critical, "Import")
-                    Exit Function
-                End If
-                progressbar.Value = progressbar.Value + 2
-            End If
+            'If Not TblSEPSupplierDb.Trim.Equals("") Then
+            '    SQL = Nothing
+            '    SQL = New System.Text.StringBuilder("")
+            '    SQL.Append("CREATE TABLE [" + TblSEPSupplierDb + "] (")
+            '    SQL.Append(" ID INT IDENTITY ")
+            '    SQL.Append(",SUPPLIER_ID INTEGER ")
+            '    SQL.Append(",SUPPLIER_NAME NVARCHAR(100) ")
+            '    SQL.Append(") ")
+            '    If ExecuteSQL(SQL.ToString) = False Then
+            '        MsgBox("Failed to create table supplier!", MsgBoxStyle.Critical, "Import")
+            '        Exit Function
+            '    End If
+            '    progressbar.Value = progressbar.Value + 2
+            'End If
 
             '----- Table Transaction -----------------------------------------------------'
             If Not "QRCODE" = "" Then
@@ -905,295 +1088,295 @@ Module SQLCEFunction
 
 
 
-            '----- OutGoing Module --------------'
-            If Not "ESPS_SC_OUT_VDR_INTERFACE " = "" Then
-                SQL = Nothing
-                SQL = New System.Text.StringBuilder("")
-                SQL.Append("CREATE TABLE ESPS_SC_OUT_VDR_INTERFACE  (")
-                SQL.Append(" ID INT IDENTITY ")
-                SQL.Append(",JOB_NO INTEGER ")
-                SQL.Append(",VENDORS_NAME NVARCHAR(100) ")
-                SQL.Append(",VENDORS_ID INTEGER ")
-                SQL.Append(",RB_TYPE NVARCHAR(10) ")
-                'SQL.Append(",RB_SERIAL_NO BIGINT ")
-                SQL.Append(",RB_SERIAL_NO NVARCHAR(10) ")
-                SQL.Append(",PROCESS_TYPE INTEGER ")
-                SQL.Append(",ABNORMAL_FLAG NVARCHAR(1) ")
-                SQL.Append(",REASON_ID NVARCHAR(100) ")
-                SQL.Append(",SCAN_DATE DATETIME ")
-                SQL.Append(",SCANNER_ID NVARCHAR(20) ")
-                SQL.Append(",PIC NVARCHAR(20) ")
-                SQL.Append(",BATCH_ID BIGINT ")
-                SQL.Append(",POST_FLAG NVARCHAR(1) ")
-                SQL.Append(") ")
-                If ExecuteSQL(SQL.ToString) = False Then
-                    MsgBox("Failed to create table outgoing vendor!", MsgBoxStyle.Critical, "Import")
-                    Exit Function
-                End If
-                progressbar.Value = progressbar.Value + 2
-            End If
+            ''----- OutGoing Module --------------'
+            'If Not "ESPS_SC_OUT_VDR_INTERFACE " = "" Then
+            '    SQL = Nothing
+            '    SQL = New System.Text.StringBuilder("")
+            '    SQL.Append("CREATE TABLE ESPS_SC_OUT_VDR_INTERFACE  (")
+            '    SQL.Append(" ID INT IDENTITY ")
+            '    SQL.Append(",JOB_NO INTEGER ")
+            '    SQL.Append(",VENDORS_NAME NVARCHAR(100) ")
+            '    SQL.Append(",VENDORS_ID INTEGER ")
+            '    SQL.Append(",RB_TYPE NVARCHAR(10) ")
+            '    'SQL.Append(",RB_SERIAL_NO BIGINT ")
+            '    SQL.Append(",RB_SERIAL_NO NVARCHAR(10) ")
+            '    SQL.Append(",PROCESS_TYPE INTEGER ")
+            '    SQL.Append(",ABNORMAL_FLAG NVARCHAR(1) ")
+            '    SQL.Append(",REASON_ID NVARCHAR(100) ")
+            '    SQL.Append(",SCAN_DATE DATETIME ")
+            '    SQL.Append(",SCANNER_ID NVARCHAR(20) ")
+            '    SQL.Append(",PIC NVARCHAR(20) ")
+            '    SQL.Append(",BATCH_ID BIGINT ")
+            '    SQL.Append(",POST_FLAG NVARCHAR(1) ")
+            '    SQL.Append(") ")
+            '    If ExecuteSQL(SQL.ToString) = False Then
+            '        MsgBox("Failed to create table outgoing vendor!", MsgBoxStyle.Critical, "Import")
+            '        Exit Function
+            '    End If
+            '    progressbar.Value = progressbar.Value + 2
+            'End If
 
 
-            If Not "ESPS_SC_OUT_SHOP_INTERFACE " = "" Then
-                SQL = Nothing
-                SQL = New System.Text.StringBuilder("")
-                SQL.Append("CREATE TABLE ESPS_SC_OUT_SHOP_INTERFACE  (")
-                SQL.Append(" ID INT IDENTITY ")
-                SQL.Append(",MODULE_NO NVARCHAR(12) ")
-                SQL.Append(",ORDER_NO NVARCHAR(13) ")
-                SQL.Append(",GROSS_WEIGHT INTEGER  ")
-                SQL.Append(",RB_TYPE NVARCHAR(10) ")
-                'SQL.Append(",RB_SERIAL_NO BIGINT ")
-                SQL.Append(",RB_SERIAL_NO NVARCHAR(10) ")
-                SQL.Append(",RB_QTY INTEGER ")
-                SQL.Append(",PROCESS_TYPE INTEGER ")
-                SQL.Append(",ABNORMAL_FLAG NVARCHAR(1) ")
-                SQL.Append(",REASON_ID NVARCHAR(100) ")
-                SQL.Append(",SCAN_DATE DATETIME ")
-                SQL.Append(",SCANNER_ID NVARCHAR(20) ")
-                SQL.Append(",PIC NVARCHAR(20) ")
-                SQL.Append(",BATCH_ID BIGINT ")
-                SQL.Append(",POST_FLAG NVARCHAR(1) ")
-                SQL.Append(") ")
-                If ExecuteSQL(SQL.ToString) = False Then
-                    MsgBox("Failed to create table outgoing shop!", MsgBoxStyle.Critical, "Import")
-                    Exit Function
-                End If
-                progressbar.Value = progressbar.Value + 2
-            End If
+            'If Not "ESPS_SC_OUT_SHOP_INTERFACE " = "" Then
+            '    SQL = Nothing
+            '    SQL = New System.Text.StringBuilder("")
+            '    SQL.Append("CREATE TABLE ESPS_SC_OUT_SHOP_INTERFACE  (")
+            '    SQL.Append(" ID INT IDENTITY ")
+            '    SQL.Append(",MODULE_NO NVARCHAR(12) ")
+            '    SQL.Append(",ORDER_NO NVARCHAR(13) ")
+            '    SQL.Append(",GROSS_WEIGHT INTEGER  ")
+            '    SQL.Append(",RB_TYPE NVARCHAR(10) ")
+            '    'SQL.Append(",RB_SERIAL_NO BIGINT ")
+            '    SQL.Append(",RB_SERIAL_NO NVARCHAR(10) ")
+            '    SQL.Append(",RB_QTY INTEGER ")
+            '    SQL.Append(",PROCESS_TYPE INTEGER ")
+            '    SQL.Append(",ABNORMAL_FLAG NVARCHAR(1) ")
+            '    SQL.Append(",REASON_ID NVARCHAR(100) ")
+            '    SQL.Append(",SCAN_DATE DATETIME ")
+            '    SQL.Append(",SCANNER_ID NVARCHAR(20) ")
+            '    SQL.Append(",PIC NVARCHAR(20) ")
+            '    SQL.Append(",BATCH_ID BIGINT ")
+            '    SQL.Append(",POST_FLAG NVARCHAR(1) ")
+            '    SQL.Append(") ")
+            '    If ExecuteSQL(SQL.ToString) = False Then
+            '        MsgBox("Failed to create table outgoing shop!", MsgBoxStyle.Critical, "Import")
+            '        Exit Function
+            '    End If
+            '    progressbar.Value = progressbar.Value + 2
+            'End If
 
 
-            '----- Receiving Module --------------'
-            If Not "ESPS_SC_RCV_VDR_INTERFACE " = "" Then
-                SQL = Nothing
-                SQL = New System.Text.StringBuilder("")
-                SQL.Append("CREATE TABLE ESPS_SC_RCV_VDR_INTERFACE  (")
-                SQL.Append(" ID INT IDENTITY ")
-                SQL.Append(",SEPIO_NO NVARCHAR(20) ")
-                SQL.Append(",VENDOR_ID INTEGER ")
-                SQL.Append(",RB_TYPE NVARCHAR(10) ")
-                SQL.Append(",RB_QTY INTEGER ")
-                'SQL.Append(",RB_SERIAL_NO BIGINT ")
-                SQL.Append(",RB_SERIAL_NO NVARCHAR(10) ")
-                SQL.Append(",PROCESS_TYPE INTEGER ")
-                SQL.Append(",ABNORMAL_FLAG NVARCHAR(1) ")
-                SQL.Append(",REASON_ID NVARCHAR(100) ")
-                SQL.Append(",SCAN_DATE DATETIME ")
-                SQL.Append(",SCANNER_ID NVARCHAR(20) ")
-                SQL.Append(",PIC NVARCHAR(20) ")
-                SQL.Append(",BATCH_ID BIGINT ")
-                SQL.Append(",POST_FLAG NVARCHAR(1) ")
-                SQL.Append(") ")
-                If ExecuteSQL(SQL.ToString) = False Then
-                    MsgBox("Failed to create table receiving vendor!", MsgBoxStyle.Critical, "Import")
-                    Exit Function
-                End If
-                progressbar.Value = progressbar.Value + 2
-            End If
+            ''----- Receiving Module --------------'
+            'If Not "ESPS_SC_RCV_VDR_INTERFACE " = "" Then
+            '    SQL = Nothing
+            '    SQL = New System.Text.StringBuilder("")
+            '    SQL.Append("CREATE TABLE ESPS_SC_RCV_VDR_INTERFACE  (")
+            '    SQL.Append(" ID INT IDENTITY ")
+            '    SQL.Append(",SEPIO_NO NVARCHAR(20) ")
+            '    SQL.Append(",VENDOR_ID INTEGER ")
+            '    SQL.Append(",RB_TYPE NVARCHAR(10) ")
+            '    SQL.Append(",RB_QTY INTEGER ")
+            '    'SQL.Append(",RB_SERIAL_NO BIGINT ")
+            '    SQL.Append(",RB_SERIAL_NO NVARCHAR(10) ")
+            '    SQL.Append(",PROCESS_TYPE INTEGER ")
+            '    SQL.Append(",ABNORMAL_FLAG NVARCHAR(1) ")
+            '    SQL.Append(",REASON_ID NVARCHAR(100) ")
+            '    SQL.Append(",SCAN_DATE DATETIME ")
+            '    SQL.Append(",SCANNER_ID NVARCHAR(20) ")
+            '    SQL.Append(",PIC NVARCHAR(20) ")
+            '    SQL.Append(",BATCH_ID BIGINT ")
+            '    SQL.Append(",POST_FLAG NVARCHAR(1) ")
+            '    SQL.Append(") ")
+            '    If ExecuteSQL(SQL.ToString) = False Then
+            '        MsgBox("Failed to create table receiving vendor!", MsgBoxStyle.Critical, "Import")
+            '        Exit Function
+            '    End If
+            '    progressbar.Value = progressbar.Value + 2
+            'End If
 
 
-            If Not "ESPS_SC_RCV_IMP_INTERFACE " = "" Then
-                SQL = Nothing
-                SQL = New System.Text.StringBuilder("")
-                SQL.Append("CREATE TABLE ESPS_SC_RCV_IMP_INTERFACE  (")
-                SQL.Append(" ID INT IDENTITY ")
-                SQL.Append(",DOCUMENT_NO NVARCHAR(50) ")
-                SQL.Append(",CUSTOMER_NAME NVARCHAR(50) ")
-                SQL.Append(",CUSTOMER_ID INTEGER ")
-                SQL.Append(",RB_TYPE NVARCHAR(10) ")
-                'SQL.Append(",RB_SERIAL_NO BIGINT ")
-                SQL.Append(",RB_SERIAL_NO NVARCHAR(10) ")
-                SQL.Append(",PROCESS_TYPE INTEGER ")
-                SQL.Append(",ABNORMAL_FLAG NVARCHAR(1) ")
-                SQL.Append(",REASON_ID NVARCHAR(100) ")
-                SQL.Append(",SCAN_DATE DATETIME ")
-                SQL.Append(",SCANNER_ID NVARCHAR(20) ")
-                SQL.Append(",PIC NVARCHAR(20) ")
-                SQL.Append(",BATCH_ID BIGINT ")
-                SQL.Append(",POST_FLAG NVARCHAR(1) ")
-                SQL.Append(",NEW_BOX NVARCHAR(1) ")
-                SQL.Append(") ")
-                If ExecuteSQL(SQL.ToString) = False Then
-                    MsgBox("Failed to create table receiving importer", MsgBoxStyle.Critical, "Import")
-                    Exit Function
-                End If
-                progressbar.Value = progressbar.Value + 2
-            End If
+            'If Not "ESPS_SC_RCV_IMP_INTERFACE " = "" Then
+            '    SQL = Nothing
+            '    SQL = New System.Text.StringBuilder("")
+            '    SQL.Append("CREATE TABLE ESPS_SC_RCV_IMP_INTERFACE  (")
+            '    SQL.Append(" ID INT IDENTITY ")
+            '    SQL.Append(",DOCUMENT_NO NVARCHAR(50) ")
+            '    SQL.Append(",CUSTOMER_NAME NVARCHAR(50) ")
+            '    SQL.Append(",CUSTOMER_ID INTEGER ")
+            '    SQL.Append(",RB_TYPE NVARCHAR(10) ")
+            '    'SQL.Append(",RB_SERIAL_NO BIGINT ")
+            '    SQL.Append(",RB_SERIAL_NO NVARCHAR(10) ")
+            '    SQL.Append(",PROCESS_TYPE INTEGER ")
+            '    SQL.Append(",ABNORMAL_FLAG NVARCHAR(1) ")
+            '    SQL.Append(",REASON_ID NVARCHAR(100) ")
+            '    SQL.Append(",SCAN_DATE DATETIME ")
+            '    SQL.Append(",SCANNER_ID NVARCHAR(20) ")
+            '    SQL.Append(",PIC NVARCHAR(20) ")
+            '    SQL.Append(",BATCH_ID BIGINT ")
+            '    SQL.Append(",POST_FLAG NVARCHAR(1) ")
+            '    SQL.Append(",NEW_BOX NVARCHAR(1) ")
+            '    SQL.Append(") ")
+            '    If ExecuteSQL(SQL.ToString) = False Then
+            '        MsgBox("Failed to create table receiving importer", MsgBoxStyle.Critical, "Import")
+            '        Exit Function
+            '    End If
+            '    progressbar.Value = progressbar.Value + 2
+            'End If
 
 
-            If Not "ESPS_SC_RCV_PART_INTERFACE " = "" Then
-                SQL = Nothing
-                SQL = New System.Text.StringBuilder("")
-                SQL.Append("CREATE TABLE ESPS_SC_RCV_PART_INTERFACE (")
-                SQL.Append(" ID INT IDENTITY ")
-                SQL.Append(",SEPIO_NO NVARCHAR(20) ")
-                SQL.Append(",PART_NO NVARCHAR(50) ")
-                SQL.Append(",PART_QTY INTEGER ")
-                SQL.Append(",SEQ_NO INTEGER ")
-                SQL.Append(",COMPANY_CODE INTEGER ")
-                SQL.Append(",PROCESS_TYPE INTEGER ")
-                SQL.Append(",ABNORMAL_FLAG NVARCHAR(1) ")
-                SQL.Append(",REASON_ID NVARCHAR(100) ")
-                SQL.Append(",SCAN_DATE DATETIME ")
-                SQL.Append(",SCANNER_ID NVARCHAR(20) ")
-                SQL.Append(",PIC NVARCHAR(20) ")
-                SQL.Append(",BATCH_ID BIGINT ")
-                SQL.Append(",POST_FLAG NVARCHAR(1) ")
-                SQL.Append(") ")
-                If ExecuteSQL(SQL.ToString) = False Then
-                    MsgBox("Failed to create table receiving part!", MsgBoxStyle.Critical, "Import")
-                    Exit Function
-                End If
-                progressbar.Value = progressbar.Value + 2
-            End If
+            'If Not "ESPS_SC_RCV_PART_INTERFACE " = "" Then
+            '    SQL = Nothing
+            '    SQL = New System.Text.StringBuilder("")
+            '    SQL.Append("CREATE TABLE ESPS_SC_RCV_PART_INTERFACE (")
+            '    SQL.Append(" ID INT IDENTITY ")
+            '    SQL.Append(",SEPIO_NO NVARCHAR(20) ")
+            '    SQL.Append(",PART_NO NVARCHAR(50) ")
+            '    SQL.Append(",PART_QTY INTEGER ")
+            '    SQL.Append(",SEQ_NO INTEGER ")
+            '    SQL.Append(",COMPANY_CODE INTEGER ")
+            '    SQL.Append(",PROCESS_TYPE INTEGER ")
+            '    SQL.Append(",ABNORMAL_FLAG NVARCHAR(1) ")
+            '    SQL.Append(",REASON_ID NVARCHAR(100) ")
+            '    SQL.Append(",SCAN_DATE DATETIME ")
+            '    SQL.Append(",SCANNER_ID NVARCHAR(20) ")
+            '    SQL.Append(",PIC NVARCHAR(20) ")
+            '    SQL.Append(",BATCH_ID BIGINT ")
+            '    SQL.Append(",POST_FLAG NVARCHAR(1) ")
+            '    SQL.Append(") ")
+            '    If ExecuteSQL(SQL.ToString) = False Then
+            '        MsgBox("Failed to create table receiving part!", MsgBoxStyle.Critical, "Import")
+            '        Exit Function
+            '    End If
+            '    progressbar.Value = progressbar.Value + 2
+            'End If
 
-            '-------------Packing ---------------------------------------------------
-            If Not "ESPS_SC_PACK_INT_INTERFACE " = "" Then
-                SQL = Nothing
-                SQL = New System.Text.StringBuilder("")
-                SQL.Append("CREATE TABLE ESPS_SC_PACK_INT_INTERFACE  (")
-                SQL.Append(" ID INT IDENTITY ")
-                SQL.Append(",SEPPIS NVARCHAR(20) ")
-                SQL.Append(",PART_NO NVARCHAR(50) ")
-                SQL.Append(",PART_QTY INTEGER ")
-                SQL.Append(",SEQ_NO INTEGER ")
-                SQL.Append(",ORDER_NO NVARCHAR(20) ") '20092016
-                SQL.Append(",PART_NAME NVARCHAR(50) ")
-                SQL.Append(",COMPANY_CODE INTEGER ")
-                SQL.Append(",PROCESS_TYPE INTEGER ")
-                SQL.Append(",ABNORMAL_FLAG NVARCHAR(1) ")
-                SQL.Append(",SCAN_DATE DATETIME ")
-                SQL.Append(",SCANNER_ID NVARCHAR(20) ")
-                SQL.Append(",PIC NVARCHAR(20) ")
-                SQL.Append(",BATCH_ID BIGINT ")
-                SQL.Append(",POST_FLAG NVARCHAR(1) ")
-                SQL.Append(") ")
-                If ExecuteSQL(SQL.ToString) = False Then
-                    MsgBox("Failed to create table packing internal!", MsgBoxStyle.Critical, "Import")
-                    Exit Function
-                End If
-                progressbar.Value = progressbar.Value + 2
-            End If
-
-
-            If Not "ESPS_SC_PACK_MDL_INTERFACE " = "" Then
-                SQL = Nothing
-                SQL = New System.Text.StringBuilder("")
-                SQL.Append("CREATE TABLE ESPS_SC_PACK_MDL_INTERFACE (")
-                SQL.Append(" ID INT IDENTITY ")
-                SQL.Append(",SEPIO_NO NVARCHAR(20) ")
-                SQL.Append(",MODULE_NO NVARCHAR(12) ")
-                SQL.Append(",ORDER_NO NVARCHAR(13) ")
-                SQL.Append(",PART_NO NVARCHAR(50) ")
-                SQL.Append(",PART_QTY INTEGER ")
-                SQL.Append(",SEQ_NO INTEGER ")
-                SQL.Append(",COMPANY_CODE INTEGER ")
-                SQL.Append(",LABEL_SCAN_STATUS NVARCHAR(20) ")
-                SQL.Append(",PROCESS_TYPE INTEGER ")
-                SQL.Append(",ABNORMAL_FLAG NVARCHAR(1) ")
-                SQL.Append(",REASON_ID NVARCHAR(100) ")
-                SQL.Append(",SCAN_DATE DATETIME ")
-                SQL.Append(",SCANNER_ID NVARCHAR(20) ")
-                SQL.Append(",PIC NVARCHAR(20) ")
-                SQL.Append(",BATCH_ID BIGINT ")
-                SQL.Append(",POST_FLAG NVARCHAR(1) ")
-                SQL.Append(") ")
-                If ExecuteSQL(SQL.ToString) = False Then
-                    MsgBox("Failed to create table packing module!", MsgBoxStyle.Critical, "Import")
-                    Exit Function
-                End If
-                progressbar.Value = progressbar.Value + 2
-            End If
+            ''-------------Packing ---------------------------------------------------
+            'If Not "ESPS_SC_PACK_INT_INTERFACE " = "" Then
+            '    SQL = Nothing
+            '    SQL = New System.Text.StringBuilder("")
+            '    SQL.Append("CREATE TABLE ESPS_SC_PACK_INT_INTERFACE  (")
+            '    SQL.Append(" ID INT IDENTITY ")
+            '    SQL.Append(",SEPPIS NVARCHAR(20) ")
+            '    SQL.Append(",PART_NO NVARCHAR(50) ")
+            '    SQL.Append(",PART_QTY INTEGER ")
+            '    SQL.Append(",SEQ_NO INTEGER ")
+            '    SQL.Append(",ORDER_NO NVARCHAR(20) ") '20092016
+            '    SQL.Append(",PART_NAME NVARCHAR(50) ")
+            '    SQL.Append(",COMPANY_CODE INTEGER ")
+            '    SQL.Append(",PROCESS_TYPE INTEGER ")
+            '    SQL.Append(",ABNORMAL_FLAG NVARCHAR(1) ")
+            '    SQL.Append(",SCAN_DATE DATETIME ")
+            '    SQL.Append(",SCANNER_ID NVARCHAR(20) ")
+            '    SQL.Append(",PIC NVARCHAR(20) ")
+            '    SQL.Append(",BATCH_ID BIGINT ")
+            '    SQL.Append(",POST_FLAG NVARCHAR(1) ")
+            '    SQL.Append(") ")
+            '    If ExecuteSQL(SQL.ToString) = False Then
+            '        MsgBox("Failed to create table packing internal!", MsgBoxStyle.Critical, "Import")
+            '        Exit Function
+            '    End If
+            '    progressbar.Value = progressbar.Value + 2
+            'End If
 
 
-            If Not "ESPS_SC_PACK_NOMDL_INTERFACE" = "" Then
-                SQL = Nothing
-                SQL = New System.Text.StringBuilder("")
-                SQL.Append("CREATE TABLE ESPS_SC_PACK_NOMDL_INTERFACE (")
-                SQL.Append(" ID INT IDENTITY ")
-                SQL.Append(",CUSTOMER_NAME NVARCHAR(50) ")
-                SQL.Append(",CUSTOMER_ID INTEGER ")
-                SQL.Append(",CASE_TYPE NVARCHAR(10) ")
-                SQL.Append(",CASE_SERIAL_NO INTEGER ")
-                SQL.Append(",PART_NO NVARCHAR(50) ")
-                SQL.Append(",SEPIO_NO NVARCHAR(20) ")
-                SQL.Append(",QTY INTEGER ")
-                SQL.Append(",SEQ_NO INTEGER ")
-                SQL.Append(",COMPANY_CODE INTEGER ")
-                SQL.Append(",ORDER_NO NVARCHAR(13) ")
-                SQL.Append(",PROCESS_TYPE INTEGER ")
-                SQL.Append(",ABNORMAL_FLAG NVARCHAR(1) ")
-                SQL.Append(",REASON_ID NVARCHAR(100) ")
-                SQL.Append(",SCAN_DATE DATETIME ")
-                SQL.Append(",SCANNER_ID NVARCHAR(20) ")
-                SQL.Append(",PIC NVARCHAR(20) ")
-                SQL.Append(",RR_NUMBER NVARCHAR(50) ")
-                SQL.Append(",BATCH_ID BIGINT ")
-                SQL.Append(",POST_FLAG NVARCHAR(1) ")
-                SQL.Append(",GROUP_BATCH_ID BIGINT  ")
-                SQL.Append(",PROCESS_END NVARCHAR(1) ")
-                SQL.Append(") ")
-                If ExecuteSQL(SQL.ToString) = False Then
-                    MsgBox("Failed to create table packing no module!", MsgBoxStyle.Critical, "Import")
-                    Exit Function
-                End If
-                progressbar.Value = progressbar.Value + 2
-            End If
+            'If Not "ESPS_SC_PACK_MDL_INTERFACE " = "" Then
+            '    SQL = Nothing
+            '    SQL = New System.Text.StringBuilder("")
+            '    SQL.Append("CREATE TABLE ESPS_SC_PACK_MDL_INTERFACE (")
+            '    SQL.Append(" ID INT IDENTITY ")
+            '    SQL.Append(",SEPIO_NO NVARCHAR(20) ")
+            '    SQL.Append(",MODULE_NO NVARCHAR(12) ")
+            '    SQL.Append(",ORDER_NO NVARCHAR(13) ")
+            '    SQL.Append(",PART_NO NVARCHAR(50) ")
+            '    SQL.Append(",PART_QTY INTEGER ")
+            '    SQL.Append(",SEQ_NO INTEGER ")
+            '    SQL.Append(",COMPANY_CODE INTEGER ")
+            '    SQL.Append(",LABEL_SCAN_STATUS NVARCHAR(20) ")
+            '    SQL.Append(",PROCESS_TYPE INTEGER ")
+            '    SQL.Append(",ABNORMAL_FLAG NVARCHAR(1) ")
+            '    SQL.Append(",REASON_ID NVARCHAR(100) ")
+            '    SQL.Append(",SCAN_DATE DATETIME ")
+            '    SQL.Append(",SCANNER_ID NVARCHAR(20) ")
+            '    SQL.Append(",PIC NVARCHAR(20) ")
+            '    SQL.Append(",BATCH_ID BIGINT ")
+            '    SQL.Append(",POST_FLAG NVARCHAR(1) ")
+            '    SQL.Append(") ")
+            '    If ExecuteSQL(SQL.ToString) = False Then
+            '        MsgBox("Failed to create table packing module!", MsgBoxStyle.Critical, "Import")
+            '        Exit Function
+            '    End If
+            '    progressbar.Value = progressbar.Value + 2
+            'End If
 
 
-            '---------------- Shipping -------------------------------------------------
-            If Not "ESPS_SC_SHIP_DO_INTERFACE " = "" Then
-                SQL = Nothing
-                SQL = New System.Text.StringBuilder("")
-                SQL.Append("CREATE TABLE ESPS_SC_SHIP_DO_INTERFACE  (")
-                SQL.Append(" ID INT IDENTITY ")
-                SQL.Append(",DO_NO NVARCHAR(50) ")
-                SQL.Append(",PART_NO NVARCHAR(50) ")
-                SQL.Append(",TOTAL_PALLET INTEGER ")
-                SQL.Append(",QTY INTEGER ")
-                SQL.Append(",SEQ_NO INTEGER ")
-                SQL.Append(",ORDER_NO NVARCHAR(20) ") '20092016
-                SQL.Append(",PROCESS_TYPE INTEGER ")
-                SQL.Append(",ABNORMAL_FLAG NVARCHAR(1) ")
-                SQL.Append(",REASON_ID NVARCHAR(100) ")
-                SQL.Append(",SCAN_DATE DATETIME ")
-                SQL.Append(",SCANNER_ID NVARCHAR(20) ")
-                SQL.Append(",PIC NVARCHAR(20) ")
-                SQL.Append(",BATCH_ID BIGINT ")
-                SQL.Append(",POST_FLAG NVARCHAR(1) ")
-                SQL.Append(") ")
-                If ExecuteSQL(SQL.ToString) = False Then
-                    MsgBox("Failed to create table shipping delivery!", MsgBoxStyle.Critical, "Import")
-                    Exit Function
-                End If
-                progressbar.Value = progressbar.Value + 2
-            End If
+            'If Not "ESPS_SC_PACK_NOMDL_INTERFACE" = "" Then
+            '    SQL = Nothing
+            '    SQL = New System.Text.StringBuilder("")
+            '    SQL.Append("CREATE TABLE ESPS_SC_PACK_NOMDL_INTERFACE (")
+            '    SQL.Append(" ID INT IDENTITY ")
+            '    SQL.Append(",CUSTOMER_NAME NVARCHAR(50) ")
+            '    SQL.Append(",CUSTOMER_ID INTEGER ")
+            '    SQL.Append(",CASE_TYPE NVARCHAR(10) ")
+            '    SQL.Append(",CASE_SERIAL_NO INTEGER ")
+            '    SQL.Append(",PART_NO NVARCHAR(50) ")
+            '    SQL.Append(",SEPIO_NO NVARCHAR(20) ")
+            '    SQL.Append(",QTY INTEGER ")
+            '    SQL.Append(",SEQ_NO INTEGER ")
+            '    SQL.Append(",COMPANY_CODE INTEGER ")
+            '    SQL.Append(",ORDER_NO NVARCHAR(13) ")
+            '    SQL.Append(",PROCESS_TYPE INTEGER ")
+            '    SQL.Append(",ABNORMAL_FLAG NVARCHAR(1) ")
+            '    SQL.Append(",REASON_ID NVARCHAR(100) ")
+            '    SQL.Append(",SCAN_DATE DATETIME ")
+            '    SQL.Append(",SCANNER_ID NVARCHAR(20) ")
+            '    SQL.Append(",PIC NVARCHAR(20) ")
+            '    SQL.Append(",RR_NUMBER NVARCHAR(50) ")
+            '    SQL.Append(",BATCH_ID BIGINT ")
+            '    SQL.Append(",POST_FLAG NVARCHAR(1) ")
+            '    SQL.Append(",GROUP_BATCH_ID BIGINT  ")
+            '    SQL.Append(",PROCESS_END NVARCHAR(1) ")
+            '    SQL.Append(") ")
+            '    If ExecuteSQL(SQL.ToString) = False Then
+            '        MsgBox("Failed to create table packing no module!", MsgBoxStyle.Critical, "Import")
+            '        Exit Function
+            '    End If
+            '    progressbar.Value = progressbar.Value + 2
+            'End If
 
 
-            If Not "ESPS_SC_SHIP_VAN_INTERFACE " = "" Then
-                SQL = Nothing
-                SQL = New System.Text.StringBuilder("")
-                SQL.Append("CREATE TABLE ESPS_SC_SHIP_VAN_INTERFACE  (")
-                SQL.Append(" ID INT IDENTITY ")
-                SQL.Append(",VIS_NO NVARCHAR(20) ")
-                SQL.Append(",MODULE_NO NVARCHAR(12) ")
-                SQL.Append(",ORDER_NO NVARCHAR(13) ")
-                SQL.Append(",CONTAINER_NO NVARCHAR(12) ")
-                SQL.Append(",SEAL_NO NVARCHAR(20) ") 'INTEGER
-                SQL.Append(",PROCESS_TYPE INTEGER ")
-                SQL.Append(",ABNORMAL_FLAG NVARCHAR(1) ")
-                SQL.Append(",SCAN_DATE DATETIME ")
-                SQL.Append(",SCANNER_ID NVARCHAR(20) ")
-                SQL.Append(",PIC NVARCHAR(20) ")
-                SQL.Append(",BATCH_ID BIGINT ")
-                SQL.Append(",POST_FLAG NVARCHAR(1) ")
-                SQL.Append(") ")
-                If ExecuteSQL(SQL.ToString) = False Then
-                    MsgBox("Failed to create table shipping vanning!", MsgBoxStyle.Critical, "Import")
-                    Exit Function
-                End If
-                progressbar.Value = progressbar.Value + 2
-            End If
+            ''---------------- Shipping -------------------------------------------------
+            'If Not "ESPS_SC_SHIP_DO_INTERFACE " = "" Then
+            '    SQL = Nothing
+            '    SQL = New System.Text.StringBuilder("")
+            '    SQL.Append("CREATE TABLE ESPS_SC_SHIP_DO_INTERFACE  (")
+            '    SQL.Append(" ID INT IDENTITY ")
+            '    SQL.Append(",DO_NO NVARCHAR(50) ")
+            '    SQL.Append(",PART_NO NVARCHAR(50) ")
+            '    SQL.Append(",TOTAL_PALLET INTEGER ")
+            '    SQL.Append(",QTY INTEGER ")
+            '    SQL.Append(",SEQ_NO INTEGER ")
+            '    SQL.Append(",ORDER_NO NVARCHAR(20) ") '20092016
+            '    SQL.Append(",PROCESS_TYPE INTEGER ")
+            '    SQL.Append(",ABNORMAL_FLAG NVARCHAR(1) ")
+            '    SQL.Append(",REASON_ID NVARCHAR(100) ")
+            '    SQL.Append(",SCAN_DATE DATETIME ")
+            '    SQL.Append(",SCANNER_ID NVARCHAR(20) ")
+            '    SQL.Append(",PIC NVARCHAR(20) ")
+            '    SQL.Append(",BATCH_ID BIGINT ")
+            '    SQL.Append(",POST_FLAG NVARCHAR(1) ")
+            '    SQL.Append(") ")
+            '    If ExecuteSQL(SQL.ToString) = False Then
+            '        MsgBox("Failed to create table shipping delivery!", MsgBoxStyle.Critical, "Import")
+            '        Exit Function
+            '    End If
+            '    progressbar.Value = progressbar.Value + 2
+            'End If
+
+
+            'If Not "ESPS_SC_SHIP_VAN_INTERFACE " = "" Then
+            '    SQL = Nothing
+            '    SQL = New System.Text.StringBuilder("")
+            '    SQL.Append("CREATE TABLE ESPS_SC_SHIP_VAN_INTERFACE  (")
+            '    SQL.Append(" ID INT IDENTITY ")
+            '    SQL.Append(",VIS_NO NVARCHAR(20) ")
+            '    SQL.Append(",MODULE_NO NVARCHAR(12) ")
+            '    SQL.Append(",ORDER_NO NVARCHAR(13) ")
+            '    SQL.Append(",CONTAINER_NO NVARCHAR(12) ")
+            '    SQL.Append(",SEAL_NO NVARCHAR(20) ") 'INTEGER
+            '    SQL.Append(",PROCESS_TYPE INTEGER ")
+            '    SQL.Append(",ABNORMAL_FLAG NVARCHAR(1) ")
+            '    SQL.Append(",SCAN_DATE DATETIME ")
+            '    SQL.Append(",SCANNER_ID NVARCHAR(20) ")
+            '    SQL.Append(",PIC NVARCHAR(20) ")
+            '    SQL.Append(",BATCH_ID BIGINT ")
+            '    SQL.Append(",POST_FLAG NVARCHAR(1) ")
+            '    SQL.Append(") ")
+            '    If ExecuteSQL(SQL.ToString) = False Then
+            '        MsgBox("Failed to create table shipping vanning!", MsgBoxStyle.Critical, "Import")
+            '        Exit Function
+            '    End If
+            '    progressbar.Value = progressbar.Value + 2
+            'End If
             CreateMasterTable = True
 
         Catch ex As Exception
@@ -1245,30 +1428,29 @@ Module SQLCEFunction
 
 #Region ". SQL CE OpenRecordSet With SqlCeDataReader ."
 
-	Public Function OpenRecordset(ByVal strSQL As String, ByRef ceConn As SqlCeConnection) As SqlCeDataReader
+    Public Function OpenRecordset(ByVal strSQL As String, ByRef ceConn As SqlCeConnection) As SqlCeDataReader
 
-		Dim ErrLoc As String = ".OpenTable"
-		Dim dbReader As SqlCeDataReader = Nothing
-		Dim SqlCmd As SqlCeCommand = Nothing
+        Dim ErrLoc As String = ".OpenTable"
+        Dim dbReader As SqlCeDataReader = Nothing
+        Dim SqlCmd As SqlCeCommand = Nothing
 
-		Try
+        Try
+            If objConn.State = ConnectionState.Closed Then
+                objConn = OpenConnection()
+            End If
 
-			If objConn.State = ConnectionState.Closed Then
-				objConn = OpenConnection()
-			End If
-
-			SqlCmd = New SqlCeCommand(strSQL, ceConn)
+            SqlCmd = New SqlCeCommand(strSQL, ceConn)
             dbReader = SqlCmd.ExecuteReader(CommandBehavior.CloseConnection)
 
             'Return dbReader
-		Catch ex As Exception
-			UnHandledError(ex.ToString(), ErrLoc)
-		Finally
-			SqlCmd.Dispose()
-			SqlCmd = Nothing
-		End Try
-		Return dbReader
-	End Function
+        Catch ex As Exception
+            UnHandledError(ex.ToString(), ErrLoc)
+        Finally
+            SqlCmd.Dispose()
+            SqlCmd = Nothing
+        End Try
+        Return dbReader
+    End Function
 #End Region
 
 #Region ". SQL CE OpenRecorSet With DataSet ."
@@ -1299,155 +1481,167 @@ Module SQLCEFunction
 #End Region
 
 #Region ". Execute SQL With Boolean Connection ."
-	Private Function ExecuteSQL(ByVal SQL As String, ByVal objConn As SqlCeConnection, _
-	  Optional ByVal blnShowMessage As Boolean = True) As Boolean
+    Private Function ExecuteSQL(ByVal SQL As String, ByVal objConn As SqlCeConnection, _
+      Optional ByVal blnShowMessage As Boolean = True) As Boolean
 
-		Dim ErrLoc As String = ".Execute SQL, Connection, Boolean"
-		Dim objCmd As SqlCeCommand = Nothing
+        Dim ErrLoc As String = ".Execute SQL, Connection, Boolean"
+        Dim objCmd As SqlCeCommand = Nothing
 
-		Try
-			If objConn.State = ConnectionState.Closed Then
-				objConn = OpenConnection()
-			End If
+        Try
+            If objConn.State = ConnectionState.Closed Then
+                objConn = OpenConnection()
+            End If
 
-			objCmd = New SqlCeCommand(SQL, objConn)
-			objCmd.CommandType = CommandType.Text
-			objCmd.ExecuteNonQuery()
+            objCmd = New SqlCeCommand(SQL, objConn)
+            objCmd.CommandType = CommandType.Text
+            objCmd.ExecuteNonQuery()
 
-			Return True
-		Catch ex As Exception
-			If blnShowMessage Then UnHandledError(ex.ToString() + vbCr + SQL, ErrLoc)
-			Return False
-		Finally
-			objCmd.Dispose()
-			objCmd = Nothing
-		End Try
+            Return True
+        Catch ex As Exception
+            If blnShowMessage Then UnHandledError(ex.ToString() + vbCr + SQL, ErrLoc)
+            Return False
+        Finally
+            objCmd.Dispose()
+            objCmd = Nothing
+        End Try
 
-	End Function
+    End Function
 #End Region
 
 #Region ". Execute SQL String ."
-	Public Function ExecuteSQL(ByVal SQL As String) As Boolean
-		Dim ErrLoc As String = ".Execute SQL, String"
+    Public Function ExecuteSQL(ByVal SQL As String) As Boolean
+        Dim ErrLoc As String = ".Execute SQL, String"
 
         Dim objCmd As SqlCeCommand = Nothing
 
 
-		Try
-			If objConn.State = ConnectionState.Open Then
-				objConn.Close()
-			End If
+        Try
+            If objConn.State = ConnectionState.Open Then
+                objConn.Close()
+            End If
 
-			objConn = OpenConnection()
+            objConn = OpenConnection()
 
-			objCmd = New SqlCeCommand(SQL, objConn)
-			objCmd.CommandType = CommandType.Text
-			objCmd.ExecuteNonQuery()
+            objCmd = New SqlCeCommand(SQL, objConn)
+            objCmd.CommandType = CommandType.Text
+            objCmd.ExecuteNonQuery()
 
-			Return True
-		Catch ex As Exception
-			UnHandledError(ex.ToString() + vbCr + SQL, ErrLoc)
-			Return False
+            Return True
+        Catch ex As Exception
+            UnHandledError(ex.ToString() + vbCr + SQL, ErrLoc)
+            Return False
         Finally
             objCmd.Dispose()
             objConn.Close()
-		End Try
+        End Try
 
     End Function
 
 #End Region
 
 #Region ". SQL Drop Table Statement ."
-	Public Sub DropAllTable()
+    Public Sub DropAllTable()
 
-		Dim ErrLoc As String = ".Drop Table"
-		Dim objCon As New SqlCeConnection
+        Dim ErrLoc As String = ".Drop Table"
+        Dim objCon As New SqlCeConnection
 
-		Try
-			If TblUserDb <> "" Then
-				ExecuteSQL("Drop Table " & TblUserDb, objCon, CType(DroptableValue, Boolean))
-			End If
+        Try
+            If TblUserDb <> "" Then
+                ExecuteSQL("Drop Table " & TblUserDb, objCon, CType(DroptableValue, Boolean))
+            End If
 
             If TblSettingDb <> "" Then
                 ExecuteSQL("Drop Table " & TblSettingDb, objCon, CType(DroptableValue, Boolean))
             End If
 
-            If TblSEPCaseTypeVDb <> "" Then
-                ExecuteSQL("Drop Table " & TblSEPCaseTypeVDb, objCon, CType(DroptableValue, Boolean))
+            If TblJSPOrganizationDb <> "" Then
+                ExecuteSQL("Drop Table " & TblJSPOrganizationDb, objCon, CType(DroptableValue, Boolean))
             End If
 
-            If TblSEPRBCurrLocDb <> "" Then
-                ExecuteSQL("Drop Table " & TblSEPRBCurrLocDb, objCon, CType(DroptableValue, Boolean))
+            If TblJSPSupplyBPHeaderDb <> "" Then
+                ExecuteSQL("Drop Table " & TblJSPSupplyBPHeaderDb, objCon, CType(DroptableValue, Boolean))
             End If
 
-            If TblSEPRBJobDb <> "" Then
-                ExecuteSQL("Drop Table " & TblSEPRBJobDb, objCon, CType(DroptableValue, Boolean))
+            If TblJSPSupplyCPHeaderDb <> "" Then
+                ExecuteSQL("Drop Table " & TblJSPSupplyCPHeaderDb, objCon, CType(DroptableValue, Boolean))
             End If
 
-            If TblSEPRBTypeDb <> "" Then
-                ExecuteSQL("Drop Table " & TblSEPRBTypeDb, objCon, CType(DroptableValue, Boolean))
-            End If
+            'If TblSEPCaseTypeVDb <> "" Then
+            '    ExecuteSQL("Drop Table " & TblSEPCaseTypeVDb, objCon, CType(DroptableValue, Boolean))
+            'End If
 
-            If TblSEPRBReasonDb <> "" Then
-                ExecuteSQL("Drop Table " & TblSEPRBReasonDb, objCon, CType(DroptableValue, Boolean))
-            End If
+            'If TblSEPRBCurrLocDb <> "" Then
+            '    ExecuteSQL("Drop Table " & TblSEPRBCurrLocDb, objCon, CType(DroptableValue, Boolean))
+            'End If
+
+            'If TblSEPRBJobDb <> "" Then
+            '    ExecuteSQL("Drop Table " & TblSEPRBJobDb, objCon, CType(DroptableValue, Boolean))
+            'End If
+
+            'If TblSEPRBTypeDb <> "" Then
+            '    ExecuteSQL("Drop Table " & TblSEPRBTypeDb, objCon, CType(DroptableValue, Boolean))
+            'End If
+
+            'If TblSEPRBReasonDb <> "" Then
+            '    ExecuteSQL("Drop Table " & TblSEPRBReasonDb, objCon, CType(DroptableValue, Boolean))
+            'End If
 
         Catch ex As Exception
             UnHandledError(ex.ToString(), ErrLoc)
-		Finally
-			objConn.Close()
-			objConn.Dispose()
-		End Try
-	End Sub
+        Finally
+            objConn.Close()
+            objConn.Dispose()
+        End Try
+    End Sub
 #End Region
 
 #Region ". Encryption  and Decryption ."
-	'Public Function GetDecrypt(ByVal sSource As String)
+    'Public Function GetDecrypt(ByVal sSource As String)
 
-	'    Dim sTemp, sDecrypt, s As String
-	'    Dim lStr, i As Long
+    '    Dim sTemp, sDecrypt, s As String
+    '    Dim lStr, i As Long
 
-	'    Try
-	'        lStr = sSource.Trim.Length
-	'        If (lStr / 2) <> (sSource.Trim.Length / 2) Then
-	'            Exit Function
-	'        End If
+    '    Try
+    '        lStr = sSource.Trim.Length
+    '        If (lStr / 2) <> (sSource.Trim.Length / 2) Then
+    '            Exit Function
+    '        End If
 
-	'        sTemp = StrReverse(sSource)
-	'        For i = lStr To 1 Step -2
-	'            s = Chr(Val("&H" & Mid(sTemp, i - 1, 2)))
-	'            s = Chr(Asc(s) Xor ((i / 2) Mod 30) * 8)
-	'            sDecrypt = s & sDecrypt
-	'        Next
-	'        Return sDecrypt
-	'    Catch ex As Exception
-	'    End Try
+    '        sTemp = StrReverse(sSource)
+    '        For i = lStr To 1 Step -2
+    '            s = Chr(Val("&H" & Mid(sTemp, i - 1, 2)))
+    '            s = Chr(Asc(s) Xor ((i / 2) Mod 30) * 8)
+    '            sDecrypt = s & sDecrypt
+    '        Next
+    '        Return sDecrypt
+    '    Catch ex As Exception
+    '    End Try
 
-	'End Function
-	Public Function GetEncrypt(ByVal sSource As String) As String
-		Dim sTemp As String
-		Dim lStr As Long
-		Dim i As Long
-		Dim S As String
+    'End Function
+    Public Function GetEncrypt(ByVal sSource As String) As String
+        Dim sTemp As String
+        Dim lStr As Long
+        Dim i As Long
+        Dim S As String
 
-		On Error Resume Next
-		GetEncrypt = ""
-		lStr = Len(sSource)
-		sTemp = ""
+        On Error Resume Next
+        GetEncrypt = ""
+        lStr = Len(sSource)
+        sTemp = ""
 
-		For i = 1 To lStr
-			' convert to Hex
-			S = Mid(sSource, CType(i, Integer), 1)
-			S = Chr(CType(Asc(S) Xor (i Mod 30) * 8, Integer))
-			S = Hex(Asc(S))
+        For i = 1 To lStr
+            ' convert to Hex
+            S = Mid(sSource, CType(i, Integer), 1)
+            S = Chr(CType(Asc(S) Xor (i Mod 30) * 8, Integer))
+            S = Hex(Asc(S))
 
-			If Len(S) = 1 Then S = "0" & S ' for single char hex code add '0' infront
-			sTemp = sTemp & S
-		Next
+            If Len(S) = 1 Then S = "0" & S ' for single char hex code add '0' infront
+            sTemp = sTemp & S
+        Next
 
-		sTemp = StrReverse(sTemp)
-		GetEncrypt = sTemp
-	End Function
+        sTemp = StrReverse(sTemp)
+        GetEncrypt = sTemp
+    End Function
 
 #End Region
 
@@ -1474,7 +1668,7 @@ Module SQLCEFunction
 
     End Function
 
-   
+
 
 #End Region
 
@@ -1517,7 +1711,7 @@ Module SQLCEFunction
 
     End Function
 
-  
+
 #End Region
 
 End Module

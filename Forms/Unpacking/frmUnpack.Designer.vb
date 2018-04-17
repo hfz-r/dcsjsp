@@ -150,6 +150,7 @@ Partial Public Class frmUnpack
         Me.ColumnHeader18 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader19 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader22 = New System.Windows.Forms.ColumnHeader
+        Me.ColumnHeader27 = New System.Windows.Forms.ColumnHeader
         Me.lblHeaderUnpackVwDet = New System.Windows.Forms.Label
         Me.pnlUnpackScanModuleError = New System.Windows.Forms.Panel
         Me.Label9 = New System.Windows.Forms.Label
@@ -176,6 +177,8 @@ Partial Public Class frmUnpack
         Me.Label51 = New System.Windows.Forms.Label
         Me.Label52 = New System.Windows.Forms.Label
         Me.Panel2 = New System.Windows.Forms.Panel
+        Me.Label132 = New System.Windows.Forms.Label
+        Me.Label131 = New System.Windows.Forms.Label
         Me.Label57 = New System.Windows.Forms.Label
         Me.Label58 = New System.Windows.Forms.Label
         Me.Label93 = New System.Windows.Forms.Label
@@ -195,6 +198,8 @@ Partial Public Class frmUnpack
         Me.Label64 = New System.Windows.Forms.Label
         Me.Label65 = New System.Windows.Forms.Label
         Me.Panel19 = New System.Windows.Forms.Panel
+        Me.Label134 = New System.Windows.Forms.Label
+        Me.Label133 = New System.Windows.Forms.Label
         Me.Label66 = New System.Windows.Forms.Label
         Me.Label67 = New System.Windows.Forms.Label
         Me.Label68 = New System.Windows.Forms.Label
@@ -214,6 +219,8 @@ Partial Public Class frmUnpack
         Me.Label17 = New System.Windows.Forms.Label
         Me.Label18 = New System.Windows.Forms.Label
         Me.Panel11 = New System.Windows.Forms.Panel
+        Me.Label138 = New System.Windows.Forms.Label
+        Me.Label137 = New System.Windows.Forms.Label
         Me.Label19 = New System.Windows.Forms.Label
         Me.Label20 = New System.Windows.Forms.Label
         Me.Label22 = New System.Windows.Forms.Label
@@ -233,6 +240,8 @@ Partial Public Class frmUnpack
         Me.Label13 = New System.Windows.Forms.Label
         Me.Label78 = New System.Windows.Forms.Label
         Me.Panel21 = New System.Windows.Forms.Panel
+        Me.Label136 = New System.Windows.Forms.Label
+        Me.Label135 = New System.Windows.Forms.Label
         Me.Label79 = New System.Windows.Forms.Label
         Me.Label80 = New System.Windows.Forms.Label
         Me.Label81 = New System.Windows.Forms.Label
@@ -324,15 +333,6 @@ Partial Public Class frmUnpack
         Me.ColumnHeader2 = New System.Windows.Forms.ColumnHeader
         Me.Label127 = New System.Windows.Forms.Label
         Me.Label128 = New System.Windows.Forms.Label
-        Me.Label131 = New System.Windows.Forms.Label
-        Me.Label132 = New System.Windows.Forms.Label
-        Me.Label133 = New System.Windows.Forms.Label
-        Me.Label134 = New System.Windows.Forms.Label
-        Me.Label135 = New System.Windows.Forms.Label
-        Me.Label136 = New System.Windows.Forms.Label
-        Me.Label137 = New System.Windows.Forms.Label
-        Me.Label138 = New System.Windows.Forms.Label
-        Me.ColumnHeader27 = New System.Windows.Forms.ColumnHeader
         Me.pnlUnpackMain.SuspendLayout()
         Me.Panel9.SuspendLayout()
         Me.pnlUnpackFScan.SuspendLayout()
@@ -1385,6 +1385,11 @@ Partial Public Class frmUnpack
         Me.ColumnHeader22.Text = "Qty"
         Me.ColumnHeader22.Width = 50
         '
+        'ColumnHeader27
+        '
+        Me.ColumnHeader27.Text = "Branch No"
+        Me.ColumnHeader27.Width = 60
+        '
         'lblHeaderUnpackVwDet
         '
         Me.lblHeaderUnpackVwDet.BackColor = System.Drawing.Color.PowderBlue
@@ -1629,6 +1634,22 @@ Partial Public Class frmUnpack
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(293, 80)
         '
+        'Label132
+        '
+        Me.Label132.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.Label132.Location = New System.Drawing.Point(7, 64)
+        Me.Label132.Name = "Label132"
+        Me.Label132.Size = New System.Drawing.Size(72, 15)
+        Me.Label132.Text = "Branch No :"
+        '
+        'Label131
+        '
+        Me.Label131.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.Label131.Location = New System.Drawing.Point(7, 45)
+        Me.Label131.Name = "Label131"
+        Me.Label131.Size = New System.Drawing.Size(72, 15)
+        Me.Label131.Text = "Qty :"
+        '
         'Label57
         '
         Me.Label57.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
@@ -1803,6 +1824,22 @@ Partial Public Class frmUnpack
         Me.Panel19.Name = "Panel19"
         Me.Panel19.Size = New System.Drawing.Size(293, 80)
         '
+        'Label134
+        '
+        Me.Label134.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.Label134.Location = New System.Drawing.Point(7, 64)
+        Me.Label134.Name = "Label134"
+        Me.Label134.Size = New System.Drawing.Size(72, 15)
+        Me.Label134.Text = "Branch No :"
+        '
+        'Label133
+        '
+        Me.Label133.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.Label133.Location = New System.Drawing.Point(7, 45)
+        Me.Label133.Name = "Label133"
+        Me.Label133.Size = New System.Drawing.Size(72, 15)
+        Me.Label133.Text = "Qty :"
+        '
         'Label66
         '
         Me.Label66.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
@@ -1976,6 +2013,22 @@ Partial Public Class frmUnpack
         Me.Panel11.Name = "Panel11"
         Me.Panel11.Size = New System.Drawing.Size(293, 80)
         '
+        'Label138
+        '
+        Me.Label138.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.Label138.Location = New System.Drawing.Point(7, 64)
+        Me.Label138.Name = "Label138"
+        Me.Label138.Size = New System.Drawing.Size(72, 15)
+        Me.Label138.Text = "Branch No :"
+        '
+        'Label137
+        '
+        Me.Label137.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.Label137.Location = New System.Drawing.Point(7, 45)
+        Me.Label137.Name = "Label137"
+        Me.Label137.Size = New System.Drawing.Size(72, 15)
+        Me.Label137.Text = "Qty :"
+        '
         'Label19
         '
         Me.Label19.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
@@ -2148,6 +2201,22 @@ Partial Public Class frmUnpack
         Me.Panel21.Location = New System.Drawing.Point(10, 80)
         Me.Panel21.Name = "Panel21"
         Me.Panel21.Size = New System.Drawing.Size(293, 80)
+        '
+        'Label136
+        '
+        Me.Label136.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.Label136.Location = New System.Drawing.Point(7, 64)
+        Me.Label136.Name = "Label136"
+        Me.Label136.Size = New System.Drawing.Size(72, 15)
+        Me.Label136.Text = "Branch No :"
+        '
+        'Label135
+        '
+        Me.Label135.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.Label135.Location = New System.Drawing.Point(7, 45)
+        Me.Label135.Name = "Label135"
+        Me.Label135.Size = New System.Drawing.Size(72, 15)
+        Me.Label135.Text = "Qty :"
         '
         'Label79
         '
@@ -2970,75 +3039,6 @@ Partial Public Class frmUnpack
         Me.Label128.Location = New System.Drawing.Point(2, 3)
         Me.Label128.Name = "Label128"
         Me.Label128.Size = New System.Drawing.Size(316, 20)
-        '
-        'Label131
-        '
-        Me.Label131.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label131.Location = New System.Drawing.Point(7, 45)
-        Me.Label131.Name = "Label131"
-        Me.Label131.Size = New System.Drawing.Size(72, 15)
-        Me.Label131.Text = "Qty :"
-        '
-        'Label132
-        '
-        Me.Label132.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label132.Location = New System.Drawing.Point(7, 64)
-        Me.Label132.Name = "Label132"
-        Me.Label132.Size = New System.Drawing.Size(72, 15)
-        Me.Label132.Text = "Branch No :"
-        '
-        'Label133
-        '
-        Me.Label133.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label133.Location = New System.Drawing.Point(7, 45)
-        Me.Label133.Name = "Label133"
-        Me.Label133.Size = New System.Drawing.Size(72, 15)
-        Me.Label133.Text = "Qty :"
-        '
-        'Label134
-        '
-        Me.Label134.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label134.Location = New System.Drawing.Point(7, 64)
-        Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(72, 15)
-        Me.Label134.Text = "Branch No :"
-        '
-        'Label135
-        '
-        Me.Label135.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label135.Location = New System.Drawing.Point(7, 45)
-        Me.Label135.Name = "Label135"
-        Me.Label135.Size = New System.Drawing.Size(72, 15)
-        Me.Label135.Text = "Qty :"
-        '
-        'Label136
-        '
-        Me.Label136.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label136.Location = New System.Drawing.Point(7, 64)
-        Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(72, 15)
-        Me.Label136.Text = "Branch No :"
-        '
-        'Label137
-        '
-        Me.Label137.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label137.Location = New System.Drawing.Point(7, 45)
-        Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(72, 15)
-        Me.Label137.Text = "Qty :"
-        '
-        'Label138
-        '
-        Me.Label138.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label138.Location = New System.Drawing.Point(7, 64)
-        Me.Label138.Name = "Label138"
-        Me.Label138.Size = New System.Drawing.Size(72, 15)
-        Me.Label138.Text = "Branch No :"
-        '
-        'ColumnHeader27
-        '
-        Me.ColumnHeader27.Text = "Branch No"
-        Me.ColumnHeader27.Width = 60
         '
         'frmUnpack
         '

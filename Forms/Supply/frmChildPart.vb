@@ -3,7 +3,7 @@ Imports System.IO
 Imports System.Reflection
 Imports System.Windows.Forms
 Imports System.Data.SqlServerCe
-Imports System.Data.SqlClient
+'Imports System.Data.SqlClient
 
 Public Class frmChildPart
 

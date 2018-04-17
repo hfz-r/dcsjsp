@@ -211,10 +211,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="D:\Projects\Latest Source Code\Perodua\DCSComs\DCSComs\bin\Debug\processServicePartService.wsdl">
-      <UrlBehavior>Dynamic</UrlBehavior>
+    <WebReferenceUrl Include="C:\DCSJSP\Web References\OraWebService\processServicePartService.wsdl">
+      <UrlBehavior>Static</UrlBehavior>
       <RelPath>Web References\OraWebService\</RelPath>
-      <UpdateFromURL>D:\Projects\Latest Source Code\Perodua\DCSComs\DCSComs\bin\Debug\processServicePartService.wsdl</UpdateFromURL>
+      <UpdateFromURL>C:\DCSJSP\Web References\OraWebService\processServicePartService.wsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
@@ -224,10 +224,10 @@
       <CachedSettingsPropName>
       </CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://172.20.14.126:8084/">
+    <WebReferenceUrl Include="http://192.168.170.169:8084/DCSWebService.svc">
       <UrlBehavior>Static</UrlBehavior>
       <RelPath>Web References\DCSWebService\</RelPath>
-      <UpdateFromURL>http://172.20.14.126:8084/</UpdateFromURL>
+      <UpdateFromURL>http://192.168.170.169:8084/DCSWebService.svc</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
@@ -239,9 +239,6 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DBDCSJSP.sdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Images\Abnormal.png" />
     <Content Include="Images\BigPart.png" />
     <Content Include="Images\CDIO.png" />
