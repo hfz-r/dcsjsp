@@ -10,6 +10,11 @@ Imports Microsoft.Win32
 Module GeneralVariables
 
 #Region ". Global Variables Declare ."
+    Public Function Initialize() As String
+        Dim XMLstr As String = GetXMLSetting()
+        Return XMLstr
+    End Function
+
     Public Const IOCTL_HAL_GET_DEVICEID As Integer = &H1010054
     Private Const METHOD_BUFFERED As Int32 = 0
     Private Const FILE_ANY_ACCESS As Int32 = 0
@@ -32,24 +37,24 @@ Module GeneralVariables
 
     Public gAppName As String = "SERVICE PART"
     Public gProgPath As String = Path.GetDirectoryName([Assembly].GetExecutingAssembly.GetName.CodeBase) & "\" '+ System.Reflection.Assembly.GetExecutingAssembly.GetName.Name 'System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).ToString & " \ ""
-    'Public gFullPath As String = gProgPath + gDatabaseName
-    'Public gDBPath As String = "/Application/DCSServicePart/"
-    Public gDBPath As String = gProgPath '/ProgramFiles/DCSComs
-    Public gScannerID As String = getDeviceID()
-    Public gScnPrefix As String = ""
-    Public gScnSuffix As String = ""
-    Public gDateTimeFormat As String = ""
-    Public gDatabaseName As String = "DBDCSServicePart.sdf"
-    Public gDatabasePwd As String = ""
-    Public ConnStr As String = "Data Source=" & gDBPath + gDatabaseName & ";password=" & gDatabasePwd
-    'Public gStrDCSWebServiceURL As String = "http://192.168.170.169:8084/DCSWebService.svc" '"http://172.20.13.204:8086/" '"http://172.20.13.160:8888/"
-    Public gStrDCSWebServiceURL As String = "http://192.168.170.169:8084/DCSWebService.svc"
+    Public gDBPath As String ' = "" 'gProgPath '/ProgramFiles/DCSComs
+    Public gScannerID As String ' = getDeviceID()
+    Public gScnPrefix As String ' = ""
+    Public gScnSuffix As String ' = ""
+    Public gDateTimeFormat As String ' = ""
+    Public gDatabaseName As String ' = "" '"DBDCSServicePart.sdf"
+    Public gDatabasePwd As String ' = ""
+    Public ConnStr As String ' = ""
+    'Public ConnStr As String = "Data Source=" & gDBPath + gDatabaseName & ";password=" & gDatabasePwd
+    Public gStrDCSWebServiceURL As String ' = "" '"http://192.168.170.169:8084/DCSWebService.svc"
+    Public ws_dcsClient As DCSWebService.DCSWebService = New DCSWebService.DCSWebService
+    ' MAKE WEBSERVICE OFFLINE MODE AND TRY ABNORMAL SERVICE
     Public ws_dcsClient As DCSWebService.DCSWebService = New DCSWebService.DCSWebService
     ' MAKE WEBSERVICE OFFLINE MODE AND TRY ABNORMAL SERVICE
 
-    Public gStrOracleWebServiceURL As String = "http://10.1.115.94:4559/ws/perodua.eai.process.inventory.ws.servicePart:processServicePartService/perodua_eai_process_inventory_ws_servicePart_processServicePartService_Port"
-    Public gStrOraUserID As String = "promiseusr"
-    Public gStrOraUserPwd As String = "promiseusr"
+    Public gStrOracleWebServiceURL As String ' = "" '"http://10.1.115.94:4559/ws/perodua.eai.process.inventory.ws.servicePart:processServicePartService/perodua_eai_process_inventory_ws_servicePart_processServicePartService_Port"
+    Public gStrOraUserID As String ' = "" ' "promiseusr"
+    Public gStrOraUserPwd As String ' = "" '"promiseusr"
     Public ws_oracleClient As OraWebService.processServicePartService = New OraWebService.processServicePartService
 
     Public SQLServerName As String
@@ -61,7 +66,7 @@ Module GeneralVariables
     Public SQLConnectionTimeOut As String
     Public DroptableValue As String
 
-   
+
     '---Master Table -----------------------------------------------
     Public TblSettingDb As String = "TBLSetting"
     Public TblUserDb As String = "SEP_LOGIN_V"
@@ -149,6 +154,52 @@ Module GeneralVariables
     End Structure
 
 #End Region
+
+#Region ". XML SETTING ."
+    Public Function GetXMLSetting() As String
+        Dim errMsg As String = "Config File not found"
+        Try
+            If File.Exists(gProgPath + "Config.xml") = False Then
+                MsgBox("Config File not found! Application will now exit.", MsgBoxStyle.Critical, "Error")
+                Return errMsg
+            End If
+
+            Dim configReader As XmlReader = New XmlTextReader(gProgPath + "Config.xml")
+            While (configReader.Read())
+                Dim type = configReader.NodeType
+                If type = XmlNodeType.Element Then
+                    If configReader.Name = "SQLServerName" Then
+                        gDBPath = configReader.ReadInnerXml.ToString()
+                    End If
+                    If configReader.Name = "SQLDatabaseName" Then
+                        gDatabaseName = configReader.ReadInnerXml.ToString()
+                    End If
+                    If configReader.Name = "SQLPassword" Then
+                        gDatabasePwd = configReader.ReadInnerXml.ToString()
+                    End If
+                    If configReader.Name = "WSDcsURL" Then
+                        gStrDCSWebServiceURL = configReader.ReadInnerXml.ToString()
+                    End If
+                    If configReader.Name = "WSOraURL" Then
+                        gStrOracleWebServiceURL = configReader.ReadInnerXml.ToString()
+                    End If
+                    If configReader.Name = "WSOraUserID" Then
+                        gStrOraUserID = configReader.ReadInnerXml.ToString()
+                    End If
+                    If configReader.Name = "WSOraPassword" Then
+                        gStrOraUserPwd = configReader.ReadInnerXml.ToString()
+                    End If
+                End If
+            End While
+            ConnStr = "Data Source=" & gDBPath + gDatabaseName & ";password=" & gDatabasePwd
+        Catch ex As Exception
+            MsgBox(ex.Message.ToString(), MsgBoxStyle.Critical, "Config")
+            Return errMsg
+        End Try
+        Return ConnStr
+    End Function
+#End Region
+
 
 #Region ". Show Mouse Cursor, Busy or Not Busy ."
     Public Sub ShowWait(ByVal Status As Boolean)
@@ -271,7 +322,7 @@ Module GeneralVariables
 
 #Region ". Get Scanner ID ."
 
-   
+
     Public Function getDeviceID() As String
 
         getDeviceID = Net.Dns.GetHostName()

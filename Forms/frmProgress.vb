@@ -4,9 +4,12 @@ Imports System.Windows.Forms
 Imports System.Data.SqlServerCe
 Imports System.Text.RegularExpressions
 Imports DCSJSP.GeneralFunction
+Imports DCSJSP.GeneralVariables
 Imports DCSJSP.DCSWebService.DCSWebService
 Imports System.Diagnostics
-'test
+Imports System.Xml
+Imports System.Reflection
+'Imports System.Text
 
 Public Class frmProgress
 
@@ -293,12 +296,16 @@ Public Class frmProgress
         pnlProgress.Visible = True
         pnlDataTransfer.Visible = True
         pnlDataTransfer.BringToFront()
-        'Try
+        Try
+            Dim errStr = "Config File not found"
+            Dim XMLmsg = Initialize()
+            If XMLmsg = errStr Then
+                Me.Close()
+            End If
+        Catch ex As Exception
+            Me.Close()
+        End Try
 
-        'Catch ex As Exception
-
-        'End Try
-        
         Call Init()
     End Sub
 
