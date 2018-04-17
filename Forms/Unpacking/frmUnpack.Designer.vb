@@ -20,21 +20,21 @@ Partial Public Class frmUnpack
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmUnpack))
-        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem3 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem4 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem5 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem6 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem7 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem8 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem9 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem10 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem11 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem12 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem13 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem14 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem15 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem31 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem32 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem33 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem34 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem35 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem36 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem37 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem38 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem39 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem40 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem41 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem42 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem43 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem44 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem45 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
         Me.pnlUnpackMain = New System.Windows.Forms.Panel
         Me.Label12 = New System.Windows.Forms.Label
         Me.btnAbnormalUnpacking = New System.Windows.Forms.PictureBox
@@ -327,7 +327,7 @@ Partial Public Class frmUnpack
         Me.Label125 = New System.Windows.Forms.Label
         Me.Button4 = New System.Windows.Forms.Button
         Me.Panel29 = New System.Windows.Forms.Panel
-        Me.Button6 = New System.Windows.Forms.Button
+        Me.btnBackAbnFScanPart = New System.Windows.Forms.Button
         Me.Label126 = New System.Windows.Forms.Label
         Me.ListView5 = New System.Windows.Forms.ListView
         Me.ColumnHeader2 = New System.Windows.Forms.ColumnHeader
@@ -545,12 +545,12 @@ Partial Public Class frmUnpack
         Me.lstViewRCVFScan.Columns.Add(Me.ColumnHeader1)
         Me.lstViewRCVFScan.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.lstViewRCVFScan.FullRowSelect = True
-        ListViewItem1.Text = "QR Code Cannot Read"
-        ListViewItem2.Text = "QR Code Damage"
-        ListViewItem3.Text = "QR Code Missing"
-        Me.lstViewRCVFScan.Items.Add(ListViewItem1)
-        Me.lstViewRCVFScan.Items.Add(ListViewItem2)
-        Me.lstViewRCVFScan.Items.Add(ListViewItem3)
+        ListViewItem31.Text = "QR Code Cannot Read"
+        ListViewItem32.Text = "QR Code Damage"
+        ListViewItem33.Text = "QR Code Missing"
+        Me.lstViewRCVFScan.Items.Add(ListViewItem31)
+        Me.lstViewRCVFScan.Items.Add(ListViewItem32)
+        Me.lstViewRCVFScan.Items.Add(ListViewItem33)
         Me.lstViewRCVFScan.Location = New System.Drawing.Point(8, 130)
         Me.lstViewRCVFScan.Name = "lstViewRCVFScan"
         Me.lstViewRCVFScan.Size = New System.Drawing.Size(305, 80)
@@ -1259,18 +1259,18 @@ Partial Public Class frmUnpack
         Me.lstUnpackModule.Columns.Add(Me.ColumnHeader6)
         Me.lstUnpackModule.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.lstUnpackModule.FullRowSelect = True
-        ListViewItem4.Text = "1"
-        ListViewItem4.SubItems.Add("OC-13F")
-        ListViewItem4.SubItems.Add("1234")
-        ListViewItem4.SubItems.Add("50")
-        ListViewItem4.SubItems.Add("01")
-        ListViewItem5.Text = "2"
-        ListViewItem5.SubItems.Add("OC-13E")
-        ListViewItem5.SubItems.Add("6666")
-        ListViewItem5.SubItems.Add("70")
-        ListViewItem5.SubItems.Add("02")
-        Me.lstUnpackModule.Items.Add(ListViewItem4)
-        Me.lstUnpackModule.Items.Add(ListViewItem5)
+        ListViewItem34.Text = "1"
+        ListViewItem34.SubItems.Add("OC-13F")
+        ListViewItem34.SubItems.Add("1234")
+        ListViewItem34.SubItems.Add("50")
+        ListViewItem34.SubItems.Add("01")
+        ListViewItem35.Text = "2"
+        ListViewItem35.SubItems.Add("OC-13E")
+        ListViewItem35.SubItems.Add("6666")
+        ListViewItem35.SubItems.Add("70")
+        ListViewItem35.SubItems.Add("02")
+        Me.lstUnpackModule.Items.Add(ListViewItem34)
+        Me.lstUnpackModule.Items.Add(ListViewItem35)
         Me.lstUnpackModule.Location = New System.Drawing.Point(3, 3)
         Me.lstUnpackModule.Name = "lstUnpackModule"
         Me.lstUnpackModule.Size = New System.Drawing.Size(300, 170)
@@ -1354,11 +1354,11 @@ Partial Public Class frmUnpack
         Me.lstViewRCISummary.Columns.Add(Me.ColumnHeader27)
         Me.lstViewRCISummary.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.lstViewRCISummary.FullRowSelect = True
-        ListViewItem6.Text = "2"
-        ListViewItem6.SubItems.Add("OC-13D")
-        ListViewItem6.SubItems.Add("2667")
-        ListViewItem6.SubItems.Add("100")
-        Me.lstViewRCISummary.Items.Add(ListViewItem6)
+        ListViewItem36.Text = "2"
+        ListViewItem36.SubItems.Add("OC-13D")
+        ListViewItem36.SubItems.Add("2667")
+        ListViewItem36.SubItems.Add("100")
+        Me.lstViewRCISummary.Items.Add(ListViewItem36)
         Me.lstViewRCISummary.Location = New System.Drawing.Point(3, 3)
         Me.lstViewRCISummary.Name = "lstViewRCISummary"
         Me.lstViewRCISummary.Size = New System.Drawing.Size(299, 170)
@@ -2423,12 +2423,12 @@ Partial Public Class frmUnpack
         Me.ListView3.Columns.Add(Me.ColumnHeader16)
         Me.ListView3.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.ListView3.FullRowSelect = True
-        ListViewItem7.Text = "QR Code Cannot Read"
-        ListViewItem8.Text = "QR Code Damage"
-        ListViewItem9.Text = "QR Code Missing"
-        Me.ListView3.Items.Add(ListViewItem7)
-        Me.ListView3.Items.Add(ListViewItem8)
-        Me.ListView3.Items.Add(ListViewItem9)
+        ListViewItem37.Text = "QR Code Cannot Read"
+        ListViewItem38.Text = "QR Code Damage"
+        ListViewItem39.Text = "QR Code Missing"
+        Me.ListView3.Items.Add(ListViewItem37)
+        Me.ListView3.Items.Add(ListViewItem38)
+        Me.ListView3.Items.Add(ListViewItem39)
         Me.ListView3.Location = New System.Drawing.Point(8, 130)
         Me.ListView3.Name = "ListView3"
         Me.ListView3.Size = New System.Drawing.Size(305, 80)
@@ -2851,12 +2851,12 @@ Partial Public Class frmUnpack
         Me.ListView4.Columns.Add(Me.ColumnHeader23)
         Me.ListView4.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.ListView4.FullRowSelect = True
-        ListViewItem10.Text = "QR Code Cannot Read"
-        ListViewItem11.Text = "QR Code Damage"
-        ListViewItem12.Text = "QR Code Missing"
-        Me.ListView4.Items.Add(ListViewItem10)
-        Me.ListView4.Items.Add(ListViewItem11)
-        Me.ListView4.Items.Add(ListViewItem12)
+        ListViewItem40.Text = "QR Code Cannot Read"
+        ListViewItem41.Text = "QR Code Damage"
+        ListViewItem42.Text = "QR Code Missing"
+        Me.ListView4.Items.Add(ListViewItem40)
+        Me.ListView4.Items.Add(ListViewItem41)
+        Me.ListView4.Items.Add(ListViewItem42)
         Me.ListView4.Location = New System.Drawing.Point(8, 130)
         Me.ListView4.Name = "ListView4"
         Me.ListView4.Size = New System.Drawing.Size(305, 80)
@@ -2979,20 +2979,20 @@ Partial Public Class frmUnpack
         'Panel29
         '
         Me.Panel29.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Panel29.Controls.Add(Me.Button6)
+        Me.Panel29.Controls.Add(Me.btnBackAbnFScanPart)
         Me.Panel29.Controls.Add(Me.Label126)
         Me.Panel29.Location = New System.Drawing.Point(0, 247)
         Me.Panel29.Name = "Panel29"
         Me.Panel29.Size = New System.Drawing.Size(320, 24)
         '
-        'Button6
+        'btnBackAbnFScanPart
         '
-        Me.Button6.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Button6.Location = New System.Drawing.Point(200, 2)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(110, 20)
-        Me.Button6.TabIndex = 34
-        Me.Button6.Text = "Back"
+        Me.btnBackAbnFScanPart.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.btnBackAbnFScanPart.Location = New System.Drawing.Point(200, 2)
+        Me.btnBackAbnFScanPart.Name = "btnBackAbnFScanPart"
+        Me.btnBackAbnFScanPart.Size = New System.Drawing.Size(110, 20)
+        Me.btnBackAbnFScanPart.TabIndex = 34
+        Me.btnBackAbnFScanPart.Text = "Back"
         '
         'Label126
         '
@@ -3007,12 +3007,12 @@ Partial Public Class frmUnpack
         Me.ListView5.Columns.Add(Me.ColumnHeader2)
         Me.ListView5.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.ListView5.FullRowSelect = True
-        ListViewItem13.Text = "QR Code Cannot Read"
-        ListViewItem14.Text = "QR Code Damage"
-        ListViewItem15.Text = "QR Code Missing"
-        Me.ListView5.Items.Add(ListViewItem13)
-        Me.ListView5.Items.Add(ListViewItem14)
-        Me.ListView5.Items.Add(ListViewItem15)
+        ListViewItem43.Text = "QR Code Cannot Read"
+        ListViewItem44.Text = "QR Code Damage"
+        ListViewItem45.Text = "QR Code Missing"
+        Me.ListView5.Items.Add(ListViewItem43)
+        Me.ListView5.Items.Add(ListViewItem44)
+        Me.ListView5.Items.Add(ListViewItem45)
         Me.ListView5.Location = New System.Drawing.Point(8, 130)
         Me.ListView5.Name = "ListView5"
         Me.ListView5.Size = New System.Drawing.Size(305, 80)
@@ -3399,7 +3399,7 @@ Partial Public Class frmUnpack
     Friend WithEvents Label125 As System.Windows.Forms.Label
     Friend WithEvents Button4 As System.Windows.Forms.Button
     Friend WithEvents Panel29 As System.Windows.Forms.Panel
-    Friend WithEvents Button6 As System.Windows.Forms.Button
+    Friend WithEvents btnBackAbnFScanPart As System.Windows.Forms.Button
     Friend WithEvents Label126 As System.Windows.Forms.Label
     Friend WithEvents ListView5 As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader2 As System.Windows.Forms.ColumnHeader

@@ -38,7 +38,7 @@ Module GeneralVariables
     Public gAppName As String = "SERVICE PART"
     Public gProgPath As String = Path.GetDirectoryName([Assembly].GetExecutingAssembly.GetName.CodeBase) & "\" '+ System.Reflection.Assembly.GetExecutingAssembly.GetName.Name 'System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).ToString & " \ ""
     Public gDBPath As String ' = "" 'gProgPath '/ProgramFiles/DCSComs
-    Public gScannerID As String ' = getDeviceID()
+    Public gScannerID As String = getDeviceID()
     Public gScnPrefix As String ' = ""
     Public gScnSuffix As String ' = ""
     Public gDateTimeFormat As String ' = ""
@@ -68,22 +68,13 @@ Module GeneralVariables
     '---Master Table -----------------------------------------------
     Public TblSettingDb As String = "TBLSetting"
     Public TblUserDb As String = "SEP_LOGIN_V"
-    Public TblJSPOrganizationDb As String = "JSP_ORGANIZATION_HEADERS"
-    Public TblJSPSupplyBPHeaderDb As String = "JSP_SUPPLY_BP_HEADERS"
-    Public TblJSPSupplyCPHeaderDb As String = "JSP_SUPPLY_CP_HEADERS"
-    Public TblJSPAbnormalReasonCodeDb As String = "JSP_ABNORMAL_REASON_CODE"
-
-    '---- Not using ---------------------
-    'Public TblSEPPackVDb As String = "SEP_PACK_IMPORTER_V"
-    'Public TblSEPImporterVDb As String = "SEP_RB_IMPORTER_V"
-    'Public TblSEPCaseTypeVDb As String = "SEP_CASE_TYPE_V"
-    'Public TblSEPRBCurrLocDb As String = "SEP_RB_CURR_LC_V"
-    'Public TblSEPRBJobDb As String = "SEP_RB_JOB_V"
-    'Public TblSEPRBReasonDb As String = "SEP_RB_REASON_V"
-    'Public TblSEPRBTypeDb As String = "SEP_RB_TYPE_V"
-    'Public TblSEPStopperDb As String = "SEP_RB_STOPPER_QTY_V"
-    'Public TblSEPSupplierDb As String = "SEP_SUPPLIER_V"
-
+    Public TblJSPOrganizationDb As String = "JSP_ORGANIZATION_HEADERS_VIEW"
+    Public TblJSPSupplyBPHeaderDb As String = "JSP_SUPPLY_BP_HEADERS_VIEW"
+    Public TblJSPSupplyCPHeaderDb As String = "JSP_SUPPLY_CP_HEADERS_VIEW"
+    Public TblJSPAbnormalReasonCodeDb As String = "JSP_ABNORMAL_REASON_CODE_VIEW"
+    Public TblJSPUnpackInterfaceDb As String = "JSP_UNPACK_INTERFACE_VIEW"
+    Public TblJSPUnpackPendingDb As String = "JSP_UNPACK_PENDING_VIEW"
+    Public TblJSPUnpackingDetailsDb As String = "JSP_UNPACKING_DETAILS_VIEW"
 
     '----Main ------------
     Public boolsetting As Boolean = False
