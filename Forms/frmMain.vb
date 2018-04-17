@@ -36,7 +36,6 @@ Public Class frmReceiving
     End Sub
 
     Public Sub Init()
-
         Try
             TimerCheckOnline.Interval = interval
             TimerCheckOnline.Enabled = True
@@ -170,8 +169,6 @@ Public Class frmReceiving
     '    End If
     'End Sub
 
-
-
     Private Sub txtUsername_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs)
         'Select Case e.KeyCode
         '    Case Keys.Return, Keys.Enter
@@ -220,7 +217,6 @@ Public Class frmReceiving
             End Try
         End If
 
-
     End Function
 
     Private Function CheckDataImportOnShedule() As Boolean
@@ -266,7 +262,6 @@ Public Class frmReceiving
             MsgBox(ex.Message, MsgBoxStyle.Critical, "CheckDataImportOnToday")
         End Try
     End Function
-
 #End Region
 
     Private Sub TimerCheckOnline_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TimerCheckOnline.Tick
@@ -288,6 +283,7 @@ Public Class frmReceiving
 
     Private Sub btnCDIOReceiving_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCdioReceiving.Click
         Dim frm As New frmCdioReceiving
+        TimerCheckOnline.Enabled = False
         frm.AutoScroll = False
         frm.Init()
         frm.ShowDialog()

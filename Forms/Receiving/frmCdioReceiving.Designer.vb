@@ -20,13 +20,13 @@ Partial Public Class frmCdioReceiving
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCdioReceiving))
-        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem3 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem4 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem5 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem6 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem7 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem64 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem65 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem66 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem67 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem68 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem69 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem70 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
         Me.pnlCdioRcvMain = New System.Windows.Forms.Panel
         Me.Label12 = New System.Windows.Forms.Label
         Me.btnAbnormalCdio = New System.Windows.Forms.PictureBox
@@ -37,18 +37,16 @@ Partial Public Class frmCdioReceiving
         Me.Label8 = New System.Windows.Forms.Label
         Me.Panel3 = New System.Windows.Forms.Panel
         Me.footerStatusBar = New System.Windows.Forms.StatusBar
-        Me.TimerCheckOnline = New System.Windows.Forms.Timer
         Me.pnlCdioRcvScan = New System.Windows.Forms.Panel
         Me.Label44 = New System.Windows.Forms.Label
         Me.btnNextScan = New System.Windows.Forms.Button
         Me.Panel2 = New System.Windows.Forms.Panel
-        Me.Button1 = New System.Windows.Forms.Button
+        Me.btnCloseCdioRcvScan = New System.Windows.Forms.Button
         Me.Label31 = New System.Windows.Forms.Label
         Me.lblRcvExporter = New System.Windows.Forms.Label
         Me.Label9 = New System.Windows.Forms.Label
         Me.lblRcvContainer = New System.Windows.Forms.Label
         Me.Label11 = New System.Windows.Forms.Label
-        Me.btnFScan = New System.Windows.Forms.PictureBox
         Me.txtRCVSSEPIO = New System.Windows.Forms.TextBox
         Me.Label29 = New System.Windows.Forms.Label
         Me.Label30 = New System.Windows.Forms.Label
@@ -201,6 +199,8 @@ Partial Public Class frmCdioReceiving
         Me.TextBox3 = New System.Windows.Forms.TextBox
         Me.Label74 = New System.Windows.Forms.Label
         Me.Label75 = New System.Windows.Forms.Label
+        Me.Timer1 = New System.Windows.Forms.Timer
+        Me.Label3 = New System.Windows.Forms.Label
         Me.pnlCdioRcvMain.SuspendLayout()
         Me.Panel9.SuspendLayout()
         Me.pnlCdioRcvScan.SuspendLayout()
@@ -322,12 +322,10 @@ Partial Public Class frmCdioReceiving
         Me.footerStatusBar.Size = New System.Drawing.Size(1955, 24)
         Me.footerStatusBar.Text = "StatusBar1"
         '
-        'TimerCheckOnline
-        '
-        '
         'pnlCdioRcvScan
         '
         Me.pnlCdioRcvScan.BackColor = System.Drawing.Color.Transparent
+        Me.pnlCdioRcvScan.Controls.Add(Me.Label3)
         Me.pnlCdioRcvScan.Controls.Add(Me.Label44)
         Me.pnlCdioRcvScan.Controls.Add(Me.btnNextScan)
         Me.pnlCdioRcvScan.Controls.Add(Me.Panel2)
@@ -335,7 +333,6 @@ Partial Public Class frmCdioReceiving
         Me.pnlCdioRcvScan.Controls.Add(Me.Label9)
         Me.pnlCdioRcvScan.Controls.Add(Me.lblRcvContainer)
         Me.pnlCdioRcvScan.Controls.Add(Me.Label11)
-        Me.pnlCdioRcvScan.Controls.Add(Me.btnFScan)
         Me.pnlCdioRcvScan.Controls.Add(Me.txtRCVSSEPIO)
         Me.pnlCdioRcvScan.Controls.Add(Me.Label29)
         Me.pnlCdioRcvScan.Controls.Add(Me.Label30)
@@ -352,7 +349,7 @@ Partial Public Class frmCdioReceiving
         Me.Label44.Location = New System.Drawing.Point(0, 180)
         Me.Label44.Name = "Label44"
         Me.Label44.Size = New System.Drawing.Size(320, 22)
-        Me.Label44.Text = "Press Next To Continue"
+        Me.Label44.Text = "Scan.."
         Me.Label44.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'btnNextScan
@@ -367,20 +364,20 @@ Partial Public Class frmCdioReceiving
         'Panel2
         '
         Me.Panel2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Panel2.Controls.Add(Me.Button1)
+        Me.Panel2.Controls.Add(Me.btnCloseCdioRcvScan)
         Me.Panel2.Controls.Add(Me.Label31)
         Me.Panel2.Location = New System.Drawing.Point(0, 247)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(320, 24)
         '
-        'Button1
+        'btnCloseCdioRcvScan
         '
-        Me.Button1.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Button1.Location = New System.Drawing.Point(200, 2)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(110, 20)
-        Me.Button1.TabIndex = 34
-        Me.Button1.Text = "Close"
+        Me.btnCloseCdioRcvScan.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.btnCloseCdioRcvScan.Location = New System.Drawing.Point(200, 2)
+        Me.btnCloseCdioRcvScan.Name = "btnCloseCdioRcvScan"
+        Me.btnCloseCdioRcvScan.Size = New System.Drawing.Size(110, 20)
+        Me.btnCloseCdioRcvScan.TabIndex = 34
+        Me.btnCloseCdioRcvScan.Text = "Close"
         '
         'Label31
         '
@@ -393,47 +390,39 @@ Partial Public Class frmCdioReceiving
         'lblRcvExporter
         '
         Me.lblRcvExporter.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.lblRcvExporter.Location = New System.Drawing.Point(73, 119)
+        Me.lblRcvExporter.Location = New System.Drawing.Point(71, 121)
         Me.lblRcvExporter.Name = "lblRcvExporter"
-        Me.lblRcvExporter.Size = New System.Drawing.Size(214, 15)
+        Me.lblRcvExporter.Size = New System.Drawing.Size(236, 21)
         '
         'Label9
         '
         Me.Label9.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label9.Location = New System.Drawing.Point(8, 119)
+        Me.Label9.Location = New System.Drawing.Point(8, 121)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(52, 20)
+        Me.Label9.Size = New System.Drawing.Size(68, 15)
         Me.Label9.Text = "Exporter :"
         '
         'lblRcvContainer
         '
         Me.lblRcvContainer.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.lblRcvContainer.Location = New System.Drawing.Point(100, 79)
+        Me.lblRcvContainer.Location = New System.Drawing.Point(89, 87)
         Me.lblRcvContainer.Name = "lblRcvContainer"
-        Me.lblRcvContainer.Size = New System.Drawing.Size(170, 15)
+        Me.lblRcvContainer.Size = New System.Drawing.Size(220, 21)
         '
         'Label11
         '
         Me.Label11.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label11.Location = New System.Drawing.Point(8, 79)
+        Me.Label11.Location = New System.Drawing.Point(8, 87)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(80, 15)
         Me.Label11.Text = "Container No :"
-        '
-        'btnFScan
-        '
-        Me.btnFScan.Image = CType(resources.GetObject("btnFScan.Image"), System.Drawing.Image)
-        Me.btnFScan.Location = New System.Drawing.Point(273, 49)
-        Me.btnFScan.Name = "btnFScan"
-        Me.btnFScan.Size = New System.Drawing.Size(30, 22)
-        Me.btnFScan.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         '
         'txtRCVSSEPIO
         '
         Me.txtRCVSSEPIO.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.txtRCVSSEPIO.Location = New System.Drawing.Point(8, 51)
         Me.txtRCVSSEPIO.Name = "txtRCVSSEPIO"
-        Me.txtRCVSSEPIO.Size = New System.Drawing.Size(263, 19)
+        Me.txtRCVSSEPIO.Size = New System.Drawing.Size(301, 19)
         Me.txtRCVSSEPIO.TabIndex = 13
         '
         'Label29
@@ -524,12 +513,12 @@ Partial Public Class frmCdioReceiving
         Me.lstViewRCVFScan.Columns.Add(Me.ColumnHeader1)
         Me.lstViewRCVFScan.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.lstViewRCVFScan.FullRowSelect = True
-        ListViewItem1.Text = "QR Code Cannot Read"
-        ListViewItem2.Text = "QR Code Damage"
-        ListViewItem3.Text = "QR Code Missing"
-        Me.lstViewRCVFScan.Items.Add(ListViewItem1)
-        Me.lstViewRCVFScan.Items.Add(ListViewItem2)
-        Me.lstViewRCVFScan.Items.Add(ListViewItem3)
+        ListViewItem64.Text = "QR Code Cannot Read"
+        ListViewItem65.Text = "QR Code Damage"
+        ListViewItem66.Text = "QR Code Missing"
+        Me.lstViewRCVFScan.Items.Add(ListViewItem64)
+        Me.lstViewRCVFScan.Items.Add(ListViewItem65)
+        Me.lstViewRCVFScan.Items.Add(ListViewItem66)
         Me.lstViewRCVFScan.Location = New System.Drawing.Point(8, 130)
         Me.lstViewRCVFScan.Name = "lstViewRCVFScan"
         Me.lstViewRCVFScan.Size = New System.Drawing.Size(305, 80)
@@ -592,7 +581,6 @@ Partial Public Class frmCdioReceiving
         Me.Label62.Location = New System.Drawing.Point(0, 205)
         Me.Label62.Name = "Label62"
         Me.Label62.Size = New System.Drawing.Size(320, 20)
-        Me.Label62.Text = "Successfully Updated"
         Me.Label62.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'Label60
@@ -603,7 +591,7 @@ Partial Public Class frmCdioReceiving
         Me.Label60.Location = New System.Drawing.Point(0, 180)
         Me.Label60.Name = "Label60"
         Me.Label60.Size = New System.Drawing.Size(320, 22)
-        Me.Label60.Text = "OK"
+        Me.Label60.Text = "Scan.."
         Me.Label60.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'lblTotalScanned
@@ -703,7 +691,6 @@ Partial Public Class frmCdioReceiving
         Me.lblCdioNo.Location = New System.Drawing.Point(120, 34)
         Me.lblCdioNo.Name = "lblCdioNo"
         Me.lblCdioNo.Size = New System.Drawing.Size(131, 15)
-        Me.lblCdioNo.Text = "PM212343223"
         '
         'Label33
         '
@@ -1342,14 +1329,14 @@ Partial Public Class frmCdioReceiving
         Me.lstCdioRcvModule.Columns.Add(Me.ColumnHeader12)
         Me.lstCdioRcvModule.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.lstCdioRcvModule.FullRowSelect = True
-        ListViewItem4.Text = "1"
-        ListViewItem4.SubItems.Add("33333")
-        ListViewItem4.SubItems.Add("D59DEV000001")
-        ListViewItem5.Text = "2"
-        ListViewItem5.SubItems.Add("44444")
-        ListViewItem5.SubItems.Add("D59DEV000001")
-        Me.lstCdioRcvModule.Items.Add(ListViewItem4)
-        Me.lstCdioRcvModule.Items.Add(ListViewItem5)
+        ListViewItem67.Text = "1"
+        ListViewItem67.SubItems.Add("33333")
+        ListViewItem67.SubItems.Add("D59DEV000001")
+        ListViewItem68.Text = "2"
+        ListViewItem68.SubItems.Add("44444")
+        ListViewItem68.SubItems.Add("D59DEV000001")
+        Me.lstCdioRcvModule.Items.Add(ListViewItem67)
+        Me.lstCdioRcvModule.Items.Add(ListViewItem68)
         Me.lstCdioRcvModule.Location = New System.Drawing.Point(3, 3)
         Me.lstCdioRcvModule.Name = "lstCdioRcvModule"
         Me.lstCdioRcvModule.Size = New System.Drawing.Size(300, 170)
@@ -1421,14 +1408,14 @@ Partial Public Class frmCdioReceiving
         Me.lstViewRCISummary.Columns.Add(Me.ColumnHeader19)
         Me.lstViewRCISummary.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.lstViewRCISummary.FullRowSelect = True
-        ListViewItem6.Text = "1"
-        ListViewItem6.SubItems.Add("11111")
-        ListViewItem6.SubItems.Add("D59DEV000001")
-        ListViewItem7.Text = "2"
-        ListViewItem7.SubItems.Add("22222")
-        ListViewItem7.SubItems.Add("D59DEV000001")
-        Me.lstViewRCISummary.Items.Add(ListViewItem6)
-        Me.lstViewRCISummary.Items.Add(ListViewItem7)
+        ListViewItem69.Text = "1"
+        ListViewItem69.SubItems.Add("11111")
+        ListViewItem69.SubItems.Add("D59DEV000001")
+        ListViewItem70.Text = "2"
+        ListViewItem70.SubItems.Add("22222")
+        ListViewItem70.SubItems.Add("D59DEV000001")
+        Me.lstViewRCISummary.Items.Add(ListViewItem69)
+        Me.lstViewRCISummary.Items.Add(ListViewItem70)
         Me.lstViewRCISummary.Location = New System.Drawing.Point(3, 3)
         Me.lstViewRCISummary.Name = "lstViewRCISummary"
         Me.lstViewRCISummary.Size = New System.Drawing.Size(299, 170)
@@ -1536,6 +1523,7 @@ Partial Public Class frmCdioReceiving
         '
         'Button6
         '
+        Me.Button6.Enabled = False
         Me.Button6.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
         Me.Button6.Location = New System.Drawing.Point(200, 2)
         Me.Button6.Name = "Button6"
@@ -1583,11 +1571,13 @@ Partial Public Class frmCdioReceiving
         '
         'PictureBox2
         '
+        Me.PictureBox2.Enabled = False
         Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
         Me.PictureBox2.Location = New System.Drawing.Point(273, 49)
         Me.PictureBox2.Name = "PictureBox2"
         Me.PictureBox2.Size = New System.Drawing.Size(30, 22)
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.PictureBox2.Visible = False
         '
         'TextBox2
         '
@@ -1671,6 +1661,7 @@ Partial Public Class frmCdioReceiving
         '
         'btnCdioRcvModuleDet
         '
+        Me.btnCdioRcvModuleDet.Enabled = False
         Me.btnCdioRcvModuleDet.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
         Me.btnCdioRcvModuleDet.Location = New System.Drawing.Point(223, 3)
         Me.btnCdioRcvModuleDet.Name = "btnCdioRcvModuleDet"
@@ -1763,6 +1754,7 @@ Partial Public Class frmCdioReceiving
         '
         'PictureBox3
         '
+        Me.PictureBox3.Enabled = False
         Me.PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), System.Drawing.Image)
         Me.PictureBox3.Location = New System.Drawing.Point(273, 49)
         Me.PictureBox3.Name = "PictureBox3"
@@ -1780,7 +1772,7 @@ Partial Public Class frmCdioReceiving
         'Label74
         '
         Me.Label74.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label74.Location = New System.Drawing.Point(8, 34)
+        Me.Label74.Location = New System.Drawing.Point(10, 34)
         Me.Label74.Name = "Label74"
         Me.Label74.Size = New System.Drawing.Size(68, 20)
         Me.Label74.Text = "CDIO :"
@@ -1792,6 +1784,18 @@ Partial Public Class frmCdioReceiving
         Me.Label75.Location = New System.Drawing.Point(2, 2)
         Me.Label75.Name = "Label75"
         Me.Label75.Size = New System.Drawing.Size(316, 20)
+        '
+        'Timer1
+        '
+        Me.Timer1.Interval = 10000
+        '
+        'Label3
+        '
+        Me.Label3.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.Label3.Location = New System.Drawing.Point(-1, 205)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(320, 20)
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'frmCdioReceiving
         '
@@ -1855,7 +1859,6 @@ Partial Public Class frmCdioReceiving
     End Sub
     Friend WithEvents pnlCdioRcvMain As System.Windows.Forms.Panel
     Friend WithEvents footerStatusBar As System.Windows.Forms.StatusBar
-    Friend WithEvents TimerCheckOnline As System.Windows.Forms.Timer
     Friend WithEvents Panel3 As System.Windows.Forms.Panel
     Friend WithEvents btnScanCdio As System.Windows.Forms.PictureBox
     Friend WithEvents Panel9 As System.Windows.Forms.Panel
@@ -1866,13 +1869,12 @@ Partial Public Class frmCdioReceiving
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents pnlCdioRcvScan As System.Windows.Forms.Panel
     Friend WithEvents Panel2 As System.Windows.Forms.Panel
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents btnCloseCdioRcvScan As System.Windows.Forms.Button
     Friend WithEvents Label31 As System.Windows.Forms.Label
     Friend WithEvents lblRcvExporter As System.Windows.Forms.Label
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents lblRcvContainer As System.Windows.Forms.Label
     Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents btnFScan As System.Windows.Forms.PictureBox
     Friend WithEvents txtRCVSSEPIO As System.Windows.Forms.TextBox
     Friend WithEvents Label29 As System.Windows.Forms.Label
     Friend WithEvents Label30 As System.Windows.Forms.Label
@@ -2027,5 +2029,7 @@ Partial Public Class frmCdioReceiving
     Friend WithEvents TextBox4 As System.Windows.Forms.TextBox
     Friend WithEvents Label76 As System.Windows.Forms.Label
     Friend WithEvents ColumnHeader2 As System.Windows.Forms.ColumnHeader
+    Private WithEvents Timer1 As System.Windows.Forms.Timer
+    Friend WithEvents Label3 As System.Windows.Forms.Label
 
 End Class

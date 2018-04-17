@@ -49,6 +49,8 @@ Module GeneralVariables
     Public gStrDCSWebServiceURL As String ' = "" '"http://192.168.170.169:8084/DCSWebService.svc"
     Public ws_dcsClient As DCSWebService.DCSWebService = New DCSWebService.DCSWebService
     ' MAKE WEBSERVICE OFFLINE MODE AND TRY ABNORMAL SERVICE
+    Public ws_dcsClient As DCSWebService.DCSWebService = New DCSWebService.DCSWebService
+    ' MAKE WEBSERVICE OFFLINE MODE AND TRY ABNORMAL SERVICE
 
     Public gStrOracleWebServiceURL As String ' = "" '"http://10.1.115.94:4559/ws/perodua.eai.process.inventory.ws.servicePart:processServicePartService/perodua_eai_process_inventory_ws_servicePart_processServicePartService_Port"
     Public gStrOraUserID As String ' = "" ' "promiseusr"
@@ -419,6 +421,34 @@ Module GeneralVariables
         End Try
         Return rtnStr
     End Function
+#End Region
+
+#Region "CDIO Module Constraint"
+
+    Public Const CDIO_ID_LENGTH As Integer = 10
+    Public Const CDIO_NO_LENGTH As Integer = 13
+    Public Const PROD_DATE_LENGTH As Integer = 10
+    Public Const EXPORTER_CODE_LENGTH As Integer = 3
+    Public Const EXPORTER_LENGTH As Integer = 50
+    Public Const CONTAINER_ID_LENGTH As Integer = 5
+    Public Const CONTAINER_NO_LENGTH As Integer = 11
+    Public Const ORG_ID_LENGTH As Integer = 2
+    Public Const SCAN_FLAG_LENGTH As Integer = 1
+
+    Public Const MODULE_NO_LENGTH As Integer = 6
+    Public Const PILLING_NO_LENGTH As Integer = 1
+    Public Const GROSS_WEIGHT_LENGTH As Integer = 5
+    Public Const ORDER_NO_LENGTH As Integer = 12
+
+    'Related Table
+    Public CDIO_INTERFACE As String = "JSP_RCV_CDIO_INTERFACE"
+    Public CDIO_DETAILS_VIEW As String = "JSP_CDIO_DETAILS_VIEW"
+    Public CDIO_INTERFACE_VIEW As String = "JSP_CDIO_INTERFACE_VIEW"
+    Public CDIO_PENDING_DETAILS_VIEW As String = "JSP_CDIO_PENDING_DETAILS_VIEW"
+    Public ABNORMAL_REASON_CODE_VIEW As String = "JSP_ABNORMAL_REASON_CODE_VIEW"
+
+    Public CDIO_BATCH As String = "JSP_CDIO_BATCH"
+
 #End Region
 
 End Module

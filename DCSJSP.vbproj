@@ -25,7 +25,6 @@
     <FormFactorID>
     </FormFactorID>
     <DeployDirPrefix>%25CSIDL_PROGRAM_FILES%25</DeployDirPrefix>
-    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -60,7 +59,9 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SqlClient, Version=3.0.3600.0, Culture=neutral, PublicKeyToken=3be235df1c8d2ad3, processorArchitecture=MSIL" />
-    <Reference Include="System.Data.SqlServerCe, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3be235df1c8d2ad3, processorArchitecture=MSIL" />
+    <Reference Include="System.Data.SqlServerCe, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3be235df1c8d2ad3, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -196,6 +197,7 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Web References\DCSWebService\DCSWebService.disco" />
     <None Include="Web References\DCSWebService\DCSWebService.wsdl" />
     <None Include="Web References\DCSWebService\DCSWebService.xsd" />
     <None Include="Web References\DCSWebService\Reference.map">
@@ -209,10 +211,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="D:\Projects\Latest Source Code\Perodua\DCSComs\DCSComs\bin\Debug\processServicePartService.wsdl">
-      <UrlBehavior>Dynamic</UrlBehavior>
+    <WebReferenceUrl Include="C:\DCSJSP\Web References\OraWebService\processServicePartService.wsdl">
+      <UrlBehavior>Static</UrlBehavior>
       <RelPath>Web References\OraWebService\</RelPath>
-      <UpdateFromURL>D:\Projects\Latest Source Code\Perodua\DCSComs\DCSComs\bin\Debug\processServicePartService.wsdl</UpdateFromURL>
+      <UpdateFromURL>C:\DCSJSP\Web References\OraWebService\processServicePartService.wsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
@@ -237,7 +239,6 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Config.xml" />
     <Content Include="Images\Abnormal.png" />
     <Content Include="Images\BigPart.png" />
     <Content Include="Images\CDIO.png" />
@@ -251,7 +252,6 @@
     <Content Include="Images\Supply.png" />
     <Content Include="Images\Unpack.png" />
     <Content Include="Images\View.png" />
-    <None Include="Web References\DCSWebService\DCSWebService.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.VisualBasic.targets" />
   <ProjectExtensions>

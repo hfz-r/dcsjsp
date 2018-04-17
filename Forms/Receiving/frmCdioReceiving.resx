@@ -668,29 +668,6 @@
         YII=
 </value>
   </data>
-  <metadata name="TimerCheckOnline.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="btnFScan.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        xAAADsQBlSsOGwAAA0lJREFUOE9tVUso9FEcvRaGspCFxShZEEuipBQ7j6JBHqGZDYo8FooFFvLIowgL
-        FhaS5FEUk2GBDdlIikKkJImEYoHI4Zy+O33f15y6zX38fuf+Huf+x/wCsbGxiI+PR0JCAsLCwtDY2Ijy
-        8nJcXl6CuLu7Q25uLiIjIxEdHY3BwUHU1dXJlj70JQe5DCfEysoKVldX8fr6KrKqqiq0tLTojI5JSUnw
-        er2yOz8/R35+vmzpwz1CpGTnhth/x8vLi5+Q69HRUTllZGT4be7v70VIW7tHDnIZhkwHe/D29qb0CJvi
-        8vKyzi4uLvTb09ODkpIS2Vo/cpDLMB2GzttoMD8/j9LSUo3Q0FDExMSI3O12y8kiOztbtvShLznIZdiA
-        wsJCZGVl6VYS0XFiYkKOvL2jo0PRsRENDQ3Iy8tT1EVFRcqGJeIgl6mpqcHCwoKcm5ubVZvp6WmtCUu4
-        v7+vdWtrKwoKCjRnnQmS1dbWwuPx0N5IBnNzc/j8/FT4bAT3v7+/8fHxISdG8v7+jqCgIF1qQbuKigpk
-        ZmZicXER5s8+mpqaEBwcrLr19vZifHxcxikpKTovLi7G4eEhHA6HLibCw8NlExISoqAIc319LUkQGxsb
-        WFpawsnJCW5vb1FWVqZ9apB1jYqK0oVxcXGKkmQDAwOorq7WvK2tDSYtLU2LnJwczM7Oas6G8JdgvVij
-        zc1NJCYmKsKhoSHZrK2tqe7b29uSDOeG3ePTYhrJycki4gGj4/zg4EC/fw/blPT0dK0paAZDmKurK/T3
-        9+uAmnp+fpamGDlfxP94enrC4+Mjjo6O8PDwgNPTU/9FNzc3MNSglQ1BPTJFGpydneHr60tS6ezsxOTk
-        pNLmGW3YKM5TU1MxNTUl/3+EzUFh+3w+CZk4Pj72R9De3u5/6zMzMzrn/sjIiCSldaCnxxdAGdCYoBJo
-        w3fNdBmZhb3M6XSqYQE/DnyC1CUbRfkwXVv0ra0tvy2Hy+XC8PAwuru7FWXAzxdTJ/b29rTHJ8UGWBvq
-        li+Hc6KyshIRERFqZMAPLGtKkdNhfX0dY2Nj6Ovr03pnZ0fit99H1ry+vl6ExO9e4L8A2xymbYlpxxSt
-        Nnd3d6Xhrq4urZ1OJ34AjIrNfnEfjxAAAAAASUVORK5CYII=
-</value>
-  </data>
   <data name="btnFScanModule.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
@@ -1491,6 +1468,9 @@
         Nnd3d6Xhrq4urZ1OJ34AjIrNfnEfjxAAAAAASUVORK5CYII=
 </value>
   </data>
+  <metadata name="Timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <metadata name="$this.FormFactorShadowProperty" xml:space="preserve">
     <value>WEBPAD</value>
   </metadata>

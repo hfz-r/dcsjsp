@@ -14,7 +14,6 @@ Imports System.Net
 
 Module GeneralFunction
 
-
     Dim clsDataTransfer As New clsDataTransfer
 
 	Public PlaySound As Boolean = False

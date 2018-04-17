@@ -1303,7 +1303,6 @@ Module SQLCEFunction
         Dim SqlCmd As SqlCeCommand = Nothing
 
         Try
-
             If objConn.State = ConnectionState.Closed Then
                 objConn = OpenConnection()
             End If

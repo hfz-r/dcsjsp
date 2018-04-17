@@ -752,7 +752,6 @@ Partial Public Class frmReceiving
     Friend WithEvents pnlMenuSupplyPGMSB As System.Windows.Forms.Panel
     Friend WithEvents pnlMenuSupplyPMSB As System.Windows.Forms.Panel
     Friend WithEvents footerStatusBar As System.Windows.Forms.StatusBar
-    Friend WithEvents TimerCheckOnline As System.Windows.Forms.Timer
     Friend WithEvents Panel2 As System.Windows.Forms.Panel
     Friend WithEvents Label30 As System.Windows.Forms.Label
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
@@ -801,5 +800,6 @@ Partial Public Class frmReceiving
     Friend WithEvents txtAUTPWD As System.Windows.Forms.TextBox
     Friend WithEvents Label29 As System.Windows.Forms.Label
     Friend WithEvents btnSubmitAuth As System.Windows.Forms.Button
+    Friend WithEvents TimerCheckOnline As System.Windows.Forms.Timer
 
 End Class
