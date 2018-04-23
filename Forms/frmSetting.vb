@@ -7,6 +7,7 @@ Imports System.Text.RegularExpressions
 Public Class frmSetting
 
     Dim sSQL As String = ""
+    Dim dt As DataTable = New DataTable
     Dim bConnected As Boolean = False
     Dim gFullPath As String = gProgPath + gDatabaseName
     Dim IsOnline As Boolean = False
@@ -536,7 +537,22 @@ Public Class frmSetting
     '    End Try
     'End Sub
 
-    Private Sub btnOrgSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOrgSave.Click
 
+    Private Sub btnOrgSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOrgSave.Click
+        Try
+            sSQL = "SELECT ORG_ID FROM " + TblJSPOrganizationDb + " WHERE ORG_NAME = '" + cboOrganization.Text + "'"
+            dt = getData(sSQL)
+            Dim temp_OrgID As String = ""
+            For i As Integer = 0 To dt.Rows.Count - 1
+                temp_OrgID = dt.Rows(i).Item(0).ToString()
+            Next
+
+            sSQL = Nothing
+            sSQL = "UPDATE TBLSetting SET SettingValue = " & SQLQuote(temp_OrgID) & " WHERE SettingCode = 'ORG_ID' "
+            ExecuteSQL(sSQL)
+            MsgBox("Successfully Saved.", MsgBoxStyle.Information, "Organization")
+        Catch ex As Exception
+            MsgBox("Invalid: " + ex.Message.ToString(), MsgBoxStyle.Critical, "Error")
+        End Try
     End Sub
 End Class

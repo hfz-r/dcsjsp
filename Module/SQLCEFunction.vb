@@ -110,78 +110,14 @@ Module SQLCEFunction
                 clsDataTransfer.ImportMasterData(TblJSPSupplyCPHeaderDb)
                 sSupply = "Y"
 
-                'sSQL = "SELECT * FROM TBLSetting"
-                'dt = getData(sSQL)
+                'clsDataTransfer.ImportMasterData(TblJSPUnpackInterfaceDb)
+                'sUnpackInterface = "Y"
 
-                'For i As Integer = 0 To dt.Rows.Count - 1
-                '    If dt.Rows(i).Item(2) = "FIRSTTIME" Then
-                '        Dim gValue As String = dt.Rows(i).Item(3).ToString()
-                '        If gValue = "Y" Then
-                '            chkFirstTime = True
-                '        Else
-                '            chkFirstTime = False
-                '        End If
-                '    End If
-                'Next
+                'clsDataTransfer.ImportMasterData(TblJSPUnpackingDetailsDb)
+                'sUnpackDetails = "Y"
 
-                'If chkFirstTime = True Then
-                '    clsDataTransfer.ImportMasterData(TblUserDb)
-                '    UpdateTBLSettingOnSchedule("Y", "USER")
-                '    sUser = "Y"
-
-                '    clsDataTransfer.ImportMasterData(TblJSPOrganizationDb)
-                '    UpdateTBLSettingOnSchedule("Y", "ORGANIZATION")
-                '    sOrganization = "Y"
-
-                '    clsDataTransfer.ImportMasterData(TblJSPAbnormalReasonCodeDb)
-                '    UpdateTBLSettingOnSchedule("Y", "REASON")
-                '    sReason = "Y"
-
-                '    clsDataTransfer.ImportMasterData(TblJSPSupplyBPHeaderDb)
-                '    UpdateTBLSettingOnSchedule("Y", "SHOP")
-                '    sShop = "Y"
-
-                '    clsDataTransfer.ImportMasterData(TblJSPSupplyCPHeaderDb)
-                '    UpdateTBLSettingOnSchedule("Y", "SUPPLIER")
-                '    sSupply = "Y"
-
-                '    sSQL = "UPDATE TBLSetting SET SettingValue = 'N' WHERE SettingCode = 'FIRSTTIME'"
-                '    ExecuteSQL(sSQL)
-                'End If
-
-                'If chkFirstTime = False Then
-                '    sSQL = "SELECT * FROM TBLSetting"
-                '    dt = getData(sSQL)
-
-                '    For i As Integer = 0 To dt.Rows.Count - 1
-                '        If dt.Rows(i).Item(2) = "USER" Then
-                '            Dim gValue = dt.Rows(i).Item(3).ToString()
-                '            If gValue = sUser Then
-                '                clsDataTransfer.ImportMasterData(TblUserDb)
-                '                UpdateTBLSettingOnSchedule("Y", "USER")
-                '                sUser = "Y"
-                '            Else
-                '                sUser = "N"
-                '            End If
-                '        End If
-                '    Next
-                'End If
-                
-
-                '' ======= NOT IN USE =========
-                'If sReason = "Y" Then clsDataTransfer.ImportMasterData(TblSEPRBReasonDb)
-                'If sRBType = "Y" Then clsDataTransfer.ImportMasterData(TblSEPRBTypeDb)
-                'If sImporter = "Y" Then clsDataTransfer.ImportMasterData(TblSEPImporterVDb)
-                'If sVendor = "Y" Then clsDataTransfer.ImportMasterData(TblSEPSupplierDb)
-                'If sCustomer = "Y" Then clsDataTransfer.ImportMasterData(TblSEPPackVDb)
-                'If sCaseType = "Y" Then clsDataTransfer.ImportMasterData(TblSEPCaseTypeVDb)
-                'If sStopperType = "Y" Then clsDataTransfer.ImportMasterData(TblSEPStopperDb)
-
-                'Check scanner serial to get scanner number
-                'If Not clsDataTransfer.ImportScannerNumber() Then
-                '    status = False
-                'End If
-
+                'clsDataTransfer.ImportMasterData(TblJSPUnpackPendingDb)
+                'sUnpackPending = "y"
 
             End If
             progressbar.Value = prgProgress.Value + 20
@@ -290,20 +226,115 @@ Module SQLCEFunction
                 progressbar.Value = progressbar.Value + 2
             End If
 
+            ' MERGE THIS TABLE INTO UNPACK FORM
             'If Not TblJSPUnpackInterfaceDb.Equals("") Then
             '    SQL = Nothing
             '    SQL = New System.Text.StringBuilder("")
             '    SQL.Append("CREATE TABLE [" + TblJSPUnpackInterfaceDb + "] (")
-            '    SQL.Append("ID INT IDENTITY ")
-            '    SQL.Append(",REASON_CODE INTEGER ")
-            '    SQL.Append(",REASON NVARCHAR(100) ")
+            '    SQL.Append("RCV_INTERFACE_ID INTEGER ")
+            '    SQL.Append(",RCV_INTERFACE_BATCH_ID INTEGER ")
+            '    SQL.Append(",MODULE_ID INTEGER ")
+            '    SQL.Append(",MODULE_NO NVARCHAR(20) ")
+            '    SQL.Append(",PART_ID INTEGER ")
+            '    SQL.Append(",PXP_PART_NO NVARCHAR(10) ")
+            '    SQL.Append(",QTY_BOX INTEGER ")
+            '    SQL.Append(",PXP_PART_SEQ_NO INTEGER ")
+            '    SQL.Append(",MANUFACTURE_CODE NVARCHARA(2) ")
+            '    SQL.Append(",SUPPLIER_CODE NVARCHAR(4) ")
+            '    SQL.Append(",SUPPLIER_PLANT_CODE NVARCHAR(1) ")
+            '    SQL.Append(",SUPPLIER_SHIPPING_DOCK NVARCHAR(3) ")
+            '    SQL.Append(",BEFORE_PACKING_ROUTING NVARCHAR(6) ")
+            '    SQL.Append(",RECEIVING_COMPANY_CODE NVARCHAR(4) ")
+            '    SQL.Append(",RECEIVING_PLANT_CODE NVARCHAR(1) ")
+            '    SQL.Append(",RECEIVING_DOCK_CODE NVARCHAR(1) ")
+            '    SQL.Append(",PACKING_ROUTING_CODE NVARCHAR(6) ")
+            '    SQL.Append(",GRANTER_CODE NVARCHAR(4) ")
+            '    SQL.Append(",ORDER_TYPE NVARCHAR(1) ")
+            '    SQL.Append(",KANBAN_CLASSIFICATION NVARCHAR(1) ")
+            '    SQL.Append(",DELIVERY_CODE NVARCHAR(2) ")
+            '    SQL.Append(",MROS NVARCHAR(2) ")
+            '    SQL.Append(",ORDER_NO NVARCHAR(12) ")
+            '    SQL.Append(",DELIVERY_NO NVARCHAR(5) ")
+            '    SQL.Append(",BACK_NUMBER NVARCHAR(4) ")
+            '    SQL.Append(",PXP_PART_NO_SFX NVARCHAR(2) ")
+            '    SQL.Append(",RUNOUT_FLAG NVARCHAR(1) ")
+            '    SQL.Append(",BOX_TYPE NVARCHAR(8) ")
+            '    SQL.Append(",BRANCH_NO NVARCHAR(4) ")
+            '    SQL.Append(",ADDRESS NVARCHAR(10) ")
+            '    SQL.Append(",PACKING_DATE NVARCHAR(8) ")
+            '    SQL.Append(",KATASHIKI_JERSEY_NO NVARCHAR(3) ")
+            '    SQL.Append(",LOT_NO NVARCHAR(4) ")
+            '    SQL.Append(",MODULE_CATEGORY NVARCHAR(2) ")
+            '    SQL.Append(",PART_BRANCH_NO NVARCHAR(2) ")
+            '    SQL.Append(",DUMMY NVARCHAR(20) ")
+            '    SQL.Append(",VERSION_NO NVARCHAR(2) ")
             '    SQL.Append(",ORG_ID INTEGER ")
+            '    SQL.Append(",UNPACK_BY NVARCHAR(20) ")
+            '    SQL.Append(",UNPACK_DATE DATETIME ")
+            '    SQL.Append(",SCANNER_BATCH_ID NVARCHAR(20) ")
+            '    SQL.Append(",SCANNER_HT_ID NVARCHAR(20) ")
+            '    SQL.Append(",PROCESS_DATE DATETIME ")
+            '    SQL.Append(",PROCESS_FLAG NVARCHAR(10) ")
+            '    SQL.Append(",CREATED_BY NVARCHAR(20) ")
+            '    SQL.Append(",CREATED_DATE DATETIME ")
+            '    SQL.Append(",UPDATED_BY NVARCHAR(20) ")
+            '    SQL.Append(",UPDATED_DATE DATETIME ")
+            '    SQL.Append(",ERROR_MSG NVARCHAR(700) ")
+            '    SQL.Append(",POST_DATE DATETIME ")
+            '    SQL.Append(",DELIVERY_DATE DATETIME ")
+            '    SQL.Append(",ON_OFF_LINE_FLAG NVARCHAR(5) ")
+            '    SQL.Append(",SCAN_DATE DATETIME ")
+            '    SQL.Append(",FORCE_MODULE_STATUS NVARCHAR(1) ")
+            '    SQL.Append(",FORCE_MODULE_REASON_ID INTEGER ")
+            '    SQL.Append(",FORCE_PXP_STATUS NVARCHAR(1) ")
+            '    SQL.Append(",FORCE_PXP_REASON_ID INTEGER ")
+            '    SQL.Append(",PART_NO NVARCHAR(20) ")
             '    SQL.Append(") ")
             '    If ExecuteSQL(SQL.ToString) = False Then
-            '        MsgBox("Failed to create table Unpack Interface!", MsgBoxStyle.Critical, "Import")
+            '        MsgBox("Failed to create table JSP_UNPACK_INTERFACE_VIEW_VIEW!", MsgBoxStyle.Critical, "Import")
             '        Exit Function
             '    End If
             '    progressbar.Value = progressbar.Value + 2
+            'End If
+
+            'If Not TblJSPUnpackPendingDb.Trim.Equals("") Then
+            '    SQL = Nothing
+            '    SQL = New System.Text.StringBuilder("")
+            '    SQL.Append("CREATE TABLE [" + TblJSPUnpackPendingDb + "] (")
+            '    SQL.Append("MODULE_ID INTEGER ")
+            '    SQL.Append(",MODULE_NO NVARCHYAR(20) ")
+            '    SQL.Append(",PART_NO NVARCHAR(20) ")
+            '    SQL.Append(",PART_NAME NVARCHAR(50) ")
+            '    SQL.Append(",QUANTITY_BOX INTEGER ")
+            '    SQL.Append(",PART_SEQ_NO INTEGER ")
+            '    SQL.Append(",BRANCH_NO NVARCHAR(42) ")
+            '    SQL.Append(",ORG_ID INTEGER ")
+            '    SQL.Append(") ")
+            '    If ExecuteSQL(SQL.ToString) = False Then
+            '        MsgBox("Failed to create table JSP_UNPACK_PENDING_VIEW!", MsgBoxStyle.Critical, "Import")
+            '        Exit Function
+            '    End If
+            'End If
+
+            'If Not TblJSPUnpackingDetailsDb.Trim.Equals("") Then
+            '    SQL = Nothing
+            '    SQL = New System.Text.StringBuilder("")
+            '    SQL.Append("CREATE TABLE [" + TblJSPUnpackingDetailsDb + "] (")
+            '    SQL.Append("MODULE_ID INTEGER ")
+            '    SQL.Append(",MODULE_NO NVARCHAR(20) ")
+            '    SQL.Append(",PART_ID INTEGER ")
+            '    SQL.Append(",PART_NO NVARCHAR(20) ")
+            '    SQL.Append(",PART_NAME NVARCHAR(50) ")
+            '    SQL.Append(",QUANTITY_BOX INTEGER ")
+            '    SQL.Append(",PART_SEQ_NO INTEGER ")
+            '    SQL.Append(",BRANCH_NO NVARCHAR(42) ")
+            '    SQL.Append(",ORG_ID INTEGER ")
+            '    SQL.Append(",PART_STATUS NVARCHAR(10) ")
+            '    SQL.Append(") ")
+            '    If ExecuteSQL(SQL.ToString) = False Then
+            '        MsgBox("Failed to create table JSP_UNPACKING_DETAILS_VIEW!", MsgBoxStyle.Critical, "Import")
+            '        Exit Function
+            '    End If
             'End If
 
             If Not TblSettingDb.Trim.Equals("") Then
@@ -438,6 +469,27 @@ Module SQLCEFunction
                     Exit Function
                 End If
 
+                'sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
+                '& " VALUES ('IMPORT','UNPACK_INTERFACE_VIEW','N')"
+                'If ExecuteSQL(sSQL) = False Then
+                '    MsgBox("Failed to insert import UNPACK_INTERFACE_VIEW master data!", MsgBoxStyle.Critical, "Import")
+                '    Exit Function
+                'End If
+
+                'sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
+                '& " VALUES ('IMPORT','UNPACK_DETAILS_VIEW','N')"
+                'If ExecuteSQL(sSQL) = False Then
+                '    MsgBox("Failed to insert import UNPACK_DETAILS_VIEW master data!", MsgBoxStyle.Critical, "Import")
+                '    Exit Function
+                'End If
+
+                'sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
+                '& " VALUES ('IMPORT','UNPACK_PENDING_VIEW','N')"
+                'If ExecuteSQL(sSQL) = False Then
+                '    MsgBox("Failed to insert import UNPACK_PENDING_VIEW master data!", MsgBoxStyle.Critical, "Import")
+                '    Exit Function
+                'End If
+
                 sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
                 & " VALUES ('CHKIMPORT','FIRSTTIME','Y')"
                 If ExecuteSQL(sSQL) = False Then
@@ -445,12 +497,12 @@ Module SQLCEFunction
                     Exit Function
                 End If
 
-                'sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
-                '& "VALUES ('IMPORT','IMPORTDATETIME','" & Format(DateTime.Today.AddDays(-7), gStrTimeFormatSQLCE) & "')"
-                'If ExecuteSQL(sSQL) = False Then
-                '    MsgBox("Failed to insert import datetime master data!", MsgBoxStyle.Critical, "Import")
-                '    Exit Function
-                'End If
+                sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
+                & " VALUES ('ORGANIZATION','ORG_ID', '')"
+                If ExecuteSQL(sSQL) = False Then
+                    MsgBox("Failed to insert chkimport First Time!", MsgBoxStyle.Critical, "Import")
+                    Exit Function
+                End If
 
                 sSQL = "INSERT INTO TBLSetting (SettingCategory, SettingCode, SettingValue) " _
                 & " VALUES ('BATCHID','SCN_NO','" + getDeviceID() + "')"
@@ -1434,17 +1486,17 @@ Module SQLCEFunction
                 ExecuteSQL("Drop Table " & TblJSPSupplyCPHeaderDb, objCon, CType(DroptableValue, Boolean))
             End If
 
-            If TblJSPUnpackInterfaceDb <> "" Then
-                ExecuteSQL("Drop Table " & TblJSPUnpackInterfaceDb, objCon, CType(DroptableValue, Boolean))
-            End If
+            'If TblJSPUnpackInterfaceDb <> "" Then
+            '    ExecuteSQL("Drop Table " & TblJSPUnpackInterfaceDb, objCon, CType(DroptableValue, Boolean))
+            'End If
 
-            If TblJSPUnpackPendingDb <> "" Then
-                ExecuteSQL("Drop Table " & TblJSPUnpackPendingDb, objCon, CType(DroptableValue, Boolean))
-            End If
+            'If TblJSPUnpackPendingDb <> "" Then
+            '    ExecuteSQL("Drop Table " & TblJSPUnpackPendingDb, objCon, CType(DroptableValue, Boolean))
+            'End If
 
-            If TblJSPUnpackingDetailsDb <> "" Then
-                ExecuteSQL("Drop Table " & TblJSPUnpackingDetailsDb, objCon, CType(DroptableValue, Boolean))
-            End If
+            'If TblJSPUnpackingDetailsDb <> "" Then
+            '    ExecuteSQL("Drop Table " & TblJSPUnpackingDetailsDb, objCon, CType(DroptableValue, Boolean))
+            'End If
 
         Catch ex As Exception
             UnHandledError(ex.ToString(), ErrLoc)
