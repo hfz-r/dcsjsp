@@ -82,7 +82,7 @@ Public Class clsDataTransfer
                     dsSet = OpenRecordset("SELECT LOGIN_ID FROM [" & TableName & "]")
                     If dsSet.Tables(0).Rows.Count <> 0 Then
                         ExecuteSQL("DELETE FROM [" & TableName & "]")
-                        ExecuteSQL("ALTER TABLE [" & TableName & "] ALTER COLUMN ID IDENTITY (1,1)")
+                        'ExecuteSQL("ALTER TABLE [" & TableName & "] ALTER COLUMN ID IDENTITY (1,1)")
                         dsSet.Clear() : dsSet = Nothing
                     End If
 
@@ -124,12 +124,11 @@ Public Class clsDataTransfer
                     End If
                     'progressBar.Value = progressBar.Maximum
 
-                Case "JSP_ORGANIZATION_HEADERS"
+                Case "JSP_ORGANIZATION_HEADERS_VIEW"
                     dsSet = New DataSet
                     dsSet = OpenRecordset("SELECT ORG_ID FROM [" & TableName & "]")
                     If dsSet.Tables(0).Rows.Count <> 0 Then
                         ExecuteSQL("DELETE FROM [" & TableName & "]")
-                        ExecuteSQL("ALTER TABLE [" & TableName & "] ALTER COLUMN ID IDENTITY (1,1)")
                         dsSet.Clear() : dsSet = Nothing
                     End If
 
@@ -169,12 +168,11 @@ Public Class clsDataTransfer
                     End If
                     'progressBar.Value = progressBar.Maximum
 
-                Case "JSP_SUPPLY_BP_HEADERS"
+                Case "JSP_SUPPLY_BP_HEADERS_VIEW"
                     dsSet = New DataSet
                     dsSet = OpenRecordset("SELECT SHOP_ID FROM [" & TableName & "]")
                     If dsSet.Tables(0).Rows.Count <> 0 Then
                         ExecuteSQL("DELETE FROM [" & TableName & "]")
-                        ExecuteSQL("ALTER TABLE [" & TableName & "] ALTER COLUMN ID IDENTITY (1,1)")
                         dsSet.Clear() : dsSet = Nothing
                     End If
 
@@ -215,12 +213,11 @@ Public Class clsDataTransfer
                     End If
                     'progressBar.Value = progressBar.Maximum
 
-                Case "JSP_SUPPLY_CP_HEADERS"
+                Case "JSP_SUPPLY_CP_HEADERS_VIEW"
                     dsSet = New DataSet
                     dsSet = OpenRecordset("SELECT VENDOR_ID FROM [" & TableName & "]")
                     If dsSet.Tables(0).Rows.Count <> 0 Then
                         ExecuteSQL("DELETE FROM [" & TableName & "]")
-                        ExecuteSQL("ALTER TABLE [" & TableName & "] ALTER COLUMN ID IDENTITY (1,1)")
                         dsSet.Clear() : dsSet = Nothing
                     End If
 
@@ -261,12 +258,11 @@ Public Class clsDataTransfer
                     End If
                     'progressBar.Value = progressBar.Maximum
 
-                Case "JSP_ABNORMAL_REASON_CODE"
+                Case "JSP_ABNORMAL_REASON_CODE_VIEW"
                     dsSet = New DataSet
                     dsSet = OpenRecordset("SELECT REASON_CODE FROM [" & TableName & "]")
                     If dsSet.Tables(0).Rows.Count <> 0 Then
                         ExecuteSQL("DELETE FROM [" & TableName & "]")
-                        ExecuteSQL("ALTER TABLE [" & TableName & "] ALTER COLUMN ID IDENTITY (1,1)")
                         dsSet.Clear() : dsSet = Nothing
                     End If
 
@@ -302,234 +298,11 @@ Public Class clsDataTransfer
                             sReason = "Y"
                             sSQL = Nothing
                             sSQL = "UPDATE TBLSetting SET SettingValue = " & SQLQuote(sReason.Trim) & " WHERE SettingCode = 'REASON'"
+                            ExecuteSQL(sSQL)
                         End If
                         'progressBar.Maximum = dtMasterImport.Rows.Count
                     End If
                     'progressBar.Value = progressBar.Maximum
-
-                    'Case "SEP_RB_IMPORTER_V"
-                    '    dsSet = New DataSet
-                    '    dsSet = OpenRecordset("SELECT CUSTOMER_ID FROM [" & TableName & "]")
-                    '    If dsSet.Tables(0).Rows.Count <> 0 Then
-                    '        ExecuteSQL("DELETE FROM [" & TableName & "]")
-                    '        dsSet.Clear() : dsSet = Nothing
-                    '    End If
-
-                    '    '---- Get data from WebService put into datatable -------------
-                    '    dtMasterImport = ws_dcsClient.getData("CUSTOMER_ID, CUSTOMER_NAME", TableName, "")
-                    '    If dtMasterImport.Rows.Count > 0 Then
-
-                    '        progressBar.Value = 0
-                    '        Application.DoEvents()
-
-                    '        '---- Insert data into local database from datatable -------------
-                    '        For i As Integer = 0 To dtMasterImport.Rows.Count - 1
-                    '            sSQL = "INSERT INTO [" & TableName & "] (CUSTOMER_ID, CUSTOMER_NAME) "
-                    '            sSQL = sSQL & " VALUES(" & SQLQuote(dtMasterImport.Rows(i).Item("CUSTOMER_ID").ToString)
-                    '            sSQL = sSQL & ", " & SQLQuote(dtMasterImport.Rows(i).Item("CUSTOMER_NAME").ToString)
-                    '            sSQL = sSQL & ")"
-                    '            If ExecuteSQL(sSQL) = False Then
-                    '                MsgBox("Failed Import To " & TableName, MsgBoxStyle.Critical, "Import")
-                    '                Exit Function
-                    '            End If
-                    '            progressBar.Value = progressBar.Value + 1
-                    '        Next
-                    '        progressBar.Maximum = dtMasterImport.Rows.Count
-                    '    End If
-                    '    progressBar.Value = progressBar.Maximum
-
-
-                    'Case "SEP_RB_REASON_V"
-                    '    dsSet = New DataSet
-                    '    dsSet = OpenRecordset("SELECT REASON_ID FROM [" & TableName & "]")
-                    '    If dsSet.Tables(0).Rows.Count <> 0 Then
-                    '        ExecuteSQL("DELETE FROM [" & TableName & "]")
-                    '        dsSet.Clear() : dsSet = Nothing
-                    '    End If
-
-                    '    '---- Get data from WebService put into datatable -------------
-                    '    dtMasterImport = ws_dcsClient.getData("REASON_ID, REASON_DESC", TableName, "")
-                    '    If dtMasterImport.Rows.Count > 0 Then
-
-                    '        progressBar.Value = 0
-                    '        Application.DoEvents()
-
-                    '        '---- Insert data into local database from datatable -------------
-                    '        For i As Integer = 0 To dtMasterImport.Rows.Count - 1
-                    '            sSQL = "INSERT INTO [" & TableName & "] (REASON_ID, REASON_DESC) "
-                    '            sSQL = sSQL & " VALUES(" & SQLQuote(dtMasterImport.Rows(i).Item("REASON_ID").ToString)
-                    '            sSQL = sSQL & ", " & SQLQuote(dtMasterImport.Rows(i).Item("REASON_DESC").ToString)
-                    '            sSQL = sSQL & ")"
-                    '            If ExecuteSQL(sSQL) = False Then
-                    '                MsgBox("Failed Import To " & TableName, MsgBoxStyle.Critical, "Import")
-                    '                Exit Function
-                    '            End If
-                    '            progressBar.Value = progressBar.Value + 1
-                    '        Next
-                    '        progressBar.Maximum = dtMasterImport.Rows.Count
-                    '    End If
-                    '    progressBar.Value = progressBar.Maximum
-
-
-                    'Case "SEP_RB_TYPE_V"
-                    '    dsSet = New DataSet
-                    '    dsSet = OpenRecordset("SELECT RB_CODE FROM [" & TableName & "]")
-                    '    If dsSet.Tables(0).Rows.Count <> 0 Then
-                    '        ExecuteSQL("DELETE FROM [" & TableName & "]")
-                    '        dsSet.Clear() : dsSet = Nothing
-                    '    End If
-
-                    '    '---- Get data from WebService put into datatable -------------
-                    '    dtMasterImport = ws_dcsClient.getData("RB_CODE, RB_TYPE", TableName, "")
-                    '    If dtMasterImport.Rows.Count > 0 Then
-
-                    '        progressBar.Value = 0
-                    '        Application.DoEvents()
-
-                    '        '---- Insert data into local database from datatable -------------
-                    '        For i As Integer = 0 To dtMasterImport.Rows.Count - 1
-                    '            sSQL = "INSERT INTO [" & TableName & "] (RB_CODE, RB_TYPE) "
-                    '            sSQL = sSQL & " VALUES(" & SQLQuote(dtMasterImport.Rows(i).Item("RB_CODE").ToString)
-                    '            sSQL = sSQL & ", " & SQLQuote(dtMasterImport.Rows(i).Item("RB_TYPE").ToString)
-                    '            sSQL = sSQL & ")"
-                    '            If ExecuteSQL(sSQL) = False Then
-                    '                MsgBox("Failed Import To " & TableName, MsgBoxStyle.Critical, "Import")
-                    '                Exit Function
-                    '            End If
-                    '            progressBar.Value = progressBar.Value + 1
-                    '        Next
-                    '        progressBar.Maximum = dtMasterImport.Rows.Count
-                    '    End If
-                    '    progressBar.Value = progressBar.Maximum
-
-
-                    'Case "SEP_SUPPLIER_V"
-                    '    dsSet = New DataSet
-                    '    dsSet = OpenRecordset("SELECT SUPPLIER_ID FROM [" & TableName & "]")
-                    '    If dsSet.Tables(0).Rows.Count <> 0 Then
-                    '        ExecuteSQL("DELETE FROM [" & TableName & "]")
-                    '        dsSet.Clear() : dsSet = Nothing
-                    '    End If
-
-                    '    '---- Get data from WebService put into datatable -------------
-                    '    dtMasterImport = ws_dcsClient.getData("SUPPLIER_ID, SUPPLIER_NAME", TableName, "")
-                    '    If dtMasterImport.Rows.Count > 0 Then
-
-                    '        progressBar.Value = 0
-                    '        Application.DoEvents()
-
-                    '        '---- Insert data into local database from datatable -------------
-                    '        For i As Integer = 0 To dtMasterImport.Rows.Count - 1
-                    '            sSQL = "INSERT INTO [" & TableName & "] (SUPPLIER_ID, SUPPLIER_NAME) "
-                    '            sSQL = sSQL & " VALUES(" & SQLQuote(dtMasterImport.Rows(i).Item("SUPPLIER_ID").ToString)
-                    '            sSQL = sSQL & ", " & SQLQuote(dtMasterImport.Rows(i).Item("SUPPLIER_NAME").ToString)
-                    '            sSQL = sSQL & ")"
-                    '            If ExecuteSQL(sSQL) = False Then
-                    '                MsgBox("Failed Import To " & TableName, MsgBoxStyle.Critical, "Import")
-                    '                Exit Function
-                    '            End If
-                    '            progressBar.Value = progressBar.Value + 1
-                    '        Next
-                    '        progressBar.Maximum = dtMasterImport.Rows.Count
-                    '    End If
-                    '    progressBar.Value = progressBar.Maximum
-
-
-                    'Case "SEP_PACK_IMPORTER_V"
-                    '    dsSet = New DataSet
-                    '    dsSet = OpenRecordset("SELECT CUSTOMER_ID FROM [" & TableName & "]")
-                    '    If dsSet.Tables(0).Rows.Count <> 0 Then
-                    '        ExecuteSQL("DELETE FROM [" & TableName & "]")
-                    '        dsSet.Clear() : dsSet = Nothing
-                    '    End If
-
-                    '    '---- Get data from WebService put into datatable -------------
-                    '    dtMasterImport = ws_dcsClient.getData("CUSTOMER_ID, CUSTOMER_NAME", TableName, "")
-                    '    If dtMasterImport.Rows.Count > 0 Then
-
-                    '        progressBar.Value = 0
-                    '        Application.DoEvents()
-
-                    '        '---- Insert data into local database from datatable -------------
-                    '        For i As Integer = 0 To dtMasterImport.Rows.Count - 1
-                    '            sSQL = "INSERT INTO [" & TableName & "] (CUSTOMER_ID, CUSTOMER_NAME) "
-                    '            sSQL = sSQL & " VALUES(" & SQLQuote(dtMasterImport.Rows(i).Item("CUSTOMER_ID").ToString)
-                    '            sSQL = sSQL & ", " & SQLQuote(dtMasterImport.Rows(i).Item("CUSTOMER_NAME").ToString)
-                    '            sSQL = sSQL & ")"
-                    '            If ExecuteSQL(sSQL) = False Then
-                    '                MsgBox("Failed Import To " & TableName, MsgBoxStyle.Critical, "Import")
-                    '                Exit Function
-                    '            End If
-                    '            progressBar.Value = progressBar.Value + 1
-                    '        Next
-                    '        progressBar.Maximum = dtMasterImport.Rows.Count
-                    '    End If
-                    '    progressBar.Value = progressBar.Maximum
-
-
-                    'Case "SEP_CASE_TYPE_V"
-                    '    dsSet = New DataSet
-                    '    dsSet = OpenRecordset("SELECT CASE_ID FROM [" & TableName & "]")
-                    '    If dsSet.Tables(0).Rows.Count <> 0 Then
-                    '        ExecuteSQL("DELETE FROM [" & TableName & "]")
-                    '        dsSet.Clear() : dsSet = Nothing
-                    '    End If
-
-                    '    '---- Get data from WebService put into datatable -------------
-                    '    dtMasterImport = ws_dcsClient.getData("CASE_ID, CASE_TYPE", TableName, "")
-                    '    If dtMasterImport.Rows.Count > 0 Then
-
-                    '        progressBar.Value = 0
-                    '        Application.DoEvents()
-
-                    '        '---- Insert data into local database from datatable -------------
-                    '        For i As Integer = 0 To dtMasterImport.Rows.Count - 1
-                    '            sSQL = "INSERT INTO [" & TableName & "] (CASE_ID, CASE_TYPE) "
-                    '            sSQL = sSQL & " VALUES(" & dtMasterImport.Rows(i).Item("CASE_ID").ToString
-                    '            sSQL = sSQL & ", " & SQLQuote(dtMasterImport.Rows(i).Item("CASE_TYPE").ToString)
-                    '            sSQL = sSQL & ")"
-                    '            If ExecuteSQL(sSQL) = False Then
-                    '                MsgBox("Failed Import To " & TableName, MsgBoxStyle.Critical, "Import")
-                    '                Exit Function
-                    '            End If
-                    '            progressBar.Value = progressBar.Value + 1
-                    '        Next
-                    '        progressBar.Maximum = dtMasterImport.Rows.Count
-                    '    End If
-                    '    progressBar.Value = progressBar.Maximum
-
-
-                    'Case "SEP_RB_STOPPER_QTY_V"
-                    '    dsSet = New DataSet
-                    '    dsSet = OpenRecordset("SELECT STOPPER_TYPE FROM [" & TableName & "]")
-                    '    If dsSet.Tables(0).Rows.Count <> 0 Then
-                    '        ExecuteSQL("DELETE FROM [" & TableName & "]")
-                    '        dsSet.Clear() : dsSet = Nothing
-                    '    End If
-
-                    '    '---- Get data from WebService put into datatable -------------
-                    '    dtMasterImport = ws_dcsClient.getData("STOPPER_TYPE, BOX_TYPE, QTY", TableName, "")
-                    '    If dtMasterImport.Rows.Count > 0 Then
-
-                    '        progressBar.Value = 0
-                    '        Application.DoEvents()
-
-                    '        '---- Insert data into local database from datatable -------------
-                    '        For i As Integer = 0 To dtMasterImport.Rows.Count - 1
-                    '            sSQL = "INSERT INTO [" & TableName & "] (STOPPER_TYPE, BOX_TYPE, QTY) "
-                    '            sSQL = sSQL & " VALUES(" & SQLQuote(dtMasterImport.Rows(i).Item("STOPPER_TYPE").ToString)
-                    '            sSQL = sSQL & ", " & SQLQuote(dtMasterImport.Rows(i).Item("BOX_TYPE").ToString)
-                    '            sSQL = sSQL & ", " & dtMasterImport.Rows(i).Item("QTY").ToString
-                    '            sSQL = sSQL & ")"
-                    '            If ExecuteSQL(sSQL) = False Then
-                    '                MsgBox("Failed Import To " & TableName, MsgBoxStyle.Critical, "Import")
-                    '                Exit Function
-                    '            End If
-                    '            progressBar.Value = progressBar.Value + 1
-                    '        Next
-                    '        progressBar.Maximum = dtMasterImport.Rows.Count
-                    '    End If
-                    '    progressBar.Value = progressBar.Maximum
 
             End Select
 

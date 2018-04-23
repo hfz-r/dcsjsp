@@ -18,139 +18,94 @@ Public Class frmProgress
 
     Public Sub Init()
 
-        If Not System.IO.File.Exists(gDBPath + gDatabaseName) Then
-
-            Try
-                '----Create table if db not exist in local
-                If clsDataTransfer.PrepareTable(lblMessage, ProgressBar) = True Then
-
-                    Call LoadSetting()
-
-                    Try
-                        ws_dcsClient.Url = gStrDCSWebServiceURL
-                        If ws_dcsClient.isConnected() Then
-                            'verify if Oracle inside webservice is connected
-                            If ws_dcsClient.isOracleConnected() Then
-                                Dim dt As String = ws_dcsClient.getTime()
-                                SetLocalTime(dt)
-                                mode = True
-                            Else
-                                MsgBox("Oracle database down. Logout and login abnormal!", MsgBoxStyle.Critical, Me.Text)
-                                Exit Sub
-                            End If
-                        Else
-                            mode = False
-                        End If
-                    Catch ex As Exception
-                        mode = False
-                        MsgBox("No connection! Empty database. Please retry to import again.", MsgBoxStyle.Information, "Import")
-                        'Exit Sub
-                        Me.Close()
-                    End Try
-
-                    If clsDataTransfer.GetDataImport(lblMessage, ProgressBar) = True Then
-                        MsgBox("Successfully Imported", MsgBoxStyle.Information, "Import")
-
-                        Me.Close()
-                        gBoolAbnormal = False
-
-                        Dim frm As New frmReceiving
-                        frm.AutoScroll = False
-                        frm.Init()
-                        frm.ShowDialog()
-                        frm.Dispose() : frm = Nothing
-                    End If
-                End If
-            Catch ex As Exception
-                MsgBox(ex.Message, MsgBoxStyle.Critical, "SERVICE PART")
-                Exit Sub
-            End Try
-        End If
-
-        Call LoadSetting()
-
-        'check online / webservice connected
         Try
-            ws_dcsClient.Url = "http://192.168.170.169:8084/DCSWebService.svc" 'gStrDCSWebServiceURL
+            If Not System.IO.File.Exists(gDBPath + gDatabaseName) Then
+
+                '----Create table if db not exist in local
+                clsDataTransfer.PrepareTable(lblMessage, ProgressBar)
+            End If
+
+            '-----CHECK ONLINE / OFFLINE MODE-----'
+            ws_dcsClient.Url = gStrDCSWebServiceURL
             If ws_dcsClient.isConnected() Then
-                'verify if Oracle inside webservice is connected
                 If ws_dcsClient.isOracleConnected() Then
                     Dim dt As String = ws_dcsClient.getTime()
                     SetLocalTime(dt)
-                    mode = True
+                    gBoolAbnormal = False
+
+                    '------ Check Device Name -----
+                    If VerifyScannerID() = False Then
+                        Call UpdateScannerID()
+                    End If
+
+                    '----- CHECK IMPORT SCHEDULE -----
+                    '----- FIRST TIME WITH CLEAN DB ALWAYS IMPORT IS ON SCHEDULE BASED ON SERVER TIME -----
+                    If CheckDataImportOnSchedule() = True Then
+
+                        '---- CHECK FIRST TIME -----
+                        '---- PRE-IMPORT DEFAULT VALUE ALWAYS TRUE ----
+                        If CheckFirstTime() = True Then
+                            DataImport()
+                        End If
+                    Else
+                        '---- FIRST TIME IMPORT WILL BECOME RESET ----
+                        '---- WHEN SCHEDULE DAY IS NOT TODAY ----
+                        ResetFirstTime()
+                    End If
+
+                    Call LoadSetting()
+                    Me.Close()
+
+                    Dim frm = New frmReceiving
+                    frm.AutoScroll = False
+                    frm.Init()
+                    frm.ShowDialog()
+                    frm.Dispose() : frm = Nothing
                 Else
-                    MsgBox("Oracle database down. Logout and login abnormal!", MsgBoxStyle.Critical, Me.Text)
-                    Exit Sub
+                    MsgBox("Oracle Database down!", MsgBoxStyle.Critical, Me.Text)
+                    gBoolAbnormal = True
+                    'MsgBox("Oracle database down. Logout and login abnormal!", MsgBoxStyle.Critical, Me.Text)
+                    'Exit Sub
                 End If
             Else
                 mode = False
             End If
         Catch ex As Exception
+            gBoolAbnormal = True
             mode = False
-            Console.WriteLine(ex.Message.ToString())
+            MsgBox("No connection! Empty database. Please retry to import again.", MsgBoxStyle.Information, "Import")
+            'Me.Close()
+            'setScannerDate()
         End Try
 
-        If mode = True Then
-
-            Try
-                '------ Check Device Name -----
-                If VerifyScannerID() = False Then
-                    Call UpdateScannerID()
-                End If
-
-
-                'test to set the import time to yesterday so can invoke import
-                Dim lala As String = "UPDATE TblSetting SET SettingValue = '" & Format(DateTime.Today.AddDays(-1), gStrTimeFormatSQLCE) & "' WHERE SettingCode = 'IMPORTDATETIME' "
-                If Not ExecuteSQL(lala) Then
-                    MsgBox("Error updating Import Time.", MsgBoxStyle.Information, "Import")
-                    Exit Sub
-                End If
-
-                '------check day schedule ----
-                If CheckDataImportOnSchedule() = True Then
-                    If CheckDataImportOnToday() = True Then
-
-                        'Process Import
-                        If clsDataTransfer.GetDataImport(lblMessage, ProgressBar) = True Then
-                            MsgBox("Successfully Imported", MsgBoxStyle.Information, "Import")
-
-                            'update last import time
-                            Dim sSQL As String = "UPDATE TblSetting SET SettingValue = '" & Format(Now, gStrTimeFormatSQLCE) & "' WHERE SettingCode = 'IMPORTDATETIME' "
-                            If Not ExecuteSQL(sSQL) Then
-                                MsgBox("Error updating Import Time.", MsgBoxStyle.Information, "Import")
-                                Exit Sub
-                            End If
-
-                        Else
-                            MsgBox("Error updating scanner ID", MsgBoxStyle.Critical, "Import")
-                            Me.Close()
-                            Exit Sub
-                        End If
-                    End If
-                End If
-
-            Catch ex As Exception
-                MsgBox(ex.Message, MsgBoxStyle.Critical, Me.Text)
-            End Try
-
-            Me.Close()
-            gBoolAbnormal = False
-
-            Dim frm As New frmReceiving
-            frm.AutoScroll = False
-            frm.Init()
-            frm.ShowDialog()
-            frm.Dispose() : frm = Nothing
-        Else
+        If gBoolAbnormal = True Then
             setScannerDate()
         End If
-
     End Sub
 
     Private Sub setScannerDate()
         MsgBox("No connection. Please verify scanner date and time.", MsgBoxStyle.Critical, Me.Text)
         dtScannerDate.Value = DateTime.Now
         bringPanelToFront(pnlSetDatetime, pnlProgress)
+    End Sub
+
+    Private Sub DataImport()
+        Try
+            If clsDataTransfer.GetDataImport(lblMessage, ProgressBar) = True Then
+                MsgBox("Successfully Imported", MsgBoxStyle.Information, "Import")
+                gBoolAbnormal = False
+
+                '---- UPDATE IMPORT FIRST TIME TO FALSE ONCE IMPORTED ----
+                Dim sSQL As String = "UPDATE TblSetting SET SettingValue = 'N' WHERE SettingCode = 'FIRSTTIME' "
+                If Not ExecuteSQL(sSQL) Then
+                    MsgBox("Error updating Import Time.", MsgBoxStyle.Information, "Import")
+                    Exit Sub
+                End If
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message.ToString(), MsgBoxStyle.Critical, "Data Import")
+        End Try
+
     End Sub
 
     Private Function VerifyScannerID() As Boolean
@@ -245,6 +200,36 @@ Public Class frmProgress
             MsgBox(ex.Message, MsgBoxStyle.Critical, "CheckDataImportOnShedule")
         End Try
     End Function
+
+    Private Function CheckFirstTime() As Boolean
+        Try
+            CheckFirstTime = False
+            Dim sSQL As String = Nothing
+            Dim dbReader As SqlCeDataReader
+
+            dbReader = OpenRecordset("SELECT COUNT(SettingValue) FROM TBLSetting WHERE SettingCode = 'FIRSTTIME' AND SettingValue = 'Y'", objConn)
+            If dbReader.Read Then
+                If CInt(dbReader(0)) > 0 Then
+                    CheckFirstTime = True
+                End If
+            End If
+
+            Return CheckFirstTime
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "CheckFirstTime")
+        End Try
+    End Function
+
+    Private Sub ResetFirstTime()
+        Try
+            Dim sSQL As String = Nothing
+            sSQL = "UPDATE TBLSetting SET SettingValue = 'Y' WHERE SettingCode = 'FIRSTTIME'"
+            ExecuteSQL(sSQL)
+        Catch ex As Exception
+            MsgBox(ex.Message.ToString(), MsgBoxStyle.Critical, "Error Reset First Time")
+        End Try
+    End Sub
 
     Private Function CheckDataImportOnToday() As Boolean
         Try

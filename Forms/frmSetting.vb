@@ -7,25 +7,21 @@ Imports System.Text.RegularExpressions
 Public Class frmSetting
 
     Dim sSQL As String = ""
+    Dim dt As DataTable = New DataTable
     Dim bConnected As Boolean = False
     Dim gFullPath As String = gProgPath + gDatabaseName
     Dim IsOnline As Boolean = False
     Friend cn As New clsConnection
 
     Public Sub Init()
-        ' Need to create Offline mode and Online mode import data from Master to localDB before Login Dialog
         Try
             If ws_dcsClient.isConnected() Then
                 If ws_dcsClient.isOracleConnected() Then
                     IsOnline = True
-                    MsgBox("Connection Status: Online.")
+                    'MsgBox("Connection resolved")
                 Else
                     IsOnline = False
                 End If
-            End If
-
-            If IsOnline = False Then
-                MsgBox("Connection Status: Offline.")
             End If
         Catch ex As Exception
             MsgBox("Connection is not resolved!", MsgBoxStyle.Critical, "No Connection")
@@ -130,34 +126,6 @@ Public Class frmSetting
                         sUser = dtSetting.Rows(i).Item("SettingValue").ToString
                         If sUser = "Y" Then chkUser = True Else chkUser = False
 
-                        'ElseIf dtSetting.Rows(i).Item("SettingCode") = "REASON" Then
-                        '    sReason = dtSetting.Rows(i).Item("SettingValue").ToString
-                        '    If sReason = "Y" Then chkReason = True Else chkReason = False
-
-                        'ElseIf dtSetting.Rows(i).Item("SettingCode") = "RBTYPE" Then
-                        '    sRBType = dtSetting.Rows(i).Item("SettingValue").ToString
-                        '    If sRBType = "Y" Then chkRBType = True Else chkRBType = False
-
-                        'ElseIf dtSetting.Rows(i).Item("SettingCode") = "CASETYPE" Then
-                        '    sCaseType = dtSetting.Rows(i).Item("SettingValue").ToString
-                        '    If sCaseType = "Y" Then chkCaseType = True Else chkCaseType = False
-
-                        'ElseIf dtSetting.Rows(i).Item("SettingCode") = "CUSTOMER" Then
-                        '    sCustomer = dtSetting.Rows(i).Item("SettingValue").ToString
-                        '    If sCustomer = "Y" Then chkCustomer = True Else chkCustomer = False
-
-                        'ElseIf dtSetting.Rows(i).Item("SettingCode") = "IMPORTER" Then
-                        '    sImporter = dtSetting.Rows(i).Item("SettingValue").ToString
-                        '    If sImporter = "Y" Then chkImporter = True Else chkImporter = False
-
-                        'ElseIf dtSetting.Rows(i).Item("SettingCode") = "VENDOR" Then
-                        '    sVendor = dtSetting.Rows(i).Item("SettingValue").ToString
-                        '    If sVendor = "Y" Then chkVendor = True Else chkVendor = False
-
-                        'ElseIf dtSetting.Rows(i).Item("SettingCode") = "STOPPERTYPE" Then
-                        '    sStopperType = dtSetting.Rows(i).Item("SettingValue").ToString
-                        '    If sStopperType = "Y" Then chkStopperType = True Else chkStopperType = False
-
                     ElseIf dtSetting.Rows(i).Item("SettingCode") = "SCN_NO" Then
                         txtSTBatchID.Text = dtSetting.Rows(i).Item("SettingValue").ToString
 
@@ -196,12 +164,12 @@ Public Class frmSetting
             sSQL = "UPDATE TBLSetting SET SettingValue = " & SQLQuote(txtSTPassword.Text.Trim) & " WHERE SettingCode = 'AUTPWD' "
             ExecuteSQL(sSQL)
 
-            sSQL = "UPDATE SEP_LOGIN_V SET LOGIN_ID = " & SQLQuote(txtSTUsername.Text.Trim) & " WHERE LOGIN_ID = '" + txtSTUsername.Text + "'"
+            sSQL = "UPDATE " + TblUserDb + " SET LOGIN_ID = " & SQLQuote(txtSTUsername.Text.Trim) & " WHERE LOGIN_ID = '" + txtSTUsername.Text + "'"
             If ExecuteSQL(sSQL) = False Then
                 MsgBox("")
             End If
 
-            sSQL = "UPDATE SEP_LOGIN_V SET PASSWORD = " & SQLQuote(txtSTPassword.Text.Trim) & " WHERE LOGIN_ID = '" + txtSTUsername.Text + "'"
+            sSQL = "UPDATE " + TblUserDb + " SET PASSWORD = " & SQLQuote(txtSTPassword.Text.Trim) & " WHERE LOGIN_ID = '" + txtSTUsername.Text + "'"
             ExecuteSQL(sSQL)
 
             MsgBox("Successful Updated!", MsgBoxStyle.Information, "Service Part")
@@ -381,16 +349,16 @@ Public Class frmSetting
         Try
             If System.IO.File.Exists(gFullPath) Then
                 Dim dt As DataTable = New DataTable
-                Dim sSQL As String = "SELECT * FROM TBLSetting"
+                Dim sSQL As String = "SELECT * FROM " + TblSettingDb
                 dt = getData(sSQL)
 
                 For i As Integer = 0 To dt.Rows.Count - 1
-                    If dt.Rows(i).Item(2) = "DBPATH" Then
-                        txtDBPath.Text = dt.Rows(i).Item(3).ToString()
-                    ElseIf dt.Rows(i).Item(2) = "DBNAME" Then
-                        txtDBName.Text = dt.Rows(i).Item(3).ToString()
-                    ElseIf dt.Rows(i).Item(2) = "DBPASSWORD" Then
-                        txtDBPwd.Text = dt.Rows(i).Item(3).ToString()
+                    If dt.Rows(i).Item(1) = "DBPATH" Then
+                        txtDBPath.Text = dt.Rows(i).Item(2).ToString()
+                    ElseIf dt.Rows(i).Item(1) = "DBNAME" Then
+                        txtDBName.Text = dt.Rows(i).Item(2).ToString()
+                    ElseIf dt.Rows(i).Item(1) = "DBPASSWORD" Then
+                        txtDBPwd.Text = dt.Rows(i).Item(2).ToString()
                     End If
                 Next
             Else
@@ -405,11 +373,11 @@ Public Class frmSetting
         Try
             If System.IO.File.Exists(gFullPath) Then
                 Dim dt As DataTable = New DataTable
-                Dim sSQL As String = "SELECT * FROM TBLSetting"
+                Dim sSQL As String = "SELECT * FROM " + TblSettingDb
                 dt = getData(sSQL)
                 For i As Integer = 0 To dt.Rows.Count - 1
-                    If dt.Rows(i).Item(2) = "INTERVAL" Then
-                        txtSTInterval.Text = dt.Rows(i).Item(3).ToString()
+                    If dt.Rows(i).Item(1) = "INTERVAL" Then
+                        txtSTInterval.Text = dt.Rows(i).Item(2).ToString()
                     End If
                 Next
             Else
@@ -421,48 +389,31 @@ Public Class frmSetting
     End Sub
 
     Private Sub TPOrganization()
-        ' NEED TO IMPORT THIS DATA TO OFFLINE MODE USE
         Dim dt As DataTable = New DataTable
-        If IsOnline = True Then
-            Try
-                dt = ws_dcsClient.getData("ORG_NAME", "JSP_ORGANIZATION_HEADERS", "")
-                For i As Integer = 0 To dt.Rows.Count - 1
-                    cboOrganization.Items.Add(dt.Rows(i).Item(0).ToString())
-                Next
+        Try
+            Dim sSQL As String = "SELECT * FROM " + TblJSPOrganizationDb
+            dt = getData(sSQL)
+            For i As Integer = 0 To dt.Rows.Count - 1
+                cboOrganization.Items.Add(dt.Rows(i).Item(1).ToString())
+            Next
 
-                If String.IsNullOrEmpty(cboOrganization.Text) Then
-                    cboOrganization.Text = cboOrganization.Items.Item(0)
-                End If
-            Catch ex As Exception
-                MsgBox("TPOrganization failed to update. Error: " + ex.Message.ToString())
-            End Try
-        Else
-            Try
-                Dim sSQL As String = "SELECT * FROM JSP_ORGANIZATION_HEADERS"
-                dt = getData(sSQL)
-                For i As Integer = 0 To dt.Rows.Count - 1
-                    cboOrganization.Items.Add(dt.Rows(i).Item(2).ToString())
-                Next
-
-                If String.IsNullOrEmpty(cboOrganization.Text) Then
-                    cboOrganization.Text = cboOrganization.Items.Item(0)
-                End If
-            Catch ex As Exception
-                MsgBox("TPOrganization failed to update! Error: " + ex.Message.ToString())
-            End Try
-        End If
-        
+            If String.IsNullOrEmpty(cboOrganization.Text) Then
+                cboOrganization.Text = cboOrganization.Items.Item(0)
+            End If
+        Catch ex As Exception
+            MsgBox("TPOrganization failed to update! Error: " + ex.Message.ToString())
+        End Try
     End Sub
 
     Private Sub TPImport()
         Try
             If System.IO.File.Exists(gFullPath) Then
                 Dim dt As DataTable = New DataTable
-                Dim sSQL As String = "SELECT * FROM TBLSetting"
+                Dim sSQL As String = "SELECT * FROM " + TblSettingDb
                 dt = getData(sSQL)
                 For i As Integer = 0 To dt.Rows.Count - 1
-                    If dt.Rows(i).Item(2) = "SCHEDULE" Then
-                        cboImpDay.Text = dt.Rows(i).Item(3).ToString()
+                    If dt.Rows(i).Item(1) = "SCHEDULE" Then
+                        cboImpDay.Text = dt.Rows(i).Item(2).ToString()
                     End If
                 Next
             Else
@@ -477,11 +428,11 @@ Public Class frmSetting
         Try
             If System.IO.File.Exists(gFullPath) Then
                 Dim dt As DataTable = New DataTable
-                Dim sSQL As String = "SELECT * FROM TBLSetting"
+                Dim sSQL As String = "SELECT * FROM " + TblSettingDb
                 dt = getData(sSQL)
                 For i As Integer = 0 To dt.Rows.Count - 1
-                    If dt.Rows(i).Item(2) = "SCN_NO" Then
-                        txtSTBatchID.Text = dt.Rows(i).Item(3).ToString()
+                    If dt.Rows(i).Item(1) = "SCN_NO" Then
+                        txtSTBatchID.Text = dt.Rows(i).Item(2).ToString()
                     End If
                 Next
             Else
@@ -496,17 +447,17 @@ Public Class frmSetting
         Try
             If System.IO.File.Exists(gFullPath) Then
                 Dim dt As DataTable = New DataTable
-                Dim sSQL As String = "SELECT * FROM TBLSetting"
+                Dim sSQL As String = "SELECT * FROM " + TblSettingDb
                 dt = getData(sSQL)
                 For i As Integer = 0 To dt.Rows.Count - 1
-                    If dt.Rows(i).Item(2) = "URLDCSSP" Then
-                        txtSTWSDCSSP.Text = dt.Rows(i).Item(3).ToString()
-                    ElseIf dt.Rows(i).Item(2) = "URLORACLE" Then
-                        txtSTWSOracle.Text = dt.Rows(i).Item(3).ToString()
-                    ElseIf dt.Rows(i).Item(2) = "URLORAUSERID" Then
-                        txtSTWSORAUserID.Text = dt.Rows(i).Item(3).ToString()
-                    ElseIf dt.Rows(i).Item(2) = "URLORAUSERPWD" Then
-                        txtSTWSORAUserPwd.Text = dt.Rows(i).Item(3).ToString()
+                    If dt.Rows(i).Item(1) = "URLDCSSP" Then
+                        txtSTWSDCSSP.Text = dt.Rows(i).Item(2).ToString()
+                    ElseIf dt.Rows(i).Item(1) = "URLORACLE" Then
+                        txtSTWSOracle.Text = dt.Rows(i).Item(2).ToString()
+                    ElseIf dt.Rows(i).Item(1) = "URLORAUSERID" Then
+                        txtSTWSORAUserID.Text = dt.Rows(i).Item(2).ToString()
+                    ElseIf dt.Rows(i).Item(1) = "URLORAUSERPWD" Then
+                        txtSTWSORAUserPwd.Text = dt.Rows(i).Item(2).ToString()
                     End If
                 Next
             Else
@@ -521,11 +472,11 @@ Public Class frmSetting
         Try
             If System.IO.File.Exists(gFullPath) Then
                 Dim dt As DataTable = New DataTable
-                Dim sSQL As String = "SELECT * FROM TBLSetting"
+                Dim sSQL As String = "SELECT * FROM " + TblSettingDb
                 dt = getData(sSQL)
                 For i As Integer = 0 To dt.Rows.Count - 1
-                    If dt.Rows(i).Item(2) = "SCNID" Then
-                        txtSTSCNID.Text = dt.Rows(i).Item(3).ToString()
+                    If dt.Rows(i).Item(1) = "SCNID" Then
+                        txtSTSCNID.Text = dt.Rows(i).Item(2).ToString()
                     End If
                 Next
             Else
@@ -540,7 +491,7 @@ Public Class frmSetting
         Try
             If System.IO.File.Exists(gFullPath) Then
                 Dim DTLogin As DataTable = New DataTable
-                Dim sSQL As String = "SELECT LOGIN_ID, PASSWORD FROM SEP_LOGIN_V WHERE LOGIN_ID = '" + LoginID + "'"
+                Dim sSQL As String = "SELECT LOGIN_ID, PASSWORD FROM " + TblUserDb + " WHERE LOGIN_ID = '" + LoginID + "'"
                 DTLogin = getData(sSQL)
                 For i As Integer = 0 To DTLogin.Rows.Count - 1
                     If DTLogin.Rows(i).Item(0) = LoginID Then
@@ -586,7 +537,22 @@ Public Class frmSetting
     '    End Try
     'End Sub
 
-    Private Sub btnOrgSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOrgSave.Click
 
+    Private Sub btnOrgSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOrgSave.Click
+        Try
+            sSQL = "SELECT ORG_ID FROM " + TblJSPOrganizationDb + " WHERE ORG_NAME = '" + cboOrganization.Text + "'"
+            dt = getData(sSQL)
+            Dim temp_OrgID As String = ""
+            For i As Integer = 0 To dt.Rows.Count - 1
+                temp_OrgID = dt.Rows(i).Item(0).ToString()
+            Next
+
+            sSQL = Nothing
+            sSQL = "UPDATE TBLSetting SET SettingValue = " & SQLQuote(temp_OrgID) & " WHERE SettingCode = 'ORG_ID' "
+            ExecuteSQL(sSQL)
+            MsgBox("Successfully Saved.", MsgBoxStyle.Information, "Organization")
+        Catch ex As Exception
+            MsgBox("Invalid: " + ex.Message.ToString(), MsgBoxStyle.Critical, "Error")
+        End Try
     End Sub
 End Class

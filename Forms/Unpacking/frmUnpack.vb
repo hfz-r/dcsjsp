@@ -328,12 +328,13 @@ Public Class frmUnpack
 
     Private Sub btnBackScanModule_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBackScanModule.Click
         Me.Text = strOnlineTitle
-        bringPanelToFront(pnlUnpackScanModuleError, pnlUnpackScanModule)
+        bringPanelToFront(pnlUnpackMain, pnlUnpackScanModule)
+        'bringPanelToFront(pnlUnpackScanModuleError, pnlUnpackScanModule)
     End Sub
 
     Private Sub btnBackFrViewDet_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBackFrViewDet.Click
         Me.Text = strOnlineTitle
-        bringPanelToFront(pnlUnpackMain, pnlUnpackAbnViewDet)
+        bringPanelToFront(pnlUnpackScanModule, pnlUnpackAbnViewDet)
     End Sub
 
     Private Sub btnSaveForceScan_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveForceScan.Click
@@ -415,8 +416,13 @@ Public Class frmUnpack
         bringPanelToFront(pnlUnpackFScanPart, pnlUnpackScanPartError)
     End Sub
 
-    Private Sub btnBackFScanPart_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBackFScanPart.Click
+    Private Sub btnBackFScanPart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBackFScanPart.Click
         Me.Text = strOnlineTitle
         bringPanelToFront(pnlUnpackMain, pnlUnpackFScanPart)
+    End Sub
+
+    Private Sub btnBackAbnFScanPart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBackAbnFScanPart.Click
+        Me.Text = strOfflineTitle
+        bringPanelToFront(pnlUnpackScanModule, pnlUnpackAbnFscanPart)
     End Sub
 End Class

@@ -272,8 +272,8 @@ Public Class frmReceiving
                 If ws_dcsClient.isConnected Then
                     If ws_dcsClient.isOracleConnected Then
                         mode = True
-                        MsgBox("Connection resolved. Logout and start online mode?", MsgBoxStyle.Information, Me.Text)
-                        Application.Exit()
+                        MsgBox("Connection resolved.", MsgBoxStyle.Information, Me.Text)
+                        'Application.Exit()
                     End If
                 End If
             End If
