@@ -32,7 +32,9 @@ Public Class frmReceiving
     End Sub
 
     Private Sub btnMainClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMainClose.Click
-        Me.Close()
+        If MessageBox.Show("Confirm to exit?", "Exit Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
+            Application.Exit()
+        End If
     End Sub
 
     Public Sub Init()
@@ -318,7 +320,6 @@ Public Class frmReceiving
     End Sub
 
     Private Sub btnSupply_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSupply.Click
-        'bringPanelToFront(pnlMenuSupplyPMSB, pnlMainMenu)
         bringPanelToFront(pnlMenuSupplyPGMSB, pnlMainMenu)
     End Sub
 

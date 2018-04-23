@@ -20,11 +20,6 @@ Partial Public Class frmBigPart
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmBigPart))
-        Dim ListViewItem6 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem7 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem8 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem9 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem10 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
         Me.pnlBPMain = New System.Windows.Forms.Panel
         Me.Label12 = New System.Windows.Forms.Label
         Me.btnAbnormalBP = New System.Windows.Forms.PictureBox
@@ -37,22 +32,22 @@ Partial Public Class frmBigPart
         Me.footerStatusBar = New System.Windows.Forms.StatusBar
         Me.TimerCheckOnline = New System.Windows.Forms.Timer
         Me.pnlBPFScan = New System.Windows.Forms.Panel
-        Me.txtPartNo = New System.Windows.Forms.TextBox
+        Me.txtFSModuleNo = New System.Windows.Forms.TextBox
         Me.Label76 = New System.Windows.Forms.Label
         Me.btnSaveForceScan = New System.Windows.Forms.Button
         Me.Panel1 = New System.Windows.Forms.Panel
         Me.btnBackFScan = New System.Windows.Forms.Button
         Me.Label4 = New System.Windows.Forms.Label
         Me.lstViewRCVFScan = New System.Windows.Forms.ListView
-        Me.ColumnHeader1 = New System.Windows.Forms.ColumnHeader
-        Me.txtFModuleNo = New System.Windows.Forms.TextBox
+        Me.REASON_CODE = New System.Windows.Forms.ColumnHeader
+        Me.txtFSOrderNo = New System.Windows.Forms.TextBox
         Me.Label16 = New System.Windows.Forms.Label
         Me.Label1 = New System.Windows.Forms.Label
         Me.pnlBPScanModule = New System.Windows.Forms.Panel
         Me.btnScanDetails = New System.Windows.Forms.Button
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox
+        Me.cmbShop = New System.Windows.Forms.ComboBox
         Me.Label62 = New System.Windows.Forms.Label
-        Me.Label60 = New System.Windows.Forms.Label
+        Me.lblStatusMsg = New System.Windows.Forms.Label
         Me.lblTotalScanned = New System.Windows.Forms.Label
         Me.Label21 = New System.Windows.Forms.Label
         Me.btnScanSubmit = New System.Windows.Forms.Button
@@ -85,7 +80,7 @@ Partial Public Class frmBigPart
         Me.Panel13 = New System.Windows.Forms.Panel
         Me.btnCloseBPPosting = New System.Windows.Forms.Button
         Me.Label23 = New System.Windows.Forms.Label
-        Me.ListView1 = New System.Windows.Forms.ListView
+        Me.lstViewPosting = New System.Windows.Forms.ListView
         Me.ColumnHeader3 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader4 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader5 = New System.Windows.Forms.ColumnHeader
@@ -97,7 +92,7 @@ Partial Public Class frmBigPart
         Me.Panel7 = New System.Windows.Forms.Panel
         Me.btnCloseBPDelete = New System.Windows.Forms.Button
         Me.Label27 = New System.Windows.Forms.Label
-        Me.ListView2 = New System.Windows.Forms.ListView
+        Me.lstViewDelete = New System.Windows.Forms.ListView
         Me.ColumnHeader7 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader8 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader9 = New System.Windows.Forms.ColumnHeader
@@ -122,7 +117,7 @@ Partial Public Class frmBigPart
         Me.Label54 = New System.Windows.Forms.Label
         Me.TabBPSummary = New System.Windows.Forms.TabControl
         Me.TabPage4 = New System.Windows.Forms.TabPage
-        Me.lblRCIS2TotalScan = New System.Windows.Forms.Label
+        Me.lblDetailTotalScan = New System.Windows.Forms.Label
         Me.Label47 = New System.Windows.Forms.Label
         Me.lstViewRCISummary = New System.Windows.Forms.ListView
         Me.ColumnHeader17 = New System.Windows.Forms.ColumnHeader
@@ -131,14 +126,14 @@ Partial Public Class frmBigPart
         Me.lblHeaderVwDet = New System.Windows.Forms.Label
         Me.pnlBPAbnScan = New System.Windows.Forms.Panel
         Me.btnBPAbnScanDet = New System.Windows.Forms.Button
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox
+        Me.cmbShopAbn = New System.Windows.Forms.ComboBox
         Me.Label2 = New System.Windows.Forms.Label
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.Label15 = New System.Windows.Forms.Label
+        Me.lblStatusMsgAbn = New System.Windows.Forms.Label
+        Me.lblTotalScannedAbn = New System.Windows.Forms.Label
         Me.Label17 = New System.Windows.Forms.Label
         Me.Panel10 = New System.Windows.Forms.Panel
-        Me.Label20 = New System.Windows.Forms.Label
-        Me.Label22 = New System.Windows.Forms.Label
+        Me.txtOrderNoAbn = New System.Windows.Forms.Label
+        Me.txtModuleNoAbn = New System.Windows.Forms.Label
         Me.Label29 = New System.Windows.Forms.Label
         Me.Label30 = New System.Windows.Forms.Label
         Me.Panel11 = New System.Windows.Forms.Panel
@@ -146,50 +141,11 @@ Partial Public Class frmBigPart
         Me.Label31 = New System.Windows.Forms.Label
         Me.Label38 = New System.Windows.Forms.Label
         Me.btnBPAbnFScan = New System.Windows.Forms.PictureBox
-        Me.TextBox1 = New System.Windows.Forms.TextBox
+        Me.txtModuleQRAbn = New System.Windows.Forms.TextBox
         Me.Label43 = New System.Windows.Forms.Label
         Me.Label44 = New System.Windows.Forms.Label
-        Me.pnlBPScanError = New System.Windows.Forms.Panel
-        Me.btnBPScanDet = New System.Windows.Forms.Button
-        Me.ComboBox3 = New System.Windows.Forms.ComboBox
-        Me.Label45 = New System.Windows.Forms.Label
-        Me.Label46 = New System.Windows.Forms.Label
-        Me.Label48 = New System.Windows.Forms.Label
-        Me.Label49 = New System.Windows.Forms.Label
-        Me.btnSubmit = New System.Windows.Forms.Button
-        Me.Panel15 = New System.Windows.Forms.Panel
-        Me.Label52 = New System.Windows.Forms.Label
-        Me.Label55 = New System.Windows.Forms.Label
-        Me.Label56 = New System.Windows.Forms.Label
-        Me.Label57 = New System.Windows.Forms.Label
-        Me.Panel16 = New System.Windows.Forms.Panel
-        Me.BtnBackScanError = New System.Windows.Forms.Button
-        Me.Label58 = New System.Windows.Forms.Label
-        Me.Label59 = New System.Windows.Forms.Label
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox
-        Me.TextBox2 = New System.Windows.Forms.TextBox
-        Me.Label63 = New System.Windows.Forms.Label
-        Me.Label64 = New System.Windows.Forms.Label
-        Me.pnlBPAbnScanError = New System.Windows.Forms.Panel
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.ComboBox4 = New System.Windows.Forms.ComboBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.Panel17 = New System.Windows.Forms.Panel
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.Label50 = New System.Windows.Forms.Label
-        Me.Label51 = New System.Windows.Forms.Label
-        Me.Label65 = New System.Windows.Forms.Label
-        Me.Panel18 = New System.Windows.Forms.Panel
-        Me.btnBackBPAbnScanError = New System.Windows.Forms.Button
-        Me.Label66 = New System.Windows.Forms.Label
-        Me.Label67 = New System.Windows.Forms.Label
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox
-        Me.TextBox3 = New System.Windows.Forms.TextBox
-        Me.Label68 = New System.Windows.Forms.Label
-        Me.Label69 = New System.Windows.Forms.Label
+        Me.lblPostingTotalPdgAbn = New System.Windows.Forms.Label
+        Me.lblDeleteTotalAbn = New System.Windows.Forms.Label
         Me.pnlBPMain.SuspendLayout()
         Me.Panel9.SuspendLayout()
         Me.pnlBPFScan.SuspendLayout()
@@ -212,12 +168,6 @@ Partial Public Class frmBigPart
         Me.pnlBPAbnScan.SuspendLayout()
         Me.Panel10.SuspendLayout()
         Me.Panel11.SuspendLayout()
-        Me.pnlBPScanError.SuspendLayout()
-        Me.Panel15.SuspendLayout()
-        Me.Panel16.SuspendLayout()
-        Me.pnlBPAbnScanError.SuspendLayout()
-        Me.Panel17.SuspendLayout()
-        Me.Panel18.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnlBPMain
@@ -305,7 +255,7 @@ Partial Public Class frmBigPart
         '
         Me.footerStatusBar.Location = New System.Drawing.Point(0, 559)
         Me.footerStatusBar.Name = "footerStatusBar"
-        Me.footerStatusBar.Size = New System.Drawing.Size(1955, 24)
+        Me.footerStatusBar.Size = New System.Drawing.Size(1629, 24)
         Me.footerStatusBar.Text = "StatusBar1"
         '
         'TimerCheckOnline
@@ -314,12 +264,12 @@ Partial Public Class frmBigPart
         'pnlBPFScan
         '
         Me.pnlBPFScan.BackColor = System.Drawing.Color.Transparent
-        Me.pnlBPFScan.Controls.Add(Me.txtPartNo)
+        Me.pnlBPFScan.Controls.Add(Me.txtFSModuleNo)
         Me.pnlBPFScan.Controls.Add(Me.Label76)
         Me.pnlBPFScan.Controls.Add(Me.btnSaveForceScan)
         Me.pnlBPFScan.Controls.Add(Me.Panel1)
         Me.pnlBPFScan.Controls.Add(Me.lstViewRCVFScan)
-        Me.pnlBPFScan.Controls.Add(Me.txtFModuleNo)
+        Me.pnlBPFScan.Controls.Add(Me.txtFSOrderNo)
         Me.pnlBPFScan.Controls.Add(Me.Label16)
         Me.pnlBPFScan.Controls.Add(Me.Label1)
         Me.pnlBPFScan.Location = New System.Drawing.Point(657, 3)
@@ -327,13 +277,13 @@ Partial Public Class frmBigPart
         Me.pnlBPFScan.Size = New System.Drawing.Size(320, 275)
         Me.pnlBPFScan.Visible = False
         '
-        'txtPartNo
+        'txtFSModuleNo
         '
-        Me.txtPartNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.txtPartNo.Location = New System.Drawing.Point(8, 58)
-        Me.txtPartNo.Name = "txtPartNo"
-        Me.txtPartNo.Size = New System.Drawing.Size(302, 19)
-        Me.txtPartNo.TabIndex = 95
+        Me.txtFSModuleNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.txtFSModuleNo.Location = New System.Drawing.Point(8, 58)
+        Me.txtFSModuleNo.Name = "txtFSModuleNo"
+        Me.txtFSModuleNo.Size = New System.Drawing.Size(302, 19)
+        Me.txtFSModuleNo.TabIndex = 1
         '
         'Label76
         '
@@ -349,7 +299,7 @@ Partial Public Class frmBigPart
         Me.btnSaveForceScan.Location = New System.Drawing.Point(223, 4)
         Me.btnSaveForceScan.Name = "btnSaveForceScan"
         Me.btnSaveForceScan.Size = New System.Drawing.Size(90, 20)
-        Me.btnSaveForceScan.TabIndex = 89
+        Me.btnSaveForceScan.TabIndex = 4
         Me.btnSaveForceScan.Text = "Save"
         '
         'Panel1
@@ -367,7 +317,7 @@ Partial Public Class frmBigPart
         Me.btnBackFScan.Location = New System.Drawing.Point(200, 2)
         Me.btnBackFScan.Name = "btnBackFScan"
         Me.btnBackFScan.Size = New System.Drawing.Size(110, 20)
-        Me.btnBackFScan.TabIndex = 34
+        Me.btnBackFScan.TabIndex = 5
         Me.btnBackFScan.Text = "Back"
         '
         'Label4
@@ -380,33 +330,27 @@ Partial Public Class frmBigPart
         '
         'lstViewRCVFScan
         '
-        Me.lstViewRCVFScan.Columns.Add(Me.ColumnHeader1)
+        Me.lstViewRCVFScan.Columns.Add(Me.REASON_CODE)
         Me.lstViewRCVFScan.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.lstViewRCVFScan.FullRowSelect = True
-        ListViewItem6.Text = "QR Code Cannot Read"
-        ListViewItem7.Text = "QR Code Damage"
-        ListViewItem8.Text = "QR Code Missing"
-        Me.lstViewRCVFScan.Items.Add(ListViewItem6)
-        Me.lstViewRCVFScan.Items.Add(ListViewItem7)
-        Me.lstViewRCVFScan.Items.Add(ListViewItem8)
         Me.lstViewRCVFScan.Location = New System.Drawing.Point(8, 130)
         Me.lstViewRCVFScan.Name = "lstViewRCVFScan"
         Me.lstViewRCVFScan.Size = New System.Drawing.Size(305, 80)
-        Me.lstViewRCVFScan.TabIndex = 84
+        Me.lstViewRCVFScan.TabIndex = 3
         Me.lstViewRCVFScan.View = System.Windows.Forms.View.Details
         '
-        'ColumnHeader1
+        'REASON_CODE
         '
-        Me.ColumnHeader1.Text = "Reason"
-        Me.ColumnHeader1.Width = 302
+        Me.REASON_CODE.Text = "Reason"
+        Me.REASON_CODE.Width = 302
         '
-        'txtFModuleNo
+        'txtFSOrderNo
         '
-        Me.txtFModuleNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.txtFModuleNo.Location = New System.Drawing.Point(8, 105)
-        Me.txtFModuleNo.Name = "txtFModuleNo"
-        Me.txtFModuleNo.Size = New System.Drawing.Size(302, 19)
-        Me.txtFModuleNo.TabIndex = 82
+        Me.txtFSOrderNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.txtFSOrderNo.Location = New System.Drawing.Point(8, 105)
+        Me.txtFSOrderNo.Name = "txtFSOrderNo"
+        Me.txtFSOrderNo.Size = New System.Drawing.Size(302, 19)
+        Me.txtFSOrderNo.TabIndex = 2
         '
         'Label16
         '
@@ -428,9 +372,9 @@ Partial Public Class frmBigPart
         '
         Me.pnlBPScanModule.BackColor = System.Drawing.Color.Transparent
         Me.pnlBPScanModule.Controls.Add(Me.btnScanDetails)
-        Me.pnlBPScanModule.Controls.Add(Me.ComboBox1)
+        Me.pnlBPScanModule.Controls.Add(Me.cmbShop)
         Me.pnlBPScanModule.Controls.Add(Me.Label62)
-        Me.pnlBPScanModule.Controls.Add(Me.Label60)
+        Me.pnlBPScanModule.Controls.Add(Me.lblStatusMsg)
         Me.pnlBPScanModule.Controls.Add(Me.lblTotalScanned)
         Me.pnlBPScanModule.Controls.Add(Me.Label21)
         Me.pnlBPScanModule.Controls.Add(Me.btnScanSubmit)
@@ -452,15 +396,15 @@ Partial Public Class frmBigPart
         Me.btnScanDetails.Location = New System.Drawing.Point(6, 3)
         Me.btnScanDetails.Name = "btnScanDetails"
         Me.btnScanDetails.Size = New System.Drawing.Size(90, 20)
-        Me.btnScanDetails.TabIndex = 100
+        Me.btnScanDetails.TabIndex = 3
         Me.btnScanDetails.Text = "Details"
         '
-        'ComboBox1
+        'cmbShop
         '
-        Me.ComboBox1.Location = New System.Drawing.Point(80, 30)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(200, 23)
-        Me.ComboBox1.TabIndex = 98
+        Me.cmbShop.Location = New System.Drawing.Point(80, 30)
+        Me.cmbShop.Name = "cmbShop"
+        Me.cmbShop.Size = New System.Drawing.Size(200, 23)
+        Me.cmbShop.TabIndex = 1
         '
         'Label62
         '
@@ -470,16 +414,15 @@ Partial Public Class frmBigPart
         Me.Label62.Size = New System.Drawing.Size(320, 20)
         Me.Label62.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'Label60
+        'lblStatusMsg
         '
-        Me.Label60.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label60.BackColor = System.Drawing.Color.LimeGreen
-        Me.Label60.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Label60.Location = New System.Drawing.Point(0, 180)
-        Me.Label60.Name = "Label60"
-        Me.Label60.Size = New System.Drawing.Size(320, 22)
-        Me.Label60.Text = "OK"
-        Me.Label60.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.lblStatusMsg.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblStatusMsg.BackColor = System.Drawing.Color.Transparent
+        Me.lblStatusMsg.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.lblStatusMsg.Location = New System.Drawing.Point(0, 180)
+        Me.lblStatusMsg.Name = "lblStatusMsg"
+        Me.lblStatusMsg.Size = New System.Drawing.Size(320, 22)
+        Me.lblStatusMsg.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'lblTotalScanned
         '
@@ -502,7 +445,7 @@ Partial Public Class frmBigPart
         Me.btnScanSubmit.Location = New System.Drawing.Point(223, 3)
         Me.btnScanSubmit.Name = "btnScanSubmit"
         Me.btnScanSubmit.Size = New System.Drawing.Size(90, 20)
-        Me.btnScanSubmit.TabIndex = 90
+        Me.btnScanSubmit.TabIndex = 4
         Me.btnScanSubmit.Text = "Submit"
         '
         'Panel8
@@ -561,7 +504,7 @@ Partial Public Class frmBigPart
         Me.btnBackBPScanModule.Location = New System.Drawing.Point(200, 2)
         Me.btnBackBPScanModule.Name = "btnBackBPScanModule"
         Me.btnBackBPScanModule.Size = New System.Drawing.Size(110, 20)
-        Me.btnBackBPScanModule.TabIndex = 34
+        Me.btnBackBPScanModule.TabIndex = 5
         Me.btnBackBPScanModule.Text = "Back"
         '
         'Label14
@@ -592,9 +535,10 @@ Partial Public Class frmBigPart
         '
         Me.txtModuleQR.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.txtModuleQR.Location = New System.Drawing.Point(80, 55)
+        Me.txtModuleQR.MaxLength = 24
         Me.txtModuleQR.Name = "txtModuleQR"
         Me.txtModuleQR.Size = New System.Drawing.Size(200, 19)
-        Me.txtModuleQR.TabIndex = 13
+        Me.txtModuleQR.TabIndex = 2
         '
         'Label34
         '
@@ -618,7 +562,7 @@ Partial Public Class frmBigPart
         Me.pnlBPAbnViewDet.Controls.Add(Me.Panel4)
         Me.pnlBPAbnViewDet.Controls.Add(Me.lstViewRcvDet)
         Me.pnlBPAbnViewDet.Controls.Add(Me.lblHeaderAbnVwDet)
-        Me.pnlBPAbnViewDet.Location = New System.Drawing.Point(983, 284)
+        Me.pnlBPAbnViewDet.Location = New System.Drawing.Point(657, 284)
         Me.pnlBPAbnViewDet.Name = "pnlBPAbnViewDet"
         Me.pnlBPAbnViewDet.Size = New System.Drawing.Size(320, 275)
         Me.pnlBPAbnViewDet.Visible = False
@@ -671,12 +615,12 @@ Partial Public Class frmBigPart
         'ColumnHeader14
         '
         Me.ColumnHeader14.Text = "Module No"
-        Me.ColumnHeader14.Width = 120
+        Me.ColumnHeader14.Width = 80
         '
         'ColumnHeader15
         '
         Me.ColumnHeader15.Text = "Order No"
-        Me.ColumnHeader15.Width = 100
+        Me.ColumnHeader15.Width = 195
         '
         'lblHeaderAbnVwDet
         '
@@ -684,19 +628,20 @@ Partial Public Class frmBigPart
         Me.lblHeaderAbnVwDet.Location = New System.Drawing.Point(2, 4)
         Me.lblHeaderAbnVwDet.Name = "lblHeaderAbnVwDet"
         Me.lblHeaderAbnVwDet.Size = New System.Drawing.Size(315, 20)
-        Me.lblHeaderAbnVwDet.Text = "Total Record : 0"
+        Me.lblHeaderAbnVwDet.Text = "Total Record :"
         Me.lblHeaderAbnVwDet.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'pnlBPPosting
         '
         Me.pnlBPPosting.BackColor = System.Drawing.Color.Transparent
+        Me.pnlBPPosting.Controls.Add(Me.lblPostingTotalPdgAbn)
         Me.pnlBPPosting.Controls.Add(Me.Label26)
         Me.pnlBPPosting.Controls.Add(Me.Label25)
         Me.pnlBPPosting.Controls.Add(Me.btnBPSubmitPosting)
         Me.pnlBPPosting.Controls.Add(Me.Panel13)
-        Me.pnlBPPosting.Controls.Add(Me.ListView1)
+        Me.pnlBPPosting.Controls.Add(Me.lstViewPosting)
         Me.pnlBPPosting.Controls.Add(Me.Label24)
-        Me.pnlBPPosting.Location = New System.Drawing.Point(1309, 284)
+        Me.pnlBPPosting.Location = New System.Drawing.Point(983, 284)
         Me.pnlBPPosting.Name = "pnlBPPosting"
         Me.pnlBPPosting.Size = New System.Drawing.Size(320, 275)
         Me.pnlBPPosting.Visible = False
@@ -706,8 +651,8 @@ Partial Public Class frmBigPart
         Me.Label26.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.Label26.Location = New System.Drawing.Point(2, 50)
         Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(316, 15)
-        Me.Label26.Text = "Total Pending Posting Records : 0"
+        Me.Label26.Size = New System.Drawing.Size(280, 15)
+        Me.Label26.Text = "Total Pending Posting Records :"
         Me.Label26.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'Label25
@@ -753,19 +698,19 @@ Partial Public Class frmBigPart
         Me.Label23.Size = New System.Drawing.Size(209, 18)
         Me.Label23.Text = "USER NAME:"
         '
-        'ListView1
+        'lstViewPosting
         '
-        Me.ListView1.Columns.Add(Me.ColumnHeader3)
-        Me.ListView1.Columns.Add(Me.ColumnHeader4)
-        Me.ListView1.Columns.Add(Me.ColumnHeader5)
-        Me.ListView1.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.ListView1.FullRowSelect = True
-        Me.ListView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
-        Me.ListView1.Location = New System.Drawing.Point(6, 67)
-        Me.ListView1.Name = "ListView1"
-        Me.ListView1.Size = New System.Drawing.Size(309, 157)
-        Me.ListView1.TabIndex = 55
-        Me.ListView1.View = System.Windows.Forms.View.Details
+        Me.lstViewPosting.Columns.Add(Me.ColumnHeader3)
+        Me.lstViewPosting.Columns.Add(Me.ColumnHeader4)
+        Me.lstViewPosting.Columns.Add(Me.ColumnHeader5)
+        Me.lstViewPosting.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lstViewPosting.FullRowSelect = True
+        Me.lstViewPosting.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.lstViewPosting.Location = New System.Drawing.Point(6, 67)
+        Me.lstViewPosting.Name = "lstViewPosting"
+        Me.lstViewPosting.Size = New System.Drawing.Size(309, 157)
+        Me.lstViewPosting.TabIndex = 55
+        Me.lstViewPosting.View = System.Windows.Forms.View.Details
         '
         'ColumnHeader3
         '
@@ -775,12 +720,12 @@ Partial Public Class frmBigPart
         'ColumnHeader4
         '
         Me.ColumnHeader4.Text = "Module No"
-        Me.ColumnHeader4.Width = 100
+        Me.ColumnHeader4.Width = 80
         '
         'ColumnHeader5
         '
         Me.ColumnHeader5.Text = "Order No"
-        Me.ColumnHeader5.Width = 80
+        Me.ColumnHeader5.Width = 195
         '
         'Label24
         '
@@ -793,13 +738,14 @@ Partial Public Class frmBigPart
         'pnlBPDelete
         '
         Me.pnlBPDelete.BackColor = System.Drawing.Color.Transparent
+        Me.pnlBPDelete.Controls.Add(Me.lblDeleteTotalAbn)
         Me.pnlBPDelete.Controls.Add(Me.Label6)
         Me.pnlBPDelete.Controls.Add(Me.Label7)
         Me.pnlBPDelete.Controls.Add(Me.btnDelete)
         Me.pnlBPDelete.Controls.Add(Me.Panel7)
-        Me.pnlBPDelete.Controls.Add(Me.ListView2)
+        Me.pnlBPDelete.Controls.Add(Me.lstViewDelete)
         Me.pnlBPDelete.Controls.Add(Me.Label28)
-        Me.pnlBPDelete.Location = New System.Drawing.Point(1635, 284)
+        Me.pnlBPDelete.Location = New System.Drawing.Point(1309, 284)
         Me.pnlBPDelete.Name = "pnlBPDelete"
         Me.pnlBPDelete.Size = New System.Drawing.Size(320, 275)
         Me.pnlBPDelete.Visible = False
@@ -809,8 +755,8 @@ Partial Public Class frmBigPart
         Me.Label6.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.Label6.Location = New System.Drawing.Point(2, 50)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(316, 15)
-        Me.Label6.Text = "Total Records : 0"
+        Me.Label6.Size = New System.Drawing.Size(270, 15)
+        Me.Label6.Text = "Total Records :"
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'Label7
@@ -856,20 +802,20 @@ Partial Public Class frmBigPart
         Me.Label27.Size = New System.Drawing.Size(209, 18)
         Me.Label27.Text = "USER NAME:"
         '
-        'ListView2
+        'lstViewDelete
         '
-        Me.ListView2.Columns.Add(Me.ColumnHeader7)
-        Me.ListView2.Columns.Add(Me.ColumnHeader8)
-        Me.ListView2.Columns.Add(Me.ColumnHeader9)
-        Me.ListView2.Columns.Add(Me.ColumnHeader10)
-        Me.ListView2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.ListView2.FullRowSelect = True
-        Me.ListView2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
-        Me.ListView2.Location = New System.Drawing.Point(6, 67)
-        Me.ListView2.Name = "ListView2"
-        Me.ListView2.Size = New System.Drawing.Size(309, 157)
-        Me.ListView2.TabIndex = 55
-        Me.ListView2.View = System.Windows.Forms.View.Details
+        Me.lstViewDelete.Columns.Add(Me.ColumnHeader7)
+        Me.lstViewDelete.Columns.Add(Me.ColumnHeader8)
+        Me.lstViewDelete.Columns.Add(Me.ColumnHeader9)
+        Me.lstViewDelete.Columns.Add(Me.ColumnHeader10)
+        Me.lstViewDelete.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lstViewDelete.FullRowSelect = True
+        Me.lstViewDelete.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.lstViewDelete.Location = New System.Drawing.Point(6, 67)
+        Me.lstViewDelete.Name = "lstViewDelete"
+        Me.lstViewDelete.Size = New System.Drawing.Size(309, 157)
+        Me.lstViewDelete.TabIndex = 55
+        Me.lstViewDelete.View = System.Windows.Forms.View.Details
         '
         'ColumnHeader7
         '
@@ -879,12 +825,12 @@ Partial Public Class frmBigPart
         'ColumnHeader8
         '
         Me.ColumnHeader8.Text = "Module No"
-        Me.ColumnHeader8.Width = 120
+        Me.ColumnHeader8.Width = 80
         '
         'ColumnHeader9
         '
         Me.ColumnHeader9.Text = "Order No"
-        Me.ColumnHeader9.Width = 80
+        Me.ColumnHeader9.Width = 145
         '
         'ColumnHeader10
         '
@@ -1068,7 +1014,7 @@ Partial Public Class frmBigPart
         'TabPage4
         '
         Me.TabPage4.BackColor = System.Drawing.SystemColors.Window
-        Me.TabPage4.Controls.Add(Me.lblRCIS2TotalScan)
+        Me.TabPage4.Controls.Add(Me.lblDetailTotalScan)
         Me.TabPage4.Controls.Add(Me.Label47)
         Me.TabPage4.Controls.Add(Me.lstViewRCISummary)
         Me.TabPage4.Location = New System.Drawing.Point(4, 22)
@@ -1076,13 +1022,12 @@ Partial Public Class frmBigPart
         Me.TabPage4.Size = New System.Drawing.Size(306, 198)
         Me.TabPage4.Text = "Scanned"
         '
-        'lblRCIS2TotalScan
+        'lblDetailTotalScan
         '
-        Me.lblRCIS2TotalScan.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.lblRCIS2TotalScan.Location = New System.Drawing.Point(72, 180)
-        Me.lblRCIS2TotalScan.Name = "lblRCIS2TotalScan"
-        Me.lblRCIS2TotalScan.Size = New System.Drawing.Size(45, 21)
-        Me.lblRCIS2TotalScan.Text = "2"
+        Me.lblDetailTotalScan.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.lblDetailTotalScan.Location = New System.Drawing.Point(72, 180)
+        Me.lblDetailTotalScan.Name = "lblDetailTotalScan"
+        Me.lblDetailTotalScan.Size = New System.Drawing.Size(45, 21)
         '
         'Label47
         '
@@ -1099,10 +1044,6 @@ Partial Public Class frmBigPart
         Me.lstViewRCISummary.Columns.Add(Me.ColumnHeader19)
         Me.lstViewRCISummary.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.lstViewRCISummary.FullRowSelect = True
-        ListViewItem9.Text = "1"
-        ListViewItem10.Text = "2"
-        Me.lstViewRCISummary.Items.Add(ListViewItem9)
-        Me.lstViewRCISummary.Items.Add(ListViewItem10)
         Me.lstViewRCISummary.Location = New System.Drawing.Point(4, 5)
         Me.lstViewRCISummary.Name = "lstViewRCISummary"
         Me.lstViewRCISummary.Size = New System.Drawing.Size(299, 172)
@@ -1117,12 +1058,12 @@ Partial Public Class frmBigPart
         'ColumnHeader18
         '
         Me.ColumnHeader18.Text = "Module No"
-        Me.ColumnHeader18.Width = 120
+        Me.ColumnHeader18.Width = 80
         '
         'ColumnHeader19
         '
         Me.ColumnHeader19.Text = "Order No"
-        Me.ColumnHeader19.Width = 60
+        Me.ColumnHeader19.Width = 185
         '
         'lblHeaderVwDet
         '
@@ -1137,16 +1078,16 @@ Partial Public Class frmBigPart
         '
         Me.pnlBPAbnScan.BackColor = System.Drawing.Color.Transparent
         Me.pnlBPAbnScan.Controls.Add(Me.btnBPAbnScanDet)
-        Me.pnlBPAbnScan.Controls.Add(Me.ComboBox2)
+        Me.pnlBPAbnScan.Controls.Add(Me.cmbShopAbn)
         Me.pnlBPAbnScan.Controls.Add(Me.Label2)
-        Me.pnlBPAbnScan.Controls.Add(Me.Label13)
-        Me.pnlBPAbnScan.Controls.Add(Me.Label15)
+        Me.pnlBPAbnScan.Controls.Add(Me.lblStatusMsgAbn)
+        Me.pnlBPAbnScan.Controls.Add(Me.lblTotalScannedAbn)
         Me.pnlBPAbnScan.Controls.Add(Me.Label17)
         Me.pnlBPAbnScan.Controls.Add(Me.Panel10)
         Me.pnlBPAbnScan.Controls.Add(Me.Panel11)
         Me.pnlBPAbnScan.Controls.Add(Me.Label38)
         Me.pnlBPAbnScan.Controls.Add(Me.btnBPAbnFScan)
-        Me.pnlBPAbnScan.Controls.Add(Me.TextBox1)
+        Me.pnlBPAbnScan.Controls.Add(Me.txtModuleQRAbn)
         Me.pnlBPAbnScan.Controls.Add(Me.Label43)
         Me.pnlBPAbnScan.Controls.Add(Me.Label44)
         Me.pnlBPAbnScan.Location = New System.Drawing.Point(330, 284)
@@ -1163,12 +1104,12 @@ Partial Public Class frmBigPart
         Me.btnBPAbnScanDet.TabIndex = 100
         Me.btnBPAbnScanDet.Text = "Details"
         '
-        'ComboBox2
+        'cmbShopAbn
         '
-        Me.ComboBox2.Location = New System.Drawing.Point(80, 30)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(200, 23)
-        Me.ComboBox2.TabIndex = 98
+        Me.cmbShopAbn.Location = New System.Drawing.Point(80, 30)
+        Me.cmbShopAbn.Name = "cmbShopAbn"
+        Me.cmbShopAbn.Size = New System.Drawing.Size(200, 23)
+        Me.cmbShopAbn.TabIndex = 98
         '
         'Label2
         '
@@ -1178,23 +1119,22 @@ Partial Public Class frmBigPart
         Me.Label2.Size = New System.Drawing.Size(320, 20)
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'Label13
+        'lblStatusMsgAbn
         '
-        Me.Label13.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label13.BackColor = System.Drawing.Color.LimeGreen
-        Me.Label13.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Label13.Location = New System.Drawing.Point(0, 180)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(320, 22)
-        Me.Label13.Text = "OK"
-        Me.Label13.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.lblStatusMsgAbn.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblStatusMsgAbn.BackColor = System.Drawing.Color.Transparent
+        Me.lblStatusMsgAbn.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.lblStatusMsgAbn.Location = New System.Drawing.Point(0, 180)
+        Me.lblStatusMsgAbn.Name = "lblStatusMsgAbn"
+        Me.lblStatusMsgAbn.Size = New System.Drawing.Size(320, 22)
+        Me.lblStatusMsgAbn.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'Label15
+        'lblTotalScannedAbn
         '
-        Me.Label15.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label15.Location = New System.Drawing.Point(100, 225)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(40, 20)
+        Me.lblTotalScannedAbn.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lblTotalScannedAbn.Location = New System.Drawing.Point(100, 225)
+        Me.lblTotalScannedAbn.Name = "lblTotalScannedAbn"
+        Me.lblTotalScannedAbn.Size = New System.Drawing.Size(40, 20)
         '
         'Label17
         '
@@ -1207,27 +1147,27 @@ Partial Public Class frmBigPart
         'Panel10
         '
         Me.Panel10.BackColor = System.Drawing.Color.LightBlue
-        Me.Panel10.Controls.Add(Me.Label20)
-        Me.Panel10.Controls.Add(Me.Label22)
+        Me.Panel10.Controls.Add(Me.txtOrderNoAbn)
+        Me.Panel10.Controls.Add(Me.txtModuleNoAbn)
         Me.Panel10.Controls.Add(Me.Label29)
         Me.Panel10.Controls.Add(Me.Label30)
         Me.Panel10.Location = New System.Drawing.Point(10, 80)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Size = New System.Drawing.Size(293, 75)
         '
-        'Label20
+        'txtOrderNoAbn
         '
-        Me.Label20.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label20.Location = New System.Drawing.Point(75, 30)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(180, 15)
+        Me.txtOrderNoAbn.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.txtOrderNoAbn.Location = New System.Drawing.Point(75, 30)
+        Me.txtOrderNoAbn.Name = "txtOrderNoAbn"
+        Me.txtOrderNoAbn.Size = New System.Drawing.Size(180, 15)
         '
-        'Label22
+        'txtModuleNoAbn
         '
-        Me.Label22.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label22.Location = New System.Drawing.Point(75, 10)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(180, 15)
+        Me.txtModuleNoAbn.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.txtModuleNoAbn.Location = New System.Drawing.Point(75, 10)
+        Me.txtModuleNoAbn.Name = "txtModuleNoAbn"
+        Me.txtModuleNoAbn.Size = New System.Drawing.Size(180, 15)
         '
         'Label29
         '
@@ -1287,13 +1227,13 @@ Partial Public Class frmBigPart
         Me.btnBPAbnFScan.Size = New System.Drawing.Size(30, 22)
         Me.btnBPAbnFScan.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         '
-        'TextBox1
+        'txtModuleQRAbn
         '
-        Me.TextBox1.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.TextBox1.Location = New System.Drawing.Point(80, 55)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(200, 19)
-        Me.TextBox1.TabIndex = 13
+        Me.txtModuleQRAbn.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.txtModuleQRAbn.Location = New System.Drawing.Point(80, 55)
+        Me.txtModuleQRAbn.Name = "txtModuleQRAbn"
+        Me.txtModuleQRAbn.Size = New System.Drawing.Size(200, 19)
+        Me.txtModuleQRAbn.TabIndex = 13
         '
         'Label43
         '
@@ -1311,371 +1251,19 @@ Partial Public Class frmBigPart
         Me.Label44.Name = "Label44"
         Me.Label44.Size = New System.Drawing.Size(316, 20)
         '
-        'pnlBPScanError
-        '
-        Me.pnlBPScanError.BackColor = System.Drawing.Color.Transparent
-        Me.pnlBPScanError.Controls.Add(Me.btnBPScanDet)
-        Me.pnlBPScanError.Controls.Add(Me.ComboBox3)
-        Me.pnlBPScanError.Controls.Add(Me.Label45)
-        Me.pnlBPScanError.Controls.Add(Me.Label46)
-        Me.pnlBPScanError.Controls.Add(Me.Label48)
-        Me.pnlBPScanError.Controls.Add(Me.Label49)
-        Me.pnlBPScanError.Controls.Add(Me.btnSubmit)
-        Me.pnlBPScanError.Controls.Add(Me.Panel15)
-        Me.pnlBPScanError.Controls.Add(Me.Panel16)
-        Me.pnlBPScanError.Controls.Add(Me.Label59)
-        Me.pnlBPScanError.Controls.Add(Me.PictureBox2)
-        Me.pnlBPScanError.Controls.Add(Me.TextBox2)
-        Me.pnlBPScanError.Controls.Add(Me.Label63)
-        Me.pnlBPScanError.Controls.Add(Me.Label64)
-        Me.pnlBPScanError.Location = New System.Drawing.Point(1309, 3)
-        Me.pnlBPScanError.Name = "pnlBPScanError"
-        Me.pnlBPScanError.Size = New System.Drawing.Size(320, 275)
-        Me.pnlBPScanError.Visible = False
-        '
-        'btnBPScanDet
-        '
-        Me.btnBPScanDet.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.btnBPScanDet.Location = New System.Drawing.Point(6, 3)
-        Me.btnBPScanDet.Name = "btnBPScanDet"
-        Me.btnBPScanDet.Size = New System.Drawing.Size(90, 20)
-        Me.btnBPScanDet.TabIndex = 100
-        Me.btnBPScanDet.Text = "Details"
-        '
-        'ComboBox3
-        '
-        Me.ComboBox3.Location = New System.Drawing.Point(80, 30)
-        Me.ComboBox3.Name = "ComboBox3"
-        Me.ComboBox3.Size = New System.Drawing.Size(200, 23)
-        Me.ComboBox3.TabIndex = 98
-        '
-        'Label45
-        '
-        Me.Label45.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label45.Location = New System.Drawing.Point(0, 205)
-        Me.Label45.Name = "Label45"
-        Me.Label45.Size = New System.Drawing.Size(320, 20)
-        Me.Label45.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        '
-        'Label46
-        '
-        Me.Label46.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label46.BackColor = System.Drawing.Color.Red
-        Me.Label46.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Label46.Location = New System.Drawing.Point(0, 180)
-        Me.Label46.Name = "Label46"
-        Me.Label46.Size = New System.Drawing.Size(320, 22)
-        Me.Label46.Text = "Invalid Module QR"
-        Me.Label46.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        '
-        'Label48
-        '
-        Me.Label48.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label48.Location = New System.Drawing.Point(100, 225)
-        Me.Label48.Name = "Label48"
-        Me.Label48.Size = New System.Drawing.Size(40, 20)
-        '
-        'Label49
-        '
-        Me.Label49.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label49.Location = New System.Drawing.Point(10, 225)
-        Me.Label49.Name = "Label49"
-        Me.Label49.Size = New System.Drawing.Size(90, 20)
-        Me.Label49.Text = "Total Scanned :"
-        '
-        'btnSubmit
-        '
-        Me.btnSubmit.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.btnSubmit.Location = New System.Drawing.Point(223, 3)
-        Me.btnSubmit.Name = "btnSubmit"
-        Me.btnSubmit.Size = New System.Drawing.Size(90, 20)
-        Me.btnSubmit.TabIndex = 90
-        Me.btnSubmit.Text = "Submit"
-        '
-        'Panel15
-        '
-        Me.Panel15.BackColor = System.Drawing.Color.LightBlue
-        Me.Panel15.Controls.Add(Me.Label52)
-        Me.Panel15.Controls.Add(Me.Label55)
-        Me.Panel15.Controls.Add(Me.Label56)
-        Me.Panel15.Controls.Add(Me.Label57)
-        Me.Panel15.Location = New System.Drawing.Point(10, 80)
-        Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(293, 75)
-        '
-        'Label52
-        '
-        Me.Label52.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label52.Location = New System.Drawing.Point(75, 30)
-        Me.Label52.Name = "Label52"
-        Me.Label52.Size = New System.Drawing.Size(180, 15)
-        '
-        'Label55
-        '
-        Me.Label55.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label55.Location = New System.Drawing.Point(75, 10)
-        Me.Label55.Name = "Label55"
-        Me.Label55.Size = New System.Drawing.Size(180, 15)
-        '
-        'Label56
-        '
-        Me.Label56.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label56.Location = New System.Drawing.Point(7, 30)
-        Me.Label56.Name = "Label56"
-        Me.Label56.Size = New System.Drawing.Size(72, 15)
-        Me.Label56.Text = "Order No :"
-        '
-        'Label57
-        '
-        Me.Label57.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label57.Location = New System.Drawing.Point(7, 10)
-        Me.Label57.Name = "Label57"
-        Me.Label57.Size = New System.Drawing.Size(72, 15)
-        Me.Label57.Text = "Module No :"
-        '
-        'Panel16
-        '
-        Me.Panel16.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Panel16.Controls.Add(Me.BtnBackScanError)
-        Me.Panel16.Controls.Add(Me.Label58)
-        Me.Panel16.Location = New System.Drawing.Point(0, 247)
-        Me.Panel16.Name = "Panel16"
-        Me.Panel16.Size = New System.Drawing.Size(320, 24)
-        '
-        'BtnBackScanError
-        '
-        Me.BtnBackScanError.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.BtnBackScanError.Location = New System.Drawing.Point(200, 2)
-        Me.BtnBackScanError.Name = "BtnBackScanError"
-        Me.BtnBackScanError.Size = New System.Drawing.Size(110, 20)
-        Me.BtnBackScanError.TabIndex = 34
-        Me.BtnBackScanError.Text = "Back"
-        '
-        'Label58
-        '
-        Me.Label58.ForeColor = System.Drawing.Color.Black
-        Me.Label58.Location = New System.Drawing.Point(0, 3)
-        Me.Label58.Name = "Label58"
-        Me.Label58.Size = New System.Drawing.Size(209, 18)
-        Me.Label58.Text = "USER NAME:"
-        '
-        'Label59
-        '
-        Me.Label59.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label59.Location = New System.Drawing.Point(10, 55)
-        Me.Label59.Name = "Label59"
-        Me.Label59.Size = New System.Drawing.Size(70, 15)
-        Me.Label59.Text = "Module QR :"
-        '
-        'PictureBox2
-        '
-        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
-        Me.PictureBox2.Location = New System.Drawing.Point(283, 54)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(30, 22)
-        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        '
-        'TextBox2
-        '
-        Me.TextBox2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.TextBox2.Location = New System.Drawing.Point(80, 55)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(200, 19)
-        Me.TextBox2.TabIndex = 13
-        '
-        'Label63
-        '
-        Me.Label63.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label63.Location = New System.Drawing.Point(8, 34)
-        Me.Label63.Name = "Label63"
-        Me.Label63.Size = New System.Drawing.Size(68, 20)
-        Me.Label63.Text = "Shop :"
-        '
-        'Label64
-        '
-        Me.Label64.BackColor = System.Drawing.Color.PowderBlue
-        Me.Label64.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label64.Location = New System.Drawing.Point(2, 2)
-        Me.Label64.Name = "Label64"
-        Me.Label64.Size = New System.Drawing.Size(316, 20)
-        '
-        'pnlBPAbnScanError
-        '
-        Me.pnlBPAbnScanError.BackColor = System.Drawing.Color.Transparent
-        Me.pnlBPAbnScanError.Controls.Add(Me.Button1)
-        Me.pnlBPAbnScanError.Controls.Add(Me.ComboBox4)
-        Me.pnlBPAbnScanError.Controls.Add(Me.Label3)
-        Me.pnlBPAbnScanError.Controls.Add(Me.Label9)
-        Me.pnlBPAbnScanError.Controls.Add(Me.Label11)
-        Me.pnlBPAbnScanError.Controls.Add(Me.Label18)
-        Me.pnlBPAbnScanError.Controls.Add(Me.Panel17)
-        Me.pnlBPAbnScanError.Controls.Add(Me.Panel18)
-        Me.pnlBPAbnScanError.Controls.Add(Me.Label67)
-        Me.pnlBPAbnScanError.Controls.Add(Me.PictureBox1)
-        Me.pnlBPAbnScanError.Controls.Add(Me.TextBox3)
-        Me.pnlBPAbnScanError.Controls.Add(Me.Label68)
-        Me.pnlBPAbnScanError.Controls.Add(Me.Label69)
-        Me.pnlBPAbnScanError.Location = New System.Drawing.Point(657, 284)
-        Me.pnlBPAbnScanError.Name = "pnlBPAbnScanError"
-        Me.pnlBPAbnScanError.Size = New System.Drawing.Size(320, 275)
-        Me.pnlBPAbnScanError.Visible = False
-        '
-        'Button1
-        '
-        Me.Button1.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Button1.Location = New System.Drawing.Point(223, 3)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(90, 20)
-        Me.Button1.TabIndex = 100
-        Me.Button1.Text = "Details"
-        '
-        'ComboBox4
-        '
-        Me.ComboBox4.Location = New System.Drawing.Point(80, 30)
-        Me.ComboBox4.Name = "ComboBox4"
-        Me.ComboBox4.Size = New System.Drawing.Size(200, 23)
-        Me.ComboBox4.TabIndex = 98
-        '
-        'Label3
-        '
-        Me.Label3.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label3.Location = New System.Drawing.Point(0, 205)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(320, 20)
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        '
-        'Label9
-        '
-        Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label9.BackColor = System.Drawing.Color.Red
-        Me.Label9.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Label9.Location = New System.Drawing.Point(0, 180)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(320, 22)
-        Me.Label9.Text = "Invalid Module QR"
-        Me.Label9.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        '
-        'Label11
-        '
-        Me.Label11.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label11.Location = New System.Drawing.Point(100, 225)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(40, 20)
-        '
-        'Label18
-        '
-        Me.Label18.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label18.Location = New System.Drawing.Point(10, 225)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(90, 20)
-        Me.Label18.Text = "Total Scanned :"
-        '
-        'Panel17
-        '
-        Me.Panel17.BackColor = System.Drawing.Color.LightBlue
-        Me.Panel17.Controls.Add(Me.Label19)
-        Me.Panel17.Controls.Add(Me.Label50)
-        Me.Panel17.Controls.Add(Me.Label51)
-        Me.Panel17.Controls.Add(Me.Label65)
-        Me.Panel17.Location = New System.Drawing.Point(10, 80)
-        Me.Panel17.Name = "Panel17"
-        Me.Panel17.Size = New System.Drawing.Size(293, 75)
-        '
-        'Label19
-        '
-        Me.Label19.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label19.Location = New System.Drawing.Point(75, 30)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(180, 15)
-        '
-        'Label50
-        '
-        Me.Label50.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label50.Location = New System.Drawing.Point(75, 10)
-        Me.Label50.Name = "Label50"
-        Me.Label50.Size = New System.Drawing.Size(180, 15)
-        '
-        'Label51
-        '
-        Me.Label51.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label51.Location = New System.Drawing.Point(7, 30)
-        Me.Label51.Name = "Label51"
-        Me.Label51.Size = New System.Drawing.Size(72, 15)
-        Me.Label51.Text = "Order No :"
-        '
-        'Label65
-        '
-        Me.Label65.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label65.Location = New System.Drawing.Point(7, 10)
-        Me.Label65.Name = "Label65"
-        Me.Label65.Size = New System.Drawing.Size(72, 15)
-        Me.Label65.Text = "Module No :"
-        '
-        'Panel18
-        '
-        Me.Panel18.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Panel18.Controls.Add(Me.btnBackBPAbnScanError)
-        Me.Panel18.Controls.Add(Me.Label66)
-        Me.Panel18.Location = New System.Drawing.Point(0, 247)
-        Me.Panel18.Name = "Panel18"
-        Me.Panel18.Size = New System.Drawing.Size(320, 24)
-        '
-        'btnBackBPAbnScanError
-        '
-        Me.btnBackBPAbnScanError.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.btnBackBPAbnScanError.Location = New System.Drawing.Point(200, 2)
-        Me.btnBackBPAbnScanError.Name = "btnBackBPAbnScanError"
-        Me.btnBackBPAbnScanError.Size = New System.Drawing.Size(110, 20)
-        Me.btnBackBPAbnScanError.TabIndex = 34
-        Me.btnBackBPAbnScanError.Text = "Back"
-        '
-        'Label66
-        '
-        Me.Label66.ForeColor = System.Drawing.Color.Black
-        Me.Label66.Location = New System.Drawing.Point(0, 3)
-        Me.Label66.Name = "Label66"
-        Me.Label66.Size = New System.Drawing.Size(209, 18)
-        Me.Label66.Text = "USER NAME:"
-        '
-        'Label67
-        '
-        Me.Label67.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label67.Location = New System.Drawing.Point(10, 55)
-        Me.Label67.Name = "Label67"
-        Me.Label67.Size = New System.Drawing.Size(70, 15)
-        Me.Label67.Text = "Module QR :"
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(283, 54)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(30, 22)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        '
-        'TextBox3
-        '
-        Me.TextBox3.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.TextBox3.Location = New System.Drawing.Point(80, 55)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(200, 19)
-        Me.TextBox3.TabIndex = 13
-        '
-        'Label68
-        '
-        Me.Label68.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label68.Location = New System.Drawing.Point(8, 34)
-        Me.Label68.Name = "Label68"
-        Me.Label68.Size = New System.Drawing.Size(68, 20)
-        Me.Label68.Text = "Shop :"
-        '
-        'Label69
-        '
-        Me.Label69.BackColor = System.Drawing.Color.PowderBlue
-        Me.Label69.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label69.Location = New System.Drawing.Point(2, 2)
-        Me.Label69.Name = "Label69"
-        Me.Label69.Size = New System.Drawing.Size(316, 20)
+        'lblPostingTotalPdgAbn
+        '
+        Me.lblPostingTotalPdgAbn.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lblPostingTotalPdgAbn.Location = New System.Drawing.Point(228, 50)
+        Me.lblPostingTotalPdgAbn.Name = "lblPostingTotalPdgAbn"
+        Me.lblPostingTotalPdgAbn.Size = New System.Drawing.Size(70, 15)
+        '
+        'lblDeleteTotalAbn
+        '
+        Me.lblDeleteTotalAbn.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lblDeleteTotalAbn.Location = New System.Drawing.Point(183, 50)
+        Me.lblDeleteTotalAbn.Name = "lblDeleteTotalAbn"
+        Me.lblDeleteTotalAbn.Size = New System.Drawing.Size(80, 15)
         '
         'frmBigPart
         '
@@ -1685,8 +1273,6 @@ Partial Public Class frmBigPart
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(638, 455)
         Me.ControlBox = False
-        Me.Controls.Add(Me.pnlBPAbnScanError)
-        Me.Controls.Add(Me.pnlBPScanError)
         Me.Controls.Add(Me.pnlBPAbnScan)
         Me.Controls.Add(Me.pnlBPViewDet)
         Me.Controls.Add(Me.pnlBPAbn)
@@ -1724,12 +1310,6 @@ Partial Public Class frmBigPart
         Me.pnlBPAbnScan.ResumeLayout(False)
         Me.Panel10.ResumeLayout(False)
         Me.Panel11.ResumeLayout(False)
-        Me.pnlBPScanError.ResumeLayout(False)
-        Me.Panel15.ResumeLayout(False)
-        Me.Panel16.ResumeLayout(False)
-        Me.pnlBPAbnScanError.ResumeLayout(False)
-        Me.Panel17.ResumeLayout(False)
-        Me.Panel18.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -1746,8 +1326,8 @@ Partial Public Class frmBigPart
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents pnlBPFScan As System.Windows.Forms.Panel
     Friend WithEvents lstViewRCVFScan As System.Windows.Forms.ListView
-    Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
-    Friend WithEvents txtFModuleNo As System.Windows.Forms.TextBox
+    Friend WithEvents REASON_CODE As System.Windows.Forms.ColumnHeader
+    Friend WithEvents txtFSOrderNo As System.Windows.Forms.TextBox
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents btnSaveForceScan As System.Windows.Forms.Button
@@ -1783,7 +1363,7 @@ Partial Public Class frmBigPart
     Friend WithEvents Panel13 As System.Windows.Forms.Panel
     Friend WithEvents btnCloseBPPosting As System.Windows.Forms.Button
     Friend WithEvents Label23 As System.Windows.Forms.Label
-    Friend WithEvents ListView1 As System.Windows.Forms.ListView
+    Friend WithEvents lstViewPosting As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader4 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader5 As System.Windows.Forms.ColumnHeader
@@ -1798,7 +1378,7 @@ Partial Public Class frmBigPart
     Friend WithEvents Panel7 As System.Windows.Forms.Panel
     Friend WithEvents btnCloseBPDelete As System.Windows.Forms.Button
     Friend WithEvents Label27 As System.Windows.Forms.Label
-    Friend WithEvents ListView2 As System.Windows.Forms.ListView
+    Friend WithEvents lstViewDelete As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader7 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader8 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader9 As System.Windows.Forms.ColumnHeader
@@ -1820,7 +1400,7 @@ Partial Public Class frmBigPart
     Friend WithEvents pnlBPViewDet As System.Windows.Forms.Panel
     Friend WithEvents TabBPSummary As System.Windows.Forms.TabControl
     Friend WithEvents TabPage4 As System.Windows.Forms.TabPage
-    Friend WithEvents lblRCIS2TotalScan As System.Windows.Forms.Label
+    Friend WithEvents lblDetailTotalScan As System.Windows.Forms.Label
     Friend WithEvents Label47 As System.Windows.Forms.Label
     Friend WithEvents lstViewRCISummary As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader17 As System.Windows.Forms.ColumnHeader
@@ -1831,22 +1411,22 @@ Partial Public Class frmBigPart
     Friend WithEvents btnBackBPViewDet As System.Windows.Forms.Button
     Friend WithEvents Label54 As System.Windows.Forms.Label
     Friend WithEvents Label62 As System.Windows.Forms.Label
-    Friend WithEvents Label60 As System.Windows.Forms.Label
-    Friend WithEvents txtPartNo As System.Windows.Forms.TextBox
+    Friend WithEvents lblStatusMsg As System.Windows.Forms.Label
+    Friend WithEvents txtFSModuleNo As System.Windows.Forms.TextBox
     Friend WithEvents Label76 As System.Windows.Forms.Label
-    Friend WithEvents ComboBox1 As System.Windows.Forms.ComboBox
+    Friend WithEvents cmbShop As System.Windows.Forms.ComboBox
     Friend WithEvents btnScanDetails As System.Windows.Forms.Button
     Friend WithEvents Label35 As System.Windows.Forms.Label
     Friend WithEvents pnlBPAbnScan As System.Windows.Forms.Panel
     Friend WithEvents btnBPAbnScanDet As System.Windows.Forms.Button
-    Friend WithEvents ComboBox2 As System.Windows.Forms.ComboBox
+    Friend WithEvents cmbShopAbn As System.Windows.Forms.ComboBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents Label13 As System.Windows.Forms.Label
-    Friend WithEvents Label15 As System.Windows.Forms.Label
+    Friend WithEvents lblStatusMsgAbn As System.Windows.Forms.Label
+    Friend WithEvents lblTotalScannedAbn As System.Windows.Forms.Label
     Friend WithEvents Label17 As System.Windows.Forms.Label
     Friend WithEvents Panel10 As System.Windows.Forms.Panel
-    Friend WithEvents Label20 As System.Windows.Forms.Label
-    Friend WithEvents Label22 As System.Windows.Forms.Label
+    Friend WithEvents txtOrderNoAbn As System.Windows.Forms.Label
+    Friend WithEvents txtModuleNoAbn As System.Windows.Forms.Label
     Friend WithEvents Label29 As System.Windows.Forms.Label
     Friend WithEvents Label30 As System.Windows.Forms.Label
     Friend WithEvents Panel11 As System.Windows.Forms.Panel
@@ -1854,49 +1434,10 @@ Partial Public Class frmBigPart
     Friend WithEvents Label31 As System.Windows.Forms.Label
     Friend WithEvents Label38 As System.Windows.Forms.Label
     Friend WithEvents btnBPAbnFScan As System.Windows.Forms.PictureBox
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents txtModuleQRAbn As System.Windows.Forms.TextBox
     Friend WithEvents Label43 As System.Windows.Forms.Label
     Friend WithEvents Label44 As System.Windows.Forms.Label
-    Friend WithEvents pnlBPScanError As System.Windows.Forms.Panel
-    Friend WithEvents btnBPScanDet As System.Windows.Forms.Button
-    Friend WithEvents ComboBox3 As System.Windows.Forms.ComboBox
-    Friend WithEvents Label45 As System.Windows.Forms.Label
-    Friend WithEvents Label46 As System.Windows.Forms.Label
-    Friend WithEvents Label48 As System.Windows.Forms.Label
-    Friend WithEvents Label49 As System.Windows.Forms.Label
-    Friend WithEvents btnSubmit As System.Windows.Forms.Button
-    Friend WithEvents Panel15 As System.Windows.Forms.Panel
-    Friend WithEvents Label52 As System.Windows.Forms.Label
-    Friend WithEvents Label55 As System.Windows.Forms.Label
-    Friend WithEvents Label56 As System.Windows.Forms.Label
-    Friend WithEvents Label57 As System.Windows.Forms.Label
-    Friend WithEvents Panel16 As System.Windows.Forms.Panel
-    Friend WithEvents BtnBackScanError As System.Windows.Forms.Button
-    Friend WithEvents Label58 As System.Windows.Forms.Label
-    Friend WithEvents Label59 As System.Windows.Forms.Label
-    Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
-    Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
-    Friend WithEvents Label63 As System.Windows.Forms.Label
-    Friend WithEvents Label64 As System.Windows.Forms.Label
-    Friend WithEvents pnlBPAbnScanError As System.Windows.Forms.Panel
-    Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents ComboBox4 As System.Windows.Forms.ComboBox
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents Label9 As System.Windows.Forms.Label
-    Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents Label18 As System.Windows.Forms.Label
-    Friend WithEvents Panel17 As System.Windows.Forms.Panel
-    Friend WithEvents Label19 As System.Windows.Forms.Label
-    Friend WithEvents Label50 As System.Windows.Forms.Label
-    Friend WithEvents Label51 As System.Windows.Forms.Label
-    Friend WithEvents Label65 As System.Windows.Forms.Label
-    Friend WithEvents Panel18 As System.Windows.Forms.Panel
-    Friend WithEvents btnBackBPAbnScanError As System.Windows.Forms.Button
-    Friend WithEvents Label66 As System.Windows.Forms.Label
-    Friend WithEvents Label67 As System.Windows.Forms.Label
-    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
-    Friend WithEvents TextBox3 As System.Windows.Forms.TextBox
-    Friend WithEvents Label68 As System.Windows.Forms.Label
-    Friend WithEvents Label69 As System.Windows.Forms.Label
+    Friend WithEvents lblPostingTotalPdgAbn As System.Windows.Forms.Label
+    Friend WithEvents lblDeleteTotalAbn As System.Windows.Forms.Label
 
 End Class

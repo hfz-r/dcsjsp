@@ -92,17 +92,23 @@ Module GeneralFunction
     Public Function getData(ByVal sSQL As String) As DataTable
         Dim dt As DataTable = New DataTable
         Try
-
             Dim dbReader As SqlCeDataReader = Nothing
-
-
             dbReader = OpenRecordset(sSQL, objConn)
-
-
             dt.Load(dbReader)
-
             dbReader.Close()
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, gAppName)
+        End Try
+        Return dt
+    End Function
 
+    Public Function getDTData(ByVal sSQL As String) As DataTable
+        Dim dt As DataTable = New DataTable
+        Try
+            Dim dbAdapter As SqlCeDataAdapter = Nothing
+            dbAdapter = New SqlCeDataAdapter(sSQL, objConn)
+            dbAdapter.Fill(dt)
+            objConn.Close()
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, gAppName)
         End Try

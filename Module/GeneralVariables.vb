@@ -49,8 +49,6 @@ Module GeneralVariables
     Public gStrDCSWebServiceURL As String ' = "" '"http://192.168.170.169:8084/DCSWebService.svc"
     Public ws_dcsClient As DCSWebService.DCSWebService = New DCSWebService.DCSWebService
     ' MAKE WEBSERVICE OFFLINE MODE AND TRY ABNORMAL SERVICE
-    Public ws_dcsClient As DCSWebService.DCSWebService = New DCSWebService.DCSWebService
-    ' MAKE WEBSERVICE OFFLINE MODE AND TRY ABNORMAL SERVICE
 
     Public gStrOracleWebServiceURL As String ' = "" '"http://10.1.115.94:4559/ws/perodua.eai.process.inventory.ws.servicePart:processServicePartService/perodua_eai_process_inventory_ws_servicePart_processServicePartService_Port"
     Public gStrOraUserID As String ' = "" ' "promiseusr"
@@ -74,6 +72,7 @@ Module GeneralVariables
     Public TblJSPSupplyBPHeaderDb As String = "JSP_SUPPLY_BP_HEADERS"
     Public TblJSPSupplyCPHeaderDb As String = "JSP_SUPPLY_CP_HEADERS"
     Public TblJSPAbnormalReasonCodeDb As String = "JSP_ABNORMAL_REASON_CODE"
+    Public TblJSPSupplyInterface As String = "JSP_SUPPLY_INTERFACE"
 
     '---- Not using ---------------------
     'Public TblSEPPackVDb As String = "SEP_PACK_IMPORTER_V"
