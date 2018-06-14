@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:HDR1="http://schemas.perodua.com.my/EAI/common/soap/v1/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soapjms="http://www.w3.org/2010/soapjms/" xmlns:tns="http://services.perodua.com.my/EAI/Inventory/InventoryService/v1/" xmlns:HDR2="http://schemas.perodua.com.my/EAI/Inventory/Inventory/v1/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" name="processInventoryConsumptionService" targetNamespace="http://services.perodua.com.my/EAI/Inventory/InventoryService/v1/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns:tns="http://schemas.perodua.com.my/EAI/common/soap/v1/" targetNamespace="http://schemas.perodua.com.my/EAI/common/soap/v1/">
+      <xsd:element name="eaiHeader" type="tns:eaiHeader" />
+      <xsd:complexType name="eaiHeader">
+        <xsd:sequence>
+          <xsd:element form="qualified" name="from" type="xsd:string" />
+          <xsd:element form="qualified" name="to" type="xsd:string" />
+          <xsd:element form="qualified" name="appId" type="xsd:string" />
+          <xsd:element form="qualified" name="msgType" type="xsd:string" />
+          <xsd:element form="qualified" name="msgId" type="xsd:string" />
+          <xsd:element minOccurs="0" form="qualified" name="correlationId" type="xsd:string" />
+          <xsd:element form="qualified" name="timestamp" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns:inv="http://schemas.perodua.com.my/EAI/Inventory/Inventory/v1/" xmlns:tns2="http://services.perodua.com.my/EAI/Inventory/InventoryService/v1/" targetNamespace="http://services.perodua.com.my/EAI/Inventory/InventoryService/v1/">
+      <xsd:import namespace="http://schemas.perodua.com.my/EAI/Inventory/Inventory/v1/" />
+      <xsd:element name="processInventoryConsumptionReqDoc" type="tns2:processInventoryConsumptionReqDoc" />
+      <xsd:element name="processInventoryConsumptionRespDoc" type="tns2:processInventoryConsumptionRespDoc" />
+      <xsd:complexType name="processInventoryConsumptionReqDoc">
+        <xsd:sequence>
+          <xsd:element ref="inv:scannerBatchId" />
+          <xsd:element ref="inv:processType" />
+          <xsd:element ref="inv:processCode" />
+          <xsd:element ref="inv:orgID" />
+          <xsd:element minOccurs="0" ref="inv:inpF01" />
+          <xsd:element minOccurs="0" ref="inv:inpF02" />
+          <xsd:element minOccurs="0" ref="inv:inpF03" />
+          <xsd:element minOccurs="0" ref="inv:inpF04" />
+          <xsd:element minOccurs="0" ref="inv:inpF05" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="processInventoryConsumptionRespDoc">
+        <xsd:sequence>
+          <xsd:element ref="inv:msgCode" />
+          <xsd:element minOccurs="0" ref="inv:msgDesc" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns:inv="http://schemas.perodua.com.my/EAI/Inventory/Inventory/v1/" targetNamespace="http://schemas.perodua.com.my/EAI/Inventory/Inventory/v1/">
+      <xsd:element name="scannerBatchId" nillable="true" type="inv:scannerBatchId" />
+      <xsd:element name="processType" nillable="true" type="inv:processType" />
+      <xsd:element name="processCode" nillable="true" type="inv:processCode" />
+      <xsd:element name="orgID" nillable="true" type="inv:orgID" />
+      <xsd:element name="inpF01" nillable="true" type="xsd:string" />
+      <xsd:element name="inpF02" nillable="true" type="xsd:string" />
+      <xsd:element name="inpF03" nillable="true" type="xsd:string" />
+      <xsd:element name="inpF04" nillable="true" type="xsd:string" />
+      <xsd:element name="inpF05" nillable="true" type="xsd:string" />
+      <xsd:element name="msgCode" nillable="true" type="inv:msgCode" />
+      <xsd:element name="msgDesc" nillable="true" type="inv:msgDesc" />
+      <xsd:simpleType name="scannerBatchId">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="processType">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="processCode">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="orgID">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="msgCode">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="msgDesc">
+        <xsd:restriction base="xsd:string">
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="perodua_eai_system_ws_docType_eaiHeader">
+    <wsdl:part name="parameters" element="HDR1:eaiHeader" />
+  </wsdl:message>
+  <wsdl:message name="processInventoryConsumptionService_PortType_processInventoryConsumptionRespDoc">
+    <wsdl:part name="parameters" element="tns:processInventoryConsumptionRespDoc" />
+  </wsdl:message>
+  <wsdl:message name="processInventoryConsumptionService_PortType_processInventoryConsumptionReqDoc">
+    <wsdl:part name="parameters" element="tns:processInventoryConsumptionReqDoc" />
+  </wsdl:message>
+  <wsdl:portType name="processInventoryConsumptionService_PortType">
+    <wsdl:operation name="processInventoryConsumption">
+      <wsdl:input message="tns:processInventoryConsumptionService_PortType_processInventoryConsumptionReqDoc" />
+      <wsdl:output message="tns:processInventoryConsumptionService_PortType_processInventoryConsumptionRespDoc" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="perodua_eai_process_inventory_ws_processInventoryConsumptionService_Binder" type="tns:processInventoryConsumptionService_PortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="processInventoryConsumption">
+      <soap:operation soapAction="perodua_eai_process_inventory_ws_processInventoryConsumptionService_Binder_processInventoryConsumption" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" parts="parameters" />
+        <soap:header message="tns:perodua_eai_system_ws_docType_eaiHeader" part="parameters" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" parts="parameters" />
+        <soap:header message="tns:perodua_eai_system_ws_docType_eaiHeader" part="parameters" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="processInventoryConsumptionService">
+    <wsdl:port name="perodua_eai_process_inventory_ws_processInventoryConsumptionService_Port" binding="tns:perodua_eai_process_inventory_ws_processInventoryConsumptionService_Binder">
+      <soap:address location="http://VAWBMTD0.perodua.com.my:4559/ws/perodua.eai.process.inventory.ws:processInventoryConsumptionService/perodua_eai_process_inventory_ws_processInventoryConsumptionService_Port" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

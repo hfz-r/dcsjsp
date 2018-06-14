@@ -1,93 +1,15 @@
 Imports System
-Imports System.IO
-Imports System.Text
 Imports System.Data
-Imports System.Data.SqlClient
 Imports System.Data.SqlServerCe
-Imports System.Collections
 Imports System.Windows.Forms
-Imports System.Data.Common
-Imports System.Reflection
 Imports System.Runtime.InteropServices
 Imports DCSJSP.clsDataTransfer
 Imports System.Net
+Imports System.Reflection
 
 Module GeneralFunction
 
-    Dim clsDataTransfer As New clsDataTransfer
-
-	Public PlaySound As Boolean = False
-	Public gErrorSoundDuration As Integer = 150
-	Public gErrorSoundFreq As Integer = 2670 '2670
-
-    'System time structure used to pass to P/Invoke...
-    <StructLayoutAttribute(LayoutKind.Sequential)> _
-    Private Structure SYSTEMTIME
-        Public year As Short
-        Public month As Short
-        Public dayOfWeek As Short
-        Public day As Short
-        Public hour As Short
-        Public minute As Short
-        Public second As Short
-        Public milliseconds As Short
-    End Structure
-
-    'P/Invoke dec for setting the system time...
-    <DllImport("coredll.dll")> _
-    Private Function SetLocalTime(ByRef time As SYSTEMTIME) As Boolean
-    End Function
-
-    Public Sub SetDeviceTime(ByVal SQLServerTime As String)
-         Try
-            Dim p_NewDate As Date = CDate(SQLServerTime)
-            Dim st As SYSTEMTIME
-            st.year = CShort(p_NewDate.Year)
-            st.month = CShort(p_NewDate.Month)
-            st.dayOfWeek = CShort(p_NewDate.DayOfWeek)
-            st.day = CShort(p_NewDate.Day)
-            st.hour = CShort(p_NewDate.Hour)
-            st.minute = CShort(p_NewDate.Minute)
-            st.second = CShort(p_NewDate.Second)
-            st.milliseconds = CShort(p_NewDate.Millisecond)
-            'Set the new time...
-            SetLocalTime(st)
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "SetDeviceTime")
-        Finally
-            ' If Not IsNothing(rWebSync) Then rWebSync.Dispose() : rWebSync = Nothing
-        End Try
-    End Sub
-
-	Public Sub PlayErrorSound()
-		Try
-			If PlaySound Then Exit Sub
-			Application.DoEvents()
-			'If Not IsNothing(MyAudioController) Then MyAudioController.PlayAudio(gErrorSoundDuration, gErrorSoundFreq) 'play Default beep
-            'If Not IsNothing(MyAudioController) Then MyAudioController.PlayWaveFile(DefaultAppPath & "\Beep.wav")
-			Threading.Thread.Sleep(gErrorSoundDuration)
-		Catch ex As Exception
-		Finally
-			PlaySound = False
-		End Try
-	End Sub
-
-	Public Sub ErrorBox(ByVal xMsg As String, ByVal xType As Microsoft.VisualBasic.MsgBoxStyle, Optional ByVal xTitle As String = "")
-		PlayErrorSound()
-		MsgBox(xMsg, xType, xTitle)
-	End Sub
-
-	Public Sub SuccessBox(ByVal xMsg As String, ByVal xType As Microsoft.VisualBasic.MsgBoxStyle, Optional ByVal xTitle As String = "")
-		MsgBox(xMsg, xType, xTitle)
-    End Sub
-
-    'Public Sub ClsSqlRdr(ByVal pRdr As SqlCeDataReader)
-    '    Try
-    '        If Not IsNothing(pRdr) Then pRdr.Dispose() : pRdr = Nothing
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message, MsgBoxStyle.Critical, "ClsSqlRdr")
-    '    End Try
-    'End Sub
+#Region ". Get Function ."
 
     Public Function getData(ByVal sSQL As String) As DataTable
         Dim dt As DataTable = New DataTable
@@ -96,6 +18,7 @@ Module GeneralFunction
             dbReader = OpenRecordset(sSQL, objConn)
             dt.Load(dbReader)
             dbReader.Close()
+            dbReader.Dispose()
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, gAppName)
         End Try
@@ -115,114 +38,84 @@ Module GeneralFunction
         Return dt
     End Function
 
-    Public Function postData(ByVal batchID As String, ByVal processType As Integer, ByRef msgCode As String, ByRef msgDesc As String) As Boolean
-        postData = False
+#End Region
+
+#Region ". Batch & Scanner Helper ."
+
+    Public Function GetBatchID(ByVal category As String, ByVal categoryValue As String) As String
         Try
-            If batchID = "" Or batchID = "NULL" Then
-                msgCode = "F"
-                msgDesc = "Batch ID is empty."
-                Exit Function
+            Dim Prefix As String = Nothing
+            Dim CurrentNo As String = Nothing
+            Dim ID As Integer
+            Dim CurrentDate As DateTime
+            Dim dt As DataTable = New DataTable
+
+            dt = getData(String.Format("SELECT *, GETDATE() FROM [{0}] WHERE CATEGORY LIKE {1}", TblBatch, SQLQuote(category)))
+            If dt.Rows.Count > 0 Then
+                ID = dt.Rows(0).Item(0).ToString
+                Prefix = dt.Rows(0).Item(2).ToString
+                CurrentNo = dt.Rows(0).Item(4).ToString
+                CurrentDate = dt.Rows(0).Item(5)
             End If
 
-            If processType = 0 Then
-                msgCode = "F"
-                msgDesc = "Incorrect Process Type"
-                Exit Function
+            Dim BatchId As System.Text.StringBuilder = New System.Text.StringBuilder("")
+            If Prefix.Substring(0, 1).Contains("c") Then
+                BatchId.Append(categoryValue)
+            End If
+            If Prefix.Substring(1, 3).Contains("sss") Then
+                BatchId.Append(gSCNNo.ToString().PadLeft(3, "0"))
+            End If
+            If Not String.IsNullOrEmpty(CurrentNo) Then
+                BatchId.Append(CurrentNo)
             End If
 
-            Dim check As String = gStrDCSWebServiceURL
-
-            If gStrDCSWebServiceURL.Contains("http://172.20.1") And gStrDCSWebServiceURL.Contains(":8084") Then
-                'DEVELOPMENT BY TOSHIBA TEC
-                'IP PC LIZA
-                msgCode = "0" 'dummy for development purpose
-                msgDesc = "Success"
-            ElseIf gStrDCSWebServiceURL.Contains("http://192.168.0") And gStrDCSWebServiceURL.Contains(":8084") Then
-                msgCode = "0" 'dummy for development purpose
-                msgDesc = "Success"
-            Else
-                'LIVE PERODUA
-                'msgCode = ws_oracleClient.processServicePart(batchID, processType.ToString, msgDesc)
-            End If
-
-            If msgCode = "0" And msgDesc = "Success" Then
-                postData = True
-            End If
-
+            Return BatchId.ToString()
 
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, gAppName)
+            Throw New Exception("Failed To Create Batch.")
         End Try
     End Function
 
-    Public Function formatPartNo(ByRef partNo As String, ByVal partNoLength As Integer) As Boolean
-        formatPartNo = False
-        Try
-            If partNo.Length = PartNoLength Then
-                Dim p1 As String = partNo.Substring(0, 5)
-                Dim p2 As String = partNo.Substring(5, 5)
-                Dim p3 As String = partNo.Substring(10, 2)
-                partNo = p1 & "-" & p2 & "-" & p3
-                formatPartNo = True
-            End If
-
-
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, gAppName)
-        End Try
-    End Function
-    
-
-    Public Function deleteTransaction(ByVal tableName As String, Optional ByVal where As String = "AND 1=1") As Boolean
-        deleteTransaction = False
-        Try
-            'If ExecuteSQL("DELETE FROM [" & tableName & "] WHERE 1=1 " & where) Then
-            '    deleteTransaction = True
-            'End If
-
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, gAppName)
-        End Try
-    End Function
-
-    Public Sub SortDataTable(ByRef dt As DataTable, ByVal sortStr As String)
-        Dim dataView As New DataView(dt)
-        dataView.Sort = " RB_TYPE DESC, RB_SERIAL_NO DESC"
-        Dim dttemp As DataTable = dataView.ToTable()
-        dt.Clear()
-        dt = dttemp
-        dttemp.Dispose()
-    End Sub
-
-    Public Function TranxTbl_isAllPosted(ByVal pStrAnyColumn_f As String, ByVal pStrTableName_I As String, ByRef rStrErrorMsg As String) As Boolean
-        TranxTbl_isAllPosted = False
+    Public Function GetScannerId() As String
+        Dim scnid As String = ""
         Try
             Dim dt As DataTable = New DataTable
 
-            'dt = getData("select " & pStrAnyColumn_f & " from " & pStrTableName_I & " where POST_FLAG <> 'Y'")
-            If dt.Rows.Count <= 0 Then
-                TranxTbl_isAllPosted = True
+            dt = getData("SELECT SettingValue FROM TblSetting WHERE settingCategory='SCN' AND settingCode='SCNID' ")
+            If dt.Rows.Count > 0 Then
+                scnid = dt.Rows(0).Item("SettingValue").ToString
             End If
+
         Catch ex As Exception
-            'MsgBox(ex.Message, MsgBoxStyle.Critical, Me.Text)
-            rStrErrorMsg = ex.Message
+            MsgBox(String.Format("Error reading Scanner ID{0}", ex.Message), MsgBoxStyle.Critical)
         End Try
+
+        Return scnid
     End Function
 
-#Region "Load Main"
+#End Region
+
+#Region ". Load Main ."
 
     Public Sub Main()
-
         Dim frm As New frmProgress
-        frm.AutoScroll = False
-        frm.ShowDialog()
-        frm.Dispose() : frm = Nothing
-
+        Try
+            Dim name As String = Assembly.GetExecutingAssembly().GetName().Name
+            Dim mutexHandle As IntPtr = CreateMutex(IntPtr.Zero, True, name)
+            Dim [error] As Long = Marshal.GetLastWin32Error()
+            If [error] <> ERROR_ALREADY_EXISTS Then
+                frm.AutoScroll = False
+                frm.ShowDialog()
+            Else
+                Throw New Exception("Application Already Running.")
+            End If
+            ReleaseMutex(mutexHandle)
+            frm.Dispose() : frm = Nothing
+        Catch ex As Exception
+            frm.Dispose() : frm = Nothing
+            MsgBox(ex.Message, MsgBoxStyle.Critical, gAppName)
+        End Try
     End Sub
-
-    Public Function checkConnection() As Boolean
-
-    End Function
 
     Public Function LoadSetting() As DataTable
         Dim dt As DataTable = New DataTable
@@ -230,22 +123,26 @@ Module GeneralFunction
 
         Try
 
-            Dim sSQL As String = "SELECT * FROM TBLSETTING "
+            Dim sSQL As String = String.Format("SELECT * FROM {0}", TblSettingDb)
             dbReader = OpenRecordset(sSQL, objConn)
             dt.Load(dbReader)
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 If dt.Rows(i).Item("SettingCode") = "SCNID" Then
                     gScannerID = dt.Rows(i).Item("SettingValue").ToString
+                ElseIf dt.Rows(i).Item("SettingCode") = "SCN_NO" Then
+                    gSCNNo = dt.Rows(i).Item("SettingValue").ToString
                 ElseIf dt.Rows(i).Item("SettingCode") = "PREFIX" Then
                     gScnPrefix = dt.Rows(i).Item("SettingValue").ToString
                 ElseIf dt.Rows(i).Item("SettingCode") = "SUFFIX" Then
                     gScnSuffix = dt.Rows(i).Item("SettingValue").ToString
-                ElseIf dt.Rows(i).Item("SettingCode") = "URLDCSSP" Then
+                ElseIf dt.Rows(i).Item("SettingCode") = "URLDCSJSP" Then
                     gStrDCSWebServiceURL = dt.Rows(i).Item("SettingValue").ToString
-                    Dim ws_dcsClient As New DCSWebService.DCSWebService
-                ElseIf dt.Rows(i).Item("SettingCode") = "URLORACLE" Then
-                    gStrOracleWebServiceURL = dt.Rows(i).Item("SettingValue").ToString
+                    ws_dcsClient.Url = gStrDCSWebServiceURL
+                ElseIf dt.Rows(i).Item("SettingCode") = "URLORACLECHCK" Then
+                    gStrOracleChckWebServiceURL = dt.Rows(i).Item("SettingValue").ToString
+                ElseIf dt.Rows(i).Item("SettingCode") = "URLORACLECP" Then
+                    gStrOracleCpWebServiceURL = dt.Rows(i).Item("SettingValue").ToString
                 ElseIf dt.Rows(i).Item("SettingCode") = "URLORAUSERID" Then
                     gStrOraUserID = dt.Rows(i).Item("SettingValue").ToString
                 ElseIf dt.Rows(i).Item("SettingCode") = "URLORAUSERPWD" Then
@@ -256,45 +153,75 @@ Module GeneralFunction
                     gDatabaseName = dt.Rows(i).Item("SettingValue").ToString
                 ElseIf dt.Rows(i).Item("SettingCode") = "DBPASSWORD" Then
                     gDatabasePwd = dt.Rows(i).Item("SettingValue").ToString
+                ElseIf dt.Rows(i).Item("SettingCode") = "ORG_ID" Then
+                    org_ID = dt.Rows(i).Item("SettingValue").ToString
                 ElseIf dt.Rows(i).Item("SettingCode") = "INTERVAL" Then
                     iInterval = dt.Rows(i).Item("SettingValue")
-
-                    '-- import
-                    'ElseIf dt.Rows(i).Item("SettingCode") = "USER" Then
-                    '    sUser = dt.Rows(i).Item("SettingValue").ToString
-                    'ElseIf dt.Rows(i).Item("SettingCode") = "REASON" Then
-                    '    sReason = dt.Rows(i).Item("SettingValue").ToString
-                    'ElseIf dt.Rows(i).Item("SettingCode") = "RBTYPE" Then
-                    '    sRBType = dt.Rows(i).Item("SettingValue").ToString
-                    'ElseIf dt.Rows(i).Item("SettingCode") = "CASETYPE" Then
-                    '    sCaseType = dt.Rows(i).Item("SettingValue").ToString
-                    'ElseIf dt.Rows(i).Item("SettingCode") = "CUSTOMER" Then
-                    '    sCustomer = dt.Rows(i).Item("SettingValue").ToString
-                    'ElseIf dt.Rows(i).Item("SettingCode") = "IMPORTER" Then
-                    '    sImporter = dt.Rows(i).Item("SettingValue").ToString
-                    'ElseIf dt.Rows(i).Item("SettingCode") = "VENDOR" Then
-                    '    sVendor = dt.Rows(i).Item("SettingValue").ToString
-                    'ElseIf dt.Rows(i).Item("SettingCode") = "STOPPERTYPE" Then
-                    '    sStopperType = dt.Rows(i).Item("SettingValue").ToString
+                ElseIf dt.Rows(i).Item("SettingCode") = "AUTUSERID" Then
+                    loginUser = dt.Rows(i).Item("SettingValue")
+                ElseIf dt.Rows(i).Item("SettingCode") = "AUTPWD" Then
+                    loginPass = dt.Rows(i).Item("SettingValue")
                 End If
             Next
             dbReader.Close()
 
-            ConnStr = "Data Source=" & gDBPath + gDatabaseName & ";password=" & gDatabasePwd
-
-            'ws_oracleClient.Url = gStrOracleWebServiceURL
-            'Dim oraCred As NetworkCredential = New NetworkCredential(gStrOraUserID, gStrOraUserPwd)
-            ''Dim oraCache As CredentialCache = New CredentialCache
-            ''oraCache.Add(New Uri("www.contoso.com"), "Basic", myCred)
-            ''oraCache.Add(New Uri("app.contoso.com"), "Basic", myCred)
-            'ws_oracleClient.Credentials = oraCred
-            'ws_oracleClient.PreAuthenticate = True
+            ConnStr = String.Format("Data Source={0}{1};password={2}", gDBPath, gDatabaseName, gDatabasePwd)
+            InitWebServices()
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, gAppName)
         End Try
         Return dt
     End Function
+
+    Public Sub InitWebServices()
+
+        ws_validationClient.Url = gStrOracleChckWebServiceURL
+        ws_validationClient.PreAuthenticate = True
+        ws_validationClient.Credentials = New NetworkCredential(gStrOraUserID, gStrOraUserPwd)
+        ws_validationClient.eaiHeaderValue = New ValidationWebService.eaiHeader
+
+        ws_inventoryClient.Url = gStrOracleCpWebServiceURL
+        ws_inventoryClient.PreAuthenticate = True
+        ws_inventoryClient.Credentials = New NetworkCredential(gStrOraUserID, gStrOraUserPwd)
+        Dim header As New InventoryConsumptionWebService.eaiHeader
+        header.from = "DCS"
+        header.msgId = "0"
+        ws_inventoryClient.eaiHeaderValue = header
+    End Sub
+
+#End Region
+
+#Region ". Custom Exception ."
+
+    Public Class CustomException
+        Inherits Exception
+
+        Public Sub New()
+        End Sub
+
+        Public Sub New(ByVal message As String)
+            MyBase.New(message)
+        End Sub
+
+        Public Sub New(ByVal message As String, ByVal inner As Exception)
+            MyBase.New(message, inner)
+        End Sub
+    End Class
+
+#End Region
+
+#Region "Single Instance Application"
+
+    <DllImport("coredll.dll", SetLastError:=True)> _
+    Function CreateMutex(ByVal Attr As IntPtr, ByVal Own As Boolean, ByVal Name As String) As IntPtr
+    End Function
+
+    <DllImport("coredll.dll", SetLastError:=True)> _
+    Function ReleaseMutex(ByVal hMutex As IntPtr) As Boolean
+    End Function
+
+    Const ERROR_ALREADY_EXISTS As Long = 183
 
 #End Region
 

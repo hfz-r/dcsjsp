@@ -34,7 +34,7 @@ Namespace DCSWebService
         '''<remarks/>
         Public Sub New()
             MyBase.New
-            Me.Url = "http://192.168.170.169:8084/DCSWebService.svc"
+            Me.Url = "http://10.1.115.233:8084/DCSWebService.svc"
         End Sub
         
         '''<remarks/>
@@ -87,6 +87,24 @@ Namespace DCSWebService
         
         '''<remarks/>
         Public Function EndgetTime(ByVal asyncResult As System.IAsyncResult) As String
+            Dim results() As Object = Me.EndInvoke(asyncResult)
+            Return CType(results(0),String)
+        End Function
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IDCSWebService/getTimeSet", RequestNamespace:="http://tempuri.org/", ResponseNamespace:="http://tempuri.org/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function getTimeSet() As String
+            Dim results() As Object = Me.Invoke("getTimeSet", New Object(-1) {})
+            Return CType(results(0),String)
+        End Function
+        
+        '''<remarks/>
+        Public Function BegingetTimeSet(ByVal callback As System.AsyncCallback, ByVal asyncState As Object) As System.IAsyncResult
+            Return Me.BeginInvoke("getTimeSet", New Object(-1) {}, callback, asyncState)
+        End Function
+        
+        '''<remarks/>
+        Public Function EndgetTimeSet(ByVal asyncResult As System.IAsyncResult) As String
             Dim results() As Object = Me.EndInvoke(asyncResult)
             Return CType(results(0),String)
         End Function

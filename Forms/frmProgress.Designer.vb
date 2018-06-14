@@ -57,6 +57,7 @@ Partial Public Class frmProgress
         Me.btnSTBack.Name = "btnSTBack"
         Me.btnSTBack.Size = New System.Drawing.Size(124, 26)
         Me.btnSTBack.TabIndex = 1
+        Me.btnSTBack.TabStop = False
         Me.btnSTBack.Text = "Back"
         Me.btnSTBack.Visible = False
         '
@@ -176,7 +177,7 @@ Partial Public Class frmProgress
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmProgress"
-        Me.Text = "JPS"
+        Me.Text = "JSP"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.pnlProgress.ResumeLayout(False)
         Me.pnlDataTransfer.ResumeLayout(False)

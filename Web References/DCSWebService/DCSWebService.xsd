@@ -30,6 +30,16 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="getTimeSet">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="getTimeSetResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="getTimeSetResult" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="verifyLogin">
     <xs:complexType>
       <xs:sequence>

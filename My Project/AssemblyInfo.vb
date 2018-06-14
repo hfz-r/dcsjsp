@@ -8,11 +8,11 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("DCSServicePart")> 
+<Assembly: AssemblyTitle("DCSJSP")> 
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("Toshiba Tec Malaysia Sdn Bhd")> 
-<Assembly: AssemblyProduct("DCSServicePart")> 
-<Assembly: AssemblyCopyright("Copyright © Toshiba Tec Malaysia 2015")> 
+<Assembly: AssemblyProduct("DCSJSP")> 
+<Assembly: AssemblyCopyright("Copyright © Toshiba Tec Malaysia 2018")> 
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: CLSCompliant(True)>
@@ -33,7 +33,7 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("1.0.0.7")> 
+<Assembly: AssemblyVersion("1.0.0.0")> 
 
 'Below attribute is to suppress FxCop warning "CA2232 : Microsoft.Usage : Add STAThreadAttribute to assembly"
 ' as Device app does not support STA thread.

@@ -20,21 +20,9 @@ Partial Public Class frmUnpack
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmUnpack))
-        Dim ListViewItem31 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem32 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem33 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem34 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem35 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem36 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem37 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem38 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem39 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem40 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem41 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem42 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem43 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem44 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem45 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem3 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
         Me.pnlUnpackMain = New System.Windows.Forms.Panel
         Me.Label12 = New System.Windows.Forms.Label
         Me.btnAbnormalUnpacking = New System.Windows.Forms.PictureBox
@@ -42,25 +30,22 @@ Partial Public Class frmUnpack
         Me.btnScanUnpack = New System.Windows.Forms.PictureBox
         Me.Panel9 = New System.Windows.Forms.Panel
         Me.btnCloseUnpack = New System.Windows.Forms.Button
-        Me.Label8 = New System.Windows.Forms.Label
         Me.Panel3 = New System.Windows.Forms.Panel
         Me.footerStatusBar = New System.Windows.Forms.StatusBar
-        Me.TimerCheckOnline = New System.Windows.Forms.Timer
         Me.pnlUnpackFScan = New System.Windows.Forms.Panel
-        Me.TextBox4 = New System.Windows.Forms.TextBox
+        Me.txtFSModOrder = New System.Windows.Forms.TextBox
         Me.Label76 = New System.Windows.Forms.Label
         Me.btnSaveForceScan = New System.Windows.Forms.Button
         Me.Panel1 = New System.Windows.Forms.Panel
         Me.btnBackFScan = New System.Windows.Forms.Button
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.lstViewRCVFScan = New System.Windows.Forms.ListView
+        Me.lstViewFSMod = New System.Windows.Forms.ListView
         Me.ColumnHeader1 = New System.Windows.Forms.ColumnHeader
-        Me.txtRCVFSEPIO = New System.Windows.Forms.TextBox
+        Me.txtFSModNo = New System.Windows.Forms.TextBox
         Me.Label16 = New System.Windows.Forms.Label
         Me.Label1 = New System.Windows.Forms.Label
         Me.pnlUnpackScanModule = New System.Windows.Forms.Panel
-        Me.Label62 = New System.Windows.Forms.Label
-        Me.Label60 = New System.Windows.Forms.Label
+        Me.lblSuccessScanMod = New System.Windows.Forms.Label
+        Me.lblMsgOkScanMod = New System.Windows.Forms.Label
         Me.lblTotalScanned = New System.Windows.Forms.Label
         Me.Label21 = New System.Windows.Forms.Label
         Me.btnScanDetails = New System.Windows.Forms.Button
@@ -71,53 +56,51 @@ Partial Public Class frmUnpack
         Me.Label36 = New System.Windows.Forms.Label
         Me.Panel12 = New System.Windows.Forms.Panel
         Me.btnBackScanModule = New System.Windows.Forms.Button
-        Me.Label14 = New System.Windows.Forms.Label
         Me.Label33 = New System.Windows.Forms.Label
         Me.btnFScanModule = New System.Windows.Forms.PictureBox
         Me.txtModuleQR = New System.Windows.Forms.TextBox
         Me.Label35 = New System.Windows.Forms.Label
         Me.pnlUnpackAbnViewDet = New System.Windows.Forms.Panel
-        Me.lblTotalRcvDetCnt = New System.Windows.Forms.Label
+        Me.lblTotalUnpAbnModScan = New System.Windows.Forms.Label
         Me.Panel4 = New System.Windows.Forms.Panel
         Me.btnCloseAbnViewDet = New System.Windows.Forms.Button
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.lstViewRcvDet = New System.Windows.Forms.ListView
+        Me.lstViewUnpAbnModDet = New System.Windows.Forms.ListView
+        Me.ColumnHeader28 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader13 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader14 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader15 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader24 = New System.Windows.Forms.ColumnHeader
-        Me.Label61 = New System.Windows.Forms.Label
+        Me.lblUnpAbnModNoDet = New System.Windows.Forms.Label
         Me.pnlUnpackPosting = New System.Windows.Forms.Panel
-        Me.Label26 = New System.Windows.Forms.Label
+        Me.lblUnpAbnScanPartTotalDet = New System.Windows.Forms.Label
         Me.Label25 = New System.Windows.Forms.Label
         Me.btnSubmitPosting = New System.Windows.Forms.Button
         Me.Panel13 = New System.Windows.Forms.Panel
+        Me.lblUsername = New System.Windows.Forms.Label
         Me.btnClosePosting = New System.Windows.Forms.Button
-        Me.Label23 = New System.Windows.Forms.Label
-        Me.ListView1 = New System.Windows.Forms.ListView
+        Me.lstViewUnpAbnPartDet = New System.Windows.Forms.ListView
+        Me.ColumnHeader29 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader3 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader4 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader5 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader25 = New System.Windows.Forms.ColumnHeader
-        Me.Label24 = New System.Windows.Forms.Label
+        Me.lblUnpAbnModNoDet2 = New System.Windows.Forms.Label
         Me.pnlUnpackDelete = New System.Windows.Forms.Panel
         Me.Label6 = New System.Windows.Forms.Label
         Me.Label7 = New System.Windows.Forms.Label
         Me.btnDeleteUnpack = New System.Windows.Forms.Button
         Me.Panel7 = New System.Windows.Forms.Panel
         Me.btnCloseDelete = New System.Windows.Forms.Button
-        Me.Label27 = New System.Windows.Forms.Label
         Me.ListView2 = New System.Windows.Forms.ListView
+        Me.ColumnHeader10 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader7 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader8 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader9 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader26 = New System.Windows.Forms.ColumnHeader
-        Me.ColumnHeader10 = New System.Windows.Forms.ColumnHeader
         Me.Label28 = New System.Windows.Forms.Label
         Me.pnlUnpackAbn = New System.Windows.Forms.Panel
         Me.Panel6 = New System.Windows.Forms.Panel
         Me.btnCloseAbnUnpack = New System.Windows.Forms.Button
-        Me.Label32 = New System.Windows.Forms.Label
         Me.Panel14 = New System.Windows.Forms.Panel
         Me.Label39 = New System.Windows.Forms.Label
         Me.Label40 = New System.Windows.Forms.Label
@@ -131,7 +114,6 @@ Partial Public Class frmUnpack
         Me.btnForce = New System.Windows.Forms.Button
         Me.Panel5 = New System.Windows.Forms.Panel
         Me.btnBackFrViewDet = New System.Windows.Forms.Button
-        Me.Label54 = New System.Windows.Forms.Label
         Me.TabRCISummary = New System.Windows.Forms.TabControl
         Me.TabPage3 = New System.Windows.Forms.TabPage
         Me.lstUnpackModule = New System.Windows.Forms.ListView
@@ -140,6 +122,7 @@ Partial Public Class frmUnpack
         Me.ColumnHeader20 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader21 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader6 = New System.Windows.Forms.ColumnHeader
+        Me.ColumnHeader30 = New System.Windows.Forms.ColumnHeader
         Me.lblRCITotalScan = New System.Windows.Forms.Label
         Me.Label43 = New System.Windows.Forms.Label
         Me.TabPage4 = New System.Windows.Forms.TabPage
@@ -151,188 +134,123 @@ Partial Public Class frmUnpack
         Me.ColumnHeader19 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader22 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader27 = New System.Windows.Forms.ColumnHeader
+        Me.ColumnHeader31 = New System.Windows.Forms.ColumnHeader
         Me.lblHeaderUnpackVwDet = New System.Windows.Forms.Label
-        Me.pnlUnpackScanModuleError = New System.Windows.Forms.Panel
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.Label29 = New System.Windows.Forms.Label
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.Panel15 = New System.Windows.Forms.Panel
-        Me.Label30 = New System.Windows.Forms.Label
-        Me.Label31 = New System.Windows.Forms.Label
-        Me.Label34 = New System.Windows.Forms.Label
-        Me.Label38 = New System.Windows.Forms.Label
-        Me.Panel16 = New System.Windows.Forms.Panel
-        Me.btnBackScanModuleError = New System.Windows.Forms.Button
-        Me.Label44 = New System.Windows.Forms.Label
-        Me.Label45 = New System.Windows.Forms.Label
-        Me.btnFScanModuleError = New System.Windows.Forms.PictureBox
-        Me.TextBox2 = New System.Windows.Forms.TextBox
-        Me.Label50 = New System.Windows.Forms.Label
         Me.pnlUnpackScanPart = New System.Windows.Forms.Panel
-        Me.lblModuleNo = New System.Windows.Forms.Label
+        Me.Label2 = New System.Windows.Forms.Label
+        Me.lblPartModNo = New System.Windows.Forms.Label
         Me.Label55 = New System.Windows.Forms.Label
         Me.btnUnpackViewDet = New System.Windows.Forms.Button
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label51 = New System.Windows.Forms.Label
+        Me.lblPartSuccess = New System.Windows.Forms.Label
+        Me.lblPartTotalScan = New System.Windows.Forms.Label
         Me.Label52 = New System.Windows.Forms.Label
         Me.Panel2 = New System.Windows.Forms.Panel
+        Me.lblPartBranchNo = New System.Windows.Forms.Label
+        Me.lblPartQty = New System.Windows.Forms.Label
         Me.Label132 = New System.Windows.Forms.Label
         Me.Label131 = New System.Windows.Forms.Label
-        Me.Label57 = New System.Windows.Forms.Label
-        Me.Label58 = New System.Windows.Forms.Label
+        Me.lblPartSeqNo = New System.Windows.Forms.Label
+        Me.lblPartNo = New System.Windows.Forms.Label
         Me.Label93 = New System.Windows.Forms.Label
         Me.Label94 = New System.Windows.Forms.Label
         Me.Panel17 = New System.Windows.Forms.Panel
         Me.btnBackUnpackScanPart = New System.Windows.Forms.Button
-        Me.Label95 = New System.Windows.Forms.Label
         Me.Label96 = New System.Windows.Forms.Label
-        Me.btnHKAbnFScan = New System.Windows.Forms.PictureBox
-        Me.TextBox3 = New System.Windows.Forms.TextBox
+        Me.btnFScanPart = New System.Windows.Forms.PictureBox
+        Me.txtKanbanQRPart = New System.Windows.Forms.TextBox
         Me.Label98 = New System.Windows.Forms.Label
-        Me.pnlUnpackScanPartError = New System.Windows.Forms.Panel
-        Me.Label56 = New System.Windows.Forms.Label
-        Me.Label59 = New System.Windows.Forms.Label
-        Me.Button3 = New System.Windows.Forms.Button
-        Me.Label63 = New System.Windows.Forms.Label
-        Me.Label64 = New System.Windows.Forms.Label
-        Me.Label65 = New System.Windows.Forms.Label
-        Me.Panel19 = New System.Windows.Forms.Panel
-        Me.Label134 = New System.Windows.Forms.Label
-        Me.Label133 = New System.Windows.Forms.Label
-        Me.Label66 = New System.Windows.Forms.Label
-        Me.Label67 = New System.Windows.Forms.Label
-        Me.Label68 = New System.Windows.Forms.Label
-        Me.Label69 = New System.Windows.Forms.Label
-        Me.Panel20 = New System.Windows.Forms.Panel
-        Me.btnUnpackScanPartError = New System.Windows.Forms.Button
-        Me.Label70 = New System.Windows.Forms.Label
-        Me.Label71 = New System.Windows.Forms.Label
-        Me.PictureBox3 = New System.Windows.Forms.PictureBox
-        Me.TextBox5 = New System.Windows.Forms.TextBox
-        Me.Label72 = New System.Windows.Forms.Label
         Me.pnlUnpackAbnScanPart = New System.Windows.Forms.Panel
-        Me.Label120 = New System.Windows.Forms.Label
+        Me.lblAbnDesc = New System.Windows.Forms.Label
+        Me.lblAbnSPartModNo = New System.Windows.Forms.Label
         Me.Label119 = New System.Windows.Forms.Label
-        Me.Button2 = New System.Windows.Forms.Button
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.Label18 = New System.Windows.Forms.Label
+        Me.btnAbnSPartViewDet = New System.Windows.Forms.Button
+        Me.lblAbnSPartMsgC = New System.Windows.Forms.Label
+        Me.lblAbnScanPartTotal = New System.Windows.Forms.Label
+        Me.lblAbnSPartTotal = New System.Windows.Forms.Label
         Me.Panel11 = New System.Windows.Forms.Panel
+        Me.Label4 = New System.Windows.Forms.Label
+        Me.Label3 = New System.Windows.Forms.Label
         Me.Label138 = New System.Windows.Forms.Label
         Me.Label137 = New System.Windows.Forms.Label
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.Label20 = New System.Windows.Forms.Label
+        Me.lblAbnSPartSeqNo = New System.Windows.Forms.Label
+        Me.lblAbnScanPartNo = New System.Windows.Forms.Label
         Me.Label22 = New System.Windows.Forms.Label
         Me.Label73 = New System.Windows.Forms.Label
         Me.Panel18 = New System.Windows.Forms.Panel
         Me.btnUnpackAbnScanPart = New System.Windows.Forms.Button
-        Me.Label74 = New System.Windows.Forms.Label
         Me.Label75 = New System.Windows.Forms.Label
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox
-        Me.TextBox1 = New System.Windows.Forms.TextBox
+        Me.btnAbnFSPart = New System.Windows.Forms.PictureBox
+        Me.txtAbnSPartKanban = New System.Windows.Forms.TextBox
         Me.Label77 = New System.Windows.Forms.Label
-        Me.pnlUnpackAbnScanPartError = New System.Windows.Forms.Panel
-        Me.Label122 = New System.Windows.Forms.Label
-        Me.Label121 = New System.Windows.Forms.Label
-        Me.Button5 = New System.Windows.Forms.Button
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.Label78 = New System.Windows.Forms.Label
-        Me.Panel21 = New System.Windows.Forms.Panel
-        Me.Label136 = New System.Windows.Forms.Label
-        Me.Label135 = New System.Windows.Forms.Label
-        Me.Label79 = New System.Windows.Forms.Label
-        Me.Label80 = New System.Windows.Forms.Label
-        Me.Label81 = New System.Windows.Forms.Label
-        Me.Label82 = New System.Windows.Forms.Label
-        Me.Panel22 = New System.Windows.Forms.Panel
-        Me.btnUnpackAbnScanPartError = New System.Windows.Forms.Button
-        Me.Label83 = New System.Windows.Forms.Label
-        Me.Label84 = New System.Windows.Forms.Label
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox
-        Me.TextBox6 = New System.Windows.Forms.TextBox
-        Me.Label85 = New System.Windows.Forms.Label
         Me.pnlUnpackFScanPart = New System.Windows.Forms.Panel
-        Me.Label129 = New System.Windows.Forms.Label
-        Me.TextBox7 = New System.Windows.Forms.TextBox
-        Me.TextBox8 = New System.Windows.Forms.TextBox
+        Me.lblUnpFSPModNo = New System.Windows.Forms.Label
+        Me.txtUnpFSPBranchNo = New System.Windows.Forms.TextBox
+        Me.txtUnpFSPSeqNo = New System.Windows.Forms.TextBox
         Me.Label86 = New System.Windows.Forms.Label
         Me.Label87 = New System.Windows.Forms.Label
-        Me.TextBox9 = New System.Windows.Forms.TextBox
+        Me.txtUnpFSPartNo = New System.Windows.Forms.TextBox
         Me.Label88 = New System.Windows.Forms.Label
         Me.btnSaveFScanPart = New System.Windows.Forms.Button
         Me.Panel10 = New System.Windows.Forms.Panel
         Me.btnBackFScanPart = New System.Windows.Forms.Button
-        Me.Label89 = New System.Windows.Forms.Label
-        Me.ListView3 = New System.Windows.Forms.ListView
+        Me.lstviewUnpFSPReason = New System.Windows.Forms.ListView
         Me.ColumnHeader16 = New System.Windows.Forms.ColumnHeader
         Me.Label90 = New System.Windows.Forms.Label
         Me.Label91 = New System.Windows.Forms.Label
         Me.pnlUnpackAbnScanModule = New System.Windows.Forms.Panel
-        Me.Label46 = New System.Windows.Forms.Label
-        Me.Label48 = New System.Windows.Forms.Label
-        Me.Label49 = New System.Windows.Forms.Label
+        Me.lblAbnMsgDesc = New System.Windows.Forms.Label
+        Me.lblAbnMsgCode = New System.Windows.Forms.Label
+        Me.lblAbnTotalScan = New System.Windows.Forms.Label
         Me.Label53 = New System.Windows.Forms.Label
-        Me.Button7 = New System.Windows.Forms.Button
+        Me.btnAbnScanViewDet = New System.Windows.Forms.Button
         Me.Panel24 = New System.Windows.Forms.Panel
-        Me.Label92 = New System.Windows.Forms.Label
-        Me.Label97 = New System.Windows.Forms.Label
+        Me.lblAbnOrderNo = New System.Windows.Forms.Label
+        Me.lblAbnModNo = New System.Windows.Forms.Label
         Me.Label99 = New System.Windows.Forms.Label
         Me.Label100 = New System.Windows.Forms.Label
         Me.Panel25 = New System.Windows.Forms.Panel
         Me.btnBackUnpackAbnScanModule = New System.Windows.Forms.Button
-        Me.Label101 = New System.Windows.Forms.Label
         Me.Label102 = New System.Windows.Forms.Label
-        Me.PictureBox4 = New System.Windows.Forms.PictureBox
-        Me.TextBox11 = New System.Windows.Forms.TextBox
+        Me.btnAbnFScan = New System.Windows.Forms.PictureBox
+        Me.txtAbnModNo = New System.Windows.Forms.TextBox
         Me.Label103 = New System.Windows.Forms.Label
-        Me.pnlUnpackAbnScanModuleError = New System.Windows.Forms.Panel
-        Me.Label104 = New System.Windows.Forms.Label
-        Me.Label105 = New System.Windows.Forms.Label
-        Me.Label106 = New System.Windows.Forms.Label
-        Me.Label107 = New System.Windows.Forms.Label
-        Me.Button8 = New System.Windows.Forms.Button
-        Me.Panel26 = New System.Windows.Forms.Panel
-        Me.Label108 = New System.Windows.Forms.Label
-        Me.Label109 = New System.Windows.Forms.Label
-        Me.Label110 = New System.Windows.Forms.Label
-        Me.Label111 = New System.Windows.Forms.Label
-        Me.Panel27 = New System.Windows.Forms.Panel
-        Me.btnBackUnpackAbnScanModuleError = New System.Windows.Forms.Button
-        Me.Label112 = New System.Windows.Forms.Label
-        Me.Label113 = New System.Windows.Forms.Label
-        Me.PictureBox5 = New System.Windows.Forms.PictureBox
-        Me.TextBox12 = New System.Windows.Forms.TextBox
-        Me.Label114 = New System.Windows.Forms.Label
         Me.pnlUnpackAbnFscanModule = New System.Windows.Forms.Panel
-        Me.TextBox13 = New System.Windows.Forms.TextBox
+        Me.txtFSAbnOrdNo = New System.Windows.Forms.TextBox
         Me.Label115 = New System.Windows.Forms.Label
-        Me.Button9 = New System.Windows.Forms.Button
+        Me.btnAbnFScanSave = New System.Windows.Forms.Button
         Me.Panel28 = New System.Windows.Forms.Panel
         Me.btnBackUnpackAbnFscanModule = New System.Windows.Forms.Button
-        Me.Label116 = New System.Windows.Forms.Label
-        Me.ListView4 = New System.Windows.Forms.ListView
+        Me.lstViewAbnFSMod = New System.Windows.Forms.ListView
         Me.ColumnHeader23 = New System.Windows.Forms.ColumnHeader
-        Me.TextBox14 = New System.Windows.Forms.TextBox
+        Me.txtFSAbnModNo = New System.Windows.Forms.TextBox
         Me.Label117 = New System.Windows.Forms.Label
         Me.Label118 = New System.Windows.Forms.Label
         Me.pnlUnpackAbnFscanPart = New System.Windows.Forms.Panel
-        Me.Label130 = New System.Windows.Forms.Label
-        Me.TextBox15 = New System.Windows.Forms.TextBox
-        Me.TextBox16 = New System.Windows.Forms.TextBox
+        Me.lblUnpAbnFSPartModNo = New System.Windows.Forms.Label
+        Me.txtUnpAbnFSPartBranchNo = New System.Windows.Forms.TextBox
+        Me.txtUnpAbnFSPartSeqNo = New System.Windows.Forms.TextBox
         Me.Label123 = New System.Windows.Forms.Label
         Me.Label124 = New System.Windows.Forms.Label
-        Me.TextBox17 = New System.Windows.Forms.TextBox
+        Me.txtUnpAbnFSPartNo = New System.Windows.Forms.TextBox
         Me.Label125 = New System.Windows.Forms.Label
-        Me.Button4 = New System.Windows.Forms.Button
+        Me.btnUnpAbnFSPartSave = New System.Windows.Forms.Button
         Me.Panel29 = New System.Windows.Forms.Panel
         Me.btnBackAbnFScanPart = New System.Windows.Forms.Button
-        Me.Label126 = New System.Windows.Forms.Label
-        Me.ListView5 = New System.Windows.Forms.ListView
+        Me.lstViewUnpAbnFSPartReason = New System.Windows.Forms.ListView
         Me.ColumnHeader2 = New System.Windows.Forms.ColumnHeader
         Me.Label127 = New System.Windows.Forms.Label
         Me.Label128 = New System.Windows.Forms.Label
+        Me.timer = New System.Windows.Forms.Timer
+        Me.pnlLogin = New System.Windows.Forms.Panel
+        Me.Panel15 = New System.Windows.Forms.Panel
+        Me.btnLoginClose = New System.Windows.Forms.Button
+        Me.btnLoginSubmit = New System.Windows.Forms.Button
+        Me.txtUsername = New System.Windows.Forms.TextBox
+        Me.Label24 = New System.Windows.Forms.Label
+        Me.Panel16 = New System.Windows.Forms.Panel
+        Me.Label5 = New System.Windows.Forms.Label
+        Me.txtPwd = New System.Windows.Forms.TextBox
+        Me.Label45 = New System.Windows.Forms.Label
         Me.pnlUnpackMain.SuspendLayout()
         Me.Panel9.SuspendLayout()
         Me.pnlUnpackFScan.SuspendLayout()
@@ -353,33 +271,24 @@ Partial Public Class frmUnpack
         Me.TabRCISummary.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         Me.TabPage4.SuspendLayout()
-        Me.pnlUnpackScanModuleError.SuspendLayout()
-        Me.Panel15.SuspendLayout()
-        Me.Panel16.SuspendLayout()
         Me.pnlUnpackScanPart.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel17.SuspendLayout()
-        Me.pnlUnpackScanPartError.SuspendLayout()
-        Me.Panel19.SuspendLayout()
-        Me.Panel20.SuspendLayout()
         Me.pnlUnpackAbnScanPart.SuspendLayout()
         Me.Panel11.SuspendLayout()
         Me.Panel18.SuspendLayout()
-        Me.pnlUnpackAbnScanPartError.SuspendLayout()
-        Me.Panel21.SuspendLayout()
-        Me.Panel22.SuspendLayout()
         Me.pnlUnpackFScanPart.SuspendLayout()
         Me.Panel10.SuspendLayout()
         Me.pnlUnpackAbnScanModule.SuspendLayout()
         Me.Panel24.SuspendLayout()
         Me.Panel25.SuspendLayout()
-        Me.pnlUnpackAbnScanModuleError.SuspendLayout()
-        Me.Panel26.SuspendLayout()
-        Me.Panel27.SuspendLayout()
         Me.pnlUnpackAbnFscanModule.SuspendLayout()
         Me.Panel28.SuspendLayout()
         Me.pnlUnpackAbnFscanPart.SuspendLayout()
         Me.Panel29.SuspendLayout()
+        Me.pnlLogin.SuspendLayout()
+        Me.Panel15.SuspendLayout()
+        Me.Panel16.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnlUnpackMain
@@ -434,7 +343,6 @@ Partial Public Class frmUnpack
         '
         Me.Panel9.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel9.Controls.Add(Me.btnCloseUnpack)
-        Me.Panel9.Controls.Add(Me.Label8)
         Me.Panel9.Location = New System.Drawing.Point(0, 247)
         Me.Panel9.Name = "Panel9"
         Me.Panel9.Size = New System.Drawing.Size(320, 24)
@@ -446,15 +354,8 @@ Partial Public Class frmUnpack
         Me.btnCloseUnpack.Name = "btnCloseUnpack"
         Me.btnCloseUnpack.Size = New System.Drawing.Size(110, 20)
         Me.btnCloseUnpack.TabIndex = 34
+        Me.btnCloseUnpack.TabStop = False
         Me.btnCloseUnpack.Text = "Close"
-        '
-        'Label8
-        '
-        Me.Label8.ForeColor = System.Drawing.Color.Black
-        Me.Label8.Location = New System.Drawing.Point(0, 3)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(209, 18)
-        Me.Label8.Text = "USER NAME:"
         '
         'Panel3
         '
@@ -465,37 +366,34 @@ Partial Public Class frmUnpack
         '
         'footerStatusBar
         '
-        Me.footerStatusBar.Location = New System.Drawing.Point(0, 840)
+        Me.footerStatusBar.Location = New System.Drawing.Point(0, 843)
         Me.footerStatusBar.Name = "footerStatusBar"
-        Me.footerStatusBar.Size = New System.Drawing.Size(2281, 24)
+        Me.footerStatusBar.Size = New System.Drawing.Size(1955, 24)
         Me.footerStatusBar.Text = "StatusBar1"
-        '
-        'TimerCheckOnline
-        '
         '
         'pnlUnpackFScan
         '
         Me.pnlUnpackFScan.BackColor = System.Drawing.Color.Transparent
-        Me.pnlUnpackFScan.Controls.Add(Me.TextBox4)
+        Me.pnlUnpackFScan.Controls.Add(Me.txtFSModOrder)
         Me.pnlUnpackFScan.Controls.Add(Me.Label76)
         Me.pnlUnpackFScan.Controls.Add(Me.btnSaveForceScan)
         Me.pnlUnpackFScan.Controls.Add(Me.Panel1)
-        Me.pnlUnpackFScan.Controls.Add(Me.lstViewRCVFScan)
-        Me.pnlUnpackFScan.Controls.Add(Me.txtRCVFSEPIO)
+        Me.pnlUnpackFScan.Controls.Add(Me.lstViewFSMod)
+        Me.pnlUnpackFScan.Controls.Add(Me.txtFSModNo)
         Me.pnlUnpackFScan.Controls.Add(Me.Label16)
         Me.pnlUnpackFScan.Controls.Add(Me.Label1)
-        Me.pnlUnpackFScan.Location = New System.Drawing.Point(983, 3)
+        Me.pnlUnpackFScan.Location = New System.Drawing.Point(659, 3)
         Me.pnlUnpackFScan.Name = "pnlUnpackFScan"
         Me.pnlUnpackFScan.Size = New System.Drawing.Size(320, 275)
         Me.pnlUnpackFScan.Visible = False
         '
-        'TextBox4
+        'txtFSModOrder
         '
-        Me.TextBox4.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.TextBox4.Location = New System.Drawing.Point(8, 97)
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(302, 19)
-        Me.TextBox4.TabIndex = 95
+        Me.txtFSModOrder.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.txtFSModOrder.Location = New System.Drawing.Point(8, 97)
+        Me.txtFSModOrder.Name = "txtFSModOrder"
+        Me.txtFSModOrder.Size = New System.Drawing.Size(302, 19)
+        Me.txtFSModOrder.TabIndex = 95
         '
         'Label76
         '
@@ -507,6 +405,7 @@ Partial Public Class frmUnpack
         '
         'btnSaveForceScan
         '
+        Me.btnSaveForceScan.Enabled = False
         Me.btnSaveForceScan.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
         Me.btnSaveForceScan.Location = New System.Drawing.Point(223, 3)
         Me.btnSaveForceScan.Name = "btnSaveForceScan"
@@ -518,7 +417,6 @@ Partial Public Class frmUnpack
         '
         Me.Panel1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel1.Controls.Add(Me.btnBackFScan)
-        Me.Panel1.Controls.Add(Me.Label4)
         Me.Panel1.Location = New System.Drawing.Point(0, 247)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(320, 24)
@@ -530,45 +428,32 @@ Partial Public Class frmUnpack
         Me.btnBackFScan.Name = "btnBackFScan"
         Me.btnBackFScan.Size = New System.Drawing.Size(110, 20)
         Me.btnBackFScan.TabIndex = 34
+        Me.btnBackFScan.TabStop = False
         Me.btnBackFScan.Text = "Back"
         '
-        'Label4
+        'lstViewFSMod
         '
-        Me.Label4.ForeColor = System.Drawing.Color.Black
-        Me.Label4.Location = New System.Drawing.Point(0, 3)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(209, 18)
-        Me.Label4.Text = "USER NAME:"
-        '
-        'lstViewRCVFScan
-        '
-        Me.lstViewRCVFScan.Columns.Add(Me.ColumnHeader1)
-        Me.lstViewRCVFScan.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.lstViewRCVFScan.FullRowSelect = True
-        ListViewItem31.Text = "QR Code Cannot Read"
-        ListViewItem32.Text = "QR Code Damage"
-        ListViewItem33.Text = "QR Code Missing"
-        Me.lstViewRCVFScan.Items.Add(ListViewItem31)
-        Me.lstViewRCVFScan.Items.Add(ListViewItem32)
-        Me.lstViewRCVFScan.Items.Add(ListViewItem33)
-        Me.lstViewRCVFScan.Location = New System.Drawing.Point(8, 130)
-        Me.lstViewRCVFScan.Name = "lstViewRCVFScan"
-        Me.lstViewRCVFScan.Size = New System.Drawing.Size(305, 80)
-        Me.lstViewRCVFScan.TabIndex = 84
-        Me.lstViewRCVFScan.View = System.Windows.Forms.View.Details
+        Me.lstViewFSMod.Columns.Add(Me.ColumnHeader1)
+        Me.lstViewFSMod.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lstViewFSMod.FullRowSelect = True
+        Me.lstViewFSMod.Location = New System.Drawing.Point(8, 130)
+        Me.lstViewFSMod.Name = "lstViewFSMod"
+        Me.lstViewFSMod.Size = New System.Drawing.Size(305, 80)
+        Me.lstViewFSMod.TabIndex = 84
+        Me.lstViewFSMod.View = System.Windows.Forms.View.Details
         '
         'ColumnHeader1
         '
         Me.ColumnHeader1.Text = "Reason"
         Me.ColumnHeader1.Width = 302
         '
-        'txtRCVFSEPIO
+        'txtFSModNo
         '
-        Me.txtRCVFSEPIO.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.txtRCVFSEPIO.Location = New System.Drawing.Point(8, 51)
-        Me.txtRCVFSEPIO.Name = "txtRCVFSEPIO"
-        Me.txtRCVFSEPIO.Size = New System.Drawing.Size(302, 19)
-        Me.txtRCVFSEPIO.TabIndex = 82
+        Me.txtFSModNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.txtFSModNo.Location = New System.Drawing.Point(8, 51)
+        Me.txtFSModNo.Name = "txtFSModNo"
+        Me.txtFSModNo.Size = New System.Drawing.Size(302, 19)
+        Me.txtFSModNo.TabIndex = 82
         '
         'Label16
         '
@@ -589,8 +474,8 @@ Partial Public Class frmUnpack
         'pnlUnpackScanModule
         '
         Me.pnlUnpackScanModule.BackColor = System.Drawing.Color.Transparent
-        Me.pnlUnpackScanModule.Controls.Add(Me.Label62)
-        Me.pnlUnpackScanModule.Controls.Add(Me.Label60)
+        Me.pnlUnpackScanModule.Controls.Add(Me.lblSuccessScanMod)
+        Me.pnlUnpackScanModule.Controls.Add(Me.lblMsgOkScanMod)
         Me.pnlUnpackScanModule.Controls.Add(Me.lblTotalScanned)
         Me.pnlUnpackScanModule.Controls.Add(Me.Label21)
         Me.pnlUnpackScanModule.Controls.Add(Me.btnScanDetails)
@@ -605,25 +490,24 @@ Partial Public Class frmUnpack
         Me.pnlUnpackScanModule.Size = New System.Drawing.Size(320, 275)
         Me.pnlUnpackScanModule.Visible = False
         '
-        'Label62
+        'lblSuccessScanMod
         '
-        Me.Label62.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label62.Location = New System.Drawing.Point(0, 205)
-        Me.Label62.Name = "Label62"
-        Me.Label62.Size = New System.Drawing.Size(320, 20)
-        Me.Label62.Text = "Successfully Updated"
-        Me.Label62.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.lblSuccessScanMod.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lblSuccessScanMod.Location = New System.Drawing.Point(0, 205)
+        Me.lblSuccessScanMod.Name = "lblSuccessScanMod"
+        Me.lblSuccessScanMod.Size = New System.Drawing.Size(320, 20)
+        Me.lblSuccessScanMod.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'Label60
+        'lblMsgOkScanMod
         '
-        Me.Label60.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label60.BackColor = System.Drawing.Color.LimeGreen
-        Me.Label60.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Label60.Location = New System.Drawing.Point(0, 180)
-        Me.Label60.Name = "Label60"
-        Me.Label60.Size = New System.Drawing.Size(320, 22)
-        Me.Label60.Text = "OK"
-        Me.Label60.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.lblMsgOkScanMod.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblMsgOkScanMod.BackColor = System.Drawing.Color.LimeGreen
+        Me.lblMsgOkScanMod.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.lblMsgOkScanMod.Location = New System.Drawing.Point(0, 180)
+        Me.lblMsgOkScanMod.Name = "lblMsgOkScanMod"
+        Me.lblMsgOkScanMod.Size = New System.Drawing.Size(320, 22)
+        Me.lblMsgOkScanMod.Text = "Scan.."
+        Me.lblMsgOkScanMod.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'lblTotalScanned
         '
@@ -631,6 +515,7 @@ Partial Public Class frmUnpack
         Me.lblTotalScanned.Location = New System.Drawing.Point(100, 225)
         Me.lblTotalScanned.Name = "lblTotalScanned"
         Me.lblTotalScanned.Size = New System.Drawing.Size(40, 20)
+        Me.lblTotalScanned.Text = "0"
         '
         'Label21
         '
@@ -642,6 +527,7 @@ Partial Public Class frmUnpack
         '
         'btnScanDetails
         '
+        Me.btnScanDetails.Enabled = False
         Me.btnScanDetails.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
         Me.btnScanDetails.Location = New System.Drawing.Point(223, 3)
         Me.btnScanDetails.Name = "btnScanDetails"
@@ -694,7 +580,6 @@ Partial Public Class frmUnpack
         '
         Me.Panel12.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel12.Controls.Add(Me.btnBackScanModule)
-        Me.Panel12.Controls.Add(Me.Label14)
         Me.Panel12.Location = New System.Drawing.Point(0, 247)
         Me.Panel12.Name = "Panel12"
         Me.Panel12.Size = New System.Drawing.Size(320, 24)
@@ -706,15 +591,8 @@ Partial Public Class frmUnpack
         Me.btnBackScanModule.Name = "btnBackScanModule"
         Me.btnBackScanModule.Size = New System.Drawing.Size(110, 20)
         Me.btnBackScanModule.TabIndex = 34
+        Me.btnBackScanModule.TabStop = False
         Me.btnBackScanModule.Text = "Back"
-        '
-        'Label14
-        '
-        Me.Label14.ForeColor = System.Drawing.Color.Black
-        Me.Label14.Location = New System.Drawing.Point(0, 3)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(209, 18)
-        Me.Label14.Text = "USER NAME:"
         '
         'Label33
         '
@@ -751,29 +629,28 @@ Partial Public Class frmUnpack
         'pnlUnpackAbnViewDet
         '
         Me.pnlUnpackAbnViewDet.BackColor = System.Drawing.Color.Transparent
-        Me.pnlUnpackAbnViewDet.Controls.Add(Me.lblTotalRcvDetCnt)
+        Me.pnlUnpackAbnViewDet.Controls.Add(Me.lblTotalUnpAbnModScan)
         Me.pnlUnpackAbnViewDet.Controls.Add(Me.Panel4)
-        Me.pnlUnpackAbnViewDet.Controls.Add(Me.lstViewRcvDet)
-        Me.pnlUnpackAbnViewDet.Controls.Add(Me.Label61)
-        Me.pnlUnpackAbnViewDet.Location = New System.Drawing.Point(331, 565)
+        Me.pnlUnpackAbnViewDet.Controls.Add(Me.lstViewUnpAbnModDet)
+        Me.pnlUnpackAbnViewDet.Controls.Add(Me.lblUnpAbnModNoDet)
+        Me.pnlUnpackAbnViewDet.Location = New System.Drawing.Point(1635, 287)
         Me.pnlUnpackAbnViewDet.Name = "pnlUnpackAbnViewDet"
         Me.pnlUnpackAbnViewDet.Size = New System.Drawing.Size(320, 275)
         Me.pnlUnpackAbnViewDet.Visible = False
         '
-        'lblTotalRcvDetCnt
+        'lblTotalUnpAbnModScan
         '
-        Me.lblTotalRcvDetCnt.BackColor = System.Drawing.SystemColors.Window
-        Me.lblTotalRcvDetCnt.Location = New System.Drawing.Point(2, 24)
-        Me.lblTotalRcvDetCnt.Name = "lblTotalRcvDetCnt"
-        Me.lblTotalRcvDetCnt.Size = New System.Drawing.Size(315, 20)
-        Me.lblTotalRcvDetCnt.Text = "Total Record: 0"
-        Me.lblTotalRcvDetCnt.TextAlign = System.Drawing.ContentAlignment.TopRight
+        Me.lblTotalUnpAbnModScan.BackColor = System.Drawing.SystemColors.Window
+        Me.lblTotalUnpAbnModScan.Location = New System.Drawing.Point(2, 24)
+        Me.lblTotalUnpAbnModScan.Name = "lblTotalUnpAbnModScan"
+        Me.lblTotalUnpAbnModScan.Size = New System.Drawing.Size(315, 20)
+        Me.lblTotalUnpAbnModScan.Text = "Total Record: 0"
+        Me.lblTotalUnpAbnModScan.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'Panel4
         '
         Me.Panel4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel4.Controls.Add(Me.btnCloseAbnViewDet)
-        Me.Panel4.Controls.Add(Me.Label5)
         Me.Panel4.Location = New System.Drawing.Point(0, 247)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(320, 24)
@@ -785,30 +662,29 @@ Partial Public Class frmUnpack
         Me.btnCloseAbnViewDet.Name = "btnCloseAbnViewDet"
         Me.btnCloseAbnViewDet.Size = New System.Drawing.Size(110, 20)
         Me.btnCloseAbnViewDet.TabIndex = 34
+        Me.btnCloseAbnViewDet.TabStop = False
         Me.btnCloseAbnViewDet.Text = "Close"
         '
-        'Label5
+        'lstViewUnpAbnModDet
         '
-        Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(0, 3)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(209, 18)
-        Me.Label5.Text = "USER NAME:"
+        Me.lstViewUnpAbnModDet.Columns.Add(Me.ColumnHeader28)
+        Me.lstViewUnpAbnModDet.Columns.Add(Me.ColumnHeader13)
+        Me.lstViewUnpAbnModDet.Columns.Add(Me.ColumnHeader14)
+        Me.lstViewUnpAbnModDet.Columns.Add(Me.ColumnHeader15)
+        Me.lstViewUnpAbnModDet.Columns.Add(Me.ColumnHeader24)
+        Me.lstViewUnpAbnModDet.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lstViewUnpAbnModDet.FullRowSelect = True
+        Me.lstViewUnpAbnModDet.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.lstViewUnpAbnModDet.Location = New System.Drawing.Point(6, 47)
+        Me.lstViewUnpAbnModDet.Name = "lstViewUnpAbnModDet"
+        Me.lstViewUnpAbnModDet.Size = New System.Drawing.Size(309, 200)
+        Me.lstViewUnpAbnModDet.TabIndex = 55
+        Me.lstViewUnpAbnModDet.View = System.Windows.Forms.View.Details
         '
-        'lstViewRcvDet
+        'ColumnHeader28
         '
-        Me.lstViewRcvDet.Columns.Add(Me.ColumnHeader13)
-        Me.lstViewRcvDet.Columns.Add(Me.ColumnHeader14)
-        Me.lstViewRcvDet.Columns.Add(Me.ColumnHeader15)
-        Me.lstViewRcvDet.Columns.Add(Me.ColumnHeader24)
-        Me.lstViewRcvDet.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.lstViewRcvDet.FullRowSelect = True
-        Me.lstViewRcvDet.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
-        Me.lstViewRcvDet.Location = New System.Drawing.Point(6, 47)
-        Me.lstViewRcvDet.Name = "lstViewRcvDet"
-        Me.lstViewRcvDet.Size = New System.Drawing.Size(309, 200)
-        Me.lstViewRcvDet.TabIndex = 55
-        Me.lstViewRcvDet.View = System.Windows.Forms.View.Details
+        Me.ColumnHeader28.Text = "No"
+        Me.ColumnHeader28.Width = 30
         '
         'ColumnHeader13
         '
@@ -830,36 +706,36 @@ Partial Public Class frmUnpack
         Me.ColumnHeader24.Text = "Branch No"
         Me.ColumnHeader24.Width = 60
         '
-        'Label61
+        'lblUnpAbnModNoDet
         '
-        Me.Label61.BackColor = System.Drawing.Color.PowderBlue
-        Me.Label61.Location = New System.Drawing.Point(2, 4)
-        Me.Label61.Name = "Label61"
-        Me.Label61.Size = New System.Drawing.Size(315, 20)
-        Me.Label61.Text = "Module No :"
+        Me.lblUnpAbnModNoDet.BackColor = System.Drawing.Color.PowderBlue
+        Me.lblUnpAbnModNoDet.Location = New System.Drawing.Point(2, 4)
+        Me.lblUnpAbnModNoDet.Name = "lblUnpAbnModNoDet"
+        Me.lblUnpAbnModNoDet.Size = New System.Drawing.Size(315, 20)
+        Me.lblUnpAbnModNoDet.Text = "Module No :"
         '
         'pnlUnpackPosting
         '
         Me.pnlUnpackPosting.BackColor = System.Drawing.Color.Transparent
-        Me.pnlUnpackPosting.Controls.Add(Me.Label26)
+        Me.pnlUnpackPosting.Controls.Add(Me.lblUnpAbnScanPartTotalDet)
         Me.pnlUnpackPosting.Controls.Add(Me.Label25)
         Me.pnlUnpackPosting.Controls.Add(Me.btnSubmitPosting)
         Me.pnlUnpackPosting.Controls.Add(Me.Panel13)
-        Me.pnlUnpackPosting.Controls.Add(Me.ListView1)
-        Me.pnlUnpackPosting.Controls.Add(Me.Label24)
-        Me.pnlUnpackPosting.Location = New System.Drawing.Point(657, 565)
+        Me.pnlUnpackPosting.Controls.Add(Me.lstViewUnpAbnPartDet)
+        Me.pnlUnpackPosting.Controls.Add(Me.lblUnpAbnModNoDet2)
+        Me.pnlUnpackPosting.Location = New System.Drawing.Point(6, 568)
         Me.pnlUnpackPosting.Name = "pnlUnpackPosting"
         Me.pnlUnpackPosting.Size = New System.Drawing.Size(320, 275)
         Me.pnlUnpackPosting.Visible = False
         '
-        'Label26
+        'lblUnpAbnScanPartTotalDet
         '
-        Me.Label26.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label26.Location = New System.Drawing.Point(2, 50)
-        Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(316, 15)
-        Me.Label26.Text = "Total Pending Posting Records : 0"
-        Me.Label26.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.lblUnpAbnScanPartTotalDet.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lblUnpAbnScanPartTotalDet.Location = New System.Drawing.Point(2, 50)
+        Me.lblUnpAbnScanPartTotalDet.Name = "lblUnpAbnScanPartTotalDet"
+        Me.lblUnpAbnScanPartTotalDet.Size = New System.Drawing.Size(316, 15)
+        Me.lblUnpAbnScanPartTotalDet.Text = "Total Pending Posting Records : 0"
+        Me.lblUnpAbnScanPartTotalDet.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'Label25
         '
@@ -881,11 +757,19 @@ Partial Public Class frmUnpack
         'Panel13
         '
         Me.Panel13.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Panel13.Controls.Add(Me.lblUsername)
         Me.Panel13.Controls.Add(Me.btnClosePosting)
-        Me.Panel13.Controls.Add(Me.Label23)
         Me.Panel13.Location = New System.Drawing.Point(0, 247)
         Me.Panel13.Name = "Panel13"
         Me.Panel13.Size = New System.Drawing.Size(320, 24)
+        '
+        'lblUsername
+        '
+        Me.lblUsername.ForeColor = System.Drawing.Color.Black
+        Me.lblUsername.Location = New System.Drawing.Point(6, 3)
+        Me.lblUsername.Name = "lblUsername"
+        Me.lblUsername.Size = New System.Drawing.Size(191, 18)
+        Me.lblUsername.Text = "USER NAME:"
         '
         'btnClosePosting
         '
@@ -894,30 +778,29 @@ Partial Public Class frmUnpack
         Me.btnClosePosting.Name = "btnClosePosting"
         Me.btnClosePosting.Size = New System.Drawing.Size(110, 20)
         Me.btnClosePosting.TabIndex = 34
+        Me.btnClosePosting.TabStop = False
         Me.btnClosePosting.Text = "Close"
         '
-        'Label23
+        'lstViewUnpAbnPartDet
         '
-        Me.Label23.ForeColor = System.Drawing.Color.Black
-        Me.Label23.Location = New System.Drawing.Point(0, 3)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(209, 18)
-        Me.Label23.Text = "USER NAME:"
+        Me.lstViewUnpAbnPartDet.Columns.Add(Me.ColumnHeader29)
+        Me.lstViewUnpAbnPartDet.Columns.Add(Me.ColumnHeader3)
+        Me.lstViewUnpAbnPartDet.Columns.Add(Me.ColumnHeader4)
+        Me.lstViewUnpAbnPartDet.Columns.Add(Me.ColumnHeader5)
+        Me.lstViewUnpAbnPartDet.Columns.Add(Me.ColumnHeader25)
+        Me.lstViewUnpAbnPartDet.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lstViewUnpAbnPartDet.FullRowSelect = True
+        Me.lstViewUnpAbnPartDet.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.lstViewUnpAbnPartDet.Location = New System.Drawing.Point(6, 67)
+        Me.lstViewUnpAbnPartDet.Name = "lstViewUnpAbnPartDet"
+        Me.lstViewUnpAbnPartDet.Size = New System.Drawing.Size(311, 158)
+        Me.lstViewUnpAbnPartDet.TabIndex = 55
+        Me.lstViewUnpAbnPartDet.View = System.Windows.Forms.View.Details
         '
-        'ListView1
+        'ColumnHeader29
         '
-        Me.ListView1.Columns.Add(Me.ColumnHeader3)
-        Me.ListView1.Columns.Add(Me.ColumnHeader4)
-        Me.ListView1.Columns.Add(Me.ColumnHeader5)
-        Me.ListView1.Columns.Add(Me.ColumnHeader25)
-        Me.ListView1.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.ListView1.FullRowSelect = True
-        Me.ListView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
-        Me.ListView1.Location = New System.Drawing.Point(6, 67)
-        Me.ListView1.Name = "ListView1"
-        Me.ListView1.Size = New System.Drawing.Size(311, 158)
-        Me.ListView1.TabIndex = 55
-        Me.ListView1.View = System.Windows.Forms.View.Details
+        Me.ColumnHeader29.Text = "No"
+        Me.ColumnHeader29.Width = 30
         '
         'ColumnHeader3
         '
@@ -939,13 +822,13 @@ Partial Public Class frmUnpack
         Me.ColumnHeader25.Text = "Branch No"
         Me.ColumnHeader25.Width = 60
         '
-        'Label24
+        'lblUnpAbnModNoDet2
         '
-        Me.Label24.BackColor = System.Drawing.Color.PowderBlue
-        Me.Label24.Location = New System.Drawing.Point(2, 4)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(315, 20)
-        Me.Label24.Text = "Module No :"
+        Me.lblUnpAbnModNoDet2.BackColor = System.Drawing.Color.PowderBlue
+        Me.lblUnpAbnModNoDet2.Location = New System.Drawing.Point(2, 4)
+        Me.lblUnpAbnModNoDet2.Name = "lblUnpAbnModNoDet2"
+        Me.lblUnpAbnModNoDet2.Size = New System.Drawing.Size(315, 20)
+        Me.lblUnpAbnModNoDet2.Text = "Module No :"
         '
         'pnlUnpackDelete
         '
@@ -956,7 +839,7 @@ Partial Public Class frmUnpack
         Me.pnlUnpackDelete.Controls.Add(Me.Panel7)
         Me.pnlUnpackDelete.Controls.Add(Me.ListView2)
         Me.pnlUnpackDelete.Controls.Add(Me.Label28)
-        Me.pnlUnpackDelete.Location = New System.Drawing.Point(983, 565)
+        Me.pnlUnpackDelete.Location = New System.Drawing.Point(332, 568)
         Me.pnlUnpackDelete.Name = "pnlUnpackDelete"
         Me.pnlUnpackDelete.Size = New System.Drawing.Size(320, 275)
         Me.pnlUnpackDelete.Visible = False
@@ -991,7 +874,6 @@ Partial Public Class frmUnpack
         '
         Me.Panel7.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel7.Controls.Add(Me.btnCloseDelete)
-        Me.Panel7.Controls.Add(Me.Label27)
         Me.Panel7.Location = New System.Drawing.Point(0, 247)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(320, 24)
@@ -1003,23 +885,16 @@ Partial Public Class frmUnpack
         Me.btnCloseDelete.Name = "btnCloseDelete"
         Me.btnCloseDelete.Size = New System.Drawing.Size(110, 20)
         Me.btnCloseDelete.TabIndex = 34
+        Me.btnCloseDelete.TabStop = False
         Me.btnCloseDelete.Text = "Close"
-        '
-        'Label27
-        '
-        Me.Label27.ForeColor = System.Drawing.Color.Black
-        Me.Label27.Location = New System.Drawing.Point(0, 3)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(209, 18)
-        Me.Label27.Text = "USER NAME:"
         '
         'ListView2
         '
+        Me.ListView2.Columns.Add(Me.ColumnHeader10)
         Me.ListView2.Columns.Add(Me.ColumnHeader7)
         Me.ListView2.Columns.Add(Me.ColumnHeader8)
         Me.ListView2.Columns.Add(Me.ColumnHeader9)
         Me.ListView2.Columns.Add(Me.ColumnHeader26)
-        Me.ListView2.Columns.Add(Me.ColumnHeader10)
         Me.ListView2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.ListView2.FullRowSelect = True
         Me.ListView2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
@@ -1028,6 +903,11 @@ Partial Public Class frmUnpack
         Me.ListView2.Size = New System.Drawing.Size(311, 158)
         Me.ListView2.TabIndex = 55
         Me.ListView2.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeader10
+        '
+        Me.ColumnHeader10.Text = "No"
+        Me.ColumnHeader10.Width = 30
         '
         'ColumnHeader7
         '
@@ -1048,11 +928,6 @@ Partial Public Class frmUnpack
         '
         Me.ColumnHeader26.Text = "Branch No"
         Me.ColumnHeader26.Width = 60
-        '
-        'ColumnHeader10
-        '
-        Me.ColumnHeader10.Text = "Module No"
-        Me.ColumnHeader10.Width = 100
         '
         'Label28
         '
@@ -1075,7 +950,7 @@ Partial Public Class frmUnpack
         Me.pnlUnpackAbn.Controls.Add(Me.btnUnpackAbnPost)
         Me.pnlUnpackAbn.Controls.Add(Me.btnUnpackAbnView)
         Me.pnlUnpackAbn.Controls.Add(Me.btnUnpackAbnScan)
-        Me.pnlUnpackAbn.Location = New System.Drawing.Point(331, 284)
+        Me.pnlUnpackAbn.Location = New System.Drawing.Point(6, 287)
         Me.pnlUnpackAbn.Name = "pnlUnpackAbn"
         Me.pnlUnpackAbn.Size = New System.Drawing.Size(320, 275)
         Me.pnlUnpackAbn.Visible = False
@@ -1084,7 +959,6 @@ Partial Public Class frmUnpack
         '
         Me.Panel6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel6.Controls.Add(Me.btnCloseAbnUnpack)
-        Me.Panel6.Controls.Add(Me.Label32)
         Me.Panel6.Location = New System.Drawing.Point(0, 247)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(320, 24)
@@ -1096,15 +970,8 @@ Partial Public Class frmUnpack
         Me.btnCloseAbnUnpack.Name = "btnCloseAbnUnpack"
         Me.btnCloseAbnUnpack.Size = New System.Drawing.Size(110, 20)
         Me.btnCloseAbnUnpack.TabIndex = 34
+        Me.btnCloseAbnUnpack.TabStop = False
         Me.btnCloseAbnUnpack.Text = "Close"
-        '
-        'Label32
-        '
-        Me.Label32.ForeColor = System.Drawing.Color.Black
-        Me.Label32.Location = New System.Drawing.Point(0, 3)
-        Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(209, 18)
-        Me.Label32.Text = "USER NAME:"
         '
         'Panel14
         '
@@ -1188,7 +1055,7 @@ Partial Public Class frmUnpack
         Me.pnlUnpackViewDet.Controls.Add(Me.Panel5)
         Me.pnlUnpackViewDet.Controls.Add(Me.TabRCISummary)
         Me.pnlUnpackViewDet.Controls.Add(Me.lblHeaderUnpackVwDet)
-        Me.pnlUnpackViewDet.Location = New System.Drawing.Point(1309, 3)
+        Me.pnlUnpackViewDet.Location = New System.Drawing.Point(985, 3)
         Me.pnlUnpackViewDet.Name = "pnlUnpackViewDet"
         Me.pnlUnpackViewDet.Size = New System.Drawing.Size(320, 275)
         Me.pnlUnpackViewDet.Visible = False
@@ -1206,7 +1073,6 @@ Partial Public Class frmUnpack
         '
         Me.Panel5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel5.Controls.Add(Me.btnBackFrViewDet)
-        Me.Panel5.Controls.Add(Me.Label54)
         Me.Panel5.Location = New System.Drawing.Point(0, 247)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(320, 24)
@@ -1218,15 +1084,8 @@ Partial Public Class frmUnpack
         Me.btnBackFrViewDet.Name = "btnBackFrViewDet"
         Me.btnBackFrViewDet.Size = New System.Drawing.Size(110, 20)
         Me.btnBackFrViewDet.TabIndex = 34
+        Me.btnBackFrViewDet.TabStop = False
         Me.btnBackFrViewDet.Text = "Back"
-        '
-        'Label54
-        '
-        Me.Label54.ForeColor = System.Drawing.Color.Black
-        Me.Label54.Location = New System.Drawing.Point(0, 3)
-        Me.Label54.Name = "Label54"
-        Me.Label54.Size = New System.Drawing.Size(209, 18)
-        Me.Label54.Text = "USER NAME:"
         '
         'TabRCISummary
         '
@@ -1257,20 +1116,13 @@ Partial Public Class frmUnpack
         Me.lstUnpackModule.Columns.Add(Me.ColumnHeader20)
         Me.lstUnpackModule.Columns.Add(Me.ColumnHeader21)
         Me.lstUnpackModule.Columns.Add(Me.ColumnHeader6)
+        Me.lstUnpackModule.Columns.Add(Me.ColumnHeader30)
         Me.lstUnpackModule.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.lstUnpackModule.FullRowSelect = True
-        ListViewItem34.Text = "1"
-        ListViewItem34.SubItems.Add("OC-13F")
-        ListViewItem34.SubItems.Add("1234")
-        ListViewItem34.SubItems.Add("50")
-        ListViewItem34.SubItems.Add("01")
-        ListViewItem35.Text = "2"
-        ListViewItem35.SubItems.Add("OC-13E")
-        ListViewItem35.SubItems.Add("6666")
-        ListViewItem35.SubItems.Add("70")
-        ListViewItem35.SubItems.Add("02")
-        Me.lstUnpackModule.Items.Add(ListViewItem34)
-        Me.lstUnpackModule.Items.Add(ListViewItem35)
+        ListViewItem1.Text = ""
+        ListViewItem2.Text = ""
+        Me.lstUnpackModule.Items.Add(ListViewItem1)
+        Me.lstUnpackModule.Items.Add(ListViewItem2)
         Me.lstUnpackModule.Location = New System.Drawing.Point(3, 3)
         Me.lstUnpackModule.Name = "lstUnpackModule"
         Me.lstUnpackModule.Size = New System.Drawing.Size(300, 170)
@@ -1300,7 +1152,12 @@ Partial Public Class frmUnpack
         'ColumnHeader6
         '
         Me.ColumnHeader6.Text = "Branch No"
-        Me.ColumnHeader6.Width = 60
+        Me.ColumnHeader6.Width = 50
+        '
+        'ColumnHeader30
+        '
+        Me.ColumnHeader30.Text = "Make Up"
+        Me.ColumnHeader30.Width = 50
         '
         'lblRCITotalScan
         '
@@ -1308,7 +1165,7 @@ Partial Public Class frmUnpack
         Me.lblRCITotalScan.Location = New System.Drawing.Point(90, 178)
         Me.lblRCITotalScan.Name = "lblRCITotalScan"
         Me.lblRCITotalScan.Size = New System.Drawing.Size(45, 21)
-        Me.lblRCITotalScan.Text = "2"
+        Me.lblRCITotalScan.Text = "0"
         '
         'Label43
         '
@@ -1335,7 +1192,7 @@ Partial Public Class frmUnpack
         Me.lblRCIS2TotalScan.Location = New System.Drawing.Point(90, 178)
         Me.lblRCIS2TotalScan.Name = "lblRCIS2TotalScan"
         Me.lblRCIS2TotalScan.Size = New System.Drawing.Size(45, 21)
-        Me.lblRCIS2TotalScan.Text = "1"
+        Me.lblRCIS2TotalScan.Text = "0"
         '
         'Label47
         '
@@ -1352,13 +1209,11 @@ Partial Public Class frmUnpack
         Me.lstViewRCISummary.Columns.Add(Me.ColumnHeader19)
         Me.lstViewRCISummary.Columns.Add(Me.ColumnHeader22)
         Me.lstViewRCISummary.Columns.Add(Me.ColumnHeader27)
+        Me.lstViewRCISummary.Columns.Add(Me.ColumnHeader31)
         Me.lstViewRCISummary.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.lstViewRCISummary.FullRowSelect = True
-        ListViewItem36.Text = "2"
-        ListViewItem36.SubItems.Add("OC-13D")
-        ListViewItem36.SubItems.Add("2667")
-        ListViewItem36.SubItems.Add("100")
-        Me.lstViewRCISummary.Items.Add(ListViewItem36)
+        ListViewItem3.Text = ""
+        Me.lstViewRCISummary.Items.Add(ListViewItem3)
         Me.lstViewRCISummary.Location = New System.Drawing.Point(3, 3)
         Me.lstViewRCISummary.Name = "lstViewRCISummary"
         Me.lstViewRCISummary.Size = New System.Drawing.Size(299, 170)
@@ -1388,7 +1243,12 @@ Partial Public Class frmUnpack
         'ColumnHeader27
         '
         Me.ColumnHeader27.Text = "Branch No"
-        Me.ColumnHeader27.Width = 60
+        Me.ColumnHeader27.Width = 50
+        '
+        'ColumnHeader31
+        '
+        Me.ColumnHeader31.Text = "Make Up"
+        Me.ColumnHeader31.Width = 50
         '
         'lblHeaderUnpackVwDet
         '
@@ -1398,185 +1258,41 @@ Partial Public Class frmUnpack
         Me.lblHeaderUnpackVwDet.Size = New System.Drawing.Size(315, 20)
         Me.lblHeaderUnpackVwDet.Text = "Module No :"
         '
-        'pnlUnpackScanModuleError
-        '
-        Me.pnlUnpackScanModuleError.BackColor = System.Drawing.Color.Transparent
-        Me.pnlUnpackScanModuleError.Controls.Add(Me.Label9)
-        Me.pnlUnpackScanModuleError.Controls.Add(Me.Label11)
-        Me.pnlUnpackScanModuleError.Controls.Add(Me.Label29)
-        Me.pnlUnpackScanModuleError.Controls.Add(Me.Button1)
-        Me.pnlUnpackScanModuleError.Controls.Add(Me.Panel15)
-        Me.pnlUnpackScanModuleError.Controls.Add(Me.Panel16)
-        Me.pnlUnpackScanModuleError.Controls.Add(Me.Label45)
-        Me.pnlUnpackScanModuleError.Controls.Add(Me.btnFScanModuleError)
-        Me.pnlUnpackScanModuleError.Controls.Add(Me.TextBox2)
-        Me.pnlUnpackScanModuleError.Controls.Add(Me.Label50)
-        Me.pnlUnpackScanModuleError.Location = New System.Drawing.Point(657, 3)
-        Me.pnlUnpackScanModuleError.Name = "pnlUnpackScanModuleError"
-        Me.pnlUnpackScanModuleError.Size = New System.Drawing.Size(320, 275)
-        Me.pnlUnpackScanModuleError.Visible = False
-        '
-        'Label9
-        '
-        Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label9.BackColor = System.Drawing.Color.Red
-        Me.Label9.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Label9.Location = New System.Drawing.Point(0, 180)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(320, 22)
-        Me.Label9.Text = "Invalid Module No"
-        Me.Label9.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        '
-        'Label11
-        '
-        Me.Label11.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label11.Location = New System.Drawing.Point(100, 225)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(40, 20)
-        '
-        'Label29
-        '
-        Me.Label29.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label29.Location = New System.Drawing.Point(10, 225)
-        Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(90, 20)
-        Me.Label29.Text = "Total Scanned :"
-        '
-        'Button1
-        '
-        Me.Button1.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Button1.Location = New System.Drawing.Point(223, 3)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(90, 20)
-        Me.Button1.TabIndex = 90
-        Me.Button1.Text = "Details"
-        '
-        'Panel15
-        '
-        Me.Panel15.BackColor = System.Drawing.Color.LightBlue
-        Me.Panel15.Controls.Add(Me.Label30)
-        Me.Panel15.Controls.Add(Me.Label31)
-        Me.Panel15.Controls.Add(Me.Label34)
-        Me.Panel15.Controls.Add(Me.Label38)
-        Me.Panel15.Location = New System.Drawing.Point(10, 80)
-        Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(293, 63)
-        '
-        'Label30
-        '
-        Me.Label30.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label30.Location = New System.Drawing.Point(75, 30)
-        Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(180, 15)
-        '
-        'Label31
-        '
-        Me.Label31.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label31.Location = New System.Drawing.Point(75, 10)
-        Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(180, 15)
-        '
-        'Label34
-        '
-        Me.Label34.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label34.Location = New System.Drawing.Point(7, 30)
-        Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(72, 15)
-        Me.Label34.Text = "Order No :"
-        '
-        'Label38
-        '
-        Me.Label38.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label38.Location = New System.Drawing.Point(7, 10)
-        Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(72, 15)
-        Me.Label38.Text = "Module No :"
-        '
-        'Panel16
-        '
-        Me.Panel16.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Panel16.Controls.Add(Me.btnBackScanModuleError)
-        Me.Panel16.Controls.Add(Me.Label44)
-        Me.Panel16.Location = New System.Drawing.Point(0, 247)
-        Me.Panel16.Name = "Panel16"
-        Me.Panel16.Size = New System.Drawing.Size(320, 24)
-        '
-        'btnBackScanModuleError
-        '
-        Me.btnBackScanModuleError.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.btnBackScanModuleError.Location = New System.Drawing.Point(200, 2)
-        Me.btnBackScanModuleError.Name = "btnBackScanModuleError"
-        Me.btnBackScanModuleError.Size = New System.Drawing.Size(110, 20)
-        Me.btnBackScanModuleError.TabIndex = 34
-        Me.btnBackScanModuleError.Text = "Back"
-        '
-        'Label44
-        '
-        Me.Label44.ForeColor = System.Drawing.Color.Black
-        Me.Label44.Location = New System.Drawing.Point(0, 3)
-        Me.Label44.Name = "Label44"
-        Me.Label44.Size = New System.Drawing.Size(209, 18)
-        Me.Label44.Text = "USER NAME:"
-        '
-        'Label45
-        '
-        Me.Label45.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label45.Location = New System.Drawing.Point(10, 33)
-        Me.Label45.Name = "Label45"
-        Me.Label45.Size = New System.Drawing.Size(106, 15)
-        Me.Label45.Text = "Module QR Code :"
-        '
-        'btnFScanModuleError
-        '
-        Me.btnFScanModuleError.Image = CType(resources.GetObject("btnFScanModuleError.Image"), System.Drawing.Image)
-        Me.btnFScanModuleError.Location = New System.Drawing.Point(273, 49)
-        Me.btnFScanModuleError.Name = "btnFScanModuleError"
-        Me.btnFScanModuleError.Size = New System.Drawing.Size(22, 22)
-        Me.btnFScanModuleError.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        '
-        'TextBox2
-        '
-        Me.TextBox2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.TextBox2.Location = New System.Drawing.Point(10, 51)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(260, 19)
-        Me.TextBox2.TabIndex = 13
-        '
-        'Label50
-        '
-        Me.Label50.BackColor = System.Drawing.Color.PowderBlue
-        Me.Label50.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label50.Location = New System.Drawing.Point(2, 2)
-        Me.Label50.Name = "Label50"
-        Me.Label50.Size = New System.Drawing.Size(316, 20)
-        '
         'pnlUnpackScanPart
         '
         Me.pnlUnpackScanPart.BackColor = System.Drawing.Color.Transparent
-        Me.pnlUnpackScanPart.Controls.Add(Me.lblModuleNo)
+        Me.pnlUnpackScanPart.Controls.Add(Me.Label2)
+        Me.pnlUnpackScanPart.Controls.Add(Me.lblPartModNo)
         Me.pnlUnpackScanPart.Controls.Add(Me.Label55)
         Me.pnlUnpackScanPart.Controls.Add(Me.btnUnpackViewDet)
-        Me.pnlUnpackScanPart.Controls.Add(Me.Label3)
-        Me.pnlUnpackScanPart.Controls.Add(Me.Label51)
+        Me.pnlUnpackScanPart.Controls.Add(Me.lblPartSuccess)
+        Me.pnlUnpackScanPart.Controls.Add(Me.lblPartTotalScan)
         Me.pnlUnpackScanPart.Controls.Add(Me.Label52)
         Me.pnlUnpackScanPart.Controls.Add(Me.Panel2)
         Me.pnlUnpackScanPart.Controls.Add(Me.Panel17)
         Me.pnlUnpackScanPart.Controls.Add(Me.Label96)
-        Me.pnlUnpackScanPart.Controls.Add(Me.btnHKAbnFScan)
-        Me.pnlUnpackScanPart.Controls.Add(Me.TextBox3)
+        Me.pnlUnpackScanPart.Controls.Add(Me.btnFScanPart)
+        Me.pnlUnpackScanPart.Controls.Add(Me.txtKanbanQRPart)
         Me.pnlUnpackScanPart.Controls.Add(Me.Label98)
-        Me.pnlUnpackScanPart.Location = New System.Drawing.Point(1635, 3)
+        Me.pnlUnpackScanPart.Location = New System.Drawing.Point(1309, 3)
         Me.pnlUnpackScanPart.Name = "pnlUnpackScanPart"
         Me.pnlUnpackScanPart.Size = New System.Drawing.Size(320, 275)
         Me.pnlUnpackScanPart.Visible = False
         '
-        'lblModuleNo
+        'Label2
         '
-        Me.lblModuleNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.lblModuleNo.Location = New System.Drawing.Point(90, 30)
-        Me.lblModuleNo.Name = "lblModuleNo"
-        Me.lblModuleNo.Size = New System.Drawing.Size(170, 15)
-        Me.lblModuleNo.Text = "C02-140223-01"
+        Me.Label2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.Label2.Location = New System.Drawing.Point(-1, 201)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(320, 20)
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
+        'lblPartModNo
+        '
+        Me.lblPartModNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lblPartModNo.Location = New System.Drawing.Point(90, 30)
+        Me.lblPartModNo.Name = "lblPartModNo"
+        Me.lblPartModNo.Size = New System.Drawing.Size(170, 15)
         '
         'Label55
         '
@@ -1595,23 +1311,24 @@ Partial Public Class frmUnpack
         Me.btnUnpackViewDet.TabIndex = 100
         Me.btnUnpackViewDet.Text = "Details"
         '
-        'Label3
+        'lblPartSuccess
         '
-        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label3.BackColor = System.Drawing.Color.LimeGreen
-        Me.Label3.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Label3.Location = New System.Drawing.Point(0, 180)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(320, 22)
-        Me.Label3.Text = "OK"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.lblPartSuccess.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblPartSuccess.BackColor = System.Drawing.Color.LimeGreen
+        Me.lblPartSuccess.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.lblPartSuccess.Location = New System.Drawing.Point(0, 180)
+        Me.lblPartSuccess.Name = "lblPartSuccess"
+        Me.lblPartSuccess.Size = New System.Drawing.Size(320, 22)
+        Me.lblPartSuccess.Text = "Scan.."
+        Me.lblPartSuccess.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'Label51
+        'lblPartTotalScan
         '
-        Me.Label51.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label51.Location = New System.Drawing.Point(100, 225)
-        Me.Label51.Name = "Label51"
-        Me.Label51.Size = New System.Drawing.Size(40, 20)
+        Me.lblPartTotalScan.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lblPartTotalScan.Location = New System.Drawing.Point(100, 225)
+        Me.lblPartTotalScan.Name = "lblPartTotalScan"
+        Me.lblPartTotalScan.Size = New System.Drawing.Size(40, 20)
+        Me.lblPartTotalScan.Text = "0"
         '
         'Label52
         '
@@ -1624,15 +1341,31 @@ Partial Public Class frmUnpack
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.LightBlue
+        Me.Panel2.Controls.Add(Me.lblPartBranchNo)
+        Me.Panel2.Controls.Add(Me.lblPartQty)
         Me.Panel2.Controls.Add(Me.Label132)
         Me.Panel2.Controls.Add(Me.Label131)
-        Me.Panel2.Controls.Add(Me.Label57)
-        Me.Panel2.Controls.Add(Me.Label58)
+        Me.Panel2.Controls.Add(Me.lblPartSeqNo)
+        Me.Panel2.Controls.Add(Me.lblPartNo)
         Me.Panel2.Controls.Add(Me.Label93)
         Me.Panel2.Controls.Add(Me.Label94)
         Me.Panel2.Location = New System.Drawing.Point(10, 80)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(293, 80)
+        '
+        'lblPartBranchNo
+        '
+        Me.lblPartBranchNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lblPartBranchNo.Location = New System.Drawing.Point(75, 64)
+        Me.lblPartBranchNo.Name = "lblPartBranchNo"
+        Me.lblPartBranchNo.Size = New System.Drawing.Size(180, 15)
+        '
+        'lblPartQty
+        '
+        Me.lblPartQty.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lblPartQty.Location = New System.Drawing.Point(74, 44)
+        Me.lblPartQty.Name = "lblPartQty"
+        Me.lblPartQty.Size = New System.Drawing.Size(180, 15)
         '
         'Label132
         '
@@ -1650,21 +1383,19 @@ Partial Public Class frmUnpack
         Me.Label131.Size = New System.Drawing.Size(72, 15)
         Me.Label131.Text = "Qty :"
         '
-        'Label57
+        'lblPartSeqNo
         '
-        Me.Label57.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label57.Location = New System.Drawing.Point(75, 26)
-        Me.Label57.Name = "Label57"
-        Me.Label57.Size = New System.Drawing.Size(180, 15)
-        Me.Label57.Text = "1"
+        Me.lblPartSeqNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lblPartSeqNo.Location = New System.Drawing.Point(75, 26)
+        Me.lblPartSeqNo.Name = "lblPartSeqNo"
+        Me.lblPartSeqNo.Size = New System.Drawing.Size(180, 15)
         '
-        'Label58
+        'lblPartNo
         '
-        Me.Label58.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label58.Location = New System.Drawing.Point(75, 7)
-        Me.Label58.Name = "Label58"
-        Me.Label58.Size = New System.Drawing.Size(180, 15)
-        Me.Label58.Text = "23456-12538-01"
+        Me.lblPartNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lblPartNo.Location = New System.Drawing.Point(75, 7)
+        Me.lblPartNo.Name = "lblPartNo"
+        Me.lblPartNo.Size = New System.Drawing.Size(180, 15)
         '
         'Label93
         '
@@ -1686,7 +1417,6 @@ Partial Public Class frmUnpack
         '
         Me.Panel17.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel17.Controls.Add(Me.btnBackUnpackScanPart)
-        Me.Panel17.Controls.Add(Me.Label95)
         Me.Panel17.Location = New System.Drawing.Point(0, 247)
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Size = New System.Drawing.Size(320, 24)
@@ -1698,15 +1428,8 @@ Partial Public Class frmUnpack
         Me.btnBackUnpackScanPart.Name = "btnBackUnpackScanPart"
         Me.btnBackUnpackScanPart.Size = New System.Drawing.Size(110, 20)
         Me.btnBackUnpackScanPart.TabIndex = 34
+        Me.btnBackUnpackScanPart.TabStop = False
         Me.btnBackUnpackScanPart.Text = "Back"
-        '
-        'Label95
-        '
-        Me.Label95.ForeColor = System.Drawing.Color.Black
-        Me.Label95.Location = New System.Drawing.Point(0, 3)
-        Me.Label95.Name = "Label95"
-        Me.Label95.Size = New System.Drawing.Size(209, 18)
-        Me.Label95.Text = "USER NAME:"
         '
         'Label96
         '
@@ -1716,21 +1439,21 @@ Partial Public Class frmUnpack
         Me.Label96.Size = New System.Drawing.Size(70, 15)
         Me.Label96.Text = "Kanban QR :"
         '
-        'btnHKAbnFScan
+        'btnFScanPart
         '
-        Me.btnHKAbnFScan.Image = CType(resources.GetObject("btnHKAbnFScan.Image"), System.Drawing.Image)
-        Me.btnHKAbnFScan.Location = New System.Drawing.Point(273, 52)
-        Me.btnHKAbnFScan.Name = "btnHKAbnFScan"
-        Me.btnHKAbnFScan.Size = New System.Drawing.Size(30, 22)
-        Me.btnHKAbnFScan.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.btnFScanPart.Image = CType(resources.GetObject("btnFScanPart.Image"), System.Drawing.Image)
+        Me.btnFScanPart.Location = New System.Drawing.Point(273, 52)
+        Me.btnFScanPart.Name = "btnFScanPart"
+        Me.btnFScanPart.Size = New System.Drawing.Size(30, 22)
+        Me.btnFScanPart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         '
-        'TextBox3
+        'txtKanbanQRPart
         '
-        Me.TextBox3.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.TextBox3.Location = New System.Drawing.Point(80, 53)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(190, 19)
-        Me.TextBox3.TabIndex = 13
+        Me.txtKanbanQRPart.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.txtKanbanQRPart.Location = New System.Drawing.Point(80, 53)
+        Me.txtKanbanQRPart.Name = "txtKanbanQRPart"
+        Me.txtKanbanQRPart.Size = New System.Drawing.Size(190, 19)
+        Me.txtKanbanQRPart.TabIndex = 13
         '
         'Label98
         '
@@ -1740,222 +1463,40 @@ Partial Public Class frmUnpack
         Me.Label98.Name = "Label98"
         Me.Label98.Size = New System.Drawing.Size(316, 20)
         '
-        'pnlUnpackScanPartError
-        '
-        Me.pnlUnpackScanPartError.BackColor = System.Drawing.Color.Transparent
-        Me.pnlUnpackScanPartError.Controls.Add(Me.Label56)
-        Me.pnlUnpackScanPartError.Controls.Add(Me.Label59)
-        Me.pnlUnpackScanPartError.Controls.Add(Me.Button3)
-        Me.pnlUnpackScanPartError.Controls.Add(Me.Label63)
-        Me.pnlUnpackScanPartError.Controls.Add(Me.Label64)
-        Me.pnlUnpackScanPartError.Controls.Add(Me.Label65)
-        Me.pnlUnpackScanPartError.Controls.Add(Me.Panel19)
-        Me.pnlUnpackScanPartError.Controls.Add(Me.Panel20)
-        Me.pnlUnpackScanPartError.Controls.Add(Me.Label71)
-        Me.pnlUnpackScanPartError.Controls.Add(Me.PictureBox3)
-        Me.pnlUnpackScanPartError.Controls.Add(Me.TextBox5)
-        Me.pnlUnpackScanPartError.Controls.Add(Me.Label72)
-        Me.pnlUnpackScanPartError.Location = New System.Drawing.Point(1961, 3)
-        Me.pnlUnpackScanPartError.Name = "pnlUnpackScanPartError"
-        Me.pnlUnpackScanPartError.Size = New System.Drawing.Size(320, 275)
-        Me.pnlUnpackScanPartError.Visible = False
-        '
-        'Label56
-        '
-        Me.Label56.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label56.Location = New System.Drawing.Point(90, 30)
-        Me.Label56.Name = "Label56"
-        Me.Label56.Size = New System.Drawing.Size(170, 15)
-        Me.Label56.Text = "C02-140223-01"
-        '
-        'Label59
-        '
-        Me.Label59.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label59.Location = New System.Drawing.Point(10, 30)
-        Me.Label59.Name = "Label59"
-        Me.Label59.Size = New System.Drawing.Size(87, 20)
-        Me.Label59.Text = "Module  No :"
-        '
-        'Button3
-        '
-        Me.Button3.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Button3.Location = New System.Drawing.Point(223, 3)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(90, 20)
-        Me.Button3.TabIndex = 100
-        Me.Button3.Text = "Details"
-        '
-        'Label63
-        '
-        Me.Label63.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label63.BackColor = System.Drawing.Color.Red
-        Me.Label63.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Label63.Location = New System.Drawing.Point(0, 180)
-        Me.Label63.Name = "Label63"
-        Me.Label63.Size = New System.Drawing.Size(320, 22)
-        Me.Label63.Text = "Duplicate Part No"
-        Me.Label63.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        '
-        'Label64
-        '
-        Me.Label64.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label64.Location = New System.Drawing.Point(100, 225)
-        Me.Label64.Name = "Label64"
-        Me.Label64.Size = New System.Drawing.Size(40, 20)
-        '
-        'Label65
-        '
-        Me.Label65.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label65.Location = New System.Drawing.Point(10, 225)
-        Me.Label65.Name = "Label65"
-        Me.Label65.Size = New System.Drawing.Size(90, 20)
-        Me.Label65.Text = "Total Scanned :"
-        '
-        'Panel19
-        '
-        Me.Panel19.BackColor = System.Drawing.Color.LightBlue
-        Me.Panel19.Controls.Add(Me.Label134)
-        Me.Panel19.Controls.Add(Me.Label133)
-        Me.Panel19.Controls.Add(Me.Label66)
-        Me.Panel19.Controls.Add(Me.Label67)
-        Me.Panel19.Controls.Add(Me.Label68)
-        Me.Panel19.Controls.Add(Me.Label69)
-        Me.Panel19.Location = New System.Drawing.Point(10, 80)
-        Me.Panel19.Name = "Panel19"
-        Me.Panel19.Size = New System.Drawing.Size(293, 80)
-        '
-        'Label134
-        '
-        Me.Label134.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label134.Location = New System.Drawing.Point(7, 64)
-        Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(72, 15)
-        Me.Label134.Text = "Branch No :"
-        '
-        'Label133
-        '
-        Me.Label133.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label133.Location = New System.Drawing.Point(7, 45)
-        Me.Label133.Name = "Label133"
-        Me.Label133.Size = New System.Drawing.Size(72, 15)
-        Me.Label133.Text = "Qty :"
-        '
-        'Label66
-        '
-        Me.Label66.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label66.Location = New System.Drawing.Point(75, 26)
-        Me.Label66.Name = "Label66"
-        Me.Label66.Size = New System.Drawing.Size(180, 15)
-        Me.Label66.Text = "1"
-        '
-        'Label67
-        '
-        Me.Label67.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label67.Location = New System.Drawing.Point(75, 7)
-        Me.Label67.Name = "Label67"
-        Me.Label67.Size = New System.Drawing.Size(180, 15)
-        Me.Label67.Text = "23456-12538-01"
-        '
-        'Label68
-        '
-        Me.Label68.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label68.Location = New System.Drawing.Point(7, 26)
-        Me.Label68.Name = "Label68"
-        Me.Label68.Size = New System.Drawing.Size(72, 15)
-        Me.Label68.Text = "Seq No :"
-        '
-        'Label69
-        '
-        Me.Label69.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label69.Location = New System.Drawing.Point(7, 7)
-        Me.Label69.Name = "Label69"
-        Me.Label69.Size = New System.Drawing.Size(72, 15)
-        Me.Label69.Text = "Part No :"
-        '
-        'Panel20
-        '
-        Me.Panel20.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Panel20.Controls.Add(Me.btnUnpackScanPartError)
-        Me.Panel20.Controls.Add(Me.Label70)
-        Me.Panel20.Location = New System.Drawing.Point(0, 247)
-        Me.Panel20.Name = "Panel20"
-        Me.Panel20.Size = New System.Drawing.Size(320, 24)
-        '
-        'btnUnpackScanPartError
-        '
-        Me.btnUnpackScanPartError.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.btnUnpackScanPartError.Location = New System.Drawing.Point(200, 2)
-        Me.btnUnpackScanPartError.Name = "btnUnpackScanPartError"
-        Me.btnUnpackScanPartError.Size = New System.Drawing.Size(110, 20)
-        Me.btnUnpackScanPartError.TabIndex = 34
-        Me.btnUnpackScanPartError.Text = "Back"
-        '
-        'Label70
-        '
-        Me.Label70.ForeColor = System.Drawing.Color.Black
-        Me.Label70.Location = New System.Drawing.Point(0, 3)
-        Me.Label70.Name = "Label70"
-        Me.Label70.Size = New System.Drawing.Size(209, 18)
-        Me.Label70.Text = "USER NAME:"
-        '
-        'Label71
-        '
-        Me.Label71.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label71.Location = New System.Drawing.Point(10, 55)
-        Me.Label71.Name = "Label71"
-        Me.Label71.Size = New System.Drawing.Size(70, 15)
-        Me.Label71.Text = "Kanban QR :"
-        '
-        'PictureBox3
-        '
-        Me.PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), System.Drawing.Image)
-        Me.PictureBox3.Location = New System.Drawing.Point(273, 54)
-        Me.PictureBox3.Name = "PictureBox3"
-        Me.PictureBox3.Size = New System.Drawing.Size(30, 22)
-        Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        '
-        'TextBox5
-        '
-        Me.TextBox5.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.TextBox5.Location = New System.Drawing.Point(80, 55)
-        Me.TextBox5.Name = "TextBox5"
-        Me.TextBox5.Size = New System.Drawing.Size(190, 19)
-        Me.TextBox5.TabIndex = 13
-        '
-        'Label72
-        '
-        Me.Label72.BackColor = System.Drawing.Color.PowderBlue
-        Me.Label72.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label72.Location = New System.Drawing.Point(2, 2)
-        Me.Label72.Name = "Label72"
-        Me.Label72.Size = New System.Drawing.Size(316, 20)
-        '
         'pnlUnpackAbnScanPart
         '
         Me.pnlUnpackAbnScanPart.BackColor = System.Drawing.Color.Transparent
-        Me.pnlUnpackAbnScanPart.Controls.Add(Me.Label120)
+        Me.pnlUnpackAbnScanPart.Controls.Add(Me.lblAbnDesc)
+        Me.pnlUnpackAbnScanPart.Controls.Add(Me.lblAbnSPartModNo)
         Me.pnlUnpackAbnScanPart.Controls.Add(Me.Label119)
-        Me.pnlUnpackAbnScanPart.Controls.Add(Me.Button2)
-        Me.pnlUnpackAbnScanPart.Controls.Add(Me.Label15)
-        Me.pnlUnpackAbnScanPart.Controls.Add(Me.Label17)
-        Me.pnlUnpackAbnScanPart.Controls.Add(Me.Label18)
+        Me.pnlUnpackAbnScanPart.Controls.Add(Me.btnAbnSPartViewDet)
+        Me.pnlUnpackAbnScanPart.Controls.Add(Me.lblAbnSPartMsgC)
+        Me.pnlUnpackAbnScanPart.Controls.Add(Me.lblAbnScanPartTotal)
+        Me.pnlUnpackAbnScanPart.Controls.Add(Me.lblAbnSPartTotal)
         Me.pnlUnpackAbnScanPart.Controls.Add(Me.Panel11)
         Me.pnlUnpackAbnScanPart.Controls.Add(Me.Panel18)
         Me.pnlUnpackAbnScanPart.Controls.Add(Me.Label75)
-        Me.pnlUnpackAbnScanPart.Controls.Add(Me.PictureBox1)
-        Me.pnlUnpackAbnScanPart.Controls.Add(Me.TextBox1)
+        Me.pnlUnpackAbnScanPart.Controls.Add(Me.btnAbnFSPart)
+        Me.pnlUnpackAbnScanPart.Controls.Add(Me.txtAbnSPartKanban)
         Me.pnlUnpackAbnScanPart.Controls.Add(Me.Label77)
-        Me.pnlUnpackAbnScanPart.Location = New System.Drawing.Point(1635, 284)
+        Me.pnlUnpackAbnScanPart.Location = New System.Drawing.Point(985, 287)
         Me.pnlUnpackAbnScanPart.Name = "pnlUnpackAbnScanPart"
-        Me.pnlUnpackAbnScanPart.Size = New System.Drawing.Size(320, 275)
+        Me.pnlUnpackAbnScanPart.Size = New System.Drawing.Size(320, 268)
         Me.pnlUnpackAbnScanPart.Visible = False
         '
-        'Label120
+        'lblAbnDesc
         '
-        Me.Label120.Location = New System.Drawing.Point(80, 30)
-        Me.Label120.Name = "Label120"
-        Me.Label120.Size = New System.Drawing.Size(200, 20)
-        Me.Label120.Text = "C02-140223-01"
+        Me.lblAbnDesc.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lblAbnDesc.Location = New System.Drawing.Point(0, 199)
+        Me.lblAbnDesc.Name = "lblAbnDesc"
+        Me.lblAbnDesc.Size = New System.Drawing.Size(320, 20)
+        Me.lblAbnDesc.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
+        'lblAbnSPartModNo
+        '
+        Me.lblAbnSPartModNo.Location = New System.Drawing.Point(80, 30)
+        Me.lblAbnSPartModNo.Name = "lblAbnSPartModNo"
+        Me.lblAbnSPartModNo.Size = New System.Drawing.Size(200, 20)
         '
         'Label119
         '
@@ -1965,53 +1506,70 @@ Partial Public Class frmUnpack
         Me.Label119.Size = New System.Drawing.Size(70, 15)
         Me.Label119.Text = "Module No :"
         '
-        'Button2
+        'btnAbnSPartViewDet
         '
-        Me.Button2.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Button2.Location = New System.Drawing.Point(223, 3)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(90, 20)
-        Me.Button2.TabIndex = 100
-        Me.Button2.Text = "Details"
+        Me.btnAbnSPartViewDet.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.btnAbnSPartViewDet.Location = New System.Drawing.Point(223, 3)
+        Me.btnAbnSPartViewDet.Name = "btnAbnSPartViewDet"
+        Me.btnAbnSPartViewDet.Size = New System.Drawing.Size(90, 20)
+        Me.btnAbnSPartViewDet.TabIndex = 100
+        Me.btnAbnSPartViewDet.Text = "Details"
         '
-        'Label15
+        'lblAbnSPartMsgC
         '
-        Me.Label15.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label15.BackColor = System.Drawing.Color.LimeGreen
-        Me.Label15.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Label15.Location = New System.Drawing.Point(0, 180)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(320, 22)
-        Me.Label15.Text = "OK"
-        Me.Label15.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.lblAbnSPartMsgC.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblAbnSPartMsgC.BackColor = System.Drawing.Color.LimeGreen
+        Me.lblAbnSPartMsgC.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.lblAbnSPartMsgC.Location = New System.Drawing.Point(0, 177)
+        Me.lblAbnSPartMsgC.Name = "lblAbnSPartMsgC"
+        Me.lblAbnSPartMsgC.Size = New System.Drawing.Size(320, 22)
+        Me.lblAbnSPartMsgC.Text = "Scan.."
+        Me.lblAbnSPartMsgC.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'Label17
+        'lblAbnScanPartTotal
         '
-        Me.Label17.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label17.Location = New System.Drawing.Point(100, 225)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(40, 20)
+        Me.lblAbnScanPartTotal.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lblAbnScanPartTotal.Location = New System.Drawing.Point(100, 220)
+        Me.lblAbnScanPartTotal.Name = "lblAbnScanPartTotal"
+        Me.lblAbnScanPartTotal.Size = New System.Drawing.Size(40, 20)
+        Me.lblAbnScanPartTotal.Text = "0"
         '
-        'Label18
+        'lblAbnSPartTotal
         '
-        Me.Label18.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label18.Location = New System.Drawing.Point(10, 225)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(90, 20)
-        Me.Label18.Text = "Total Scanned :"
+        Me.lblAbnSPartTotal.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lblAbnSPartTotal.Location = New System.Drawing.Point(10, 220)
+        Me.lblAbnSPartTotal.Name = "lblAbnSPartTotal"
+        Me.lblAbnSPartTotal.Size = New System.Drawing.Size(90, 20)
+        Me.lblAbnSPartTotal.Text = "Total Scanned :"
         '
         'Panel11
         '
         Me.Panel11.BackColor = System.Drawing.Color.LightBlue
+        Me.Panel11.Controls.Add(Me.Label4)
+        Me.Panel11.Controls.Add(Me.Label3)
         Me.Panel11.Controls.Add(Me.Label138)
         Me.Panel11.Controls.Add(Me.Label137)
-        Me.Panel11.Controls.Add(Me.Label19)
-        Me.Panel11.Controls.Add(Me.Label20)
+        Me.Panel11.Controls.Add(Me.lblAbnSPartSeqNo)
+        Me.Panel11.Controls.Add(Me.lblAbnScanPartNo)
         Me.Panel11.Controls.Add(Me.Label22)
         Me.Panel11.Controls.Add(Me.Label73)
         Me.Panel11.Location = New System.Drawing.Point(10, 80)
         Me.Panel11.Name = "Panel11"
         Me.Panel11.Size = New System.Drawing.Size(293, 80)
+        '
+        'Label4
+        '
+        Me.Label4.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.Label4.Location = New System.Drawing.Point(75, 62)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(180, 15)
+        '
+        'Label3
+        '
+        Me.Label3.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.Label3.Location = New System.Drawing.Point(75, 45)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(180, 15)
         '
         'Label138
         '
@@ -2029,21 +1587,19 @@ Partial Public Class frmUnpack
         Me.Label137.Size = New System.Drawing.Size(72, 15)
         Me.Label137.Text = "Qty :"
         '
-        'Label19
+        'lblAbnSPartSeqNo
         '
-        Me.Label19.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label19.Location = New System.Drawing.Point(75, 26)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(180, 15)
-        Me.Label19.Text = "1"
+        Me.lblAbnSPartSeqNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lblAbnSPartSeqNo.Location = New System.Drawing.Point(75, 26)
+        Me.lblAbnSPartSeqNo.Name = "lblAbnSPartSeqNo"
+        Me.lblAbnSPartSeqNo.Size = New System.Drawing.Size(180, 15)
         '
-        'Label20
+        'lblAbnScanPartNo
         '
-        Me.Label20.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label20.Location = New System.Drawing.Point(75, 7)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(180, 15)
-        Me.Label20.Text = "23456-12538-01"
+        Me.lblAbnScanPartNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lblAbnScanPartNo.Location = New System.Drawing.Point(75, 7)
+        Me.lblAbnScanPartNo.Name = "lblAbnScanPartNo"
+        Me.lblAbnScanPartNo.Size = New System.Drawing.Size(180, 15)
         '
         'Label22
         '
@@ -2065,8 +1621,7 @@ Partial Public Class frmUnpack
         '
         Me.Panel18.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel18.Controls.Add(Me.btnUnpackAbnScanPart)
-        Me.Panel18.Controls.Add(Me.Label74)
-        Me.Panel18.Location = New System.Drawing.Point(0, 247)
+        Me.Panel18.Location = New System.Drawing.Point(0, 240)
         Me.Panel18.Name = "Panel18"
         Me.Panel18.Size = New System.Drawing.Size(320, 24)
         '
@@ -2077,15 +1632,8 @@ Partial Public Class frmUnpack
         Me.btnUnpackAbnScanPart.Name = "btnUnpackAbnScanPart"
         Me.btnUnpackAbnScanPart.Size = New System.Drawing.Size(110, 20)
         Me.btnUnpackAbnScanPart.TabIndex = 34
+        Me.btnUnpackAbnScanPart.TabStop = False
         Me.btnUnpackAbnScanPart.Text = "Back"
-        '
-        'Label74
-        '
-        Me.Label74.ForeColor = System.Drawing.Color.Black
-        Me.Label74.Location = New System.Drawing.Point(0, 3)
-        Me.Label74.Name = "Label74"
-        Me.Label74.Size = New System.Drawing.Size(209, 18)
-        Me.Label74.Text = "USER NAME:"
         '
         'Label75
         '
@@ -2095,21 +1643,21 @@ Partial Public Class frmUnpack
         Me.Label75.Size = New System.Drawing.Size(70, 15)
         Me.Label75.Text = "Kanban QR :"
         '
-        'PictureBox1
+        'btnAbnFSPart
         '
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(273, 52)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(30, 22)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.btnAbnFSPart.Image = CType(resources.GetObject("btnAbnFSPart.Image"), System.Drawing.Image)
+        Me.btnAbnFSPart.Location = New System.Drawing.Point(273, 52)
+        Me.btnAbnFSPart.Name = "btnAbnFSPart"
+        Me.btnAbnFSPart.Size = New System.Drawing.Size(30, 22)
+        Me.btnAbnFSPart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         '
-        'TextBox1
+        'txtAbnSPartKanban
         '
-        Me.TextBox1.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.TextBox1.Location = New System.Drawing.Point(80, 53)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(190, 19)
-        Me.TextBox1.TabIndex = 13
+        Me.txtAbnSPartKanban.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.txtAbnSPartKanban.Location = New System.Drawing.Point(80, 53)
+        Me.txtAbnSPartKanban.Name = "txtAbnSPartKanban"
+        Me.txtAbnSPartKanban.Size = New System.Drawing.Size(190, 19)
+        Me.txtAbnSPartKanban.TabIndex = 13
         '
         'Label77
         '
@@ -2119,237 +1667,47 @@ Partial Public Class frmUnpack
         Me.Label77.Name = "Label77"
         Me.Label77.Size = New System.Drawing.Size(316, 20)
         '
-        'pnlUnpackAbnScanPartError
-        '
-        Me.pnlUnpackAbnScanPartError.BackColor = System.Drawing.Color.Transparent
-        Me.pnlUnpackAbnScanPartError.Controls.Add(Me.Label122)
-        Me.pnlUnpackAbnScanPartError.Controls.Add(Me.Label121)
-        Me.pnlUnpackAbnScanPartError.Controls.Add(Me.Button5)
-        Me.pnlUnpackAbnScanPartError.Controls.Add(Me.Label2)
-        Me.pnlUnpackAbnScanPartError.Controls.Add(Me.Label13)
-        Me.pnlUnpackAbnScanPartError.Controls.Add(Me.Label78)
-        Me.pnlUnpackAbnScanPartError.Controls.Add(Me.Panel21)
-        Me.pnlUnpackAbnScanPartError.Controls.Add(Me.Panel22)
-        Me.pnlUnpackAbnScanPartError.Controls.Add(Me.Label84)
-        Me.pnlUnpackAbnScanPartError.Controls.Add(Me.PictureBox2)
-        Me.pnlUnpackAbnScanPartError.Controls.Add(Me.TextBox6)
-        Me.pnlUnpackAbnScanPartError.Controls.Add(Me.Label85)
-        Me.pnlUnpackAbnScanPartError.Location = New System.Drawing.Point(1961, 284)
-        Me.pnlUnpackAbnScanPartError.Name = "pnlUnpackAbnScanPartError"
-        Me.pnlUnpackAbnScanPartError.Size = New System.Drawing.Size(320, 275)
-        Me.pnlUnpackAbnScanPartError.Visible = False
-        '
-        'Label122
-        '
-        Me.Label122.Location = New System.Drawing.Point(80, 30)
-        Me.Label122.Name = "Label122"
-        Me.Label122.Size = New System.Drawing.Size(200, 20)
-        Me.Label122.Text = "C02-140223-01"
-        '
-        'Label121
-        '
-        Me.Label121.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label121.Location = New System.Drawing.Point(10, 32)
-        Me.Label121.Name = "Label121"
-        Me.Label121.Size = New System.Drawing.Size(70, 15)
-        Me.Label121.Text = "Module No :"
-        '
-        'Button5
-        '
-        Me.Button5.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Button5.Location = New System.Drawing.Point(223, 3)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(90, 20)
-        Me.Button5.TabIndex = 100
-        Me.Button5.Text = "Details"
-        '
-        'Label2
-        '
-        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label2.BackColor = System.Drawing.Color.Red
-        Me.Label2.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Label2.Location = New System.Drawing.Point(0, 180)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(320, 22)
-        Me.Label2.Text = "Invalid Part No"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        '
-        'Label13
-        '
-        Me.Label13.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label13.Location = New System.Drawing.Point(100, 225)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(40, 20)
-        '
-        'Label78
-        '
-        Me.Label78.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label78.Location = New System.Drawing.Point(10, 225)
-        Me.Label78.Name = "Label78"
-        Me.Label78.Size = New System.Drawing.Size(90, 20)
-        Me.Label78.Text = "Total Scanned :"
-        '
-        'Panel21
-        '
-        Me.Panel21.BackColor = System.Drawing.Color.LightBlue
-        Me.Panel21.Controls.Add(Me.Label136)
-        Me.Panel21.Controls.Add(Me.Label135)
-        Me.Panel21.Controls.Add(Me.Label79)
-        Me.Panel21.Controls.Add(Me.Label80)
-        Me.Panel21.Controls.Add(Me.Label81)
-        Me.Panel21.Controls.Add(Me.Label82)
-        Me.Panel21.Location = New System.Drawing.Point(10, 80)
-        Me.Panel21.Name = "Panel21"
-        Me.Panel21.Size = New System.Drawing.Size(293, 80)
-        '
-        'Label136
-        '
-        Me.Label136.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label136.Location = New System.Drawing.Point(7, 64)
-        Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(72, 15)
-        Me.Label136.Text = "Branch No :"
-        '
-        'Label135
-        '
-        Me.Label135.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label135.Location = New System.Drawing.Point(7, 45)
-        Me.Label135.Name = "Label135"
-        Me.Label135.Size = New System.Drawing.Size(72, 15)
-        Me.Label135.Text = "Qty :"
-        '
-        'Label79
-        '
-        Me.Label79.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label79.Location = New System.Drawing.Point(75, 26)
-        Me.Label79.Name = "Label79"
-        Me.Label79.Size = New System.Drawing.Size(180, 15)
-        Me.Label79.Text = "1"
-        '
-        'Label80
-        '
-        Me.Label80.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label80.Location = New System.Drawing.Point(75, 7)
-        Me.Label80.Name = "Label80"
-        Me.Label80.Size = New System.Drawing.Size(180, 15)
-        Me.Label80.Text = "23456-12538-01"
-        '
-        'Label81
-        '
-        Me.Label81.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label81.Location = New System.Drawing.Point(7, 26)
-        Me.Label81.Name = "Label81"
-        Me.Label81.Size = New System.Drawing.Size(72, 15)
-        Me.Label81.Text = "Seq No :"
-        '
-        'Label82
-        '
-        Me.Label82.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label82.Location = New System.Drawing.Point(7, 7)
-        Me.Label82.Name = "Label82"
-        Me.Label82.Size = New System.Drawing.Size(72, 15)
-        Me.Label82.Text = "Part No :"
-        '
-        'Panel22
-        '
-        Me.Panel22.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Panel22.Controls.Add(Me.btnUnpackAbnScanPartError)
-        Me.Panel22.Controls.Add(Me.Label83)
-        Me.Panel22.Location = New System.Drawing.Point(0, 247)
-        Me.Panel22.Name = "Panel22"
-        Me.Panel22.Size = New System.Drawing.Size(320, 24)
-        '
-        'btnUnpackAbnScanPartError
-        '
-        Me.btnUnpackAbnScanPartError.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.btnUnpackAbnScanPartError.Location = New System.Drawing.Point(200, 2)
-        Me.btnUnpackAbnScanPartError.Name = "btnUnpackAbnScanPartError"
-        Me.btnUnpackAbnScanPartError.Size = New System.Drawing.Size(110, 20)
-        Me.btnUnpackAbnScanPartError.TabIndex = 34
-        Me.btnUnpackAbnScanPartError.Text = "Back"
-        '
-        'Label83
-        '
-        Me.Label83.ForeColor = System.Drawing.Color.Black
-        Me.Label83.Location = New System.Drawing.Point(0, 3)
-        Me.Label83.Name = "Label83"
-        Me.Label83.Size = New System.Drawing.Size(209, 18)
-        Me.Label83.Text = "USER NAME:"
-        '
-        'Label84
-        '
-        Me.Label84.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label84.Location = New System.Drawing.Point(10, 55)
-        Me.Label84.Name = "Label84"
-        Me.Label84.Size = New System.Drawing.Size(70, 15)
-        Me.Label84.Text = "Kanban QR :"
-        '
-        'PictureBox2
-        '
-        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
-        Me.PictureBox2.Location = New System.Drawing.Point(273, 52)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(30, 22)
-        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        '
-        'TextBox6
-        '
-        Me.TextBox6.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.TextBox6.Location = New System.Drawing.Point(80, 53)
-        Me.TextBox6.Name = "TextBox6"
-        Me.TextBox6.Size = New System.Drawing.Size(190, 19)
-        Me.TextBox6.TabIndex = 13
-        '
-        'Label85
-        '
-        Me.Label85.BackColor = System.Drawing.Color.PowderBlue
-        Me.Label85.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label85.Location = New System.Drawing.Point(2, 2)
-        Me.Label85.Name = "Label85"
-        Me.Label85.Size = New System.Drawing.Size(316, 20)
-        '
         'pnlUnpackFScanPart
         '
         Me.pnlUnpackFScanPart.BackColor = System.Drawing.Color.Transparent
-        Me.pnlUnpackFScanPart.Controls.Add(Me.Label129)
-        Me.pnlUnpackFScanPart.Controls.Add(Me.TextBox7)
-        Me.pnlUnpackFScanPart.Controls.Add(Me.TextBox8)
+        Me.pnlUnpackFScanPart.Controls.Add(Me.lblUnpFSPModNo)
+        Me.pnlUnpackFScanPart.Controls.Add(Me.txtUnpFSPBranchNo)
+        Me.pnlUnpackFScanPart.Controls.Add(Me.txtUnpFSPSeqNo)
         Me.pnlUnpackFScanPart.Controls.Add(Me.Label86)
         Me.pnlUnpackFScanPart.Controls.Add(Me.Label87)
-        Me.pnlUnpackFScanPart.Controls.Add(Me.TextBox9)
+        Me.pnlUnpackFScanPart.Controls.Add(Me.txtUnpFSPartNo)
         Me.pnlUnpackFScanPart.Controls.Add(Me.Label88)
         Me.pnlUnpackFScanPart.Controls.Add(Me.btnSaveFScanPart)
         Me.pnlUnpackFScanPart.Controls.Add(Me.Panel10)
-        Me.pnlUnpackFScanPart.Controls.Add(Me.ListView3)
+        Me.pnlUnpackFScanPart.Controls.Add(Me.lstviewUnpFSPReason)
         Me.pnlUnpackFScanPart.Controls.Add(Me.Label90)
         Me.pnlUnpackFScanPart.Controls.Add(Me.Label91)
-        Me.pnlUnpackFScanPart.Location = New System.Drawing.Point(5, 284)
+        Me.pnlUnpackFScanPart.Location = New System.Drawing.Point(1635, 3)
         Me.pnlUnpackFScanPart.Name = "pnlUnpackFScanPart"
         Me.pnlUnpackFScanPart.Size = New System.Drawing.Size(320, 275)
         Me.pnlUnpackFScanPart.Visible = False
         '
-        'Label129
+        'lblUnpFSPModNo
         '
-        Me.Label129.Location = New System.Drawing.Point(75, 34)
-        Me.Label129.Name = "Label129"
-        Me.Label129.Size = New System.Drawing.Size(230, 20)
-        Me.Label129.Text = "C02-140223-01"
+        Me.lblUnpFSPModNo.Location = New System.Drawing.Point(75, 34)
+        Me.lblUnpFSPModNo.Name = "lblUnpFSPModNo"
+        Me.lblUnpFSPModNo.Size = New System.Drawing.Size(230, 20)
         '
-        'TextBox7
+        'txtUnpFSPBranchNo
         '
-        Me.TextBox7.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.TextBox7.Location = New System.Drawing.Point(213, 86)
-        Me.TextBox7.Name = "TextBox7"
-        Me.TextBox7.Size = New System.Drawing.Size(77, 19)
-        Me.TextBox7.TabIndex = 105
+        Me.txtUnpFSPBranchNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.txtUnpFSPBranchNo.Location = New System.Drawing.Point(213, 86)
+        Me.txtUnpFSPBranchNo.Name = "txtUnpFSPBranchNo"
+        Me.txtUnpFSPBranchNo.Size = New System.Drawing.Size(77, 19)
+        Me.txtUnpFSPBranchNo.TabIndex = 105
         '
-        'TextBox8
+        'txtUnpFSPSeqNo
         '
-        Me.TextBox8.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.TextBox8.Location = New System.Drawing.Point(75, 86)
-        Me.TextBox8.Name = "TextBox8"
-        Me.TextBox8.Size = New System.Drawing.Size(77, 19)
-        Me.TextBox8.TabIndex = 104
+        Me.txtUnpFSPSeqNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.txtUnpFSPSeqNo.Location = New System.Drawing.Point(75, 86)
+        Me.txtUnpFSPSeqNo.Name = "txtUnpFSPSeqNo"
+        Me.txtUnpFSPSeqNo.Size = New System.Drawing.Size(77, 19)
+        Me.txtUnpFSPSeqNo.TabIndex = 104
         '
         'Label86
         '
@@ -2367,13 +1725,13 @@ Partial Public Class frmUnpack
         Me.Label87.Size = New System.Drawing.Size(68, 20)
         Me.Label87.Text = "Seq No :"
         '
-        'TextBox9
+        'txtUnpFSPartNo
         '
-        Me.TextBox9.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.TextBox9.Location = New System.Drawing.Point(75, 60)
-        Me.TextBox9.Name = "TextBox9"
-        Me.TextBox9.Size = New System.Drawing.Size(235, 19)
-        Me.TextBox9.TabIndex = 95
+        Me.txtUnpFSPartNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.txtUnpFSPartNo.Location = New System.Drawing.Point(75, 60)
+        Me.txtUnpFSPartNo.Name = "txtUnpFSPartNo"
+        Me.txtUnpFSPartNo.Size = New System.Drawing.Size(235, 19)
+        Me.txtUnpFSPartNo.TabIndex = 95
         '
         'Label88
         '
@@ -2385,6 +1743,7 @@ Partial Public Class frmUnpack
         '
         'btnSaveFScanPart
         '
+        Me.btnSaveFScanPart.Enabled = False
         Me.btnSaveFScanPart.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
         Me.btnSaveFScanPart.Location = New System.Drawing.Point(223, 4)
         Me.btnSaveFScanPart.Name = "btnSaveFScanPart"
@@ -2396,7 +1755,6 @@ Partial Public Class frmUnpack
         '
         Me.Panel10.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel10.Controls.Add(Me.btnBackFScanPart)
-        Me.Panel10.Controls.Add(Me.Label89)
         Me.Panel10.Location = New System.Drawing.Point(0, 247)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Size = New System.Drawing.Size(320, 24)
@@ -2408,32 +1766,19 @@ Partial Public Class frmUnpack
         Me.btnBackFScanPart.Name = "btnBackFScanPart"
         Me.btnBackFScanPart.Size = New System.Drawing.Size(110, 20)
         Me.btnBackFScanPart.TabIndex = 34
+        Me.btnBackFScanPart.TabStop = False
         Me.btnBackFScanPart.Text = "Back"
         '
-        'Label89
+        'lstviewUnpFSPReason
         '
-        Me.Label89.ForeColor = System.Drawing.Color.Black
-        Me.Label89.Location = New System.Drawing.Point(0, 3)
-        Me.Label89.Name = "Label89"
-        Me.Label89.Size = New System.Drawing.Size(209, 18)
-        Me.Label89.Text = "USER NAME:"
-        '
-        'ListView3
-        '
-        Me.ListView3.Columns.Add(Me.ColumnHeader16)
-        Me.ListView3.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.ListView3.FullRowSelect = True
-        ListViewItem37.Text = "QR Code Cannot Read"
-        ListViewItem38.Text = "QR Code Damage"
-        ListViewItem39.Text = "QR Code Missing"
-        Me.ListView3.Items.Add(ListViewItem37)
-        Me.ListView3.Items.Add(ListViewItem38)
-        Me.ListView3.Items.Add(ListViewItem39)
-        Me.ListView3.Location = New System.Drawing.Point(8, 130)
-        Me.ListView3.Name = "ListView3"
-        Me.ListView3.Size = New System.Drawing.Size(305, 80)
-        Me.ListView3.TabIndex = 84
-        Me.ListView3.View = System.Windows.Forms.View.Details
+        Me.lstviewUnpFSPReason.Columns.Add(Me.ColumnHeader16)
+        Me.lstviewUnpFSPReason.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lstviewUnpFSPReason.FullRowSelect = True
+        Me.lstviewUnpFSPReason.Location = New System.Drawing.Point(8, 130)
+        Me.lstviewUnpFSPReason.Name = "lstviewUnpFSPReason"
+        Me.lstviewUnpFSPReason.Size = New System.Drawing.Size(305, 80)
+        Me.lstviewUnpFSPReason.TabIndex = 84
+        Me.lstviewUnpFSPReason.View = System.Windows.Forms.View.Details
         '
         'ColumnHeader16
         '
@@ -2459,48 +1804,48 @@ Partial Public Class frmUnpack
         'pnlUnpackAbnScanModule
         '
         Me.pnlUnpackAbnScanModule.BackColor = System.Drawing.Color.Transparent
-        Me.pnlUnpackAbnScanModule.Controls.Add(Me.Label46)
-        Me.pnlUnpackAbnScanModule.Controls.Add(Me.Label48)
-        Me.pnlUnpackAbnScanModule.Controls.Add(Me.Label49)
+        Me.pnlUnpackAbnScanModule.Controls.Add(Me.lblAbnMsgDesc)
+        Me.pnlUnpackAbnScanModule.Controls.Add(Me.lblAbnMsgCode)
+        Me.pnlUnpackAbnScanModule.Controls.Add(Me.lblAbnTotalScan)
         Me.pnlUnpackAbnScanModule.Controls.Add(Me.Label53)
-        Me.pnlUnpackAbnScanModule.Controls.Add(Me.Button7)
+        Me.pnlUnpackAbnScanModule.Controls.Add(Me.btnAbnScanViewDet)
         Me.pnlUnpackAbnScanModule.Controls.Add(Me.Panel24)
         Me.pnlUnpackAbnScanModule.Controls.Add(Me.Panel25)
         Me.pnlUnpackAbnScanModule.Controls.Add(Me.Label102)
-        Me.pnlUnpackAbnScanModule.Controls.Add(Me.PictureBox4)
-        Me.pnlUnpackAbnScanModule.Controls.Add(Me.TextBox11)
+        Me.pnlUnpackAbnScanModule.Controls.Add(Me.btnAbnFScan)
+        Me.pnlUnpackAbnScanModule.Controls.Add(Me.txtAbnModNo)
         Me.pnlUnpackAbnScanModule.Controls.Add(Me.Label103)
-        Me.pnlUnpackAbnScanModule.Location = New System.Drawing.Point(657, 284)
+        Me.pnlUnpackAbnScanModule.Location = New System.Drawing.Point(331, 287)
         Me.pnlUnpackAbnScanModule.Name = "pnlUnpackAbnScanModule"
         Me.pnlUnpackAbnScanModule.Size = New System.Drawing.Size(320, 275)
         Me.pnlUnpackAbnScanModule.Visible = False
         '
-        'Label46
+        'lblAbnMsgDesc
         '
-        Me.Label46.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label46.Location = New System.Drawing.Point(0, 205)
-        Me.Label46.Name = "Label46"
-        Me.Label46.Size = New System.Drawing.Size(320, 20)
-        Me.Label46.Text = "Successfully Updated"
-        Me.Label46.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.lblAbnMsgDesc.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lblAbnMsgDesc.Location = New System.Drawing.Point(0, 205)
+        Me.lblAbnMsgDesc.Name = "lblAbnMsgDesc"
+        Me.lblAbnMsgDesc.Size = New System.Drawing.Size(320, 20)
+        Me.lblAbnMsgDesc.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'Label48
+        'lblAbnMsgCode
         '
-        Me.Label48.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label48.BackColor = System.Drawing.Color.LimeGreen
-        Me.Label48.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Label48.Location = New System.Drawing.Point(0, 180)
-        Me.Label48.Name = "Label48"
-        Me.Label48.Size = New System.Drawing.Size(320, 22)
-        Me.Label48.Text = "OK"
-        Me.Label48.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.lblAbnMsgCode.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblAbnMsgCode.BackColor = System.Drawing.Color.LimeGreen
+        Me.lblAbnMsgCode.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.lblAbnMsgCode.Location = New System.Drawing.Point(0, 180)
+        Me.lblAbnMsgCode.Name = "lblAbnMsgCode"
+        Me.lblAbnMsgCode.Size = New System.Drawing.Size(320, 22)
+        Me.lblAbnMsgCode.Text = "Scan.."
+        Me.lblAbnMsgCode.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'Label49
+        'lblAbnTotalScan
         '
-        Me.Label49.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label49.Location = New System.Drawing.Point(100, 225)
-        Me.Label49.Name = "Label49"
-        Me.Label49.Size = New System.Drawing.Size(40, 20)
+        Me.lblAbnTotalScan.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lblAbnTotalScan.Location = New System.Drawing.Point(100, 225)
+        Me.lblAbnTotalScan.Name = "lblAbnTotalScan"
+        Me.lblAbnTotalScan.Size = New System.Drawing.Size(40, 20)
+        Me.lblAbnTotalScan.Text = "0"
         '
         'Label53
         '
@@ -2510,39 +1855,39 @@ Partial Public Class frmUnpack
         Me.Label53.Size = New System.Drawing.Size(90, 20)
         Me.Label53.Text = "Total Scanned :"
         '
-        'Button7
+        'btnAbnScanViewDet
         '
-        Me.Button7.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Button7.Location = New System.Drawing.Point(223, 3)
-        Me.Button7.Name = "Button7"
-        Me.Button7.Size = New System.Drawing.Size(90, 20)
-        Me.Button7.TabIndex = 90
-        Me.Button7.Text = "Details"
+        Me.btnAbnScanViewDet.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.btnAbnScanViewDet.Location = New System.Drawing.Point(223, 3)
+        Me.btnAbnScanViewDet.Name = "btnAbnScanViewDet"
+        Me.btnAbnScanViewDet.Size = New System.Drawing.Size(90, 20)
+        Me.btnAbnScanViewDet.TabIndex = 90
+        Me.btnAbnScanViewDet.Text = "Details"
         '
         'Panel24
         '
         Me.Panel24.BackColor = System.Drawing.Color.LightBlue
-        Me.Panel24.Controls.Add(Me.Label92)
-        Me.Panel24.Controls.Add(Me.Label97)
+        Me.Panel24.Controls.Add(Me.lblAbnOrderNo)
+        Me.Panel24.Controls.Add(Me.lblAbnModNo)
         Me.Panel24.Controls.Add(Me.Label99)
         Me.Panel24.Controls.Add(Me.Label100)
         Me.Panel24.Location = New System.Drawing.Point(10, 80)
         Me.Panel24.Name = "Panel24"
         Me.Panel24.Size = New System.Drawing.Size(293, 63)
         '
-        'Label92
+        'lblAbnOrderNo
         '
-        Me.Label92.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label92.Location = New System.Drawing.Point(75, 30)
-        Me.Label92.Name = "Label92"
-        Me.Label92.Size = New System.Drawing.Size(180, 15)
+        Me.lblAbnOrderNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lblAbnOrderNo.Location = New System.Drawing.Point(75, 30)
+        Me.lblAbnOrderNo.Name = "lblAbnOrderNo"
+        Me.lblAbnOrderNo.Size = New System.Drawing.Size(180, 15)
         '
-        'Label97
+        'lblAbnModNo
         '
-        Me.Label97.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label97.Location = New System.Drawing.Point(75, 10)
-        Me.Label97.Name = "Label97"
-        Me.Label97.Size = New System.Drawing.Size(180, 15)
+        Me.lblAbnModNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lblAbnModNo.Location = New System.Drawing.Point(75, 10)
+        Me.lblAbnModNo.Name = "lblAbnModNo"
+        Me.lblAbnModNo.Size = New System.Drawing.Size(180, 15)
         '
         'Label99
         '
@@ -2564,7 +1909,6 @@ Partial Public Class frmUnpack
         '
         Me.Panel25.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel25.Controls.Add(Me.btnBackUnpackAbnScanModule)
-        Me.Panel25.Controls.Add(Me.Label101)
         Me.Panel25.Location = New System.Drawing.Point(0, 247)
         Me.Panel25.Name = "Panel25"
         Me.Panel25.Size = New System.Drawing.Size(320, 24)
@@ -2576,15 +1920,8 @@ Partial Public Class frmUnpack
         Me.btnBackUnpackAbnScanModule.Name = "btnBackUnpackAbnScanModule"
         Me.btnBackUnpackAbnScanModule.Size = New System.Drawing.Size(110, 20)
         Me.btnBackUnpackAbnScanModule.TabIndex = 34
+        Me.btnBackUnpackAbnScanModule.TabStop = False
         Me.btnBackUnpackAbnScanModule.Text = "Back"
-        '
-        'Label101
-        '
-        Me.Label101.ForeColor = System.Drawing.Color.Black
-        Me.Label101.Location = New System.Drawing.Point(0, 3)
-        Me.Label101.Name = "Label101"
-        Me.Label101.Size = New System.Drawing.Size(209, 18)
-        Me.Label101.Text = "USER NAME:"
         '
         'Label102
         '
@@ -2594,21 +1931,21 @@ Partial Public Class frmUnpack
         Me.Label102.Size = New System.Drawing.Size(106, 15)
         Me.Label102.Text = "Module QR Code :"
         '
-        'PictureBox4
+        'btnAbnFScan
         '
-        Me.PictureBox4.Image = CType(resources.GetObject("PictureBox4.Image"), System.Drawing.Image)
-        Me.PictureBox4.Location = New System.Drawing.Point(273, 49)
-        Me.PictureBox4.Name = "PictureBox4"
-        Me.PictureBox4.Size = New System.Drawing.Size(22, 22)
-        Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.btnAbnFScan.Image = CType(resources.GetObject("btnAbnFScan.Image"), System.Drawing.Image)
+        Me.btnAbnFScan.Location = New System.Drawing.Point(273, 49)
+        Me.btnAbnFScan.Name = "btnAbnFScan"
+        Me.btnAbnFScan.Size = New System.Drawing.Size(22, 22)
+        Me.btnAbnFScan.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         '
-        'TextBox11
+        'txtAbnModNo
         '
-        Me.TextBox11.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.TextBox11.Location = New System.Drawing.Point(10, 51)
-        Me.TextBox11.Name = "TextBox11"
-        Me.TextBox11.Size = New System.Drawing.Size(260, 19)
-        Me.TextBox11.TabIndex = 13
+        Me.txtAbnModNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.txtAbnModNo.Location = New System.Drawing.Point(10, 51)
+        Me.txtAbnModNo.Name = "txtAbnModNo"
+        Me.txtAbnModNo.Size = New System.Drawing.Size(260, 19)
+        Me.txtAbnModNo.TabIndex = 13
         '
         'Label103
         '
@@ -2618,190 +1955,29 @@ Partial Public Class frmUnpack
         Me.Label103.Name = "Label103"
         Me.Label103.Size = New System.Drawing.Size(316, 20)
         '
-        'pnlUnpackAbnScanModuleError
-        '
-        Me.pnlUnpackAbnScanModuleError.BackColor = System.Drawing.Color.Transparent
-        Me.pnlUnpackAbnScanModuleError.Controls.Add(Me.Label104)
-        Me.pnlUnpackAbnScanModuleError.Controls.Add(Me.Label105)
-        Me.pnlUnpackAbnScanModuleError.Controls.Add(Me.Label106)
-        Me.pnlUnpackAbnScanModuleError.Controls.Add(Me.Label107)
-        Me.pnlUnpackAbnScanModuleError.Controls.Add(Me.Button8)
-        Me.pnlUnpackAbnScanModuleError.Controls.Add(Me.Panel26)
-        Me.pnlUnpackAbnScanModuleError.Controls.Add(Me.Panel27)
-        Me.pnlUnpackAbnScanModuleError.Controls.Add(Me.Label113)
-        Me.pnlUnpackAbnScanModuleError.Controls.Add(Me.PictureBox5)
-        Me.pnlUnpackAbnScanModuleError.Controls.Add(Me.TextBox12)
-        Me.pnlUnpackAbnScanModuleError.Controls.Add(Me.Label114)
-        Me.pnlUnpackAbnScanModuleError.Location = New System.Drawing.Point(983, 284)
-        Me.pnlUnpackAbnScanModuleError.Name = "pnlUnpackAbnScanModuleError"
-        Me.pnlUnpackAbnScanModuleError.Size = New System.Drawing.Size(320, 275)
-        Me.pnlUnpackAbnScanModuleError.Visible = False
-        '
-        'Label104
-        '
-        Me.Label104.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label104.Location = New System.Drawing.Point(0, 205)
-        Me.Label104.Name = "Label104"
-        Me.Label104.Size = New System.Drawing.Size(320, 20)
-        Me.Label104.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        '
-        'Label105
-        '
-        Me.Label105.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label105.BackColor = System.Drawing.Color.Red
-        Me.Label105.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Label105.Location = New System.Drawing.Point(0, 180)
-        Me.Label105.Name = "Label105"
-        Me.Label105.Size = New System.Drawing.Size(320, 22)
-        Me.Label105.Text = "Invalid Module No"
-        Me.Label105.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        '
-        'Label106
-        '
-        Me.Label106.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label106.Location = New System.Drawing.Point(100, 225)
-        Me.Label106.Name = "Label106"
-        Me.Label106.Size = New System.Drawing.Size(40, 20)
-        '
-        'Label107
-        '
-        Me.Label107.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label107.Location = New System.Drawing.Point(10, 225)
-        Me.Label107.Name = "Label107"
-        Me.Label107.Size = New System.Drawing.Size(90, 20)
-        Me.Label107.Text = "Total Scanned :"
-        '
-        'Button8
-        '
-        Me.Button8.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Button8.Location = New System.Drawing.Point(223, 3)
-        Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(90, 20)
-        Me.Button8.TabIndex = 90
-        Me.Button8.Text = "Details"
-        '
-        'Panel26
-        '
-        Me.Panel26.BackColor = System.Drawing.Color.LightBlue
-        Me.Panel26.Controls.Add(Me.Label108)
-        Me.Panel26.Controls.Add(Me.Label109)
-        Me.Panel26.Controls.Add(Me.Label110)
-        Me.Panel26.Controls.Add(Me.Label111)
-        Me.Panel26.Location = New System.Drawing.Point(10, 80)
-        Me.Panel26.Name = "Panel26"
-        Me.Panel26.Size = New System.Drawing.Size(293, 63)
-        '
-        'Label108
-        '
-        Me.Label108.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label108.Location = New System.Drawing.Point(75, 30)
-        Me.Label108.Name = "Label108"
-        Me.Label108.Size = New System.Drawing.Size(180, 15)
-        '
-        'Label109
-        '
-        Me.Label109.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label109.Location = New System.Drawing.Point(75, 10)
-        Me.Label109.Name = "Label109"
-        Me.Label109.Size = New System.Drawing.Size(180, 15)
-        '
-        'Label110
-        '
-        Me.Label110.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label110.Location = New System.Drawing.Point(7, 30)
-        Me.Label110.Name = "Label110"
-        Me.Label110.Size = New System.Drawing.Size(72, 15)
-        Me.Label110.Text = "Order No :"
-        '
-        'Label111
-        '
-        Me.Label111.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label111.Location = New System.Drawing.Point(7, 10)
-        Me.Label111.Name = "Label111"
-        Me.Label111.Size = New System.Drawing.Size(72, 15)
-        Me.Label111.Text = "Module No :"
-        '
-        'Panel27
-        '
-        Me.Panel27.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Panel27.Controls.Add(Me.btnBackUnpackAbnScanModuleError)
-        Me.Panel27.Controls.Add(Me.Label112)
-        Me.Panel27.Location = New System.Drawing.Point(0, 247)
-        Me.Panel27.Name = "Panel27"
-        Me.Panel27.Size = New System.Drawing.Size(320, 24)
-        '
-        'btnBackUnpackAbnScanModuleError
-        '
-        Me.btnBackUnpackAbnScanModuleError.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.btnBackUnpackAbnScanModuleError.Location = New System.Drawing.Point(200, 2)
-        Me.btnBackUnpackAbnScanModuleError.Name = "btnBackUnpackAbnScanModuleError"
-        Me.btnBackUnpackAbnScanModuleError.Size = New System.Drawing.Size(110, 20)
-        Me.btnBackUnpackAbnScanModuleError.TabIndex = 34
-        Me.btnBackUnpackAbnScanModuleError.Text = "Back"
-        '
-        'Label112
-        '
-        Me.Label112.ForeColor = System.Drawing.Color.Black
-        Me.Label112.Location = New System.Drawing.Point(0, 3)
-        Me.Label112.Name = "Label112"
-        Me.Label112.Size = New System.Drawing.Size(209, 18)
-        Me.Label112.Text = "USER NAME:"
-        '
-        'Label113
-        '
-        Me.Label113.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.Label113.Location = New System.Drawing.Point(10, 33)
-        Me.Label113.Name = "Label113"
-        Me.Label113.Size = New System.Drawing.Size(106, 15)
-        Me.Label113.Text = "Module QR Code :"
-        '
-        'PictureBox5
-        '
-        Me.PictureBox5.Image = CType(resources.GetObject("PictureBox5.Image"), System.Drawing.Image)
-        Me.PictureBox5.Location = New System.Drawing.Point(273, 49)
-        Me.PictureBox5.Name = "PictureBox5"
-        Me.PictureBox5.Size = New System.Drawing.Size(22, 22)
-        Me.PictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        '
-        'TextBox12
-        '
-        Me.TextBox12.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.TextBox12.Location = New System.Drawing.Point(10, 51)
-        Me.TextBox12.Name = "TextBox12"
-        Me.TextBox12.Size = New System.Drawing.Size(260, 19)
-        Me.TextBox12.TabIndex = 13
-        '
-        'Label114
-        '
-        Me.Label114.BackColor = System.Drawing.Color.PowderBlue
-        Me.Label114.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label114.Location = New System.Drawing.Point(2, 2)
-        Me.Label114.Name = "Label114"
-        Me.Label114.Size = New System.Drawing.Size(316, 20)
-        '
         'pnlUnpackAbnFscanModule
         '
         Me.pnlUnpackAbnFscanModule.BackColor = System.Drawing.Color.Transparent
-        Me.pnlUnpackAbnFscanModule.Controls.Add(Me.TextBox13)
+        Me.pnlUnpackAbnFscanModule.Controls.Add(Me.txtFSAbnOrdNo)
         Me.pnlUnpackAbnFscanModule.Controls.Add(Me.Label115)
-        Me.pnlUnpackAbnFscanModule.Controls.Add(Me.Button9)
+        Me.pnlUnpackAbnFscanModule.Controls.Add(Me.btnAbnFScanSave)
         Me.pnlUnpackAbnFscanModule.Controls.Add(Me.Panel28)
-        Me.pnlUnpackAbnFscanModule.Controls.Add(Me.ListView4)
-        Me.pnlUnpackAbnFscanModule.Controls.Add(Me.TextBox14)
+        Me.pnlUnpackAbnFscanModule.Controls.Add(Me.lstViewAbnFSMod)
+        Me.pnlUnpackAbnFscanModule.Controls.Add(Me.txtFSAbnModNo)
         Me.pnlUnpackAbnFscanModule.Controls.Add(Me.Label117)
         Me.pnlUnpackAbnFscanModule.Controls.Add(Me.Label118)
-        Me.pnlUnpackAbnFscanModule.Location = New System.Drawing.Point(1309, 284)
+        Me.pnlUnpackAbnFscanModule.Location = New System.Drawing.Point(659, 287)
         Me.pnlUnpackAbnFscanModule.Name = "pnlUnpackAbnFscanModule"
         Me.pnlUnpackAbnFscanModule.Size = New System.Drawing.Size(320, 275)
         Me.pnlUnpackAbnFscanModule.Visible = False
         '
-        'TextBox13
+        'txtFSAbnOrdNo
         '
-        Me.TextBox13.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.TextBox13.Location = New System.Drawing.Point(8, 97)
-        Me.TextBox13.Name = "TextBox13"
-        Me.TextBox13.Size = New System.Drawing.Size(302, 19)
-        Me.TextBox13.TabIndex = 95
+        Me.txtFSAbnOrdNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.txtFSAbnOrdNo.Location = New System.Drawing.Point(8, 97)
+        Me.txtFSAbnOrdNo.Name = "txtFSAbnOrdNo"
+        Me.txtFSAbnOrdNo.Size = New System.Drawing.Size(302, 19)
+        Me.txtFSAbnOrdNo.TabIndex = 95
         '
         'Label115
         '
@@ -2811,20 +1987,20 @@ Partial Public Class frmUnpack
         Me.Label115.Size = New System.Drawing.Size(68, 20)
         Me.Label115.Text = "Order No :"
         '
-        'Button9
+        'btnAbnFScanSave
         '
-        Me.Button9.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Button9.Location = New System.Drawing.Point(223, 3)
-        Me.Button9.Name = "Button9"
-        Me.Button9.Size = New System.Drawing.Size(90, 20)
-        Me.Button9.TabIndex = 89
-        Me.Button9.Text = "Save"
+        Me.btnAbnFScanSave.Enabled = False
+        Me.btnAbnFScanSave.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.btnAbnFScanSave.Location = New System.Drawing.Point(223, 3)
+        Me.btnAbnFScanSave.Name = "btnAbnFScanSave"
+        Me.btnAbnFScanSave.Size = New System.Drawing.Size(90, 20)
+        Me.btnAbnFScanSave.TabIndex = 89
+        Me.btnAbnFScanSave.Text = "Save"
         '
         'Panel28
         '
         Me.Panel28.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel28.Controls.Add(Me.btnBackUnpackAbnFscanModule)
-        Me.Panel28.Controls.Add(Me.Label116)
         Me.Panel28.Location = New System.Drawing.Point(0, 247)
         Me.Panel28.Name = "Panel28"
         Me.Panel28.Size = New System.Drawing.Size(320, 24)
@@ -2836,45 +2012,32 @@ Partial Public Class frmUnpack
         Me.btnBackUnpackAbnFscanModule.Name = "btnBackUnpackAbnFscanModule"
         Me.btnBackUnpackAbnFscanModule.Size = New System.Drawing.Size(110, 20)
         Me.btnBackUnpackAbnFscanModule.TabIndex = 34
+        Me.btnBackUnpackAbnFscanModule.TabStop = False
         Me.btnBackUnpackAbnFscanModule.Text = "Back"
         '
-        'Label116
+        'lstViewAbnFSMod
         '
-        Me.Label116.ForeColor = System.Drawing.Color.Black
-        Me.Label116.Location = New System.Drawing.Point(0, 3)
-        Me.Label116.Name = "Label116"
-        Me.Label116.Size = New System.Drawing.Size(209, 18)
-        Me.Label116.Text = "USER NAME:"
-        '
-        'ListView4
-        '
-        Me.ListView4.Columns.Add(Me.ColumnHeader23)
-        Me.ListView4.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.ListView4.FullRowSelect = True
-        ListViewItem40.Text = "QR Code Cannot Read"
-        ListViewItem41.Text = "QR Code Damage"
-        ListViewItem42.Text = "QR Code Missing"
-        Me.ListView4.Items.Add(ListViewItem40)
-        Me.ListView4.Items.Add(ListViewItem41)
-        Me.ListView4.Items.Add(ListViewItem42)
-        Me.ListView4.Location = New System.Drawing.Point(8, 130)
-        Me.ListView4.Name = "ListView4"
-        Me.ListView4.Size = New System.Drawing.Size(305, 80)
-        Me.ListView4.TabIndex = 84
-        Me.ListView4.View = System.Windows.Forms.View.Details
+        Me.lstViewAbnFSMod.Columns.Add(Me.ColumnHeader23)
+        Me.lstViewAbnFSMod.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lstViewAbnFSMod.FullRowSelect = True
+        Me.lstViewAbnFSMod.Location = New System.Drawing.Point(8, 130)
+        Me.lstViewAbnFSMod.Name = "lstViewAbnFSMod"
+        Me.lstViewAbnFSMod.Size = New System.Drawing.Size(305, 80)
+        Me.lstViewAbnFSMod.TabIndex = 84
+        Me.lstViewAbnFSMod.View = System.Windows.Forms.View.Details
         '
         'ColumnHeader23
         '
         Me.ColumnHeader23.Text = "Reason"
         Me.ColumnHeader23.Width = 302
         '
-        'TextBox14
+        'txtFSAbnModNo
         '
-        Me.TextBox14.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.TextBox14.Location = New System.Drawing.Point(8, 51)
-        Me.TextBox14.Name = "TextBox14"
-        Me.TextBox14.Size = New System.Drawing.Size(302, 19)
-        Me.TextBox14.TabIndex = 82
+        Me.txtFSAbnModNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.txtFSAbnModNo.Location = New System.Drawing.Point(8, 51)
+        Me.txtFSAbnModNo.Name = "txtFSAbnModNo"
+        Me.txtFSAbnModNo.Size = New System.Drawing.Size(302, 19)
+        Me.txtFSAbnModNo.TabIndex = 82
         '
         'Label117
         '
@@ -2895,45 +2058,44 @@ Partial Public Class frmUnpack
         'pnlUnpackAbnFscanPart
         '
         Me.pnlUnpackAbnFscanPart.BackColor = System.Drawing.Color.Transparent
-        Me.pnlUnpackAbnFscanPart.Controls.Add(Me.Label130)
-        Me.pnlUnpackAbnFscanPart.Controls.Add(Me.TextBox15)
-        Me.pnlUnpackAbnFscanPart.Controls.Add(Me.TextBox16)
+        Me.pnlUnpackAbnFscanPart.Controls.Add(Me.lblUnpAbnFSPartModNo)
+        Me.pnlUnpackAbnFscanPart.Controls.Add(Me.txtUnpAbnFSPartBranchNo)
+        Me.pnlUnpackAbnFscanPart.Controls.Add(Me.txtUnpAbnFSPartSeqNo)
         Me.pnlUnpackAbnFscanPart.Controls.Add(Me.Label123)
         Me.pnlUnpackAbnFscanPart.Controls.Add(Me.Label124)
-        Me.pnlUnpackAbnFscanPart.Controls.Add(Me.TextBox17)
+        Me.pnlUnpackAbnFscanPart.Controls.Add(Me.txtUnpAbnFSPartNo)
         Me.pnlUnpackAbnFscanPart.Controls.Add(Me.Label125)
-        Me.pnlUnpackAbnFscanPart.Controls.Add(Me.Button4)
+        Me.pnlUnpackAbnFscanPart.Controls.Add(Me.btnUnpAbnFSPartSave)
         Me.pnlUnpackAbnFscanPart.Controls.Add(Me.Panel29)
-        Me.pnlUnpackAbnFscanPart.Controls.Add(Me.ListView5)
+        Me.pnlUnpackAbnFscanPart.Controls.Add(Me.lstViewUnpAbnFSPartReason)
         Me.pnlUnpackAbnFscanPart.Controls.Add(Me.Label127)
         Me.pnlUnpackAbnFscanPart.Controls.Add(Me.Label128)
-        Me.pnlUnpackAbnFscanPart.Location = New System.Drawing.Point(5, 565)
+        Me.pnlUnpackAbnFscanPart.Location = New System.Drawing.Point(1309, 287)
         Me.pnlUnpackAbnFscanPart.Name = "pnlUnpackAbnFscanPart"
         Me.pnlUnpackAbnFscanPart.Size = New System.Drawing.Size(320, 275)
         Me.pnlUnpackAbnFscanPart.Visible = False
         '
-        'Label130
+        'lblUnpAbnFSPartModNo
         '
-        Me.Label130.Location = New System.Drawing.Point(75, 34)
-        Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(230, 20)
-        Me.Label130.Text = "C02-140223-01"
+        Me.lblUnpAbnFSPartModNo.Location = New System.Drawing.Point(75, 34)
+        Me.lblUnpAbnFSPartModNo.Name = "lblUnpAbnFSPartModNo"
+        Me.lblUnpAbnFSPartModNo.Size = New System.Drawing.Size(230, 20)
         '
-        'TextBox15
+        'txtUnpAbnFSPartBranchNo
         '
-        Me.TextBox15.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.TextBox15.Location = New System.Drawing.Point(213, 86)
-        Me.TextBox15.Name = "TextBox15"
-        Me.TextBox15.Size = New System.Drawing.Size(77, 19)
-        Me.TextBox15.TabIndex = 105
+        Me.txtUnpAbnFSPartBranchNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.txtUnpAbnFSPartBranchNo.Location = New System.Drawing.Point(213, 86)
+        Me.txtUnpAbnFSPartBranchNo.Name = "txtUnpAbnFSPartBranchNo"
+        Me.txtUnpAbnFSPartBranchNo.Size = New System.Drawing.Size(77, 19)
+        Me.txtUnpAbnFSPartBranchNo.TabIndex = 105
         '
-        'TextBox16
+        'txtUnpAbnFSPartSeqNo
         '
-        Me.TextBox16.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.TextBox16.Location = New System.Drawing.Point(75, 86)
-        Me.TextBox16.Name = "TextBox16"
-        Me.TextBox16.Size = New System.Drawing.Size(77, 19)
-        Me.TextBox16.TabIndex = 104
+        Me.txtUnpAbnFSPartSeqNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.txtUnpAbnFSPartSeqNo.Location = New System.Drawing.Point(75, 86)
+        Me.txtUnpAbnFSPartSeqNo.Name = "txtUnpAbnFSPartSeqNo"
+        Me.txtUnpAbnFSPartSeqNo.Size = New System.Drawing.Size(77, 19)
+        Me.txtUnpAbnFSPartSeqNo.TabIndex = 104
         '
         'Label123
         '
@@ -2951,13 +2113,13 @@ Partial Public Class frmUnpack
         Me.Label124.Size = New System.Drawing.Size(68, 20)
         Me.Label124.Text = "Seq No :"
         '
-        'TextBox17
+        'txtUnpAbnFSPartNo
         '
-        Me.TextBox17.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.TextBox17.Location = New System.Drawing.Point(75, 60)
-        Me.TextBox17.Name = "TextBox17"
-        Me.TextBox17.Size = New System.Drawing.Size(235, 19)
-        Me.TextBox17.TabIndex = 95
+        Me.txtUnpAbnFSPartNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.txtUnpAbnFSPartNo.Location = New System.Drawing.Point(75, 60)
+        Me.txtUnpAbnFSPartNo.Name = "txtUnpAbnFSPartNo"
+        Me.txtUnpAbnFSPartNo.Size = New System.Drawing.Size(235, 19)
+        Me.txtUnpAbnFSPartNo.TabIndex = 95
         '
         'Label125
         '
@@ -2967,20 +2129,20 @@ Partial Public Class frmUnpack
         Me.Label125.Size = New System.Drawing.Size(68, 20)
         Me.Label125.Text = "Part No :"
         '
-        'Button4
+        'btnUnpAbnFSPartSave
         '
-        Me.Button4.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.Button4.Location = New System.Drawing.Point(223, 4)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(90, 20)
-        Me.Button4.TabIndex = 89
-        Me.Button4.Text = "Save"
+        Me.btnUnpAbnFSPartSave.Enabled = False
+        Me.btnUnpAbnFSPartSave.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.btnUnpAbnFSPartSave.Location = New System.Drawing.Point(223, 4)
+        Me.btnUnpAbnFSPartSave.Name = "btnUnpAbnFSPartSave"
+        Me.btnUnpAbnFSPartSave.Size = New System.Drawing.Size(90, 20)
+        Me.btnUnpAbnFSPartSave.TabIndex = 89
+        Me.btnUnpAbnFSPartSave.Text = "Save"
         '
         'Panel29
         '
         Me.Panel29.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel29.Controls.Add(Me.btnBackAbnFScanPart)
-        Me.Panel29.Controls.Add(Me.Label126)
         Me.Panel29.Location = New System.Drawing.Point(0, 247)
         Me.Panel29.Name = "Panel29"
         Me.Panel29.Size = New System.Drawing.Size(320, 24)
@@ -2992,32 +2154,19 @@ Partial Public Class frmUnpack
         Me.btnBackAbnFScanPart.Name = "btnBackAbnFScanPart"
         Me.btnBackAbnFScanPart.Size = New System.Drawing.Size(110, 20)
         Me.btnBackAbnFScanPart.TabIndex = 34
+        Me.btnBackAbnFScanPart.TabStop = False
         Me.btnBackAbnFScanPart.Text = "Back"
         '
-        'Label126
+        'lstViewUnpAbnFSPartReason
         '
-        Me.Label126.ForeColor = System.Drawing.Color.Black
-        Me.Label126.Location = New System.Drawing.Point(0, 3)
-        Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(209, 18)
-        Me.Label126.Text = "USER NAME:"
-        '
-        'ListView5
-        '
-        Me.ListView5.Columns.Add(Me.ColumnHeader2)
-        Me.ListView5.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
-        Me.ListView5.FullRowSelect = True
-        ListViewItem43.Text = "QR Code Cannot Read"
-        ListViewItem44.Text = "QR Code Damage"
-        ListViewItem45.Text = "QR Code Missing"
-        Me.ListView5.Items.Add(ListViewItem43)
-        Me.ListView5.Items.Add(ListViewItem44)
-        Me.ListView5.Items.Add(ListViewItem45)
-        Me.ListView5.Location = New System.Drawing.Point(8, 130)
-        Me.ListView5.Name = "ListView5"
-        Me.ListView5.Size = New System.Drawing.Size(305, 80)
-        Me.ListView5.TabIndex = 84
-        Me.ListView5.View = System.Windows.Forms.View.Details
+        Me.lstViewUnpAbnFSPartReason.Columns.Add(Me.ColumnHeader2)
+        Me.lstViewUnpAbnFSPartReason.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lstViewUnpAbnFSPartReason.FullRowSelect = True
+        Me.lstViewUnpAbnFSPartReason.Location = New System.Drawing.Point(8, 130)
+        Me.lstViewUnpAbnFSPartReason.Name = "lstViewUnpAbnFSPartReason"
+        Me.lstViewUnpAbnFSPartReason.Size = New System.Drawing.Size(305, 80)
+        Me.lstViewUnpAbnFSPartReason.TabIndex = 84
+        Me.lstViewUnpAbnFSPartReason.View = System.Windows.Forms.View.Details
         '
         'ColumnHeader2
         '
@@ -3040,6 +2189,104 @@ Partial Public Class frmUnpack
         Me.Label128.Name = "Label128"
         Me.Label128.Size = New System.Drawing.Size(316, 20)
         '
+        'timer
+        '
+        Me.timer.Interval = 10000
+        '
+        'pnlLogin
+        '
+        Me.pnlLogin.BackColor = System.Drawing.Color.Transparent
+        Me.pnlLogin.Controls.Add(Me.Panel15)
+        Me.pnlLogin.Controls.Add(Me.btnLoginSubmit)
+        Me.pnlLogin.Controls.Add(Me.txtUsername)
+        Me.pnlLogin.Controls.Add(Me.Label24)
+        Me.pnlLogin.Controls.Add(Me.Panel16)
+        Me.pnlLogin.Controls.Add(Me.txtPwd)
+        Me.pnlLogin.Controls.Add(Me.Label45)
+        Me.pnlLogin.Location = New System.Drawing.Point(659, 568)
+        Me.pnlLogin.Name = "pnlLogin"
+        Me.pnlLogin.Size = New System.Drawing.Size(320, 275)
+        Me.pnlLogin.Visible = False
+        '
+        'Panel15
+        '
+        Me.Panel15.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Panel15.Controls.Add(Me.btnLoginClose)
+        Me.Panel15.Location = New System.Drawing.Point(0, 247)
+        Me.Panel15.Name = "Panel15"
+        Me.Panel15.Size = New System.Drawing.Size(320, 24)
+        '
+        'btnLoginClose
+        '
+        Me.btnLoginClose.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.btnLoginClose.Location = New System.Drawing.Point(200, 1)
+        Me.btnLoginClose.Name = "btnLoginClose"
+        Me.btnLoginClose.Size = New System.Drawing.Size(110, 20)
+        Me.btnLoginClose.TabIndex = 4
+        Me.btnLoginClose.TabStop = False
+        Me.btnLoginClose.Text = "Close"
+        '
+        'btnLoginSubmit
+        '
+        Me.btnLoginSubmit.Location = New System.Drawing.Point(0, 225)
+        Me.btnLoginSubmit.Name = "btnLoginSubmit"
+        Me.btnLoginSubmit.Size = New System.Drawing.Size(320, 22)
+        Me.btnLoginSubmit.TabIndex = 3
+        Me.btnLoginSubmit.Text = "Submit"
+        '
+        'txtUsername
+        '
+        Me.txtUsername.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.txtUsername.Location = New System.Drawing.Point(32, 81)
+        Me.txtUsername.MaxLength = 50
+        Me.txtUsername.Name = "txtUsername"
+        Me.txtUsername.Size = New System.Drawing.Size(265, 21)
+        Me.txtUsername.TabIndex = 1
+        '
+        'Label24
+        '
+        Me.Label24.BackColor = System.Drawing.Color.White
+        Me.Label24.Location = New System.Drawing.Point(32, 60)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(77, 20)
+        Me.Label24.Text = "Username :"
+        '
+        'Panel16
+        '
+        Me.Panel16.BackColor = System.Drawing.Color.PowderBlue
+        Me.Panel16.Controls.Add(Me.Label5)
+        Me.Panel16.Location = New System.Drawing.Point(0, 0)
+        Me.Panel16.Name = "Panel16"
+        Me.Panel16.Size = New System.Drawing.Size(320, 24)
+        '
+        'Label5
+        '
+        Me.Label5.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Label5.ForeColor = System.Drawing.Color.Black
+        Me.Label5.Location = New System.Drawing.Point(56, 2)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(209, 21)
+        Me.Label5.Text = "Login"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
+        'txtPwd
+        '
+        Me.txtPwd.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.txtPwd.Location = New System.Drawing.Point(32, 127)
+        Me.txtPwd.MaxLength = 50
+        Me.txtPwd.Name = "txtPwd"
+        Me.txtPwd.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.txtPwd.Size = New System.Drawing.Size(265, 21)
+        Me.txtPwd.TabIndex = 2
+        '
+        'Label45
+        '
+        Me.Label45.BackColor = System.Drawing.Color.White
+        Me.Label45.Location = New System.Drawing.Point(32, 107)
+        Me.Label45.Name = "Label45"
+        Me.Label45.Size = New System.Drawing.Size(77, 20)
+        Me.Label45.Text = "Password :"
+        '
         'frmUnpack
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -3048,16 +2295,13 @@ Partial Public Class frmUnpack
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(638, 455)
         Me.ControlBox = False
+        Me.Controls.Add(Me.pnlLogin)
         Me.Controls.Add(Me.pnlUnpackAbnFscanPart)
         Me.Controls.Add(Me.pnlUnpackAbnFscanModule)
-        Me.Controls.Add(Me.pnlUnpackAbnScanModuleError)
-        Me.Controls.Add(Me.pnlUnpackAbnScanModule)
         Me.Controls.Add(Me.pnlUnpackFScanPart)
-        Me.Controls.Add(Me.pnlUnpackAbnScanPartError)
+        Me.Controls.Add(Me.pnlUnpackAbnScanModule)
         Me.Controls.Add(Me.pnlUnpackAbnScanPart)
-        Me.Controls.Add(Me.pnlUnpackScanPartError)
         Me.Controls.Add(Me.pnlUnpackScanPart)
-        Me.Controls.Add(Me.pnlUnpackScanModuleError)
         Me.Controls.Add(Me.pnlUnpackViewDet)
         Me.Controls.Add(Me.pnlUnpackAbn)
         Me.Controls.Add(Me.pnlUnpackDelete)
@@ -3092,61 +2336,48 @@ Partial Public Class frmUnpack
         Me.TabRCISummary.ResumeLayout(False)
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage4.ResumeLayout(False)
-        Me.pnlUnpackScanModuleError.ResumeLayout(False)
-        Me.Panel15.ResumeLayout(False)
-        Me.Panel16.ResumeLayout(False)
         Me.pnlUnpackScanPart.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel17.ResumeLayout(False)
-        Me.pnlUnpackScanPartError.ResumeLayout(False)
-        Me.Panel19.ResumeLayout(False)
-        Me.Panel20.ResumeLayout(False)
         Me.pnlUnpackAbnScanPart.ResumeLayout(False)
         Me.Panel11.ResumeLayout(False)
         Me.Panel18.ResumeLayout(False)
-        Me.pnlUnpackAbnScanPartError.ResumeLayout(False)
-        Me.Panel21.ResumeLayout(False)
-        Me.Panel22.ResumeLayout(False)
         Me.pnlUnpackFScanPart.ResumeLayout(False)
         Me.Panel10.ResumeLayout(False)
         Me.pnlUnpackAbnScanModule.ResumeLayout(False)
         Me.Panel24.ResumeLayout(False)
         Me.Panel25.ResumeLayout(False)
-        Me.pnlUnpackAbnScanModuleError.ResumeLayout(False)
-        Me.Panel26.ResumeLayout(False)
-        Me.Panel27.ResumeLayout(False)
         Me.pnlUnpackAbnFscanModule.ResumeLayout(False)
         Me.Panel28.ResumeLayout(False)
         Me.pnlUnpackAbnFscanPart.ResumeLayout(False)
         Me.Panel29.ResumeLayout(False)
+        Me.pnlLogin.ResumeLayout(False)
+        Me.Panel15.ResumeLayout(False)
+        Me.Panel16.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents pnlUnpackMain As System.Windows.Forms.Panel
     Friend WithEvents footerStatusBar As System.Windows.Forms.StatusBar
-    Friend WithEvents TimerCheckOnline As System.Windows.Forms.Timer
     Friend WithEvents Panel3 As System.Windows.Forms.Panel
     Friend WithEvents btnScanUnpack As System.Windows.Forms.PictureBox
     Friend WithEvents Panel9 As System.Windows.Forms.Panel
     Friend WithEvents btnCloseUnpack As System.Windows.Forms.Button
-    Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents btnAbnormalUnpacking As System.Windows.Forms.PictureBox
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents pnlUnpackFScan As System.Windows.Forms.Panel
-    Friend WithEvents lstViewRCVFScan As System.Windows.Forms.ListView
+    Friend WithEvents lstViewFSMod As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
-    Friend WithEvents txtRCVFSEPIO As System.Windows.Forms.TextBox
+    Friend WithEvents txtFSModNo As System.Windows.Forms.TextBox
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents btnSaveForceScan As System.Windows.Forms.Button
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents btnBackFScan As System.Windows.Forms.Button
-    Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents pnlUnpackScanModule As System.Windows.Forms.Panel
     Friend WithEvents Panel12 As System.Windows.Forms.Panel
     Friend WithEvents btnBackScanModule As System.Windows.Forms.Button
-    Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents Label33 As System.Windows.Forms.Label
     Friend WithEvents btnFScanModule As System.Windows.Forms.PictureBox
     Friend WithEvents txtModuleQR As System.Windows.Forms.TextBox
@@ -3158,36 +2389,33 @@ Partial Public Class frmUnpack
     Friend WithEvents Label36 As System.Windows.Forms.Label
     Friend WithEvents btnScanDetails As System.Windows.Forms.Button
     Friend WithEvents pnlUnpackAbnViewDet As System.Windows.Forms.Panel
-    Friend WithEvents lstViewRcvDet As System.Windows.Forms.ListView
+    Friend WithEvents lstViewUnpAbnModDet As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader13 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader14 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader15 As System.Windows.Forms.ColumnHeader
-    Friend WithEvents Label61 As System.Windows.Forms.Label
+    Friend WithEvents lblUnpAbnModNoDet As System.Windows.Forms.Label
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
     Friend WithEvents btnCloseAbnViewDet As System.Windows.Forms.Button
-    Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents lblTotalScanned As System.Windows.Forms.Label
     Friend WithEvents Label21 As System.Windows.Forms.Label
-    Friend WithEvents lblTotalRcvDetCnt As System.Windows.Forms.Label
+    Friend WithEvents lblTotalUnpAbnModScan As System.Windows.Forms.Label
     Friend WithEvents pnlUnpackPosting As System.Windows.Forms.Panel
     Friend WithEvents Panel13 As System.Windows.Forms.Panel
     Friend WithEvents btnClosePosting As System.Windows.Forms.Button
-    Friend WithEvents Label23 As System.Windows.Forms.Label
-    Friend WithEvents ListView1 As System.Windows.Forms.ListView
+    Friend WithEvents lstViewUnpAbnPartDet As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader4 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader5 As System.Windows.Forms.ColumnHeader
-    Friend WithEvents Label24 As System.Windows.Forms.Label
+    Friend WithEvents lblUnpAbnModNoDet2 As System.Windows.Forms.Label
     Friend WithEvents btnSubmitPosting As System.Windows.Forms.Button
     Friend WithEvents Label25 As System.Windows.Forms.Label
-    Friend WithEvents Label26 As System.Windows.Forms.Label
+    Friend WithEvents lblUnpAbnScanPartTotalDet As System.Windows.Forms.Label
     Friend WithEvents pnlUnpackDelete As System.Windows.Forms.Panel
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents btnDeleteUnpack As System.Windows.Forms.Button
     Friend WithEvents Panel7 As System.Windows.Forms.Panel
     Friend WithEvents btnCloseDelete As System.Windows.Forms.Button
-    Friend WithEvents Label27 As System.Windows.Forms.Label
     Friend WithEvents ListView2 As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader7 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader8 As System.Windows.Forms.ColumnHeader
@@ -3197,7 +2425,6 @@ Partial Public Class frmUnpack
     Friend WithEvents pnlUnpackAbn As System.Windows.Forms.Panel
     Friend WithEvents Panel6 As System.Windows.Forms.Panel
     Friend WithEvents btnCloseAbnUnpack As System.Windows.Forms.Button
-    Friend WithEvents Label32 As System.Windows.Forms.Label
     Friend WithEvents Panel14 As System.Windows.Forms.Panel
     Friend WithEvents Label39 As System.Windows.Forms.Label
     Friend WithEvents Label40 As System.Windows.Forms.Label
@@ -3225,113 +2452,56 @@ Partial Public Class frmUnpack
     Friend WithEvents lblHeaderUnpackVwDet As System.Windows.Forms.Label
     Friend WithEvents Panel5 As System.Windows.Forms.Panel
     Friend WithEvents btnBackFrViewDet As System.Windows.Forms.Button
-    Friend WithEvents Label54 As System.Windows.Forms.Label
     Friend WithEvents btnForce As System.Windows.Forms.Button
-    Friend WithEvents Label62 As System.Windows.Forms.Label
-    Friend WithEvents Label60 As System.Windows.Forms.Label
-    Friend WithEvents TextBox4 As System.Windows.Forms.TextBox
+    Friend WithEvents lblSuccessScanMod As System.Windows.Forms.Label
+    Friend WithEvents lblMsgOkScanMod As System.Windows.Forms.Label
+    Friend WithEvents txtFSModOrder As System.Windows.Forms.TextBox
     Friend WithEvents Label76 As System.Windows.Forms.Label
-    Friend WithEvents pnlUnpackScanModuleError As System.Windows.Forms.Panel
-    Friend WithEvents Label9 As System.Windows.Forms.Label
-    Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents Label29 As System.Windows.Forms.Label
-    Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Panel15 As System.Windows.Forms.Panel
-    Friend WithEvents Label30 As System.Windows.Forms.Label
-    Friend WithEvents Label31 As System.Windows.Forms.Label
-    Friend WithEvents Label34 As System.Windows.Forms.Label
-    Friend WithEvents Label38 As System.Windows.Forms.Label
-    Friend WithEvents Panel16 As System.Windows.Forms.Panel
-    Friend WithEvents btnBackScanModuleError As System.Windows.Forms.Button
-    Friend WithEvents Label44 As System.Windows.Forms.Label
-    Friend WithEvents Label45 As System.Windows.Forms.Label
-    Friend WithEvents btnFScanModuleError As System.Windows.Forms.PictureBox
-    Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
-    Friend WithEvents Label50 As System.Windows.Forms.Label
     Friend WithEvents pnlUnpackScanPart As System.Windows.Forms.Panel
     Friend WithEvents Label55 As System.Windows.Forms.Label
     Friend WithEvents btnUnpackViewDet As System.Windows.Forms.Button
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents Label51 As System.Windows.Forms.Label
+    Friend WithEvents lblPartSuccess As System.Windows.Forms.Label
+    Friend WithEvents lblPartTotalScan As System.Windows.Forms.Label
     Friend WithEvents Label52 As System.Windows.Forms.Label
     Friend WithEvents Panel2 As System.Windows.Forms.Panel
-    Friend WithEvents Label57 As System.Windows.Forms.Label
-    Friend WithEvents Label58 As System.Windows.Forms.Label
+    Friend WithEvents lblPartSeqNo As System.Windows.Forms.Label
+    Friend WithEvents lblPartNo As System.Windows.Forms.Label
     Friend WithEvents Label93 As System.Windows.Forms.Label
     Friend WithEvents Label94 As System.Windows.Forms.Label
     Friend WithEvents Panel17 As System.Windows.Forms.Panel
     Friend WithEvents btnBackUnpackScanPart As System.Windows.Forms.Button
-    Friend WithEvents Label95 As System.Windows.Forms.Label
     Friend WithEvents Label96 As System.Windows.Forms.Label
-    Friend WithEvents btnHKAbnFScan As System.Windows.Forms.PictureBox
-    Friend WithEvents TextBox3 As System.Windows.Forms.TextBox
+    Friend WithEvents btnFScanPart As System.Windows.Forms.PictureBox
+    Friend WithEvents txtKanbanQRPart As System.Windows.Forms.TextBox
     Friend WithEvents Label98 As System.Windows.Forms.Label
-    Friend WithEvents lblModuleNo As System.Windows.Forms.Label
-    Friend WithEvents pnlUnpackScanPartError As System.Windows.Forms.Panel
-    Friend WithEvents Label56 As System.Windows.Forms.Label
-    Friend WithEvents Label59 As System.Windows.Forms.Label
-    Friend WithEvents Button3 As System.Windows.Forms.Button
-    Friend WithEvents Label63 As System.Windows.Forms.Label
-    Friend WithEvents Label64 As System.Windows.Forms.Label
-    Friend WithEvents Label65 As System.Windows.Forms.Label
-    Friend WithEvents Panel19 As System.Windows.Forms.Panel
-    Friend WithEvents Label66 As System.Windows.Forms.Label
-    Friend WithEvents Label67 As System.Windows.Forms.Label
-    Friend WithEvents Label68 As System.Windows.Forms.Label
-    Friend WithEvents Label69 As System.Windows.Forms.Label
-    Friend WithEvents Panel20 As System.Windows.Forms.Panel
-    Friend WithEvents btnUnpackScanPartError As System.Windows.Forms.Button
-    Friend WithEvents Label70 As System.Windows.Forms.Label
-    Friend WithEvents Label71 As System.Windows.Forms.Label
-    Friend WithEvents PictureBox3 As System.Windows.Forms.PictureBox
-    Friend WithEvents TextBox5 As System.Windows.Forms.TextBox
-    Friend WithEvents Label72 As System.Windows.Forms.Label
+    Friend WithEvents lblPartModNo As System.Windows.Forms.Label
     Friend WithEvents pnlUnpackAbnScanPart As System.Windows.Forms.Panel
-    Friend WithEvents Button2 As System.Windows.Forms.Button
-    Friend WithEvents Label15 As System.Windows.Forms.Label
-    Friend WithEvents Label17 As System.Windows.Forms.Label
-    Friend WithEvents Label18 As System.Windows.Forms.Label
+    Friend WithEvents btnAbnSPartViewDet As System.Windows.Forms.Button
+    Friend WithEvents lblAbnSPartMsgC As System.Windows.Forms.Label
+    Friend WithEvents lblAbnScanPartTotal As System.Windows.Forms.Label
+    Friend WithEvents lblAbnSPartTotal As System.Windows.Forms.Label
     Friend WithEvents Panel11 As System.Windows.Forms.Panel
-    Friend WithEvents Label19 As System.Windows.Forms.Label
-    Friend WithEvents Label20 As System.Windows.Forms.Label
+    Friend WithEvents lblAbnSPartSeqNo As System.Windows.Forms.Label
+    Friend WithEvents lblAbnScanPartNo As System.Windows.Forms.Label
     Friend WithEvents Label22 As System.Windows.Forms.Label
     Friend WithEvents Label73 As System.Windows.Forms.Label
     Friend WithEvents Panel18 As System.Windows.Forms.Panel
     Friend WithEvents btnUnpackAbnScanPart As System.Windows.Forms.Button
-    Friend WithEvents Label74 As System.Windows.Forms.Label
     Friend WithEvents Label75 As System.Windows.Forms.Label
-    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents btnAbnFSPart As System.Windows.Forms.PictureBox
+    Friend WithEvents txtAbnSPartKanban As System.Windows.Forms.TextBox
     Friend WithEvents Label77 As System.Windows.Forms.Label
-    Friend WithEvents pnlUnpackAbnScanPartError As System.Windows.Forms.Panel
-    Friend WithEvents Button5 As System.Windows.Forms.Button
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents Label13 As System.Windows.Forms.Label
-    Friend WithEvents Label78 As System.Windows.Forms.Label
-    Friend WithEvents Panel21 As System.Windows.Forms.Panel
-    Friend WithEvents Label79 As System.Windows.Forms.Label
-    Friend WithEvents Label80 As System.Windows.Forms.Label
-    Friend WithEvents Label81 As System.Windows.Forms.Label
-    Friend WithEvents Label82 As System.Windows.Forms.Label
-    Friend WithEvents Panel22 As System.Windows.Forms.Panel
-    Friend WithEvents btnUnpackAbnScanPartError As System.Windows.Forms.Button
-    Friend WithEvents Label83 As System.Windows.Forms.Label
-    Friend WithEvents Label84 As System.Windows.Forms.Label
-    Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
-    Friend WithEvents TextBox6 As System.Windows.Forms.TextBox
-    Friend WithEvents Label85 As System.Windows.Forms.Label
     Friend WithEvents pnlUnpackFScanPart As System.Windows.Forms.Panel
-    Friend WithEvents TextBox7 As System.Windows.Forms.TextBox
-    Friend WithEvents TextBox8 As System.Windows.Forms.TextBox
+    Friend WithEvents txtUnpFSPBranchNo As System.Windows.Forms.TextBox
+    Friend WithEvents txtUnpFSPSeqNo As System.Windows.Forms.TextBox
     Friend WithEvents Label86 As System.Windows.Forms.Label
     Friend WithEvents Label87 As System.Windows.Forms.Label
-    Friend WithEvents TextBox9 As System.Windows.Forms.TextBox
+    Friend WithEvents txtUnpFSPartNo As System.Windows.Forms.TextBox
     Friend WithEvents Label88 As System.Windows.Forms.Label
     Friend WithEvents btnSaveFScanPart As System.Windows.Forms.Button
     Friend WithEvents Panel10 As System.Windows.Forms.Panel
     Friend WithEvents btnBackFScanPart As System.Windows.Forms.Button
-    Friend WithEvents Label89 As System.Windows.Forms.Label
-    Friend WithEvents ListView3 As System.Windows.Forms.ListView
+    Friend WithEvents lstviewUnpFSPReason As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader16 As System.Windows.Forms.ColumnHeader
     Friend WithEvents Label90 As System.Windows.Forms.Label
     Friend WithEvents Label91 As System.Windows.Forms.Label
@@ -3339,86 +2509,81 @@ Partial Public Class frmUnpack
     Friend WithEvents ColumnHeader21 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader22 As System.Windows.Forms.ColumnHeader
     Friend WithEvents pnlUnpackAbnScanModule As System.Windows.Forms.Panel
-    Friend WithEvents Label46 As System.Windows.Forms.Label
-    Friend WithEvents Label48 As System.Windows.Forms.Label
-    Friend WithEvents Label49 As System.Windows.Forms.Label
+    Friend WithEvents lblAbnMsgDesc As System.Windows.Forms.Label
+    Friend WithEvents lblAbnMsgCode As System.Windows.Forms.Label
+    Friend WithEvents lblAbnTotalScan As System.Windows.Forms.Label
     Friend WithEvents Label53 As System.Windows.Forms.Label
-    Friend WithEvents Button7 As System.Windows.Forms.Button
+    Friend WithEvents btnAbnScanViewDet As System.Windows.Forms.Button
     Friend WithEvents Panel24 As System.Windows.Forms.Panel
-    Friend WithEvents Label92 As System.Windows.Forms.Label
-    Friend WithEvents Label97 As System.Windows.Forms.Label
+    Friend WithEvents lblAbnOrderNo As System.Windows.Forms.Label
+    Friend WithEvents lblAbnModNo As System.Windows.Forms.Label
     Friend WithEvents Label99 As System.Windows.Forms.Label
     Friend WithEvents Label100 As System.Windows.Forms.Label
     Friend WithEvents Panel25 As System.Windows.Forms.Panel
     Friend WithEvents btnBackUnpackAbnScanModule As System.Windows.Forms.Button
-    Friend WithEvents Label101 As System.Windows.Forms.Label
     Friend WithEvents Label102 As System.Windows.Forms.Label
-    Friend WithEvents PictureBox4 As System.Windows.Forms.PictureBox
-    Friend WithEvents TextBox11 As System.Windows.Forms.TextBox
+    Friend WithEvents btnAbnFScan As System.Windows.Forms.PictureBox
+    Friend WithEvents txtAbnModNo As System.Windows.Forms.TextBox
     Friend WithEvents Label103 As System.Windows.Forms.Label
-    Friend WithEvents pnlUnpackAbnScanModuleError As System.Windows.Forms.Panel
-    Friend WithEvents Label104 As System.Windows.Forms.Label
-    Friend WithEvents Label105 As System.Windows.Forms.Label
-    Friend WithEvents Label106 As System.Windows.Forms.Label
-    Friend WithEvents Label107 As System.Windows.Forms.Label
-    Friend WithEvents Button8 As System.Windows.Forms.Button
-    Friend WithEvents Panel26 As System.Windows.Forms.Panel
-    Friend WithEvents Label108 As System.Windows.Forms.Label
-    Friend WithEvents Label109 As System.Windows.Forms.Label
-    Friend WithEvents Label110 As System.Windows.Forms.Label
-    Friend WithEvents Label111 As System.Windows.Forms.Label
-    Friend WithEvents Panel27 As System.Windows.Forms.Panel
-    Friend WithEvents btnBackUnpackAbnScanModuleError As System.Windows.Forms.Button
-    Friend WithEvents Label112 As System.Windows.Forms.Label
-    Friend WithEvents Label113 As System.Windows.Forms.Label
-    Friend WithEvents PictureBox5 As System.Windows.Forms.PictureBox
-    Friend WithEvents TextBox12 As System.Windows.Forms.TextBox
-    Friend WithEvents Label114 As System.Windows.Forms.Label
     Friend WithEvents pnlUnpackAbnFscanModule As System.Windows.Forms.Panel
-    Friend WithEvents TextBox13 As System.Windows.Forms.TextBox
+    Friend WithEvents txtFSAbnOrdNo As System.Windows.Forms.TextBox
     Friend WithEvents Label115 As System.Windows.Forms.Label
-    Friend WithEvents Button9 As System.Windows.Forms.Button
+    Friend WithEvents btnAbnFScanSave As System.Windows.Forms.Button
     Friend WithEvents Panel28 As System.Windows.Forms.Panel
     Friend WithEvents btnBackUnpackAbnFscanModule As System.Windows.Forms.Button
-    Friend WithEvents Label116 As System.Windows.Forms.Label
-    Friend WithEvents ListView4 As System.Windows.Forms.ListView
+    Friend WithEvents lstViewAbnFSMod As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader23 As System.Windows.Forms.ColumnHeader
-    Friend WithEvents TextBox14 As System.Windows.Forms.TextBox
+    Friend WithEvents txtFSAbnModNo As System.Windows.Forms.TextBox
     Friend WithEvents Label117 As System.Windows.Forms.Label
     Friend WithEvents Label118 As System.Windows.Forms.Label
-    Friend WithEvents Label120 As System.Windows.Forms.Label
+    Friend WithEvents lblAbnSPartModNo As System.Windows.Forms.Label
     Friend WithEvents Label119 As System.Windows.Forms.Label
-    Friend WithEvents Label122 As System.Windows.Forms.Label
-    Friend WithEvents Label121 As System.Windows.Forms.Label
     Friend WithEvents pnlUnpackAbnFscanPart As System.Windows.Forms.Panel
-    Friend WithEvents TextBox15 As System.Windows.Forms.TextBox
-    Friend WithEvents TextBox16 As System.Windows.Forms.TextBox
+    Friend WithEvents txtUnpAbnFSPartBranchNo As System.Windows.Forms.TextBox
+    Friend WithEvents txtUnpAbnFSPartSeqNo As System.Windows.Forms.TextBox
     Friend WithEvents Label123 As System.Windows.Forms.Label
     Friend WithEvents Label124 As System.Windows.Forms.Label
-    Friend WithEvents TextBox17 As System.Windows.Forms.TextBox
+    Friend WithEvents txtUnpAbnFSPartNo As System.Windows.Forms.TextBox
     Friend WithEvents Label125 As System.Windows.Forms.Label
-    Friend WithEvents Button4 As System.Windows.Forms.Button
+    Friend WithEvents btnUnpAbnFSPartSave As System.Windows.Forms.Button
     Friend WithEvents Panel29 As System.Windows.Forms.Panel
     Friend WithEvents btnBackAbnFScanPart As System.Windows.Forms.Button
-    Friend WithEvents Label126 As System.Windows.Forms.Label
-    Friend WithEvents ListView5 As System.Windows.Forms.ListView
+    Friend WithEvents lstViewUnpAbnFSPartReason As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader2 As System.Windows.Forms.ColumnHeader
     Friend WithEvents Label127 As System.Windows.Forms.Label
     Friend WithEvents Label128 As System.Windows.Forms.Label
-    Friend WithEvents Label129 As System.Windows.Forms.Label
-    Friend WithEvents Label130 As System.Windows.Forms.Label
+    Friend WithEvents lblUnpFSPModNo As System.Windows.Forms.Label
+    Friend WithEvents lblUnpAbnFSPartModNo As System.Windows.Forms.Label
     Friend WithEvents ColumnHeader6 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader24 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader25 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader26 As System.Windows.Forms.ColumnHeader
     Friend WithEvents Label132 As System.Windows.Forms.Label
     Friend WithEvents Label131 As System.Windows.Forms.Label
-    Friend WithEvents Label134 As System.Windows.Forms.Label
-    Friend WithEvents Label133 As System.Windows.Forms.Label
     Friend WithEvents Label138 As System.Windows.Forms.Label
     Friend WithEvents Label137 As System.Windows.Forms.Label
-    Friend WithEvents Label136 As System.Windows.Forms.Label
-    Friend WithEvents Label135 As System.Windows.Forms.Label
     Friend WithEvents ColumnHeader27 As System.Windows.Forms.ColumnHeader
+    Public WithEvents timer As System.Windows.Forms.Timer
+    Friend WithEvents lblPartQty As System.Windows.Forms.Label
+    Friend WithEvents lblPartBranchNo As System.Windows.Forms.Label
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents lblAbnDesc As System.Windows.Forms.Label
+    Friend WithEvents ColumnHeader28 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents pnlLogin As System.Windows.Forms.Panel
+    Friend WithEvents Panel15 As System.Windows.Forms.Panel
+    Friend WithEvents btnLoginClose As System.Windows.Forms.Button
+    Friend WithEvents btnLoginSubmit As System.Windows.Forms.Button
+    Friend WithEvents txtUsername As System.Windows.Forms.TextBox
+    Friend WithEvents Label24 As System.Windows.Forms.Label
+    Friend WithEvents Panel16 As System.Windows.Forms.Panel
+    Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents txtPwd As System.Windows.Forms.TextBox
+    Friend WithEvents Label45 As System.Windows.Forms.Label
+    Friend WithEvents ColumnHeader29 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents lblUsername As System.Windows.Forms.Label
+    Friend WithEvents ColumnHeader30 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ColumnHeader31 As System.Windows.Forms.ColumnHeader
 
 End Class

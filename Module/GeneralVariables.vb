@@ -10,19 +10,10 @@ Imports Microsoft.Win32
 Module GeneralVariables
 
 #Region ". Global Variables Declare ."
-    Public Function Initialize() As String
-        Dim XMLstr As String = GetXMLSetting()
-        Return XMLstr
-    End Function
 
     Public Const IOCTL_HAL_GET_DEVICEID As Integer = &H1010054
-    Private Const METHOD_BUFFERED As Int32 = 0
-    Private Const FILE_ANY_ACCESS As Int32 = 0
-    Private Const FILE_DEVICE_HAL As Int32 = &H101
     Public Const ERROR_NOT_SUPPORTED As Int32 = &H32
     Public Const ERROR_INSUFFICIENT_BUFFER As Int32 = &H7A
-    'Public Const IOCTL_HAL_GET_DEVICEID As Int32 = (&H10000 * FILE_DEVICE_HAL) Or (&H4000 * FILE_ANY_ACCESS) Or (&H4 * 21) Or METHOD_BUFFERED
-
 
     Declare Function KernelIoControl Lib "CoreDll.dll" _
      (ByVal dwIoControlCode As Int32, _
@@ -35,25 +26,30 @@ Module GeneralVariables
     Public lblMessage As Label
     Public progressBar As ProgressBar
 
-    Public gAppName As String = "SERVICE PART"
-    Public gProgPath As String = Path.GetDirectoryName([Assembly].GetExecutingAssembly.GetName.CodeBase) & "\" '+ System.Reflection.Assembly.GetExecutingAssembly.GetName.Name 'System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).ToString & " \ ""
-    Public gDBPath As String ' = "" 'gProgPath '/ProgramFiles/DCSComs
-    Public gScannerID As String = getDeviceID()
-    Public gScnPrefix As String ' = ""
-    Public gScnSuffix As String ' = ""
-    Public gDateTimeFormat As String ' = ""
-    Public gDatabaseName As String ' = "" '"DBDCSServicePart.sdf"
-    Public gDatabasePwd As String ' = ""
-    Public ConnStr As String ' = ""
-    'Public ConnStr As String = "Data Source=" & gDBPath + gDatabaseName & ";password=" & gDatabasePwd
-    Public gStrDCSWebServiceURL As String ' = "" '"http://192.168.170.169:8084/DCSWebService.svc"
-    Public ws_dcsClient As DCSWebService.DCSWebService = New DCSWebService.DCSWebService
-    ' MAKE WEBSERVICE OFFLINE MODE AND TRY ABNORMAL SERVICE
+    '------------ Message Display ------------
+    Public successMsgPart As String = "All Parts Succesfully Scanned."
+    Public successMsgModule As String = "All Modules Succesfully Scanned."
+    Public successMsg As String = "Succesfully Scanned."
 
-    Public gStrOracleWebServiceURL As String ' = "" '"http://10.1.115.94:4559/ws/perodua.eai.process.inventory.ws.servicePart:processServicePartService/perodua_eai_process_inventory_ws_servicePart_processServicePartService_Port"
-    Public gStrOraUserID As String ' = "" ' "promiseusr"
-    Public gStrOraUserPwd As String ' = "" '"promiseusr"
-    Public ws_oracleClient As OraWebService.processServicePartService = New OraWebService.processServicePartService
+    Public gAppName As String = "JSP"
+    Public gDBPath As String = "/Application/DCSJSP/"
+    Public gConfig As String = String.Format("{0}\", Path.GetDirectoryName([Assembly].GetExecutingAssembly.GetName.CodeBase)) '+ System.Reflection.Assembly.GetExecutingAssembly.GetName.Name 'System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).ToString & " \ ""
+    Public gScannerID As String = ReadUUID()
+    Public gScnPrefix As String
+    Public gScnSuffix As String
+    Public gDateTimeFormat As String
+    Public gDatabaseName As String
+    Public gDatabasePwd As String
+    Public ConnStr As String
+    Public gStrDCSWebServiceURL As String
+    Public gStrOracleChckWebServiceURL As String
+    Public gStrOracleCpWebServiceURL As String
+    Public gStrOraUserID As String
+    Public gStrOraUserPwd As String
+
+    Public ws_dcsClient As DCSWebService.DCSWebService = New DCSWebService.DCSWebService
+    Public ws_validationClient As ValidationWebService.processValidationService = New ValidationWebService.processValidationService
+    Public ws_inventoryClient As InventoryConsumptionWebService.processInventoryConsumptionService = New InventoryConsumptionWebService.processInventoryConsumptionService
 
     Public SQLServerName As String
     Public SQLServerPort As String
@@ -64,19 +60,30 @@ Module GeneralVariables
     Public SQLConnectionTimeOut As String
     Public DroptableValue As String
 
-
-    '---Master Table -----------------------------------------------
+    '------------ Master Table ------------
+    Public TblTxnCodeDb As String = "TblTxnCode"
     Public TblSettingDb As String = "TBLSetting"
-    Public TblUserDb As String = "SEP_LOGIN_V"
+    Public TblUserDb As String = "JSP_USER_LOGIN_VIEW"
     Public TblJSPOrganizationDb As String = "JSP_ORGANIZATION_HEADERS_VIEW"
     Public TblJSPSupplyBPHeaderDb As String = "JSP_SUPPLY_BP_HEADERS_VIEW"
+    Public TblJSPSupplyBPDetailsView As String = "JSP_SUPPLY_BP_DETAILS_VIEW"
     Public TblJSPSupplyCPHeaderDb As String = "JSP_SUPPLY_CP_HEADERS_VIEW"
+    Public TblJSPSupplyCPDetailsView As String = "JSP_SUPPLY_CP_DETAILS_VIEW"
     Public TblJSPAbnormalReasonCodeDb As String = "JSP_ABNORMAL_REASON_CODE_VIEW"
     Public TblJSPSupplyInterface As String = "JSP_SUPPLY_INTERFACE"
-    Public TblJSPUnpackPendingDb As String = "JSP_UNPACK_PENDING_VIEW"
-    Public TblJSPUnpackingDetailsDb As String = "JSP_UNPACKING_DETAILS_VIEW"
+    Public TblJSPRobbingInterface As String = "JSP_ROBBING_INTERFACE"
+    Public TblJSPRobbingInfoView As String = "JSP_ROBBING_INFO_VIEW"
+    Public TblJSPSupplyPLDetailsView As String = "JSP_SUPPLY_PL_DETAILS_VIEW"
+    Public TblJSPSupplyPLPartsIDView As String = "JSP_SUPPLY_PL_PARTS_ID_VIEW"
+    Public TblJSPSupplyPLPendingView As String = "JSP_SUPPLY_PL_PENDING_VIEW"
 
-    '----Main ------------
+    Public CDIO_PENDING As String = "JSP_CDIO_PENDING"
+    Public CDIO_INTERFACE As String = "JSP_CDIO_RCV_INTERFACE"
+    Public TblBatch As String = "TBLBatch"
+    Public UNPACK_PENDING As String = "JSP_UNPACK_PENDING"
+    Public UNPACK_INTERFACE As String = "JSP_UNPACK_INTERFACE"
+
+    '------------ Main ------------
     Public boolsetting As Boolean = False
     Public gStrUsername As String = ""
     Public gBoolAbnormal As Boolean = False
@@ -89,24 +96,17 @@ Module GeneralVariables
     Public boolPackBack As Boolean = False
     Public interval As Integer = (1000 * 60) * 1 'minutes
 
-    '----Setting --------
+    '------------ Setting ------------
     Public sUser As String = ""
     Public sOrganization As String = ""
     Public sReason As String = ""
     Public sShop As String = ""
     Public sSupply As String = ""
     Public iInterval As Integer = 0
+    Public org_ID As String = ""
+    Public loginUser As String = ""
+    Public loginPass As String = ""
 
-    Public chkOffline As Boolean = False
-
-    'Public sReason As String = ""
-    'Public sRBType As String = ""
-    'Public sImporter As String = ""
-    'Public sVendor As String = ""
-    'Public sCustomer As String = ""
-    'Public sCaseType As String = ""
-    'Public sStopperType As String = ""
-    'Public iInterval As Integer = 0
 
     Public ImpShop As Boolean = False
     Public ImpSupplier As Boolean = False
@@ -114,46 +114,26 @@ Module GeneralVariables
     Public ImpOrganization As Boolean = False
     Public ImpUser As Boolean = False
 
-    '----TEMP --------
-    Public chkUser As Boolean = False
-    Public chkReason As Boolean = False
-    Public chkRBType As Boolean = False
-    Public chkImporter As Boolean = False
-    Public chkVendor As Boolean = False
-    Public chkCustomer As Boolean = False
-    Public chkCaseType As Boolean = False
-    Public chkStopperType As Boolean = False
-
-    '----Others --------
-    Public gStrRefErrorMsg As String = ""
-
-    <DllImport("coredll.dll")> _
-   Private Function SetSystemTime(ByRef time As SYSTEMTIME) As Boolean
-    End Function
-
-    Public Structure SYSTEMTIME
-        Public wYear As UInt16
-        Public wMonth As UInt16
-        Public wDayOfWeek As UInt16
-        Public wDay As UInt16
-        Public wHour As UInt16
-        Public wMinute As UInt16
-        Public wSecond As UInt16
-        Public wMilliseconds As UInt16
-    End Structure
+    Public chkOffline As Boolean = False
 
 #End Region
 
-#Region ". XML SETTING ."
+#Region ". XML Setting ."
+
+    Public Function Initialize() As String
+        Dim XMLstr As String = GetXMLSetting()
+        Return XMLstr
+    End Function
+
     Public Function GetXMLSetting() As String
         Dim errMsg As String = "Config File not found"
         Try
-            If File.Exists(gProgPath + "Config.xml") = False Then
+            If File.Exists(gConfig + "Config.xml") = False Then
                 MsgBox("Config File not found! Application will now exit.", MsgBoxStyle.Critical, "Error")
                 Return errMsg
             End If
 
-            Dim configReader As XmlReader = New XmlTextReader(gProgPath + "Config.xml")
+            Dim configReader As XmlReader = New XmlTextReader(gConfig + "Config.xml")
             While (configReader.Read())
                 Dim type = configReader.NodeType
                 If type = XmlNodeType.Element Then
@@ -169,8 +149,11 @@ Module GeneralVariables
                     If configReader.Name = "WSDcsURL" Then
                         gStrDCSWebServiceURL = configReader.ReadInnerXml.ToString()
                     End If
-                    If configReader.Name = "WSOraURL" Then
-                        gStrOracleWebServiceURL = configReader.ReadInnerXml.ToString()
+                    If configReader.Name = "WSOraChckURL" Then
+                        gStrOracleChckWebServiceURL = configReader.ReadInnerXml.ToString()
+                    End If
+                    If configReader.Name = "WSOraCpURL" Then
+                        gStrOracleCpWebServiceURL = configReader.ReadInnerXml.ToString()
                     End If
                     If configReader.Name = "WSOraUserID" Then
                         gStrOraUserID = configReader.ReadInnerXml.ToString()
@@ -187,8 +170,8 @@ Module GeneralVariables
         End Try
         Return ConnStr
     End Function
-#End Region
 
+#End Region
 
 #Region ". Show Mouse Cursor, Busy or Not Busy ."
     Public Sub ShowWait(ByVal Status As Boolean)
@@ -209,13 +192,7 @@ Module GeneralVariables
     End Sub
 #End Region
 
-    Public Sub WriteLog(ByVal strMessage As String)
-        Dim strPath As String, file As System.IO.StreamWriter
-        strPath = gProgPath & "/IssueLog.txt"
-        file = New System.IO.StreamWriter(strPath, True)
-        file.WriteLine(Now & " => " & strMessage)
-        file.Close()
-    End Sub
+#Region ". Public Function ."
 
     Public Enum EnumFilterQueryIndex
         CodeOnly = 0
@@ -272,33 +249,26 @@ Module GeneralVariables
     End Function
 
     Public Function SetLocalTime(ByVal strDate As String) As Boolean
-
         SetLocalTime = False
+        Dim d As DateTime
+        Dim strTime As String = Convert.ToDateTime(strDate).ToString("hh:mm tt")
+        Dim strYear As String = Convert.ToDateTime(strDate).ToString("yyyy")
+        Dim strMonth As String = Convert.ToDateTime(strDate).ToString("MM")
+        Dim strDay As String = Convert.ToDateTime(strDate).ToString("dd")
+
         Try
-            Dim dtDate As Date = Date.ParseExact(strDate, gStrTimeFormat, gStrculture)
-
-        Catch ex As Exception
-            Exit Function
-        End Try
-
-        Try
-            Dim st As New SYSTEMTIME
-            st.wDay = Convert.ToUInt16(strDate.Substring(0, 2)) '0 1
-            st.wMonth = Convert.ToUInt16(strDate.Substring(3, 2)) '3 4
-            st.wYear = Convert.ToUInt16(strDate.Substring(6, 4)) '6 7 8 9
-            st.wHour = Convert.ToUInt16(strDate.Substring(11, 2)) '11 12
-            st.wMinute = Convert.ToUInt16(strDate.Substring(14, 2)) '14 15
-            st.wSecond = Convert.ToUInt16(strDate.Substring(17, 2)) '17 18
-
-            SetSystemTime(st)
+            d = strTime
+            Microsoft.VisualBasic.TimeOfDay = d
+            Microsoft.VisualBasic.DateString = String.Format("{0}-{1}-{2}", strMonth, strDay, strYear)
             SetLocalTime = True
-
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "SERVICE PART")
+            MsgBox(ex.Message, MsgBoxStyle.Critical, gAppName)
         End Try
     End Function
 
     Public Sub bringPanelToFront(ByRef frontPanel As Panel, ByRef backPanel As Panel)
+        GC.Collect()
+        GC.WaitForPendingFinalizers()
         frontPanel.Location = New Point(0, 0)
         frontPanel.Visible = True
         backPanel.Visible = False
@@ -306,122 +276,20 @@ Module GeneralVariables
 
     Public Sub setStatusBar(ByRef statusBar As StatusBar, ByVal username As String, ByVal mode As Boolean, ByVal scannerId As String)
         statusBar.Text = username.PadRight(30, " ") & scannerId.PadLeft(25, " ") & IIf(mode = True, "(Online)".PadLeft(10, " "), "(Offline)".PadLeft(10, " "))
-
     End Sub
+
+#End Region
 
 #Region ". Get Scanner ID ."
 
-
-    Public Function getDeviceID() As String
-
-        getDeviceID = Net.Dns.GetHostName()
-
-    End Function
-
-    Public Function setDeviceName(ByVal deviceName As String) As Boolean
-        setDeviceName = False
-        Dim IDENTITY As String = "HKEY_LOCAL_MACHINE\Ident"
-        Dim NAME As String = "Name"
-        Registry.SetValue(IDENTITY, NAME, deviceName)
-        setDeviceName = True
-    End Function
-
     Public Function ReadUUID() As String
-
-        'Read Universally unique identifier
-
-        ' Initialize the output buffer to the size of a 
-        ' Win32 DEVICE_ID structure 
-        Dim outbuff(31) As Byte
-        Dim dwOutBytes As Int32
-        Dim done As Boolean = False
-        Dim nBuffSize As Int32 = outbuff.Length
-        Dim dwPresetIDOffset As Int32
-        Dim dwPresetIDSize As Int32
-        Dim dwPlatformIDOffset As Int32
-        Dim dwPlatformIDSize As Int32
-        Dim sb As New StringBuilder
-        Dim i As Integer
-        Dim rtnStr As String = String.Empty
-
-        Try
-            ' Set DEVICEID.dwSize to size of buffer.  Some platforms look at
-            ' this field rather than the nOutBufSize param of KernelIoControl
-            ' when determining if the buffer is large enough.
-            BitConverter.GetBytes(nBuffSize).CopyTo(outbuff, 0)
-            dwOutBytes = 0
-
-            ' Loop until the device ID is retrieved or an error occurs.
-            While Not done
-                If KernelIoControl(IOCTL_HAL_GET_DEVICEID, IntPtr.Zero, _
-                    0, outbuff, nBuffSize, dwOutBytes) Then
-                    done = True
-                Else
-                    Dim errnum As Integer = Marshal.GetLastWin32Error()
-                    Select Case errnum
-                        Case ERROR_NOT_SUPPORTED
-                            Throw New NotSupportedException( _
-                                "IOCTL_HAL_GET_DEVICEID is not supported on this device", _
-                                New Win32Exception(errnum))
-
-                        Case ERROR_INSUFFICIENT_BUFFER
-
-                            ' The buffer is not big enough for the data.  The
-                            ' required size is in the first 4 bytes of the output 
-                            ' buffer (DEVICE_ID.dwSize).
-                            nBuffSize = BitConverter.ToInt32(outbuff, 0)
-                            outbuff = New Byte(nBuffSize) {}
-
-                            ' Set DEVICEID.dwSize to size of buffer.  Some
-                            ' platforms look at this field rather than the
-                            ' nOutBufSize param of KernelIoControl when
-                            ' determining if the buffer is large enough.
-                            BitConverter.GetBytes(nBuffSize).CopyTo(outbuff, 0)
-
-                        Case Else
-                            Throw New Win32Exception(errnum, "Unexpected error")
-                    End Select
-                End If
-            End While
-
-            ' Copy the elements of the DEVICE_ID structure.
-            dwPresetIDOffset = BitConverter.ToInt32(outbuff, &H4)
-            dwPresetIDSize = BitConverter.ToInt32(outbuff, &H8)
-            dwPlatformIDOffset = BitConverter.ToInt32(outbuff, &HC)
-            dwPlatformIDSize = BitConverter.ToInt32(outbuff, &H10)
-
-            For i = dwPresetIDOffset To (dwPresetIDOffset + dwPresetIDSize) - 1
-                sb.Append(String.Format("{0:X2}", outbuff(i)))
-            Next i
-
-            'leave out the - from the serial number
-            'sb.Append("-")
-
-            For i = dwPlatformIDOffset To (dwPlatformIDOffset + dwPlatformIDSize) - 1
-                sb.Append(String.Format("{0:X2}", outbuff(i)))
-            Next i
-        Catch ex As Exception
-            If IsNothing(sb) = False Then
-                sb = Nothing
-            End If
-        Finally
-            If IsNothing(sb) = False Then
-                If (sb.ToString().IndexOf("-") > 0) Then
-                    'rtnStr = sb.ToString().Substring(0, sb.ToString().IndexOf("-"))
-                    ' leave out the - from the serial number
-                    rtnStr = sb.ToString().Replace("-", "")
-                Else
-                    rtnStr = sb.ToString()
-                End If
-            Else
-                rtnStr = "-"
-            End If
-        End Try
-        Return rtnStr
+        Dim terminalInfo As Symbol.ResourceCoordination.TerminalInfo = New Symbol.ResourceCoordination.TerminalInfo()
+        Return terminalInfo.ESN.ToString()
     End Function
+
 #End Region
 
-#Region "CDIO Module Constraint"
+#Region ". CDIO Module Constraint ."
 
     Public Const CDIO_ID_LENGTH As Integer = 10
     Public Const CDIO_NO_LENGTH As Integer = 13
@@ -438,14 +306,85 @@ Module GeneralVariables
     Public Const GROSS_WEIGHT_LENGTH As Integer = 5
     Public Const ORDER_NO_LENGTH As Integer = 12
 
-    'Related Table
-    Public CDIO_INTERFACE As String = "JSP_RCV_CDIO_INTERFACE"
-    Public CDIO_DETAILS_VIEW As String = "JSP_CDIO_DETAILS_VIEW"
-    Public CDIO_INTERFACE_VIEW As String = "JSP_CDIO_INTERFACE_VIEW"
-    Public CDIO_PENDING_DETAILS_VIEW As String = "JSP_CDIO_PENDING_DETAILS_VIEW"
-    Public ABNORMAL_REASON_CODE_VIEW As String = "JSP_ABNORMAL_REASON_CODE_VIEW"
+#End Region
 
-    Public CDIO_BATCH As String = "JSP_CDIO_BATCH"
+#Region ". Unpack Module Constraint ."
+    '----MODULE QR FORMAT
+    Public Const UNPACK_MODULE_NO_LENGTH As Integer = 6 'MODULE_NO_LENGTH
+    Public Const UNPACK_PILLING_NO_LENGTH As Integer = 1 'PILLING_NO_LENGTH
+    Public Const UNPACK_GROSS_WEIGHT_LENGTH As Integer = 5 'GROSS_WEIGHT_LENGTH
+    Public Const UNPACK_ORDER_NO_LENGTH As Integer = 12 'ORDER_NO_LENGTH
+#End Region
+
+#Region ". Progress Lane Module Constraint."
+
+    '----- SHOPPING LIST LENGTH -----
+    Public Const SL_PDIO_ID_LENGTH As Integer = 10
+    Public Const SL_PDIO_NO_LENGTH As Integer = 12
+    Public Const SL_PRODUCTION_DATE_LENGTH As Integer = 10
+    Public Const SL_SHOP_ID_LENGTH As Integer = 4
+    Public Const SL_LANE_ID_LENGTH As Integer = 2
+    Public Const SL_ORG_ID_LENGTH As Integer = 2
+    Public Const SL_SCAN_FLAG_LENGTH As Integer = 1
+
+    '----- KANBAN QR LENGTH -----
+    Public Const KB_PDIO_ID_LENGTH As Integer = 10
+    Public Const KB_PDIO_NO_LENGTH As Integer = 12
+    Public Const KB_DELIVERY_DATE_LENGTH As Integer = 10
+    Public Const KB_DOCK_CODE_LENGTH As Integer = 4
+    Public Const KB_ORDER_TYPE_LENGTH As Integer = 2
+    Public Const KB_VENDOR_ID_LENGTH As Integer = 6
+    Public Const KB_TRANSPORTER_ID_LENGTH As Integer = 6
+    Public Const KB_LANE_ID_LENGTH As Integer = 2
+    Public Const KB_TIER_LENGTH As Integer = 1
+    Public Const KB_ORG_ID_LENGTH As Integer = 2
+    Public Const KB_PART_NO_LENGTH As Integer = 14
+    Public Const KB_BACK_NO_LENGTH As Integer = 6
+    Public Const KB_SEQ_NO_LENGTH As Integer = 4
+    Public Const KB_TRANSACTION_CODE_LENGTH As Integer = 2
+    Public Const KB_QTY_ORDER_LENGTH As Integer = 4
+    Public Const KB_DELIVERY_TYPE_LENGTH As Integer = 2
+    Public Const KB_SCAN_FLAG_LENGTH As Integer = 1
+
+#End Region
+
+#Region ". Reusable Part QR Length."
+    '----PART QR (DMC)
+    Public Const MANUFACTURE_CODE_LENGTH As Integer = 2
+    Public Const SUPPLIER_CODE_LENGTH As Integer = 4
+    Public Const SUPPLIER_PLANT_CODE_LENGTH As Integer = 1
+    Public Const SUPPLIER_SHIPPING_DOCK_LENGTH As Integer = 3
+    Public Const BEFORE_PACKING_ROUTING_LENGTH As Integer = 6
+    Public Const RECEIVING_COMPANY_CODE_LENGTH As Integer = 4
+    Public Const RECEIVING_PLANT_CODE_LENGTH As Integer = 1
+    Public Const RECEIVING_DOCK_CODE_LENGTH As Integer = 2
+    Public Const PACKING_ROUTING_CODE_LENGTH As Integer = 6
+    Public Const GRANTER_CODE_LENGTH As Integer = 4
+    Public Const ORDER_TYPE_LENGTH As Integer = 1
+    Public Const KANBAN_CLASSIFICATION_LENGTH As Integer = 1
+    Public Const DELIVERY_DATE_LENGTH As Integer = 4
+    Public Const DELIVERY_CODE_LENGTH As Integer = 2
+    Public Const MROS_LENGTH As Integer = 2
+    Public Const ORDER_NUMBER_LENGTH As Integer = 12
+    Public Const DELIVERY_NUMBER_LENGTH As Integer = 5
+    Public Const BACK_NUMBER_LENGTH As Integer = 4
+    Public Const PARTS_NO_LENGTH As Integer = 10
+    Public Const PART_NO_SFX_LENGTH As Integer = 2
+    Public Const QTY_BOX_LENGTH As Integer = 5
+    Public Const RUNOUT_FLAG_LENGTH As Integer = 1
+    Public Const DELIVERY_CODE_2_LENGTH As Integer = 1
+    Public Const BOX_TYPE_LENGTH As Integer = 8
+    Public Const BRANCH_NUMBER_LENGTH As Integer = 4
+    Public Const ADDRESS_LENGTH As Integer = 10
+    Public Const DELIVERY_TIME_LENGTH As Integer = 5
+    Public Const PACKING_DATE_LENGTH As Integer = 8
+    Public Const KATASHIKI_JERSEY_NUMBER_LENGTH As Integer = 3
+    Public Const LOT_NO_LENGTH As Integer = 4
+    Public Const MODULE_CATEGORY_LENGTH As Integer = 2
+    Public Const PART_SEQ_NUMBER_LENGTH As Integer = 2
+    Public Const PART_BRANCH_NUMBER_LENGTH As Integer = 2
+    Public Const DUMMY_LENGTH As Integer = 20
+    Public Const VERSION_NO_LENGTH As Integer = 1
 
 #End Region
 

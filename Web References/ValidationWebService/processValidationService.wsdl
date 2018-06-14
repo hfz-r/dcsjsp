@@ -1,0 +1,729 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:HDR1="http://schemas.perodua.com.my/EAI/common/soap/v1/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soapjms="http://www.w3.org/2010/soapjms/" xmlns:tns="http://VAWBMTD0.perodua.com.my/perodua/eai/process/inventory/ws/processValidationService" xmlns:tns1="http://services.perodua.com.my/EAI/Inventory/InventoryService/v1/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:HDR2="http://schemas.perodua.com.my/EAI/Inventory/Inventory/v1/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" name="processValidationService" targetNamespace="http://services.perodua.com.my/EAI/Inventory/InventoryService/v1/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns:tns="http://schemas.perodua.com.my/EAI/common/soap/v1/" targetNamespace="http://schemas.perodua.com.my/EAI/common/soap/v1/">
+      <xsd:element name="eaiHeader" type="tns:eaiHeader" />
+      <xsd:complexType name="eaiHeader">
+        <xsd:sequence>
+          <xsd:element form="qualified" name="from" type="xsd:string" />
+          <xsd:element form="qualified" name="to" type="xsd:string" />
+          <xsd:element form="qualified" name="appId" type="xsd:string" />
+          <xsd:element form="qualified" name="msgType" type="xsd:string" />
+          <xsd:element form="qualified" name="msgId" type="xsd:string" />
+          <xsd:element minOccurs="0" form="qualified" name="correlationId" type="xsd:string" />
+          <xsd:element form="qualified" name="timestamp" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns:tns2="http://services.perodua.com.my/EAI/Inventory/InventoryService/v1/" xmlns:dx="http://schemas.perodua.com.my/EAI/Inventory/Inventory/v1/" targetNamespace="http://services.perodua.com.my/EAI/Inventory/InventoryService/v1/">
+      <xsd:import namespace="http://schemas.perodua.com.my/EAI/Inventory/Inventory/v1/" />
+      <xsd:element name="processValidationReqDoc" type="tns2:processValidationReqDoc" />
+      <xsd:element name="processValidationRespDoc" type="tns2:processValidationRespDoc" />
+      <xsd:complexType name="processValidationReqDoc">
+        <xsd:sequence>
+          <xsd:element ref="dx:batchID" />
+          <xsd:element ref="dx:scannerID" />
+          <xsd:element ref="dx:processType" />
+          <xsd:element ref="dx:processCode" />
+          <xsd:element minOccurs="0" ref="dx:cdioId" />
+          <xsd:element minOccurs="0" ref="dx:cdioNo" />
+          <xsd:element minOccurs="0" ref="dx:pillingOrder" />
+          <xsd:element minOccurs="0" ref="dx:grossWeight" />
+          <xsd:element minOccurs="0" ref="dx:forceCDIOStatus" />
+          <xsd:element minOccurs="0" ref="dx:forceCDIOReasonID" />
+          <xsd:element minOccurs="0" ref="dx:forceModuleStatus" />
+          <xsd:element minOccurs="0" ref="dx:forceModuleReasonID" />
+          <xsd:element minOccurs="0" ref="dx:moduleID" />
+          <xsd:element minOccurs="0" ref="dx:moduleNo" />
+          <xsd:element minOccurs="0" ref="dx:extPartNo" />
+          <xsd:element minOccurs="0" ref="dx:extPartNoSfx" />
+          <xsd:element minOccurs="0" ref="dx:extPartNoSeq" />
+          <xsd:element minOccurs="0" ref="dx:qtyBox" />
+          <xsd:element minOccurs="0" ref="dx:manufactureCode" />
+          <xsd:element minOccurs="0" ref="dx:supplierCode" />
+          <xsd:element minOccurs="0" ref="dx:supplierPlantCode" />
+          <xsd:element minOccurs="0" ref="dx:ShippingDock" />
+          <xsd:element minOccurs="0" ref="dx:beforePackingRouting" />
+          <xsd:element minOccurs="0" ref="dx:receivingCompanyCode" />
+          <xsd:element minOccurs="0" ref="dx:receivingPlantCode" />
+          <xsd:element minOccurs="0" ref="dx:receivingDockCode" />
+          <xsd:element minOccurs="0" ref="dx:packingRoutingCode" />
+          <xsd:element minOccurs="0" ref="dx:granterCode" />
+          <xsd:element minOccurs="0" ref="dx:orderType" />
+          <xsd:element minOccurs="0" ref="dx:kanbanClassification" />
+          <xsd:element minOccurs="0" ref="dx:mros" />
+          <xsd:element minOccurs="0" ref="dx:orderNo" />
+          <xsd:element minOccurs="0" ref="dx:deliveryCode" />
+          <xsd:element minOccurs="0" ref="dx:deliveryNo" />
+          <xsd:element minOccurs="0" ref="dx:backNumber" />
+          <xsd:element minOccurs="0" ref="dx:runoutFlag" />
+          <xsd:element minOccurs="0" ref="dx:boxType" />
+          <xsd:element minOccurs="0" ref="dx:branchNo" />
+          <xsd:element minOccurs="0" ref="dx:address" />
+          <xsd:element minOccurs="0" ref="dx:packingDate" />
+          <xsd:element minOccurs="0" ref="dx:katashikiJerseyNumber" />
+          <xsd:element minOccurs="0" ref="dx:lotNo" />
+          <xsd:element minOccurs="0" ref="dx:moduleCategory" />
+          <xsd:element minOccurs="0" ref="dx:partBranchNo" />
+          <xsd:element minOccurs="0" ref="dx:dummy" />
+          <xsd:element minOccurs="0" ref="dx:versionNo" />
+          <xsd:element minOccurs="0" ref="dx:pdioID" />
+          <xsd:element minOccurs="0" ref="dx:pdioNo" />
+          <xsd:element minOccurs="0" ref="dx:dockCode" />
+          <xsd:element minOccurs="0" ref="dx:pdioOrderType" />
+          <xsd:element minOccurs="0" ref="dx:transporterID" />
+          <xsd:element minOccurs="0" ref="dx:vendorID" />
+          <xsd:element minOccurs="0" ref="dx:laneID" />
+          <xsd:element minOccurs="0" ref="dx:tier" />
+          <xsd:element minOccurs="0" ref="dx:p2PartNo" />
+          <xsd:element minOccurs="0" ref="dx:p2PartSeqNo" />
+          <xsd:element minOccurs="0" ref="dx:p2BackNo" />
+          <xsd:element minOccurs="0" ref="dx:p2QtyOrder" />
+          <xsd:element minOccurs="0" ref="dx:deliveryType" />
+          <xsd:element minOccurs="0" ref="dx:orgID" />
+          <xsd:element minOccurs="0" ref="dx:deliveryDate" />
+          <xsd:element minOccurs="0" ref="dx:supplyBy" />
+          <xsd:element minOccurs="0" ref="dx:supplyDate" />
+          <xsd:element minOccurs="0" ref="dx:unpackBy" />
+          <xsd:element minOccurs="0" ref="dx:unpackDate" />
+          <xsd:element minOccurs="0" ref="dx:robbingBy" />
+          <xsd:element minOccurs="0" ref="dx:robbingDate" />
+          <xsd:element minOccurs="0" ref="dx:rcvBy" />
+          <xsd:element minOccurs="0" ref="dx:rcvDate" />
+          <xsd:element minOccurs="0" ref="dx:createdBy" />
+          <xsd:element minOccurs="0" ref="dx:onOffLineFlag" />
+          <xsd:element minOccurs="0" ref="dx:scanBy" />
+          <xsd:element minOccurs="0" ref="dx:scanDate" />
+          <xsd:element minOccurs="0" ref="dx:forcePDIOStatus" />
+          <xsd:element minOccurs="0" ref="dx:forcePDIOReasonID" />
+          <xsd:element minOccurs="0" ref="dx:forceExtStatus" />
+          <xsd:element minOccurs="0" ref="dx:forceExtReasonID" />
+          <xsd:element minOccurs="0" ref="dx:forceP2Status" />
+          <xsd:element minOccurs="0" ref="dx:forcep2ReasonID" />
+          <xsd:element minOccurs="0" ref="dx:scannerScreenCode" />
+          <xsd:element minOccurs="0" ref="dx:shopID" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="processValidationRespDoc">
+        <xsd:sequence>
+          <xsd:element ref="dx:msgCode" />
+          <xsd:element minOccurs="0" ref="dx:msgDesc" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns:dx="http://schemas.perodua.com.my/EAI/Inventory/Inventory/v1/" targetNamespace="http://schemas.perodua.com.my/EAI/Inventory/Inventory/v1/">
+      <xsd:element name="batchID" nillable="true" type="dx:batchID" />
+      <xsd:element name="scannerID" nillable="true" type="dx:scannerID" />
+      <xsd:element name="processType" nillable="true" type="dx:processType" />
+      <xsd:element name="processCode" nillable="true" type="dx:processCode" />
+      <xsd:element name="cdioId" nillable="true" type="dx:cdioId" />
+      <xsd:element name="cdioNo" nillable="true" type="dx:cdioNo" />
+      <xsd:element name="pillingOrder" nillable="true" type="dx:pillingOrder" />
+      <xsd:element name="grossWeight" nillable="true" type="dx:grossWeight" />
+      <xsd:element name="forceCDIOStatus" nillable="true" type="dx:forceCDIOStatus" />
+      <xsd:element name="forceCDIOReasonID" nillable="true" type="dx:forceCDIOReasonID" />
+      <xsd:element name="forceModuleStatus" nillable="true" type="dx:forceModuleStatus" />
+      <xsd:element name="forceModuleReasonID" nillable="true" type="dx:forceModuleReasonID" />
+      <xsd:element name="moduleID" nillable="true" type="dx:moduleID" />
+      <xsd:element name="moduleNo" nillable="true" type="dx:moduleNo" />
+      <xsd:element name="extPartNo" nillable="true" type="dx:extPartNo" />
+      <xsd:element name="extPartNoSfx" nillable="true" type="dx:extPartNoSfx" />
+      <xsd:element name="extPartNoSeq" nillable="true" type="dx:extPartNoSeq" />
+      <xsd:element name="qtyBox" nillable="true" type="dx:qtyBox" />
+      <xsd:element name="manufactureCode" nillable="true" type="dx:manufactureCode" />
+      <xsd:element name="supplierCode" nillable="true" type="dx:supplierCode" />
+      <xsd:element name="supplierPlantCode" nillable="true" type="dx:supplierPlantCode" />
+      <xsd:element name="ShippingDock" nillable="true" type="dx:ShippingDock" />
+      <xsd:element name="beforePackingRouting" nillable="true" type="dx:beforePackingRouting" />
+      <xsd:element name="receivingCompanyCode" nillable="true" type="dx:receivingCompanyCode" />
+      <xsd:element name="receivingPlantCode" nillable="true" type="dx:receivingPlantCode" />
+      <xsd:element name="receivingDockCode" nillable="true" type="dx:receivingDockCode" />
+      <xsd:element name="packingRoutingCode" nillable="true" type="dx:packingRoutingCode" />
+      <xsd:element name="granterCode" nillable="true" type="dx:granterCode" />
+      <xsd:element name="orderType" nillable="true" type="dx:orderType" />
+      <xsd:element name="kanbanClassification" nillable="true" type="dx:kanbanClassification" />
+      <xsd:element name="mros" nillable="true" type="dx:mros" />
+      <xsd:element name="orderNo" nillable="true" type="dx:orderNo" />
+      <xsd:element name="deliveryCode" nillable="true" type="dx:deliveryCode" />
+      <xsd:element name="deliveryNo" nillable="true" type="dx:deliveryNo" />
+      <xsd:element name="backNumber" nillable="true" type="dx:backNumber" />
+      <xsd:element name="runoutFlag" nillable="true" type="dx:runoutFlag" />
+      <xsd:element name="boxType" nillable="true" type="dx:boxType" />
+      <xsd:element name="branchNo" nillable="true" type="dx:branchNo" />
+      <xsd:element name="address" nillable="true" type="dx:address" />
+      <xsd:element name="packingDate" nillable="true" type="dx:packingDate" />
+      <xsd:element name="katashikiJerseyNumber" nillable="true" type="dx:katashikiJerseyNumber" />
+      <xsd:element name="lotNo" nillable="true" type="dx:lotNo" />
+      <xsd:element name="moduleCategory" nillable="true" type="dx:moduleCategory" />
+      <xsd:element name="partBranchNo" nillable="true" type="dx:partBranchNo" />
+      <xsd:element name="dummy" nillable="true" type="dx:dummy" />
+      <xsd:element name="versionNo" nillable="true" type="dx:versionNo" />
+      <xsd:element name="pdioID" nillable="true" type="dx:pdioID" />
+      <xsd:element name="pdioNo" nillable="true" type="dx:pdioNo" />
+      <xsd:element name="dockCode" nillable="true" type="dx:dockCode" />
+      <xsd:element name="pdioOrderType" nillable="true" type="dx:pdioOrderType" />
+      <xsd:element name="transporterID" nillable="true" type="dx:transporterID" />
+      <xsd:element name="vendorID" nillable="true" type="dx:vendorID" />
+      <xsd:element name="laneID" nillable="true" type="dx:laneID" />
+      <xsd:element name="tier" nillable="true" type="dx:tier" />
+      <xsd:element name="p2PartNo" nillable="true" type="dx:p2PartNo" />
+      <xsd:element name="p2PartSeqNo" nillable="true" type="dx:p2PartSeqNo" />
+      <xsd:element name="p2BackNo" nillable="true" type="dx:p2BackNo" />
+      <xsd:element name="p2QtyOrder" nillable="true" type="dx:p2QtyOrder" />
+      <xsd:element name="deliveryType" nillable="true" type="dx:deliveryType" />
+      <xsd:element name="orgID" nillable="true" type="dx:orgID" />
+      <xsd:element name="deliveryDate" nillable="true" type="dx:deliveryDate" />
+      <xsd:element name="supplyBy" nillable="true" type="dx:supplyBy" />
+      <xsd:element name="supplyDate" nillable="true" type="dx:supplyDate" />
+      <xsd:element name="unpackBy" nillable="true" type="dx:unpackBy" />
+      <xsd:element name="unpackDate" nillable="true" type="dx:unpackDate" />
+      <xsd:element name="robbingBy" nillable="true" type="dx:robbingBy" />
+      <xsd:element name="robbingDate" nillable="true" type="dx:robbingDate" />
+      <xsd:element name="rcvBy" nillable="true" type="dx:rcvBy" />
+      <xsd:element name="rcvDate" nillable="true" type="dx:rcvDate" />
+      <xsd:element name="createdBy" nillable="true" type="dx:createdBy" />
+      <xsd:element name="onOffLineFlag" nillable="true" type="dx:onOffLineFlag" />
+      <xsd:element name="scanBy" nillable="true" type="dx:scanBy" />
+      <xsd:element name="scanDate" nillable="true" type="dx:scanDate" />
+      <xsd:element name="forcePDIOStatus" nillable="true" type="dx:forcePDIOStatus" />
+      <xsd:element name="forcePDIOReasonID" nillable="true" type="dx:forcePDIOReasonID" />
+      <xsd:element name="forceExtStatus" nillable="true" type="dx:forceExtStatus" />
+      <xsd:element name="forceExtReasonID" nillable="true" type="dx:forceExtReasonID" />
+      <xsd:element name="forceP2Status" nillable="true" type="dx:forceP2Status" />
+      <xsd:element name="forcep2ReasonID" nillable="true" type="dx:forcep2ReasonID" />
+      <xsd:element name="scannerScreenCode" nillable="true" type="dx:scannerScreenCode" />
+      <xsd:element name="shopID" nillable="true" type="dx:shopID" />
+      <xsd:element name="msgCode" nillable="true" type="dx:msgCode" />
+      <xsd:element name="msgDesc" nillable="true" type="dx:msgDesc" />
+      <xsd:simpleType name="batchID">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="scannerID">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="processType">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="processCode">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="cdioId">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="cdioNo">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="pillingOrder">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="grossWeight">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="forceCDIOStatus">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="forceCDIOReasonID">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="forceModuleStatus">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="forceModuleReasonID">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="moduleID">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="moduleNo">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="extPartNo">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="extPartNoSfx">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="extPartNoSeq">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="qtyBox">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="manufactureCode">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="supplierCode">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="supplierPlantCode">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="ShippingDock">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="beforePackingRouting">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="receivingCompanyCode">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="receivingPlantCode">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="receivingDockCode">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="packingRoutingCode">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="granterCode">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="orderType">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="kanbanClassification">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="mros">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="orderNo">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="deliveryCode">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="deliveryNo">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="backNumber">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="runoutFlag">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="boxType">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="branchNo">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="address">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="packingDate">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="katashikiJerseyNumber">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="lotNo">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="moduleCategory">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="partBranchNo">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="dummy">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="versionNo">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="pdioID">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="pdioNo">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="dockCode">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="pdioOrderType">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="transporterID">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="vendorID">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="laneID">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="tier">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="p2PartNo">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="p2PartSeqNo">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="p2BackNo">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="p2QtyOrder">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="deliveryType">
+        <xsd:restriction base="xsd:string">
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="orgID">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="deliveryDate">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="supplyBy">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="supplyDate">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="unpackBy">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="unpackDate">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="robbingBy">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="robbingDate">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="rcvBy">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="rcvDate">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="createdBy">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="onOffLineFlag">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="scanBy">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="scanDate">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="forcePDIOStatus">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="forcePDIOReasonID">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="forceExtStatus">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="forceExtReasonID">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="forceP2Status">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="forcep2ReasonID">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="scannerScreenCode">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="shopID">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="msgCode">
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value=".*[^\s].*" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="msgDesc">
+        <xsd:restriction base="xsd:string">
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="perodua_eai_system_ws_docType_eaiHeader">
+    <wsdl:part name="parameters" element="HDR1:eaiHeader" />
+  </wsdl:message>
+  <wsdl:message name="processValidationService_PortType_processValidationRespDoc">
+    <wsdl:part name="parameters" element="tns1:processValidationRespDoc" />
+  </wsdl:message>
+  <wsdl:message name="processValidationService_PortType_processValidationReqDoc">
+    <wsdl:part name="parameters" element="tns1:processValidationReqDoc" />
+  </wsdl:message>
+  <wsdl:portType name="processValidationService_PortType">
+    <wsdl:operation name="processValidation">
+      <wsdl:input message="tns1:processValidationService_PortType_processValidationReqDoc" />
+      <wsdl:output message="tns1:processValidationService_PortType_processValidationRespDoc" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="perodua_eai_process_inventory_ws_processValidationService_Binder" type="tns1:processValidationService_PortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="processValidation">
+      <soap:operation soapAction="perodua_eai_process_inventory_ws_processValidationService_Binder_processValidation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" parts="parameters" />
+        <soap:header message="tns1:perodua_eai_system_ws_docType_eaiHeader" part="parameters" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" parts="parameters" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="processValidationService">
+    <wsdl:port name="perodua_eai_process_inventory_ws_processValidationService_Port" binding="tns1:perodua_eai_process_inventory_ws_processValidationService_Binder">
+      <soap:address location="http://VAWBMTD0.perodua.com.my:4559/ws/perodua.eai.process.inventory.ws:processValidationService/perodua_eai_process_inventory_ws_processValidationService_Port" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

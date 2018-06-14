@@ -38,19 +38,24 @@ Partial Public Class frmSetting
         Me.txtSTPassword = New System.Windows.Forms.TextBox
         Me.Label3 = New System.Windows.Forms.Label
         Me.TabScannerNo = New System.Windows.Forms.TabPage
+        Me.btnBatchSave = New System.Windows.Forms.Button
         Me.Label24 = New System.Windows.Forms.Label
         Me.Label23 = New System.Windows.Forms.Label
         Me.txtSTBatchID = New System.Windows.Forms.TextBox
-        Me.TabWebServices = New System.Windows.Forms.TabPage
+        Me.TabWebServices1 = New System.Windows.Forms.TabPage
+        Me.txtWS1Save = New System.Windows.Forms.Button
+        Me.txtWSDCSLbl = New System.Windows.Forms.Label
+        Me.txtWSDCS = New System.Windows.Forms.TextBox
+        Me.TabWebServices2 = New System.Windows.Forms.TabPage
         Me.Label7 = New System.Windows.Forms.Label
         Me.txtSTWSORAUserPwd = New System.Windows.Forms.TextBox
         Me.Label6 = New System.Windows.Forms.Label
         Me.txtSTWSORAUserID = New System.Windows.Forms.TextBox
-        Me.txtSTWSSave = New System.Windows.Forms.Button
+        Me.txtWS2Save = New System.Windows.Forms.Button
         Me.Label9 = New System.Windows.Forms.Label
         Me.Label8 = New System.Windows.Forms.Label
-        Me.txtSTWSOracle = New System.Windows.Forms.TextBox
-        Me.txtSTWSDCSSP = New System.Windows.Forms.TextBox
+        Me.txtWSOracleCP = New System.Windows.Forms.TextBox
+        Me.txtWSOracleChck = New System.Windows.Forms.TextBox
         Me.TabImport = New System.Windows.Forms.TabPage
         Me.Label21 = New System.Windows.Forms.Label
         Me.Label20 = New System.Windows.Forms.Label
@@ -75,15 +80,13 @@ Partial Public Class frmSetting
         Me.txtSTInterval = New System.Windows.Forms.TextBox
         Me.StatusBar1 = New System.Windows.Forms.StatusBar
         Me.pnlAuthentication = New System.Windows.Forms.Panel
-        Me.btnSubmitLogin = New System.Windows.Forms.Button
-        Me.Panel9 = New System.Windows.Forms.Panel
-        Me.btnCloseLogin = New System.Windows.Forms.Button
-        Me.Label22 = New System.Windows.Forms.Label
-        Me.txtAUTUNM = New System.Windows.Forms.TextBox
+        Me.btnBackAut = New System.Windows.Forms.Button
+        Me.btnVerifyAut = New System.Windows.Forms.Button
+        Me.txtAutUser = New System.Windows.Forms.TextBox
         Me.Label16 = New System.Windows.Forms.Label
         Me.Panel2 = New System.Windows.Forms.Panel
         Me.Label30 = New System.Windows.Forms.Label
-        Me.txtAUTPWD = New System.Windows.Forms.TextBox
+        Me.txtAutPwd = New System.Windows.Forms.TextBox
         Me.Label4 = New System.Windows.Forms.Label
         Me.pnlSetting.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -92,12 +95,12 @@ Partial Public Class frmSetting
         Me.TabScanner.SuspendLayout()
         Me.TabAuthorized.SuspendLayout()
         Me.TabScannerNo.SuspendLayout()
-        Me.TabWebServices.SuspendLayout()
+        Me.TabWebServices1.SuspendLayout()
+        Me.TabWebServices2.SuspendLayout()
         Me.TabImport.SuspendLayout()
         Me.TabDatabase.SuspendLayout()
         Me.TabInterval.SuspendLayout()
         Me.pnlAuthentication.SuspendLayout()
-        Me.Panel9.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -119,6 +122,7 @@ Partial Public Class frmSetting
         Me.btnSTBack.Name = "btnSTBack"
         Me.btnSTBack.Size = New System.Drawing.Size(134, 23)
         Me.btnSTBack.TabIndex = 1
+        Me.btnSTBack.TabStop = False
         Me.btnSTBack.Text = "Back"
         '
         'Panel1
@@ -144,7 +148,8 @@ Partial Public Class frmSetting
         Me.TabSetting.Controls.Add(Me.TabScanner)
         Me.TabSetting.Controls.Add(Me.TabAuthorized)
         Me.TabSetting.Controls.Add(Me.TabScannerNo)
-        Me.TabSetting.Controls.Add(Me.TabWebServices)
+        Me.TabSetting.Controls.Add(Me.TabWebServices1)
+        Me.TabSetting.Controls.Add(Me.TabWebServices2)
         Me.TabSetting.Controls.Add(Me.TabImport)
         Me.TabSetting.Controls.Add(Me.TabDatabase)
         Me.TabSetting.Controls.Add(Me.TabInterval)
@@ -176,7 +181,7 @@ Partial Public Class frmSetting
         '
         Me.cboOrganization.Location = New System.Drawing.Point(110, 32)
         Me.cboOrganization.Name = "cboOrganization"
-        Me.cboOrganization.Size = New System.Drawing.Size(142, 23)
+        Me.cboOrganization.Size = New System.Drawing.Size(194, 23)
         Me.cboOrganization.TabIndex = 5
         '
         'btnOrgSave
@@ -207,8 +212,11 @@ Partial Public Class frmSetting
         '
         'txtSTSCNID
         '
+        Me.txtSTSCNID.BackColor = System.Drawing.SystemColors.ScrollBar
+        Me.txtSTSCNID.Enabled = False
         Me.txtSTSCNID.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
         Me.txtSTSCNID.Location = New System.Drawing.Point(88, 24)
+        Me.txtSTSCNID.Multiline = True
         Me.txtSTSCNID.Name = "txtSTSCNID"
         Me.txtSTSCNID.ReadOnly = True
         Me.txtSTSCNID.Size = New System.Drawing.Size(194, 21)
@@ -272,6 +280,7 @@ Partial Public Class frmSetting
         '
         'TabScannerNo
         '
+        Me.TabScannerNo.Controls.Add(Me.btnBatchSave)
         Me.TabScannerNo.Controls.Add(Me.Label24)
         Me.TabScannerNo.Controls.Add(Me.Label23)
         Me.TabScannerNo.Controls.Add(Me.txtSTBatchID)
@@ -279,6 +288,15 @@ Partial Public Class frmSetting
         Me.TabScannerNo.Name = "TabScannerNo"
         Me.TabScannerNo.Size = New System.Drawing.Size(312, 158)
         Me.TabScannerNo.Text = "Batch"
+        '
+        'btnBatchSave
+        '
+        Me.btnBatchSave.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.btnBatchSave.Location = New System.Drawing.Point(218, 121)
+        Me.btnBatchSave.Name = "btnBatchSave"
+        Me.btnBatchSave.Size = New System.Drawing.Size(86, 23)
+        Me.btnBatchSave.TabIndex = 4
+        Me.btnBatchSave.Text = "Save"
         '
         'Label24
         '
@@ -299,25 +317,61 @@ Partial Public Class frmSetting
         'txtSTBatchID
         '
         Me.txtSTBatchID.Location = New System.Drawing.Point(26, 63)
+        Me.txtSTBatchID.MaxLength = 3
         Me.txtSTBatchID.Name = "txtSTBatchID"
         Me.txtSTBatchID.Size = New System.Drawing.Size(124, 23)
         Me.txtSTBatchID.TabIndex = 0
         '
-        'TabWebServices
+        'TabWebServices1
         '
-        Me.TabWebServices.Controls.Add(Me.Label7)
-        Me.TabWebServices.Controls.Add(Me.txtSTWSORAUserPwd)
-        Me.TabWebServices.Controls.Add(Me.Label6)
-        Me.TabWebServices.Controls.Add(Me.txtSTWSORAUserID)
-        Me.TabWebServices.Controls.Add(Me.txtSTWSSave)
-        Me.TabWebServices.Controls.Add(Me.Label9)
-        Me.TabWebServices.Controls.Add(Me.Label8)
-        Me.TabWebServices.Controls.Add(Me.txtSTWSOracle)
-        Me.TabWebServices.Controls.Add(Me.txtSTWSDCSSP)
-        Me.TabWebServices.Location = New System.Drawing.Point(4, 25)
-        Me.TabWebServices.Name = "TabWebServices"
-        Me.TabWebServices.Size = New System.Drawing.Size(312, 158)
-        Me.TabWebServices.Text = "Web Services"
+        Me.TabWebServices1.Controls.Add(Me.txtWS1Save)
+        Me.TabWebServices1.Controls.Add(Me.txtWSDCSLbl)
+        Me.TabWebServices1.Controls.Add(Me.txtWSDCS)
+        Me.TabWebServices1.Location = New System.Drawing.Point(4, 25)
+        Me.TabWebServices1.Name = "TabWebServices1"
+        Me.TabWebServices1.Size = New System.Drawing.Size(312, 158)
+        Me.TabWebServices1.Text = "Web Service 1"
+        '
+        'txtWS1Save
+        '
+        Me.txtWS1Save.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.txtWS1Save.Location = New System.Drawing.Point(219, 124)
+        Me.txtWS1Save.Name = "txtWS1Save"
+        Me.txtWS1Save.Size = New System.Drawing.Size(86, 23)
+        Me.txtWS1Save.TabIndex = 9
+        Me.txtWS1Save.Text = "Save"
+        '
+        'txtWSDCSLbl
+        '
+        Me.txtWSDCSLbl.Location = New System.Drawing.Point(8, 11)
+        Me.txtWSDCSLbl.Name = "txtWSDCSLbl"
+        Me.txtWSDCSLbl.Size = New System.Drawing.Size(159, 20)
+        Me.txtWSDCSLbl.Text = "WebService DCSJSP URL"
+        '
+        'txtWSDCS
+        '
+        Me.txtWSDCS.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.txtWSDCS.Location = New System.Drawing.Point(8, 32)
+        Me.txtWSDCS.MaxLength = 100
+        Me.txtWSDCS.Name = "txtWSDCS"
+        Me.txtWSDCS.Size = New System.Drawing.Size(297, 21)
+        Me.txtWSDCS.TabIndex = 8
+        '
+        'TabWebServices2
+        '
+        Me.TabWebServices2.Controls.Add(Me.Label7)
+        Me.TabWebServices2.Controls.Add(Me.txtSTWSORAUserPwd)
+        Me.TabWebServices2.Controls.Add(Me.Label6)
+        Me.TabWebServices2.Controls.Add(Me.txtSTWSORAUserID)
+        Me.TabWebServices2.Controls.Add(Me.txtWS2Save)
+        Me.TabWebServices2.Controls.Add(Me.Label9)
+        Me.TabWebServices2.Controls.Add(Me.Label8)
+        Me.TabWebServices2.Controls.Add(Me.txtWSOracleCP)
+        Me.TabWebServices2.Controls.Add(Me.txtWSOracleChck)
+        Me.TabWebServices2.Location = New System.Drawing.Point(4, 25)
+        Me.TabWebServices2.Name = "TabWebServices2"
+        Me.TabWebServices2.Size = New System.Drawing.Size(312, 158)
+        Me.TabWebServices2.Text = "Web Services 2"
         '
         'Label7
         '
@@ -351,46 +405,46 @@ Partial Public Class frmSetting
         Me.txtSTWSORAUserID.Size = New System.Drawing.Size(127, 21)
         Me.txtSTWSORAUserID.TabIndex = 10
         '
-        'txtSTWSSave
+        'txtWS2Save
         '
-        Me.txtSTWSSave.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.txtSTWSSave.Location = New System.Drawing.Point(218, 121)
-        Me.txtSTWSSave.Name = "txtSTWSSave"
-        Me.txtSTWSSave.Size = New System.Drawing.Size(86, 23)
-        Me.txtSTWSSave.TabIndex = 6
-        Me.txtSTWSSave.Text = "Save"
+        Me.txtWS2Save.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.txtWS2Save.Location = New System.Drawing.Point(218, 121)
+        Me.txtWS2Save.Name = "txtWS2Save"
+        Me.txtWS2Save.Size = New System.Drawing.Size(86, 23)
+        Me.txtWS2Save.TabIndex = 6
+        Me.txtWS2Save.Text = "Save"
         '
         'Label9
         '
         Me.Label9.Location = New System.Drawing.Point(7, 55)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(159, 20)
-        Me.Label9.Text = "WebService Oracle URL : "
+        Me.Label9.Text = "Complete URL:"
         '
         'Label8
         '
         Me.Label8.Location = New System.Drawing.Point(7, 8)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(159, 20)
-        Me.Label8.Text = "WebService DCSJSP URL :"
+        Me.Label8.Text = "Checking URL:"
         '
-        'txtSTWSOracle
+        'txtWSOracleCP
         '
-        Me.txtSTWSOracle.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.txtSTWSOracle.Location = New System.Drawing.Point(7, 77)
-        Me.txtSTWSOracle.MaxLength = 200
-        Me.txtSTWSOracle.Name = "txtSTWSOracle"
-        Me.txtSTWSOracle.Size = New System.Drawing.Size(297, 21)
-        Me.txtSTWSOracle.TabIndex = 5
+        Me.txtWSOracleCP.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.txtWSOracleCP.Location = New System.Drawing.Point(7, 77)
+        Me.txtWSOracleCP.MaxLength = 300
+        Me.txtWSOracleCP.Name = "txtWSOracleCP"
+        Me.txtWSOracleCP.Size = New System.Drawing.Size(297, 21)
+        Me.txtWSOracleCP.TabIndex = 5
         '
-        'txtSTWSDCSSP
+        'txtWSOracleChck
         '
-        Me.txtSTWSDCSSP.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.txtSTWSDCSSP.Location = New System.Drawing.Point(7, 29)
-        Me.txtSTWSDCSSP.MaxLength = 100
-        Me.txtSTWSDCSSP.Name = "txtSTWSDCSSP"
-        Me.txtSTWSDCSSP.Size = New System.Drawing.Size(297, 21)
-        Me.txtSTWSDCSSP.TabIndex = 4
+        Me.txtWSOracleChck.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.txtWSOracleChck.Location = New System.Drawing.Point(7, 29)
+        Me.txtWSOracleChck.MaxLength = 300
+        Me.txtWSOracleChck.Name = "txtWSOracleChck"
+        Me.txtWSOracleChck.Size = New System.Drawing.Size(297, 21)
+        Me.txtWSOracleChck.TabIndex = 4
         '
         'TabImport
         '
@@ -609,60 +663,44 @@ Partial Public Class frmSetting
         'pnlAuthentication
         '
         Me.pnlAuthentication.BackColor = System.Drawing.Color.Transparent
-        Me.pnlAuthentication.Controls.Add(Me.btnSubmitLogin)
-        Me.pnlAuthentication.Controls.Add(Me.Panel9)
-        Me.pnlAuthentication.Controls.Add(Me.txtAUTUNM)
+        Me.pnlAuthentication.Controls.Add(Me.btnBackAut)
+        Me.pnlAuthentication.Controls.Add(Me.btnVerifyAut)
+        Me.pnlAuthentication.Controls.Add(Me.txtAutUser)
         Me.pnlAuthentication.Controls.Add(Me.Label16)
         Me.pnlAuthentication.Controls.Add(Me.Panel2)
-        Me.pnlAuthentication.Controls.Add(Me.txtAUTPWD)
+        Me.pnlAuthentication.Controls.Add(Me.txtAutPwd)
         Me.pnlAuthentication.Controls.Add(Me.Label4)
         Me.pnlAuthentication.Location = New System.Drawing.Point(331, 3)
         Me.pnlAuthentication.Name = "pnlAuthentication"
         Me.pnlAuthentication.Size = New System.Drawing.Size(320, 275)
         Me.pnlAuthentication.Visible = False
         '
-        'btnSubmitLogin
+        'btnBackAut
         '
-        Me.btnSubmitLogin.Location = New System.Drawing.Point(0, 225)
-        Me.btnSubmitLogin.Name = "btnSubmitLogin"
-        Me.btnSubmitLogin.Size = New System.Drawing.Size(320, 22)
-        Me.btnSubmitLogin.TabIndex = 92
-        Me.btnSubmitLogin.Text = "Submit"
+        Me.btnBackAut.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.btnBackAut.Location = New System.Drawing.Point(32, 201)
+        Me.btnBackAut.Name = "btnBackAut"
+        Me.btnBackAut.Size = New System.Drawing.Size(129, 22)
+        Me.btnBackAut.TabIndex = 34
+        Me.btnBackAut.TabStop = False
+        Me.btnBackAut.Text = "Back"
         '
-        'Panel9
+        'btnVerifyAut
         '
-        Me.Panel9.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Panel9.Controls.Add(Me.btnCloseLogin)
-        Me.Panel9.Controls.Add(Me.Label22)
-        Me.Panel9.Location = New System.Drawing.Point(0, 247)
-        Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(320, 24)
+        Me.btnVerifyAut.Location = New System.Drawing.Point(167, 201)
+        Me.btnVerifyAut.Name = "btnVerifyAut"
+        Me.btnVerifyAut.Size = New System.Drawing.Size(130, 22)
+        Me.btnVerifyAut.TabIndex = 92
+        Me.btnVerifyAut.Text = "Verify"
         '
-        'btnCloseLogin
+        'txtAutUser
         '
-        Me.btnCloseLogin.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.btnCloseLogin.Location = New System.Drawing.Point(200, 2)
-        Me.btnCloseLogin.Name = "btnCloseLogin"
-        Me.btnCloseLogin.Size = New System.Drawing.Size(110, 20)
-        Me.btnCloseLogin.TabIndex = 34
-        Me.btnCloseLogin.Text = "Close"
-        '
-        'Label22
-        '
-        Me.Label22.ForeColor = System.Drawing.Color.Black
-        Me.Label22.Location = New System.Drawing.Point(0, 3)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(209, 18)
-        Me.Label22.Text = "USER NAME:"
-        '
-        'txtAUTUNM
-        '
-        Me.txtAUTUNM.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.txtAUTUNM.Location = New System.Drawing.Point(32, 81)
-        Me.txtAUTUNM.MaxLength = 50
-        Me.txtAUTUNM.Name = "txtAUTUNM"
-        Me.txtAUTUNM.Size = New System.Drawing.Size(265, 21)
-        Me.txtAUTUNM.TabIndex = 86
+        Me.txtAutUser.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.txtAutUser.Location = New System.Drawing.Point(32, 81)
+        Me.txtAutUser.MaxLength = 50
+        Me.txtAutUser.Name = "txtAutUser"
+        Me.txtAutUser.Size = New System.Drawing.Size(265, 21)
+        Me.txtAutUser.TabIndex = 86
         '
         'Label16
         '
@@ -687,18 +725,18 @@ Partial Public Class frmSetting
         Me.Label30.Location = New System.Drawing.Point(56, 1)
         Me.Label30.Name = "Label30"
         Me.Label30.Size = New System.Drawing.Size(209, 21)
-        Me.Label30.Text = "Login"
+        Me.Label30.Text = "Authentication"
         Me.Label30.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'txtAUTPWD
+        'txtAutPwd
         '
-        Me.txtAUTPWD.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.txtAUTPWD.Location = New System.Drawing.Point(32, 127)
-        Me.txtAUTPWD.MaxLength = 50
-        Me.txtAUTPWD.Name = "txtAUTPWD"
-        Me.txtAUTPWD.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.txtAUTPWD.Size = New System.Drawing.Size(265, 21)
-        Me.txtAUTPWD.TabIndex = 82
+        Me.txtAutPwd.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.txtAutPwd.Location = New System.Drawing.Point(32, 127)
+        Me.txtAutPwd.MaxLength = 50
+        Me.txtAutPwd.Name = "txtAutPwd"
+        Me.txtAutPwd.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.txtAutPwd.Size = New System.Drawing.Size(265, 21)
+        Me.txtAutPwd.TabIndex = 82
         '
         'Label4
         '
@@ -731,12 +769,12 @@ Partial Public Class frmSetting
         Me.TabScanner.ResumeLayout(False)
         Me.TabAuthorized.ResumeLayout(False)
         Me.TabScannerNo.ResumeLayout(False)
-        Me.TabWebServices.ResumeLayout(False)
+        Me.TabWebServices1.ResumeLayout(False)
+        Me.TabWebServices2.ResumeLayout(False)
         Me.TabImport.ResumeLayout(False)
         Me.TabDatabase.ResumeLayout(False)
         Me.TabInterval.ResumeLayout(False)
         Me.pnlAuthentication.ResumeLayout(False)
-        Me.Panel9.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.ResumeLayout(False)
 
@@ -747,7 +785,7 @@ Partial Public Class frmSetting
     Friend WithEvents TabSetting As System.Windows.Forms.TabControl
     Friend WithEvents TabScanner As System.Windows.Forms.TabPage
     Friend WithEvents TabAuthorized As System.Windows.Forms.TabPage
-    Friend WithEvents TabWebServices As System.Windows.Forms.TabPage
+    Friend WithEvents TabWebServices2 As System.Windows.Forms.TabPage
     Friend WithEvents TabImport As System.Windows.Forms.TabPage
     Friend WithEvents TabDatabase As System.Windows.Forms.TabPage
     Friend WithEvents txtSTSCNID As System.Windows.Forms.TextBox
@@ -756,11 +794,11 @@ Partial Public Class frmSetting
     Friend WithEvents btnSTAUTPwd As System.Windows.Forms.Button
     Friend WithEvents txtSTPassword As System.Windows.Forms.TextBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents txtSTWSOracle As System.Windows.Forms.TextBox
-    Friend WithEvents txtSTWSDCSSP As System.Windows.Forms.TextBox
+    Friend WithEvents txtWSOracleCP As System.Windows.Forms.TextBox
+    Friend WithEvents txtWSOracleChck As System.Windows.Forms.TextBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents Label9 As System.Windows.Forms.Label
-    Friend WithEvents txtSTWSSave As System.Windows.Forms.Button
+    Friend WithEvents txtWS2Save As System.Windows.Forms.Button
     Friend WithEvents btnImportSave As System.Windows.Forms.Button
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents cboImpDay As System.Windows.Forms.ComboBox
@@ -772,7 +810,7 @@ Partial Public Class frmSetting
     Friend WithEvents Label18 As System.Windows.Forms.Label
     Friend WithEvents pnlAuthentication As System.Windows.Forms.Panel
     Friend WithEvents Label30 As System.Windows.Forms.Label
-    Friend WithEvents txtAUTPWD As System.Windows.Forms.TextBox
+    Friend WithEvents txtAutPwd As System.Windows.Forms.TextBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents txtDBName As System.Windows.Forms.TextBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
@@ -790,7 +828,7 @@ Partial Public Class frmSetting
     Friend WithEvents TabOrganization As System.Windows.Forms.TabPage
     Friend WithEvents txtSTUsername As System.Windows.Forms.TextBox
     Friend WithEvents Label15 As System.Windows.Forms.Label
-    Friend WithEvents txtAUTUNM As System.Windows.Forms.TextBox
+    Friend WithEvents txtAutUser As System.Windows.Forms.TextBox
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents Label17 As System.Windows.Forms.Label
     Friend WithEvents Label21 As System.Windows.Forms.Label
@@ -799,13 +837,16 @@ Partial Public Class frmSetting
     Friend WithEvents cboOrganization As System.Windows.Forms.ComboBox
     Friend WithEvents btnOrgSave As System.Windows.Forms.Button
     Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents Panel9 As System.Windows.Forms.Panel
-    Friend WithEvents btnCloseLogin As System.Windows.Forms.Button
-    Friend WithEvents Label22 As System.Windows.Forms.Label
-    Friend WithEvents btnSubmitLogin As System.Windows.Forms.Button
+    Friend WithEvents btnBackAut As System.Windows.Forms.Button
+    Friend WithEvents btnVerifyAut As System.Windows.Forms.Button
     Friend WithEvents TabScannerNo As System.Windows.Forms.TabPage
     Friend WithEvents Label24 As System.Windows.Forms.Label
     Friend WithEvents Label23 As System.Windows.Forms.Label
     Friend WithEvents txtSTBatchID As System.Windows.Forms.TextBox
+    Friend WithEvents TabWebServices1 As System.Windows.Forms.TabPage
+    Friend WithEvents txtWS1Save As System.Windows.Forms.Button
+    Friend WithEvents txtWSDCSLbl As System.Windows.Forms.Label
+    Friend WithEvents txtWSDCS As System.Windows.Forms.TextBox
+    Friend WithEvents btnBatchSave As System.Windows.Forms.Button
 
 End Class
