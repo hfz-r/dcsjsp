@@ -218,7 +218,7 @@ Public Class frmChildPart
         sqlStr = String.Format("{0}null, ", sqlStr) 'PXP_PART_ID
         sqlStr = String.Format("{0}{1} , ", sqlStr, SQLQuote(partNo)) 'PXP_PART_NO
         sqlStr = String.Format("{0}{1} , ", sqlStr, SQLQuote(partNoSfx)) 'PXP_PART_NO_SFX
-        sqlStr = String.Format("{0}{1} , ", sqlStr, seqNo) 'PXP_PART_SEQ_NO
+        sqlStr = String.Format("{0}{1} , ", sqlStr, SQLQuote(seqNo)) 'PXP_PART_SEQ_NO
         If qty = Nothing Then
             sqlStr = String.Format("{0}null , ", sqlStr) 'QTY_BOX
         Else
@@ -392,7 +392,8 @@ Public Class frmChildPart
 
             GetVendor(cmbVendor)
             GetVendor(cmbVendorAbn)
-            GetReason()
+            'GetReason()
+            Call GetAbnReasonCode(lstViewRCVFScan)
             InitWebServices()
             bringPanelToFront(pnlCPMain, pnlCPScanPart)
             Cursor.Current = Cursors.Default
@@ -484,8 +485,8 @@ Public Class frmChildPart
                             txtPxPQR.Focus()
                             txtPxPQR.SelectAll()
                             lblCPStatusMsg.BackColor = Color.Red
-                            lblCPStatusMsg.Text = "Duplicate Part No"
-                            lblCPStatusMsgDesc.Text = String.Empty
+                            lblCPStatusMsg.Text = "NG"
+                            lblCPStatusMsgDesc.Text = "Duplicate Part No"
                             Cursor.Current = Cursors.Default
                         Else
                             If Not String.IsNullOrEmpty(cmbVendor.Text) Then
@@ -544,10 +545,10 @@ Public Class frmChildPart
                 If forceStatus = "Y" Then
                     ptNo = partNo.Insert(5, "-") & "-" & partNoSfx
                     dtDetail = ws_dcsClient.getData("QTY, MODULE_ID", TblJSPSupplyCPDetailsView, _
-                                                                       " AND PART_NUMBER = " & SQLQuote(ptNo) & _
-                                                                       " AND MODULE_NO = " & SQLQuote(moduleno) & _
-                                                                       " AND BRANCH_NO = " & branch & _
-                                                                       " AND SEQUENCE_NO = " & seqNo)
+                                                    " AND PART_NUMBER = " & SQLQuote(ptNo) & _
+                                                    " AND MODULE_NO = " & SQLQuote(moduleno) & _
+                                                    " AND BRANCH_NO = " & branch & _
+                                                    " AND SEQUENCE_NO = " & seqNo)
                     If dtDetail.Rows.Count > 0 Then
                         msgCode = ws_validationClient.processValidation(GetBatchID("CHILD_PART", "4"), gScannerID, "SUPPLY", "601", Nothing, _
                                                      Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, _
@@ -655,6 +656,7 @@ Public Class frmChildPart
                     lblCPStatusMsg.BackColor = Color.Transparent
                     lblCPStatusMsg.Text = String.Empty
                     lblCPStatusMsgDesc.Text = String.Empty
+
                     dbReader = OpenRecordset(String.Format("SELECT COUNT(*) FROM {0} WHERE RCV_INTERFACE_BATCH_ID = '{1}'", TblJSPSupplyInterface, GetBatchID("CHILD_PART", "4")), objConn)
                     If dbReader.Read Then
                         If CInt(dbReader(0)) > 0 Then
@@ -773,18 +775,25 @@ Public Class frmChildPart
     End Sub
 
     Private Sub btnBackFScan_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBackFScan.Click
-        Me.Text = strOnlineTitle
         ClearFS()
         If isNormal Then
+            Me.Text = strOnlineTitle
             bringPanelToFront(pnlCPScanPart, pnlCPFScan)
+            txtPxPQR.Focus()
+            txtPxPQR.SelectAll()
         Else
+            Me.Text = strOfflineTitle
             bringPanelToFront(pnlCPAbnScan, pnlCPFScan)
+            txtPxPQRAbn.Focus()
+            txtPxPQRAbn.SelectAll()
         End If
     End Sub
 
     Private Sub btnBackCPViewDet_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBackCPViewDet.Click
         Me.Text = strOnlineTitle
         bringPanelToFront(pnlCPScanPart, pnlCPViewDet)
+        txtPxPQR.Focus()
+        txtPxPQR.SelectAll()
     End Sub
 
 #End Region
@@ -845,7 +854,8 @@ Public Class frmChildPart
         lblCPStatusMsgAbn.BackColor = Color.Transparent
         txtFSModuleNo.Focus()
         txtFSModuleNo.SelectAll()
-        GetReason()
+        'GetReason()
+        Call GetAbnReasonCode(lstViewRCVFScan)
         isNormal = False
         Me.Text = strOfflineTitle
         bringPanelToFront(pnlCPFScan, pnlCPAbnScan)
@@ -869,6 +879,8 @@ Public Class frmChildPart
     Private Sub btnCloseCPViewDet_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCloseCPViewDet.Click
         Me.Text = strOfflineTitle
         bringPanelToFront(currentPanel, pnlCPAbnViewDet)
+        txtPxPQRAbn.Focus()
+        txtPxPQRAbn.SelectAll()
     End Sub
 
     Private Sub btnCPAbnPost_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCPAbnPost.Click
@@ -945,6 +957,7 @@ Public Class frmChildPart
         If Not String.IsNullOrEmpty(cmbVendorAbn.Text) Then
             Cursor.Current = Cursors.WaitCursor
             moduleno = module_cat + lotNo
+
             dbReader = OpenRecordset(String.Format("SELECT COUNT(*) FROM {0} WHERE PXP_PART_NO = '{1}' AND MODULE_NO = '{2}' AND PXP_PART_SEQ_NO = '{3}' AND PART_BRANCH_NO = '{4}' AND VENDOR_ID = {5}", TblJSPSupplyInterface, partNo, moduleno, seqNo, branch, cmbVendorAbn.SelectedValue), objConn)
             If dbReader.Read Then
                 If CInt(dbReader(0)) > 0 Then

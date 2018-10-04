@@ -7,6 +7,7 @@ Imports System.Data.SqlClient
 Imports System.Globalization
 Imports System.Text.RegularExpressions
 Imports System.Net
+Imports System.Threading
 
 Public Class frmProgressLane
 
@@ -102,7 +103,7 @@ Public Class frmProgressLane
     End Class
 
     Private Class KanbanQR_Input
-        Private _pdio_id As String = String.Empty
+        Private _pdio_id As String = Nothing
         Property PDIO_ID() As String
             Get
                 Return _pdio_id
@@ -112,7 +113,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _pdio_no As String = String.Empty
+        Private _pdio_no As String = Nothing
         Property PDIO_NO() As String
             Get
                 Return _pdio_no
@@ -122,7 +123,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _delivery_date As String = String.Empty
+        Private _delivery_date As String = Nothing
         Property DELIVERY_DATE() As String
             Get
                 Return _delivery_date
@@ -132,7 +133,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _dock_code As String = String.Empty
+        Private _dock_code As String = Nothing
         Property DOCK_CODE() As String
             Get
                 Return _dock_code
@@ -142,7 +143,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _order_type As String = String.Empty
+        Private _order_type As String = Nothing
         Property ORDER_TYPE() As String
             Get
                 Return _order_type
@@ -152,7 +153,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _vendor_id As String = String.Empty
+        Private _vendor_id As String = Nothing
         Property VENDOR_ID() As String
             Get
                 Return _vendor_id
@@ -162,7 +163,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _transporter_id As String = String.Empty
+        Private _transporter_id As String = Nothing
         Property TRANSPORTER_ID() As String
             Get
                 Return _transporter_id
@@ -172,7 +173,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _lane_id As String = String.Empty
+        Private _lane_id As String = Nothing
         Property LANE_ID() As String
             Get
                 Return _lane_id
@@ -182,7 +183,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _tier As String = String.Empty
+        Private _tier As String = Nothing
         Property TIER() As String
             Get
                 Return _tier
@@ -192,7 +193,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _org_id As String = String.Empty
+        Private _org_id As String = Nothing
         Property ORG_ID() As String
             Get
                 Return _org_id
@@ -202,7 +203,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _part_no As String = String.Empty
+        Private _part_no As String = Nothing
         Property PART_NO() As String
             Get
                 Return _part_no
@@ -212,7 +213,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _back_no As String = String.Empty
+        Private _back_no As String = Nothing
         Property BACK_NO() As String
             Get
                 Return _back_no
@@ -222,7 +223,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _seq_no As String = String.Empty
+        Private _seq_no As String = Nothing
         Property SEQ_NO() As String
             Get
                 Return _seq_no
@@ -232,7 +233,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _transaction_code As String = String.Empty
+        Private _transaction_code As String = Nothing
         Property TRANSACTION_CODE() As String
             Get
                 Return _transaction_code
@@ -242,7 +243,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _qty_order As String = String.Empty
+        Private _qty_order As String = Nothing
         Property QTY_ORDER() As String
             Get
                 Return _qty_order
@@ -252,7 +253,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _delivery_type As String = String.Empty
+        Private _delivery_type As String = Nothing
         Property DELIVERY_TYPE() As String
             Get
                 Return _delivery_type
@@ -262,7 +263,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _scan_flag As String = String.Empty
+        Private _scan_flag As String = Nothing
         Property SCAN_FLAG() As String
             Get
                 Return _scan_flag
@@ -274,7 +275,7 @@ Public Class frmProgressLane
     End Class
 
     Private Class PartQR_Input
-        Private _manufacture_code As String = String.Empty
+        Private _manufacture_code As String = Nothing
         Property MANUFACTURE_CODE() As String
             Get
                 Return _manufacture_code
@@ -284,7 +285,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _module_id As String = String.Empty
+        Private _module_id As String = Nothing
         Property MODULE_ID() As String
             Get
                 Return _module_id
@@ -294,7 +295,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _module_no As String = String.Empty
+        Private _module_no As String = Nothing
         Property MODULE_NO() As String
             Get
                 Return _module_no
@@ -304,7 +305,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _part_id As String = String.Empty
+        Private _part_id As String = Nothing
         Property PART_ID() As String
             Get
                 Return _part_id
@@ -314,7 +315,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _supplier_code As String = String.Empty
+        Private _supplier_code As String = Nothing
         Property SUPPLIER_CODE() As String
             Get
                 Return _supplier_code
@@ -324,7 +325,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _supplier_plant_code As String = String.Empty
+        Private _supplier_plant_code As String = Nothing
         Property SUPPLIER_PLANT_CODE() As String
             Get
                 Return _supplier_plant_code
@@ -334,7 +335,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _supplier_shipping_dock As String = String.Empty
+        Private _supplier_shipping_dock As String = Nothing
         Property SUPPLIER_SHIPPING_DOCK() As String
             Get
                 Return _supplier_shipping_dock
@@ -344,7 +345,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _before_packing_routing As String = String.Empty
+        Private _before_packing_routing As String = Nothing
         Property BEFORE_PACKING_ROUTING() As String
             Get
                 Return _before_packing_routing
@@ -354,7 +355,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _receiving_company_code As String = String.Empty
+        Private _receiving_company_code As String = Nothing
         Property RECEIVING_COMPANY_CODE() As String
             Get
                 Return _receiving_company_code
@@ -364,7 +365,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _receiving_plant_code As String = String.Empty
+        Private _receiving_plant_code As String = Nothing
         Property RECEIVING_PLANT_CODE() As String
             Get
                 Return _receiving_plant_code
@@ -374,7 +375,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _receiving_dock_code As String = String.Empty
+        Private _receiving_dock_code As String = Nothing
         Property RECEIVING_DOCK_CODE() As String
             Get
                 Return _receiving_dock_code
@@ -384,7 +385,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _packing_routing_code As String = String.Empty
+        Private _packing_routing_code As String = Nothing
         Property PACKING_ROUTING_CODE() As String
             Get
                 Return _packing_routing_code
@@ -394,7 +395,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _granter_code As String = String.Empty
+        Private _granter_code As String = Nothing
         Property GRANTER_CODE() As String
             Get
                 Return _granter_code
@@ -404,7 +405,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _order_type As String = String.Empty
+        Private _order_type As String = Nothing
         Property ORDER_TYPE() As String
             Get
                 Return _order_type
@@ -414,7 +415,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _kanban_classification As String = String.Empty
+        Private _kanban_classification As String = Nothing
         Property KANBAN_CLASSIFICATION() As String
             Get
                 Return _kanban_classification
@@ -424,7 +425,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _delivery_date As String = String.Empty
+        Private _delivery_date As String = Nothing
         Property DELIVERY_DATE() As String
             Get
                 Return _delivery_date
@@ -434,7 +435,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _delivery_code As String = String.Empty
+        Private _delivery_code As String = Nothing
         Property DELIVERY_CODE() As String
             Get
                 Return _delivery_code
@@ -444,7 +445,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _mros As String = String.Empty
+        Private _mros As String = Nothing
         Property MROS() As String
             Get
                 Return _mros
@@ -454,7 +455,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _order_number As String = String.Empty
+        Private _order_number As String = Nothing
         Property ORDER_NUMBER() As String
             Get
                 Return _order_number
@@ -464,7 +465,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _delivery_number As String = String.Empty
+        Private _delivery_number As String = Nothing
         Property DELIVERY_NUMBER() As String
             Get
                 Return _delivery_number
@@ -474,7 +475,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _back_number As String = String.Empty
+        Private _back_number As String = Nothing
         Property BACK_NUMBER() As String
             Get
                 Return _back_number
@@ -484,7 +485,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _parts_no As String = String.Empty
+        Private _parts_no As String = Nothing
         Property PARTS_NO() As String
             Get
                 Return _parts_no
@@ -494,7 +495,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _part_no_sfx As String = String.Empty
+        Private _part_no_sfx As String = Nothing
         Property PART_NO_SFX() As String
             Get
                 Return _part_no_sfx
@@ -504,7 +505,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _qty_box As String = String.Empty
+        Private _qty_box As String = Nothing
         Property QTY_BOX() As String
             Get
                 Return _qty_box
@@ -514,7 +515,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _runout_flag As String = String.Empty
+        Private _runout_flag As String = Nothing
         Property RUNOUT_FLAG() As String
             Get
                 Return _runout_flag
@@ -524,7 +525,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _delivery_code_2 As String = String.Empty
+        Private _delivery_code_2 As String = Nothing
         Property DELIVERY_CODE_2() As String
             Get
                 Return _delivery_code_2
@@ -534,7 +535,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _box_type As String = String.Empty
+        Private _box_type As String = Nothing
         Property BOX_TYPE() As String
             Get
                 Return _box_type
@@ -544,7 +545,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _branch_number As String = String.Empty
+        Private _branch_number As String = Nothing
         Property BRANCH_NUMBER() As String
             Get
                 Return _branch_number
@@ -554,7 +555,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _address As String = String.Empty
+        Private _address As String = Nothing
         Property ADDRESS() As String
             Get
                 Return _address
@@ -564,7 +565,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _delivery_time As String = String.Empty
+        Private _delivery_time As String = Nothing
         Property DELIVERY_TIME() As String
             Get
                 Return _delivery_time
@@ -574,7 +575,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _packing_date As String = String.Empty
+        Private _packing_date As String = Nothing
         Property PACKING_DATE() As String
             Get
                 Return _packing_date
@@ -584,7 +585,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _katashiki_jersey_number As String = String.Empty
+        Private _katashiki_jersey_number As String = Nothing
         Property KATASHIKI_JERSEY_NUMBER() As String
             Get
                 Return _katashiki_jersey_number
@@ -594,7 +595,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _lot_no As String = String.Empty
+        Private _lot_no As String = Nothing
         Property LOT_NO() As String
             Get
                 Return _lot_no
@@ -604,7 +605,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _module_category As String = String.Empty
+        Private _module_category As String = Nothing
         Property MODULE_CATEGORY() As String
             Get
                 Return _module_category
@@ -614,7 +615,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _part_seq_number As String = String.Empty
+        Private _part_seq_number As String = Nothing
         Property PART_SEQ_NUMBER() As String
             Get
                 Return _part_seq_number
@@ -624,7 +625,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _part_branch_number As String = String.Empty
+        Private _part_branch_number As String = Nothing
         Property PART_BRANCH_NUMBER() As String
             Get
                 Return _part_branch_number
@@ -634,7 +635,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _dummy As String = String.Empty
+        Private _dummy As String = Nothing
         Property DUMMY() As String
             Get
                 Return _dummy
@@ -644,7 +645,7 @@ Public Class frmProgressLane
             End Set
         End Property
 
-        Private _version_no As String = String.Empty
+        Private _version_no As String = Nothing
         Property VERSION_NO() As String
             Get
                 Return _version_no
@@ -722,8 +723,8 @@ Public Class frmProgressLane
                     Exit Sub
                 Else
                     showError = True
-                    txtShoppingNo.Focus()
-                    txtShoppingNo.SelectAll()
+                    'txtShoppingNo.Focus()
+                    'txtShoppingNo.SelectAll()
                 End If
             End If
         End If
@@ -754,7 +755,8 @@ Public Class frmProgressLane
         Dim lstDt As DataTable = getDTData(String.Format( _
                                            "SELECT PXP_PART_SEQ_NO, QTY_BOX, PART_BRANCH_NO, " & _
                                            "P2_PART_NO, P2_PART_SEQ_NO, QTY_ORDER FROM {0} WHERE " & _
-                                           "SCANNER_SCREEN_CODE = '{1}' AND ON_OFF_LINE_FLAG = 'Y' AND PDIO_NO = {2}", TblJSPSupplyInterface, "PL", SQLQuote(SHOP.PDIO_NO)))
+                                           "SCANNER_SCREEN_CODE = '{1}' AND ON_OFF_LINE_FLAG = 'Y' AND PDIO_NO = {2} " & _
+                                           "AND ORG_ID = {3}", TblJSPSupplyInterface, "PL", SQLQuote(SHOP.PDIO_NO), SQLQuote(org_ID)))
 
         For i As Integer = 0 To lstDt.Rows.Count - 1
             lstViewItem = New ListViewItem
@@ -787,8 +789,8 @@ Public Class frmProgressLane
                                            "SELECT PXP_PART_SEQ_NO, QTY_BOX, PART_BRANCH_NO, " & _
                                            "P2_PART_NO, P2_PART_SEQ_NO, QTY_ORDER FROM {0} WHERE " & _
                                            "SCANNER_SCREEN_CODE = '{1}' AND ON_OFF_LINE_FLAG = 'N' " & _
-                                           "AND POSTED IS NULL OR POSTED = '' " & _
-                                           "OR POSTED != 'Y'", TblJSPSupplyInterface, "PL"))
+                                           "AND POSTED IS NULL OR POSTED = '' OR POSTED != 'Y' " & _
+                                           "AND ORG_ID = {2}", TblJSPSupplyInterface, "PL", SQLQuote(org_ID)))
         For i As Integer = 0 To lstDt.Rows.Count - 1
             lstViewItem = New ListViewItem
             lstViewItem.Text = i + 1
@@ -818,8 +820,9 @@ Public Class frmProgressLane
         Dim lstViewItem As ListViewItem
         Dim lstDt As DataTable = getDTData(String.Format( _
                                            "SELECT PXP_PART_SEQ_NO, QTY_BOX, PART_BRANCH_NO, " & _
-                                           "P2_PART_NO, P2_PART_SEQ_NO, QTY_ORDER FROM {0} WHERE" & _
-                                           " SCANNER_SCREEN_CODE = '{1}' AND ON_OFF_LINE_FLAG = 'N'", TblJSPSupplyInterface, "PL"))
+                                           "P2_PART_NO, P2_PART_SEQ_NO, QTY_ORDER FROM {0} WHERE " & _
+                                           "SCANNER_SCREEN_CODE = '{1}' AND ON_OFF_LINE_FLAG = 'N' " & _
+                                           "AND ORG_ID = {2}", TblJSPSupplyInterface, "PL", SQLQuote(org_ID)))
 
         For i As Integer = 0 To lstDt.Rows.Count - 1
             lstViewItem = New ListViewItem
@@ -849,7 +852,9 @@ Public Class frmProgressLane
         lstView.Items.Clear()
         Dim lstViewItem As ListViewItem = New ListViewItem
 
-        Dim lstDt As DataTable = getDTData(String.Format("SELECT * FROM {0} WHERE PDIO_NO = {1}", TblJSPSupplyPLPendingView, SQLQuote(SHOP.PDIO_NO)))
+        Dim lstDt As DataTable = getDTData(String.Format("SELECT * FROM {0} WHERE PDIO_NO = {1} " & _
+                                                         "AND ORG_ID = {2}", TblJSPSupplyPLPendingView, SQLQuote(SHOP.PDIO_NO), _
+                                                         SQLQuote(org_ID)))
         For i As Integer = 0 To lstDt.Rows.Count - 1
             lstViewItem = New ListViewItem
             lstViewItem.Text = i + 1
@@ -903,11 +908,6 @@ Public Class frmProgressLane
             Return False
         ElseIf String.IsNullOrEmpty(txtFSKanbanSeqNo.Text) Then
             MessageBox.Show("Seq No is required")
-            txtFSKanbanSeqNo.SelectAll()
-            txtFSKanbanSeqNo.Focus()
-            Return False
-        ElseIf txtFSKanbanSeqNo.Text.Length <> 2 Then
-            MessageBox.Show("Invalid Seq No format")
             txtFSKanbanSeqNo.SelectAll()
             txtFSKanbanSeqNo.Focus()
             Return False
@@ -990,7 +990,8 @@ Public Class frmProgressLane
         txtFSPxPPartNo.Text = String.Empty
         txtFSPxPSeqNo.Text = String.Empty
         txtFSPxPBranch.Text = String.Empty
-        lstViewFScanExt.Focus()
+        'lstViewFScanExt.Focus()
+        lstViewFScanExt.Items.Item(0).Focused = True
     End Sub
 
 #End Region
@@ -1596,7 +1597,7 @@ Public Class frmProgressLane
 #Region ". Create Table ."
 
     Private Sub DeleteTable()
-        Dim sqlStr As String = String.Format("DELETE FROM {0} WHERE SCANNER_SCREEN_CODE = 'PL'", TblJSPSupplyInterface, GetBatchID("PROGRESS_LANE", "4"))
+        Dim sqlStr As String = String.Format("DELETE FROM {0} WHERE SCANNER_SCREEN_CODE = 'PL'", TblJSPSupplyInterface)
         If ExecuteSQL(sqlStr) = False Then
             MessageBox.Show("Failed to delete {0}", TblJSPSupplyInterface)
         End If
@@ -1692,41 +1693,41 @@ Public Class frmProgressLane
                 sqlStr = String.Format("{0} null, ", sqlStr) 'RCV_INTERFACE_ID
                 sqlStr = String.Format("{0}{1}, ", sqlStr, SQLQuote(GetBatchID("PROGRESS_LANE", "4"))) 'RCV_INTERFACE_BATCH_ID
                 If KB.TRANSACTION_CODE = "01" Then
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(PART.MODULE_ID = Nothing, "null", IIf(PART.MODULE_ID.Trim() = String.Empty, "null", PART.MODULE_ID))) 'MODULE_ID
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.MODULE_NO.Trim() = String.Empty, SQLQuote(PART.MODULE_NO), "null")) 'MODULE_NO
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.PART_ID.Trim() = String.Empty, PART.PART_ID, "null")) 'PXP_PART_ID
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.PARTS_NO.Trim() = String.Empty, SQLQuote(PART.PARTS_NO), "null")) 'PXP_PART_NO
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.PART_NO_SFX.Trim() = String.Empty, SQLQuote(PART.PART_NO_SFX), "null")) 'PXP_PART_NO_SFX
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.PART_SEQ_NUMBER.Trim() = String.Empty, SQLQuote(PART.PART_SEQ_NUMBER), "null")) 'PXP_PART_SEQ_NO
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.QTY_BOX.Trim() = String.Empty, SQLQuote(PART.QTY_BOX), "null")) 'QTY_BOX
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.MANUFACTURE_CODE.Trim() = String.Empty, SQLQuote(PART.MANUFACTURE_CODE), "null")) 'MANUFACTURE_CODE
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.SUPPLIER_CODE.Trim() = String.Empty, SQLQuote(PART.SUPPLIER_CODE), "null")) 'SUPPLIER_CODE
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.SUPPLIER_PLANT_CODE.Trim() = String.Empty, SQLQuote(PART.SUPPLIER_PLANT_CODE), "null")) 'SUPPLIER_PLANT_CODE
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.SUPPLIER_SHIPPING_DOCK.Trim() = String.Empty, SQLQuote(PART.SUPPLIER_SHIPPING_DOCK), "null")) 'SUPPLIER_SHIPPING_DOCK
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.BEFORE_PACKING_ROUTING.Trim() = String.Empty, SQLQuote(PART.BEFORE_PACKING_ROUTING), "null")) 'BEFORE_PACKING_ROUTING
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.RECEIVING_COMPANY_CODE.Trim() = String.Empty, SQLQuote(PART.RECEIVING_COMPANY_CODE), "null")) 'RECEIVING_COMPANY_CODE
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.RECEIVING_PLANT_CODE.Trim() = String.Empty, SQLQuote(PART.RECEIVING_PLANT_CODE), "null")) 'RECEIVING_PLANT_CODE
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.RECEIVING_DOCK_CODE.Trim() = String.Empty, SQLQuote(PART.RECEIVING_DOCK_CODE), "null")) 'RECEIVING_DOCK_CODE
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.PACKING_ROUTING_CODE.Trim() = String.Empty, SQLQuote(PART.PACKING_ROUTING_CODE), "null")) 'PACKING_ROUTING_CODE
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.GRANTER_CODE.Trim() = String.Empty, SQLQuote(PART.GRANTER_CODE), "null")) 'GRANTER_CODE
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.ORDER_TYPE.Trim() = String.Empty, SQLQuote(PART.ORDER_TYPE), "null")) 'ORDER_TYPE
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.KANBAN_CLASSIFICATION.Trim() = String.Empty, SQLQuote(PART.KANBAN_CLASSIFICATION), "null")) 'KANBAN_CLASSIFICATION 
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.DELIVERY_CODE.Trim() = String.Empty, SQLQuote(PART.DELIVERY_CODE), "null")) 'DELIVERY_CODE
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.MROS.Trim() = String.Empty, SQLQuote(PART.MROS), "null")) 'MROS
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.ORDER_NUMBER.Trim() = String.Empty, SQLQuote(PART.ORDER_NUMBER), "null")) 'ORDER_NO
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.DELIVERY_NUMBER.Trim() = String.Empty, SQLQuote(PART.DELIVERY_NUMBER), "null")) 'DELIVERY_NO
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.BACK_NUMBER.Trim() = String.Empty, SQLQuote(PART.BACK_NUMBER), "null")) 'BACK_NUMBER
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(PART.MODULE_ID = Nothing, "null", IIf(PART.MODULE_ID = String.Empty, "null", PART.MODULE_ID))) 'MODULE_ID
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.MODULE_NO = String.Empty, SQLQuote(PART.MODULE_NO), "null")) 'MODULE_NO
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.PART_ID = String.Empty, PART.PART_ID, "null")) 'PXP_PART_ID
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.PARTS_NO = String.Empty, SQLQuote(PART.PARTS_NO), "null")) 'PXP_PART_NO
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.PART_NO_SFX = String.Empty, SQLQuote(PART.PART_NO_SFX), "null")) 'PXP_PART_NO_SFX
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.PART_SEQ_NUMBER = String.Empty, SQLQuote(PART.PART_SEQ_NUMBER), "null")) 'PXP_PART_SEQ_NO
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.QTY_BOX = String.Empty, SQLQuote(PART.QTY_BOX), "null")) 'QTY_BOX
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.MANUFACTURE_CODE = String.Empty, SQLQuote(PART.MANUFACTURE_CODE), "null")) 'MANUFACTURE_CODE
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.SUPPLIER_CODE = String.Empty, SQLQuote(PART.SUPPLIER_CODE), "null")) 'SUPPLIER_CODE
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.SUPPLIER_PLANT_CODE = String.Empty, SQLQuote(PART.SUPPLIER_PLANT_CODE), "null")) 'SUPPLIER_PLANT_CODE
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.SUPPLIER_SHIPPING_DOCK = String.Empty, SQLQuote(PART.SUPPLIER_SHIPPING_DOCK), "null")) 'SUPPLIER_SHIPPING_DOCK
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.BEFORE_PACKING_ROUTING = String.Empty, SQLQuote(PART.BEFORE_PACKING_ROUTING), "null")) 'BEFORE_PACKING_ROUTING
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.RECEIVING_COMPANY_CODE = String.Empty, SQLQuote(PART.RECEIVING_COMPANY_CODE), "null")) 'RECEIVING_COMPANY_CODE
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.RECEIVING_PLANT_CODE = String.Empty, SQLQuote(PART.RECEIVING_PLANT_CODE), "null")) 'RECEIVING_PLANT_CODE
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.RECEIVING_DOCK_CODE = String.Empty, SQLQuote(PART.RECEIVING_DOCK_CODE), "null")) 'RECEIVING_DOCK_CODE
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.PACKING_ROUTING_CODE = String.Empty, SQLQuote(PART.PACKING_ROUTING_CODE), "null")) 'PACKING_ROUTING_CODE
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.GRANTER_CODE = String.Empty, SQLQuote(PART.GRANTER_CODE), "null")) 'GRANTER_CODE
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.ORDER_TYPE = String.Empty, SQLQuote(PART.ORDER_TYPE), "null")) 'ORDER_TYPE
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.KANBAN_CLASSIFICATION = String.Empty, SQLQuote(PART.KANBAN_CLASSIFICATION), "null")) 'KANBAN_CLASSIFICATION 
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.DELIVERY_CODE = String.Empty, SQLQuote(PART.DELIVERY_CODE), "null")) 'DELIVERY_CODE
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.MROS = String.Empty, SQLQuote(PART.MROS), "null")) 'MROS
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.ORDER_NUMBER = String.Empty, SQLQuote(PART.ORDER_NUMBER), "null")) 'ORDER_NO
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.DELIVERY_NUMBER = String.Empty, SQLQuote(PART.DELIVERY_NUMBER), "null")) 'DELIVERY_NO
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.BACK_NUMBER = String.Empty, SQLQuote(PART.BACK_NUMBER), "null")) 'BACK_NUMBER
                     sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.RUNOUT_FLAG = Nothing, SQLQuote(PART.RUNOUT_FLAG), "null")) 'RUNOUT_FLAG
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.BOX_TYPE.Trim() = Nothing, SQLQuote(PART.BOX_TYPE), "null")) 'BOX_TYPE
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.BRANCH_NUMBER.Trim() = String.Empty, SQLQuote(PART.BRANCH_NUMBER), "null")) 'BRANCH_NO
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.ADDRESS.Trim() = String.Empty, SQLQuote(PART.ADDRESS), "null")) 'ADDRESS
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.PACKING_DATE.Trim() = String.Empty, SQLQuote(PART.PACKING_DATE), "null")) 'PACKING_DATE
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.KATASHIKI_JERSEY_NUMBER.Trim() = String.Empty, SQLQuote(PART.KATASHIKI_JERSEY_NUMBER), "null")) 'KATASHIKI_JERSEY_NO
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.LOT_NO.Trim() = String.Empty, SQLQuote(PART.LOT_NO), "null")) 'LOT_NO
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.MODULE_CATEGORY.Trim() = String.Empty, SQLQuote(PART.MODULE_CATEGORY), "null")) 'MODULE_CATEGORY
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.PART_BRANCH_NUMBER.Trim() = String.Empty, SQLQuote(PART.PART_BRANCH_NUMBER), "null")) 'PART_BRANCH_NO
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.DUMMY.Trim() = String.Empty, SQLQuote(PART.DUMMY), "null")) 'DUMMY
-                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.VERSION_NO.Trim() = String.Empty, SQLQuote(PART.VERSION_NO), "null")) 'VERSION_NO
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.BOX_TYPE = Nothing, SQLQuote(PART.BOX_TYPE), "null")) 'BOX_TYPE
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.BRANCH_NUMBER = String.Empty, SQLQuote(PART.BRANCH_NUMBER), "null")) 'BRANCH_NO
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.ADDRESS = String.Empty, SQLQuote(PART.ADDRESS), "null")) 'ADDRESS
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.PACKING_DATE = String.Empty, SQLQuote(PART.PACKING_DATE), "null")) 'PACKING_DATE
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.KATASHIKI_JERSEY_NUMBER = String.Empty, SQLQuote(PART.KATASHIKI_JERSEY_NUMBER), "null")) 'KATASHIKI_JERSEY_NO
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.LOT_NO = String.Empty, SQLQuote(PART.LOT_NO), "null")) 'LOT_NO
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.MODULE_CATEGORY = String.Empty, SQLQuote(PART.MODULE_CATEGORY), "null")) 'MODULE_CATEGORY
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.PART_BRANCH_NUMBER = String.Empty, SQLQuote(PART.PART_BRANCH_NUMBER), "null")) 'PART_BRANCH_NO
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.DUMMY = String.Empty, SQLQuote(PART.DUMMY), "null")) 'DUMMY
+                    sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not PART.VERSION_NO = String.Empty, SQLQuote(PART.VERSION_NO), "null")) 'VERSION_NO
                 Else
                     sqlStr = String.Format("{0}null, ", sqlStr) 'MODULE_ID
                     sqlStr = String.Format("{0}null, ", sqlStr) 'MODULE_NO
@@ -1763,8 +1764,8 @@ Public Class frmProgressLane
                     sqlStr = String.Format("{0}null, ", sqlStr) 'PART_BRANCH_NO
                     sqlStr = String.Format("{0}null, ", sqlStr) 'DUMMY
                     sqlStr = String.Format("{0}null, ", sqlStr) 'VERSION_NO
-
                 End If
+                'continue
                 sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(KB.PDIO_ID = String.Empty Or KB.PDIO_ID Is Nothing, "null", KB.PDIO_ID))  'PDIO_ID
                 sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(KB.PDIO_NO = String.Empty Or KB.PDIO_NO Is Nothing, "null", SQLQuote(KB.PDIO_NO))) 'PDIO_NO
                 sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not KB.DOCK_CODE Is Nothing, SQLQuote(KB.DOCK_CODE), "null")) 'DOCK_CODE
@@ -1776,7 +1777,7 @@ Public Class frmProgressLane
                 sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not KB.BACK_NO Is Nothing, SQLQuote(KB.BACK_NO), "null")) 'BACK_NO
                 sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not KB.PART_NO Is Nothing, SQLQuote(KB.PART_NO), "null")) 'P2_PART_NO
                 sqlStr = String.Format("{0}{1}, ", sqlStr, IIf(Not KB.SEQ_NO Is Nothing, KB.SEQ_NO, "null")) 'P2_PART_SEQ_NO
-                sqlStr = String.Format("{0}{1}, ", sqlStr, org_ID) 'ORG_ID
+                sqlStr = String.Format("{0}{1}, ", sqlStr, SQLQuote(org_ID)) 'ORG_ID
                 sqlStr = String.Format("{0}null, ", sqlStr) 'SCANNER_BATCH_ID
                 sqlStr = String.Format("{0}null, ", sqlStr) 'SCANNER_HT_ID
                 sqlStr = String.Format("{0}null, ", sqlStr) 'PROCESS_DATE
@@ -1929,6 +1930,7 @@ Public Class frmProgressLane
     End Sub
 
     Private Sub btnBackCPScanModule_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBackPLScanPart.Click
+        Call DeleteTable()
         txtShoppingNo.Text = String.Empty
         txtProdDate.Text = String.Empty
         txtShop.Text = String.Empty
@@ -1945,14 +1947,16 @@ Public Class frmProgressLane
     Private Sub btnFScanModule_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFScanShopping.Click
         Me.Text = strOnlineTitle
         txtFSPDIO.Focus()
-        GetReason(lstViewPDIOFScan)
+        'GetReason(lstViewPDIOFScan)
+        Call GetAbnReasonCode(lstViewPDIOFScan)
         bringPanelToFront(pnlPLFScanShopping, pnlPLScanShopping)
     End Sub
 
     Private Sub btnSaveForceScan_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveForceScan.Click
         Try
             If ValidatePDIO() Then 'Validate required fields
-                Dim dt As DataTable = ws_dcsClient.getData("*", TblJSPSupplyPLDetailsView, " AND PDIO_NO = " & SQLQuote(txtFSPDIO.Text.Trim))
+                Dim dt As DataTable = ws_dcsClient.getData("*", TblJSPSupplyPLDetailsView, " AND PDIO_NO = " & SQLQuote(txtFSPDIO.Text.Trim) & " " & _
+                                                           "AND ORG_ID = " & SQLQuote(org_ID))
                 If dt.Rows.Count > 0 Then
                     SHOP.PDIO_ID = IIf(Not String.IsNullOrEmpty(dt.Rows(0).Item("PDIO_ID").ToString), _
                                        dt.Rows(0).Item("PDIO_ID").ToString, Nothing)
@@ -1968,6 +1972,7 @@ Public Class frmProgressLane
                 bringPanelToFront(pnlPLScanShopping, pnlPLFScanShopping)
                 txtFSPDIO.Text = String.Empty
                 lstViewPDIOFScan.Items.Item(0).Focused = True
+                txtShoppingNo.Focus()
             End If
             txtFSPDIO.SelectAll()
             txtFSPDIO.Focus()
@@ -1999,19 +2004,21 @@ Public Class frmProgressLane
     End Sub
 
     Private Sub btnFScanInt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFScanInt.Click
-        GetReason(lstViewFScanInt)
+        'GetReason(lstViewFScanInt)
+        Call GetAbnReasonCode(lstViewFScanInt)
         txtFSKanbanPartNo.Focus()
         GetTxnCode()
         cmbBoxTxnCode.Visible = False
         lblTxnCode.Visible = False
-        Me.Text = String.Format("{0} - View", strOnlineTitle)
+        Me.Text = strOnlineTitle
         bringPanelToFront(pnlPLFScanIntPart, pnlPLScanIntPart)
     End Sub
 
     Private Sub btnPLFScanIntPart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFScanExt.Click
-        GetReason(lstViewFScanExt)
+        'GetReason(lstViewFScanExt)
+        Call GetAbnReasonCode(lstViewFScanExt)
         txtFSPxPModuleNo.Focus()
-        Me.Text = String.Format("{0} - View", strOnlineTitle)
+        Me.Text = strOnlineTitle
         bringPanelToFront(pnlPLFScanExtPart, pnlPLScanIntPart)
     End Sub
 
@@ -2049,14 +2056,19 @@ Public Class frmProgressLane
                     KanbanScanChecker()
                     Me.Text = strOnlineTitle
                     bringPanelToFront(pnlPLScanIntPart, pnlPLFScanIntPart)
+                    If KB.TRANSACTION_CODE = "02" Then
+                        txtKanbanQR.Focus()
+                    Else
+                        txtPxPKanbanQR.Focus()
+                    End If
                 Else
                     KB.TRANSACTION_CODE = cmbBoxTxnCode.SelectedValue
                     KanbanAbnScanChecker()
                     Me.Text = strOfflineTitle
                     bringPanelToFront(pnlPLAbnScanPart, pnlPLFScanIntPart)
+                    txtPxPKanbanQRAbn.Focus()
                 End If
                 ClearFSInt()
-                txtPxPKanbanQRAbn.Focus()
             End If
         Catch ex As Exception
             Cursor.Current = Cursors.Default
@@ -2072,8 +2084,12 @@ Public Class frmProgressLane
         Me.Text = strOfflineTitle
         ClearFSInt()
         If isNormal Then
+            txtKanbanQR.Focus()
+            txtKanbanQR.SelectAll()
             bringPanelToFront(pnlPLScanIntPart, pnlPLFScanIntPart)
         Else
+            txtKanbanQRAbn.Focus()
+            txtKanbanQRAbn.SelectAll()
             bringPanelToFront(pnlPLAbnScanPart, pnlPLFScanIntPart)
         End If
     End Sub
@@ -2098,7 +2114,7 @@ Public Class frmProgressLane
                     txtKanbanQR.Focus()
                 Else
                     Call KanbanPartAbnScanChecker()
-                    Me.Text = strOnlineTitle
+                    Me.Text = strOfflineTitle
                     bringPanelToFront(pnlPLAbnScanPart, pnlPLFScanExtPart)
                     txtKanbanQRAbn.Focus()
                 End If
@@ -2118,8 +2134,12 @@ Public Class frmProgressLane
         Me.Text = strOnlineTitle
         ClearFSExt()
         If isNormal Then
+            txtPxPKanbanQR.Focus()
+            txtPxPKanbanQR.SelectAll()
             bringPanelToFront(pnlPLScanIntPart, pnlPLFScanExtPart)
         Else
+            txtPxPKanbanQRAbn.Focus()
+            txtPxPKanbanQRAbn.SelectAll()
             bringPanelToFront(pnlPLAbnScanPart, pnlPLFScanExtPart)
         End If
     End Sub
@@ -2257,7 +2277,9 @@ Public Class frmProgressLane
                                 SHOP.SHOP_ID, msgDesc)
 
             If msgCode = "OK" Then
-                Call PDIORetrieveOnline()
+                Dim t As Thread = New Thread(AddressOf PDIORetrieveOnline)
+                t.IsBackground = True
+                t.Start()
                 lblPLStatusMsg.BackColor = Color.LimeGreen
                 lblPLStatusMsg.Text = msgCode
                 lblPLStatusMsgDesc.Text = msgDesc
@@ -2285,36 +2307,29 @@ Public Class frmProgressLane
     Private Sub PDIORetrieveOnline()
         If ws_dcsClient.isConnected Then '***
             Dim sqlStr As String = Nothing
-            'TO ASK
-            Dim dtPartList As DataTable = ws_dcsClient.getData("*", TblJSPSupplyPLDetailsView, " AND PDIO_ID = " & SQLQuote(SHOP.PDIO_ID))
+            Dim dtPartList As DataTable = ws_dcsClient.getData("*", TblJSPSupplyPLDetailsView, String.Format(" AND PDIO_ID = {0} AND ORG_ID = {1}", SQLQuote(SHOP.PDIO_ID), SQLQuote(org_ID)))
             If dtPartList.Rows.Count > 0 Then
                 For i As Integer = 0 To dtPartList.Rows.Count - 1
-                    Dim dbReader As SqlCeDataReader
-                    dbReader = OpenRecordset("SELECT COUNT(*) FROM [" & TblJSPSupplyPLPendingView & "] WHERE " & _
-                                             "PART_NO = " & SQLQuote(dtPartList.Rows(i).Item("PART_NO").ToString) & " " & _
-                                             "AND SEQ_NO = " & SQLQuote(dtPartList.Rows(i).Item("SEQ_NO").ToString), objConn)
-                    If dbReader.Read Then
-                        If CInt(dbReader(0)) = 0 Then
-                            Dim dt As DataTable = getData(String.Format("SELECT * FROM [{0}] WHERE PXP_PART_NO = {1} AND PXP_PART_SEQ_NO = {2}", _
-                                                                        TblJSPSupplyInterface, _
-                                                                        SQLQuote(dtPartList.Rows(i).Item("PART_NO").ToString), _
-                                                                        SQLQuote(dtPartList.Rows(i).Item("SEQ_NO").ToString)))
-                            If dt.Rows.Count = 0 Then
-                                sqlStr = String.Format("INSERT INTO [{0}] (PDIO_ID, PDIO_NO, PART_NO, SEQ_NO, ADVICEQTY, BACK_NUMBER, TRANSACTION_CODE, ORG_ID)", TblJSPSupplyPLPendingView)
-                                sqlStr = String.Format("{0} VALUES ({1} , ", sqlStr, dtPartList.Rows(i).Item("PDIO_ID").ToString.PadLeft(10, "0"))
-                                sqlStr = String.Format("{0}{1} , ", sqlStr, SQLQuote(dtPartList.Rows(i).Item("PDIO_NO").ToString))
-                                sqlStr = String.Format("{0}{1} , ", sqlStr, SQLQuote(dtPartList.Rows(i).Item("PART_NO").ToString))
-                                sqlStr = String.Format("{0}{1} , ", sqlStr, SQLQuote(dtPartList.Rows(i).Item("SEQ_NO").ToString))
-                                sqlStr = String.Format("{0}{1} , ", sqlStr, dtPartList.Rows(i).Item("QTY_PER_BOX").ToString)
-                                sqlStr = String.Format("{0}{1} , ", sqlStr, SQLQuote(dtPartList.Rows(i).Item("BACK_NUMBER").ToString))
-                                sqlStr = String.Format("{0}{1} , ", sqlStr, SQLQuote(dtPartList.Rows(i).Item("TRANSACTION_CODE").ToString))
-                                sqlStr = String.Format("{0}{1}", sqlStr, dtPartList.Rows(i).Item("ORG_ID").ToString)
-                                sqlStr = String.Format("{0})", sqlStr)
-                                If ExecuteSQL(sqlStr) = False Then
-                                    Throw New Exception("Failed to retrieved Part List from server.")
-                                Else
-
-                                End If
+                    If PLaneTableReader(TblJSPSupplyPLPendingView, _
+                                        dtPartList.Rows(i).Item("PART_NO").ToString, _
+                                        dtPartList.Rows(i).Item("SEQ_NO").ToString, _
+                                        dtPartList.Rows(i).Item("ORG_ID").ToString) = 0 Then
+                        If PLaneTableReader(TblJSPSupplyInterface, _
+                                            dtPartList.Rows(i).Item("PART_NO").ToString, _
+                                            dtPartList.Rows(i).Item("SEQ_NO").ToString, _
+                                            dtPartList.Rows(i).Item("ORG_ID").ToString) = 0 Then
+                            sqlStr = String.Format("INSERT INTO [{0}] (PDIO_ID, PDIO_NO, PART_NO, SEQ_NO, ADVICEQTY, BACK_NUMBER, TRANSACTION_CODE, ORG_ID)", TblJSPSupplyPLPendingView)
+                            sqlStr = String.Format("{0} VALUES ({1} , ", sqlStr, dtPartList.Rows(i).Item("PDIO_ID").ToString.PadLeft(10, "0"))
+                            sqlStr = String.Format("{0}{1} , ", sqlStr, SQLQuote(dtPartList.Rows(i).Item("PDIO_NO").ToString))
+                            sqlStr = String.Format("{0}{1} , ", sqlStr, SQLQuote(dtPartList.Rows(i).Item("PART_NO").ToString))
+                            sqlStr = String.Format("{0}{1} , ", sqlStr, SQLQuote(dtPartList.Rows(i).Item("SEQ_NO").ToString))
+                            sqlStr = String.Format("{0}{1} , ", sqlStr, dtPartList.Rows(i).Item("QTY_PER_BOX").ToString)
+                            sqlStr = String.Format("{0}{1} , ", sqlStr, SQLQuote(dtPartList.Rows(i).Item("BACK_NUMBER").ToString))
+                            sqlStr = String.Format("{0}{1} , ", sqlStr, SQLQuote(dtPartList.Rows(i).Item("TRANSACTION_CODE").ToString))
+                            sqlStr = String.Format("{0}{1}", sqlStr, dtPartList.Rows(i).Item("ORG_ID").ToString)
+                            sqlStr = String.Format("{0})", sqlStr)
+                            If CeNonQuery(sqlStr) = False Then
+                                Throw New Exception("Failed to retrieved Part List from server.")
                             End If
                         End If
                     End If
@@ -2479,18 +2494,19 @@ Public Class frmProgressLane
                 forceStatus = "Y"
             End If
 
-            Dim dt As DataTable = ws_dcsClient.getData("*", TblJSPSupplyPLDetailsView, String.Format(" AND PDIO_NO = {0} AND PART_NO = {1} AND SEQ_NO = {2}", SQLQuote(KB.PDIO_NO), SQLQuote(KB.PART_NO), KB.SEQ_NO))
-            If dt.Rows.Count <> 0 Then
-                KB.PDIO_ID = dt.Rows(0).Item("PDIO_ID").ToString
-                KB.PDIO_NO = dt.Rows(0).Item("PDIO_NO").ToString
-                KB.PART_NO = dt.Rows(0).Item("PART_NO").ToString
-                KB.BACK_NO = dt.Rows(0).Item("BACK_NUMBER").ToString
-                KB.QTY_ORDER = dt.Rows(0).Item("QTY_PER_BOX").ToString
-                KB.ORG_ID = dt.Rows(0).Item("ORG_ID").ToString
-                KB.TRANSACTION_CODE = dt.Rows(0).Item("TRANSACTION_CODE").ToString
-            End If
-
             If forceStatus = "Y" Then
+                Dim dt As DataTable = ws_dcsClient.getData("*", TblJSPSupplyPLDetailsView, String.Format(" AND PDIO_NO = {0} AND PART_NO = {1} AND SEQ_NO = {2} " & _
+                                                           "AND ORG_ID = {3}", SQLQuote(SHOP.PDIO_NO), SQLQuote(KB.PART_NO), KB.SEQ_NO, SQLQuote(org_ID)))
+                If dt.Rows.Count <> 0 Then
+                    KB.PDIO_ID = dt.Rows(0).Item("PDIO_ID").ToString
+                    KB.PDIO_NO = dt.Rows(0).Item("PDIO_NO").ToString
+                    KB.PART_NO = dt.Rows(0).Item("PART_NO").ToString
+                    KB.BACK_NO = dt.Rows(0).Item("BACK_NUMBER").ToString
+                    KB.QTY_ORDER = dt.Rows(0).Item("QTY_PER_BOX").ToString
+                    KB.ORG_ID = dt.Rows(0).Item("ORG_ID").ToString
+                    KB.TRANSACTION_CODE = dt.Rows(0).Item("TRANSACTION_CODE").ToString
+                End If
+
                 msgCode = ws_validationClient.processValidation(GetBatchID("PROGRESS_LANE", "4"), gScannerID, "SUPPLY", "302", _
                                Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, _
                                Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, _
@@ -2523,9 +2539,9 @@ Public Class frmProgressLane
             currentDate = datet.ToString("yyyy-MM-dd hh:mm:ss tt")
 
             If msgCode = "OK" Then
-                If forceStatus = "Y" Then
-                    bringPanelToFront(pnlPLScanIntPart, pnlPLScanIntPart)
-                End If
+                'If forceStatus = "Y" Then
+                '    bringPanelToFront(pnlPLScanIntPart, pnlPLFScanIntPart)
+                'End If
 
                 lblPartNoInt.Text = KB.PART_NO
                 lblSeqNoInt.Text = KB.SEQ_NO
@@ -2569,10 +2585,12 @@ Public Class frmProgressLane
         Try
             Cursor.Current = Cursors.WaitCursor
             Dim dtModuleList As DataTable = New DataTable()
-            dtModuleList = getData(String.Format("SELECT * FROM [{0}] WHERE PART_NO = {1} AND SEQ_NO = {2}", _
+            dtModuleList = getData(String.Format("SELECT * FROM [{0}] WHERE PART_NO = {1} AND SEQ_NO = {2} " & _
+                                                 "AND ORG_ID = {3}", _
                                                  TblJSPSupplyPLPendingView, _
                                                  SQLQuote(KB.PART_NO), _
-                                                 SQLQuote(KB.SEQ_NO)))
+                                                 SQLQuote(KB.SEQ_NO), _
+                                                 SQLQuote(org_ID)))
             If dtModuleList.Rows.Count > 0 Then
                 KB.PDIO_ID = dtModuleList.Rows(0).Item("PDIO_ID")
                 KB.PDIO_NO = dtModuleList.Rows(0).Item("PDIO_NO")
@@ -2622,11 +2640,13 @@ Public Class frmProgressLane
     Private Sub UpdatePostStatus(ByVal MsgCode As String, ByVal PartNo As String)
         Dim dt As DataTable = New DataTable()
         dt = getData("SELECT * FROM [" & TblJSPSupplyInterface & "] " & _
-                               "WHERE PART_NO = " & SQLQuote(PartNo))
+                               "WHERE P2_PART_NO = " & SQLQuote(PartNo) & " " & _
+                               "AND ORG_ID = " & SQLQuote(org_ID))
         If dt.Rows.Count > 0 Then
             If Not ExecuteSQL("UPDATE [" & TblJSPSupplyInterface & "] " & _
                               "SET RETURN_VAL = " & SQLQuote(MsgCode) & " " & _
-                              "WHERE ORDER_NO = " & SQLQuote(PartNo)) Then
+                              "WHERE ORDER_NO = " & SQLQuote(PartNo) & " " & _
+                              "AND ORG_ID = " & SQLQuote(org_ID)) Then
                 Throw New Exception
             End If
         End If
@@ -2635,15 +2655,17 @@ Public Class frmProgressLane
 
     Private Sub UpdateKanbanPendingDetails(ByVal PART_NO As String, ByVal SEQ_NO As String)
         Dim dtModuleList As DataTable = New DataTable()
-        dtModuleList = getData(String.Format("SELECT * FROM [{0}] WHERE PART_NO = {1} AND SEQ_NO = {2}", _
+        dtModuleList = getData(String.Format("SELECT * FROM [{0}] WHERE PART_NO = {1} AND SEQ_NO = {2} AND ORG_ID = {3}", _
                                              TblJSPSupplyPLPendingView, _
                                              SQLQuote(PART_NO), _
-                                             SQLQuote(SEQ_NO)))
+                                             SQLQuote(SEQ_NO), _
+                                             SQLQuote(org_ID)))
         If dtModuleList.Rows.Count > 0 Then
-            If Not ExecuteSQL(String.Format("DELETE FROM [{0}] WHERE PART_NO = {1} AND SEQ_NO = {2}", _
+            If Not ExecuteSQL(String.Format("DELETE FROM [{0}] WHERE PART_NO = {1} AND SEQ_NO = {2} AND ORG_ID = {3}", _
                                             TblJSPSupplyPLPendingView, _
                                             SQLQuote(PART_NO), _
-                                            SQLQuote(SEQ_NO))) Then
+                                            SQLQuote(SEQ_NO), _
+                                            SQLQuote(org_ID))) Then
                 Throw New Exception("Failed to Create Local Module Table.")
             End If
         End If
@@ -2687,7 +2709,7 @@ Public Class frmProgressLane
                     txtPxPKanbanQR.Focus()
                 End If
             Catch ex As WebException
-                Call OfflineKanban()
+                Call OfflinePxPKanban()
             Catch ex As Exception
                 MsgBox("PxP Kanban QR scanned failed.", MsgBoxStyle.Critical, "Kanban Part Scan")
                 Cursor.Current = Cursors.Default
@@ -2724,7 +2746,8 @@ Public Class frmProgressLane
             If ws_dcsClient.isOracleConnected Then '***
                 Return ws_dcsClient.getData("*", TblJSPSupplyPLPartsIDView, _
                                             " AND MODULE_NO = " & SQLQuote(moduleNo) & " AND PART_NO = " & SQLQuote(partNo) & _
-                                            " AND PART_SEQ_NO = " & seqNo & " AND BRANCH_NO = " & branch)
+                                            " AND PART_SEQ_NO = " & seqNo & " AND BRANCH_NO = " & branch & _
+                                            " AND ORG_ID = " & SQLQuote(org_ID))
             End If
         End If
         Return Nothing
@@ -2734,12 +2757,12 @@ Public Class frmProgressLane
         Cursor.Current = Cursors.WaitCursor
         If ws_dcsClient.isOracleConnected Then '***
             InitWebServices()
+
             Dim forceStatusExt As String = "N"
             Dim forceStatusInt As String = "N"
             Dim dtPartList As DataTable = New DataTable
 
             dtPartList = ModuleRetrieveOnline(PART.MODULE_CATEGORY + PART.LOT_NO, String.Format("{0}-{1}", PART.PARTS_NO.Insert(5, "-"), PART.PART_NO_SFX), PART.PART_SEQ_NUMBER, PART.PART_BRANCH_NUMBER)
-
             If dtPartList.Rows.Count > 0 Then
                 PART.MODULE_ID = dtPartList.Rows(0).Item("MODULE_ID").ToString()
                 PART.MODULE_NO = dtPartList.Rows(0).Item("MODULE_NO").ToString()
@@ -2759,45 +2782,60 @@ Public Class frmProgressLane
             Dim currentDate As String = dt.ToString("dd-MM-yyyy hh:mm:ss tt")
 
             msgCode = ws_validationClient.processValidation(GetBatchID("PROGRESS_LANE", "4"), gScannerID, "SUPPLY", "303", _
-                               Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, _
-                               Nothing, IIf(PART.MODULE_ID.Trim() = Nothing, Nothing, PART.MODULE_ID), _
-                               IIf(PART.MODULE_NO.Trim() = Nothing, Nothing, PART.MODULE_NO), _
-                               PART.PARTS_NO, PART.PART_NO_SFX, PART.PART_SEQ_NUMBER, PART.QTY_BOX, _
-                               IIf(PART.MANUFACTURE_CODE.Trim() = Nothing, Nothing, PART.MANUFACTURE_CODE), _
-                               IIf(PART.SUPPLIER_CODE.Trim() = Nothing, Nothing, PART.SUPPLIER_CODE), _
-                               IIf(PART.SUPPLIER_PLANT_CODE.Trim() = Nothing, Nothing, PART.SUPPLIER_PLANT_CODE), _
-                               IIf(PART.SUPPLIER_SHIPPING_DOCK.Trim() = Nothing, Nothing, PART.SUPPLIER_SHIPPING_DOCK), _
-                               IIf(PART.BEFORE_PACKING_ROUTING.Trim() = Nothing, Nothing, PART.BEFORE_PACKING_ROUTING), _
-                               IIf(PART.RECEIVING_COMPANY_CODE.Trim() = Nothing, Nothing, PART.RECEIVING_COMPANY_CODE), _
-                               IIf(PART.RECEIVING_PLANT_CODE.Trim() = Nothing, Nothing, PART.RECEIVING_PLANT_CODE), _
-                               IIf(PART.RECEIVING_DOCK_CODE.Trim() = Nothing, Nothing, PART.RECEIVING_DOCK_CODE), _
-                               IIf(PART.PACKING_ROUTING_CODE.Trim() = Nothing, Nothing, PART.PACKING_ROUTING_CODE), _
-                               IIf(PART.GRANTER_CODE.Trim() = Nothing, Nothing, PART.GRANTER_CODE), _
-                               IIf(PART.ORDER_TYPE.Trim() = Nothing, Nothing, PART.ORDER_TYPE), _
-                               IIf(PART.KANBAN_CLASSIFICATION.Trim() = Nothing, Nothing, PART.KANBAN_CLASSIFICATION), _
-                               IIf(PART.MROS.Trim() = Nothing, Nothing, PART.MROS), _
-                               IIf(PART.ORDER_NUMBER.Trim() = Nothing, Nothing, PART.ORDER_NUMBER), _
-                               IIf(PART.DELIVERY_CODE.Trim() = Nothing, Nothing, PART.DELIVERY_CODE), _
-                               IIf(PART.DELIVERY_NUMBER.Trim() = Nothing, Nothing, PART.DELIVERY_NUMBER), _
-                               IIf(PART.BACK_NUMBER.Trim() = Nothing, Nothing, PART.BACK_NUMBER), _
-                               IIf(PART.RUNOUT_FLAG.Trim() = Nothing, Nothing, PART.RUNOUT_FLAG), _
-                               IIf(PART.BOX_TYPE.Trim() = Nothing, Nothing, PART.BOX_TYPE), _
-                               IIf(PART.BRANCH_NUMBER.Trim() = Nothing, Nothing, PART.BRANCH_NUMBER), _
-                               IIf(PART.ADDRESS.Trim() = Nothing, Nothing, PART.ADDRESS), _
-                               IIf(PART.PACKING_DATE.Trim() = Nothing, Nothing, PART.PACKING_DATE), _
-                               IIf(PART.KATASHIKI_JERSEY_NUMBER.Trim() = Nothing, Nothing, PART.KATASHIKI_JERSEY_NUMBER), _
-                               IIf(PART.LOT_NO.Trim() = Nothing, Nothing, PART.LOT_NO), _
-                               IIf(PART.MODULE_CATEGORY.Trim() = Nothing, Nothing, PART.MODULE_CATEGORY), _
-                               IIf(PART.PART_BRANCH_NUMBER.Trim() = Nothing, Nothing, PART.PART_BRANCH_NUMBER), _
-                               IIf(PART.DUMMY.Trim() = Nothing, Nothing, PART.DUMMY), _
-                               IIf(PART.VERSION_NO.Trim() = Nothing, Nothing, PART.VERSION_NO), _
-                               KB.PDIO_ID, KB.PDIO_NO, KB.DOCK_CODE, _
-                               KB.ORDER_TYPE, KB.TRANSPORTER_ID, KB.VENDOR_ID, KB.LANE_ID, KB.TIER, KB.PART_NO, KB.SEQ_NO, _
-                               KB.BACK_NO, KB.QTY_ORDER, KB.DELIVERY_TYPE, KB.ORG_ID, KB.DELIVERY_DATE, gScannerID, currentDate, _
-                               Nothing, Nothing, Nothing, _
-                               Nothing, Nothing, Nothing, gScannerID, "Y", gScannerID, currentDate, _
-                               Nothing, Nothing, forceStatusExt, reasonExt, forceStatusInt, reasonInt, "PL", _
-                               SHOP.SHOP_ID, msgDesc)
+                                  Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, _
+                                  Nothing, IIf(PART.MODULE_ID.Trim() = Nothing, Nothing, PART.MODULE_ID), _
+                                  IIf(PART.MODULE_NO.Trim() = Nothing, Nothing, PART.MODULE_NO), _
+                                  IIf(PART.PARTS_NO.Trim() = Nothing, Nothing, PART.PARTS_NO), _
+                                  IIf(PART.PART_NO_SFX.Trim() = Nothing, Nothing, PART.PART_NO_SFX), _
+                                  IIf(PART.PART_SEQ_NUMBER.Trim() = Nothing, Nothing, PART.PART_SEQ_NUMBER), _
+                                  IIf(PART.QTY_BOX.Trim() = Nothing, Nothing, PART.QTY_BOX), _
+                                  IIf(PART.MANUFACTURE_CODE.Trim() = Nothing, Nothing, PART.MANUFACTURE_CODE), _
+                                  IIf(PART.SUPPLIER_CODE.Trim() = Nothing, Nothing, PART.SUPPLIER_CODE), _
+                                  IIf(PART.SUPPLIER_PLANT_CODE.Trim() = Nothing, Nothing, PART.SUPPLIER_PLANT_CODE), _
+                                  IIf(PART.SUPPLIER_SHIPPING_DOCK.Trim() = Nothing, Nothing, PART.SUPPLIER_SHIPPING_DOCK), _
+                                  IIf(PART.BEFORE_PACKING_ROUTING.Trim() = Nothing, Nothing, PART.BEFORE_PACKING_ROUTING), _
+                                  IIf(PART.RECEIVING_COMPANY_CODE.Trim() = Nothing, Nothing, PART.RECEIVING_COMPANY_CODE), _
+                                  IIf(PART.RECEIVING_PLANT_CODE.Trim() = Nothing, Nothing, PART.RECEIVING_PLANT_CODE), _
+                                  IIf(PART.RECEIVING_DOCK_CODE.Trim() = Nothing, Nothing, PART.RECEIVING_DOCK_CODE), _
+                                  IIf(PART.PACKING_ROUTING_CODE.Trim() = Nothing, Nothing, PART.PACKING_ROUTING_CODE), _
+                                  IIf(PART.GRANTER_CODE.Trim() = Nothing, Nothing, PART.GRANTER_CODE), _
+                                  IIf(PART.ORDER_TYPE.Trim() = Nothing, Nothing, PART.ORDER_TYPE), _
+                                  IIf(PART.KANBAN_CLASSIFICATION.Trim() = Nothing, Nothing, PART.KANBAN_CLASSIFICATION), _
+                                  IIf(PART.MROS.Trim() = Nothing, Nothing, PART.MROS), _
+                                  IIf(PART.ORDER_NUMBER.Trim() = Nothing, Nothing, PART.ORDER_NUMBER), _
+                                  IIf(PART.DELIVERY_CODE.Trim() = Nothing, Nothing, PART.DELIVERY_CODE), _
+                                  IIf(PART.DELIVERY_NUMBER.Trim() = Nothing, Nothing, PART.DELIVERY_NUMBER), _
+                                  IIf(PART.BACK_NUMBER.Trim() = Nothing, Nothing, PART.BACK_NUMBER), _
+                                  IIf(PART.RUNOUT_FLAG.Trim() = Nothing, Nothing, PART.RUNOUT_FLAG), _
+                                  IIf(PART.BOX_TYPE.Trim() = Nothing, Nothing, PART.BOX_TYPE), _
+                                  IIf(PART.BRANCH_NUMBER.Trim() = Nothing, Nothing, PART.BRANCH_NUMBER), _
+                                  IIf(PART.ADDRESS.Trim() = Nothing, Nothing, PART.ADDRESS), _
+                                  IIf(PART.PACKING_DATE.Trim() = Nothing, Nothing, PART.PACKING_DATE), _
+                                  IIf(PART.KATASHIKI_JERSEY_NUMBER.Trim() = Nothing, Nothing, PART.KATASHIKI_JERSEY_NUMBER), _
+                                  IIf(PART.LOT_NO.Trim() = Nothing, Nothing, PART.LOT_NO), _
+                                  IIf(PART.MODULE_CATEGORY.Trim() = Nothing, Nothing, PART.MODULE_CATEGORY), _
+                                  IIf(PART.PART_BRANCH_NUMBER.Trim() = Nothing, Nothing, PART.PART_BRANCH_NUMBER), _
+                                  IIf(PART.DUMMY.Trim() = Nothing, Nothing, PART.DUMMY), _
+                                  IIf(PART.VERSION_NO.Trim() = Nothing, Nothing, PART.VERSION_NO), _
+                                  IIf(KB.PDIO_ID = Nothing, Nothing, KB.PDIO_ID), _
+                                  IIf(KB.PDIO_NO = Nothing, Nothing, KB.PDIO_NO), _
+                                  IIf(KB.DOCK_CODE = Nothing, Nothing, KB.DOCK_CODE), _
+                                  IIf(KB.ORDER_TYPE = Nothing, Nothing, KB.ORDER_TYPE), _
+                                  IIf(KB.TRANSPORTER_ID = Nothing, Nothing, KB.TRANSPORTER_ID), _
+                                  IIf(KB.VENDOR_ID = Nothing, Nothing, KB.VENDOR_ID), _
+                                  IIf(KB.LANE_ID = Nothing, Nothing, KB.LANE_ID), _
+                                  IIf(KB.TIER = Nothing, Nothing, KB.TIER), _
+                                  IIf(KB.PART_NO = Nothing, Nothing, KB.PART_NO), _
+                                  IIf(KB.SEQ_NO = Nothing, Nothing, KB.SEQ_NO), _
+                                  IIf(KB.BACK_NO = Nothing, Nothing, KB.BACK_NO), _
+                                  IIf(KB.QTY_ORDER = Nothing, Nothing, KB.QTY_ORDER), _
+                                  IIf(KB.DELIVERY_TYPE = Nothing, Nothing, KB.DELIVERY_TYPE), _
+                                  IIf(KB.ORG_ID = Nothing, Nothing, KB.ORG_ID), _
+                                  IIf(KB.DELIVERY_DATE = Nothing, Nothing, KB.DELIVERY_DATE), _
+                                  gScannerID, currentDate, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, gScannerID, "Y", _
+                                  gScannerID, currentDate, Nothing, Nothing, forceStatusExt, IIf(reasonExt = Nothing, Nothing, reasonExt), _
+                                  forceStatusInt, IIf(reasonInt = Nothing, Nothing, reasonInt), "PL", IIf(SHOP.SHOP_ID = Nothing, Nothing, SHOP.SHOP_ID), _
+                                  msgDesc)
 
             lblPartType.Text = String.Empty
             currentDate = dt.ToString("yyyy-MM-dd hh:mm:ss tt")
@@ -2826,7 +2864,7 @@ Public Class frmProgressLane
                     Call DeletePendingRecord()
                     Call UpdateBatch()
                     Dim dbReader As SqlCeDataReader
-                    dbReader = OpenRecordset(String.Format("SELECT COUNT(*) FROM {0}", TblJSPSupplyPLPendingView), objConn)
+                    dbReader = OpenRecordset(String.Format("SELECT COUNT(*) FROM {0} WHERE PDIO_NO = '{1}'", TblJSPSupplyPLPendingView, KB.PDIO_NO), objConn)
                     If dbReader.Read Then
                         If CInt(dbReader(0)) = 0 Then
                             Call DeleteTable()
@@ -2862,7 +2900,7 @@ Public Class frmProgressLane
                 txtPxPKanbanQR.SelectAll()
             End If
             loadlstView(lstViewScannedSummary, lblTotalScannedView)
-            loadlstPendingView(lstViewPendingSummary, lblTotalPending)
+            'loadlstPendingView(lstViewPendingSummary, lblTotalPending)
             lblTotalScannedInt.Text = lstViewScannedSummary.Items.Count
         End If
         Cursor.Current = Cursors.Default
@@ -2870,8 +2908,8 @@ Public Class frmProgressLane
 
     Private Sub InsertKanbanScanOK(ByVal currentDate As String, ByVal isOnline As String)
         Call InsertKanbanTable(KB, PART, currentDate, "PL", isOnline, reasonShop, reasonInt, reasonExt)
-        Call UpdateKanbanPendingDetails(PART.PARTS_NO, KB.SEQ_NO)
-        Call UpdatePostStatus(msgCode, PART.PARTS_NO)
+        Call UpdateKanbanPendingDetails(KB.PART_NO, KB.SEQ_NO)
+        Call UpdatePostStatus(msgCode, KB.PART_NO)
         lblPLIntExtStatusMsg.BackColor = Color.LimeGreen
         lblPLIntExtStatusMsg.Text = msgCode
         lblPLIntExtStatusMsgDesc.Text = msgDesc
@@ -2948,21 +2986,23 @@ Public Class frmProgressLane
     End Sub
 
     Private Sub btnFScanIntAbn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFScanIntAbn.Click
-        GetReason(lstViewFScanInt)
+        'GetReason(lstViewFScanInt)
+        Call GetAbnReasonCode(lstViewFScanInt)
         txtFSKanbanPartNo.Focus()
         isNormal = False
         GetTxnCode()
         cmbBoxTxnCode.Visible = True
         lblTxnCode.Visible = True
-        Me.Text = String.Format("{0} - View", strOfflineTitle)
+        Me.Text = strOfflineTitle
         bringPanelToFront(pnlPLFScanIntPart, pnlPLAbnScanPart)
     End Sub
 
     Private Sub btnFScanExtAbn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFScanExtAbn.Click
-        GetReason(lstViewFScanExt)
+        'GetReason(lstViewFScanExt)
+        Call GetAbnReasonCode(lstViewFScanExt)
         txtFSPxPModuleNo.Focus()
         isNormal = False
-        Me.Text = String.Format("{0} - View", strOfflineTitle)
+        Me.Text = strOfflineTitle
         bringPanelToFront(pnlPLFScanExtPart, pnlPLAbnScanPart)
     End Sub
 
@@ -3024,8 +3064,10 @@ Public Class frmProgressLane
 
                             If Not IsDBNull(lstDt.Rows(i).Item("P2_PART_NO")) Then
                                 Dim dt As DataTable = ws_dcsClient.getData("*", TblJSPSupplyPLDetailsView, _
-                                                                           " AND PART_NO = " & SQLQuote(lstDt.Rows(i).Item("P2_PART_NO").ToString) & _
-                                                                           " AND SEQ_NO = " & lstDt.Rows(i).Item("P2_PART_SEQ_NO").ToString)
+                                                       " AND PDIO_NO = " & SQLQuote(lstDt.Rows(i).Item("PDIO_NO").ToString) & _
+                                                       " AND PART_NO = " & SQLQuote(lstDt.Rows(i).Item("P2_PART_NO").ToString) & _
+                                                       " AND SEQ_NO = " & lstDt.Rows(i).Item("P2_PART_SEQ_NO").ToString & _
+                                                       " AND ORG_ID = " & SQLQuote(org_ID))
                                 If dt.Rows.Count <> 0 Then
                                     lstDt.Rows(i).Item("PDIO_ID") = dt.Rows(0).Item("PDIO_ID").ToString
                                     lstDt.Rows(i).Item("PDIO_NO") = dt.Rows(0).Item("PDIO_NO").ToString
@@ -3042,9 +3084,8 @@ Public Class frmProgressLane
                                                       lstDt.Rows(i).Item("PXP_PART_SEQ_NO").ToString, _
                                                       lstDt.Rows(i).Item("PART_BRANCH_NO").ToString)
                                 If dt.Rows.Count > 0 Then
-                                    PART.MODULE_ID = dt.Rows(0).Item("MODULE_ID").ToString()
-                                    PART.MODULE_NO = dt.Rows(0).Item("MODULE_NO").ToString()
-                                    PART.PART_ID = dt.Rows(0).Item("PART_ID").ToString()
+                                    lstDt.Rows(i).Item("MODULE_ID") = dt.Rows(0).Item("MODULE_ID").ToString()
+                                    lstDt.Rows(i).Item("MODULE_NO") = dt.Rows(0).Item("MODULE_NO").ToString()
                                 End If
                             End If
 
@@ -3052,37 +3093,8 @@ Public Class frmProgressLane
                             If Not String.IsNullOrEmpty(lstDt.Rows(i).Item("DELIVERY_DATE").ToString) Then
                                 tempDeliveryDate = Convert.ToDateTime(lstDt.Rows(i).Item("DELIVERY_DATE").ToString()).ToString("dd/MM/yyyy")
                             End If
+
                             msgCode = ws_validationClient.processValidation(GetBatchID("PROGRESS_LANE", "4"), gScannerID, "SUPPLY", "305", _
-                                      Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, _
-                                      Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, _
-                                      Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, _
-                                      Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, _
-                                      Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, _
-                                      Nothing, Nothing, Nothing, Nothing, _
-                                      IIf(lstDt.Rows(i).Item("PDIO_ID").ToString() = String.Empty, Nothing, lstDt.Rows(i).Item("PDIO_ID").ToString()), _
-                                      IIf(lstDt.Rows(i).Item("PDIO_NO").ToString() = String.Empty, Nothing, lstDt.Rows(i).Item("PDIO_NO").ToString()), _
-                                      IIf(lstDt.Rows(i).Item("DOCK_CODE").ToString() = String.Empty, Nothing, lstDt.Rows(i).Item("DOCK_CODE").ToString()), _
-                                      IIf(lstDt.Rows(i).Item("PDIO_ORDER_TYPE").ToString() = String.Empty, Nothing, lstDt.Rows(i).Item("PDIO_ORDER_TYPE").ToString()), _
-                                      IIf(lstDt.Rows(i).Item("TRANSPORTER_ID").ToString() = String.Empty, Nothing, lstDt.Rows(i).Item("TRANSPORTER_ID").ToString()), _
-                                      IIf(lstDt.Rows(i).Item("VENDOR_ID").ToString() = String.Empty, Nothing, lstDt.Rows(i).Item("VENDOR_ID").ToString()), _
-                                      IIf(lstDt.Rows(i).Item("LANE_ID").ToString() = String.Empty, Nothing, lstDt.Rows(i).Item("LANE_ID").ToString()), _
-                                      IIf(lstDt.Rows(i).Item("TIER").ToString() = String.Empty, Nothing, lstDt.Rows(i).Item("TIER").ToString()), _
-                                      IIf(lstDt.Rows(i).Item("P2_PART_NO").ToString() = String.Empty, Nothing, lstDt.Rows(i).Item("P2_PART_NO").ToString()), _
-                                      IIf(lstDt.Rows(i).Item("P2_PART_SEQ_NO").ToString() = String.Empty, Nothing, lstDt.Rows(i).Item("P2_PART_SEQ_NO").ToString()), _
-                                      IIf(lstDt.Rows(i).Item("BACK_NO").ToString() = String.Empty, Nothing, lstDt.Rows(i).Item("BACK_NO").ToString()), _
-                                      IIf(lstDt.Rows(i).Item("QTY_ORDER").ToString() = String.Empty, Nothing, lstDt.Rows(i).Item("QTY_ORDER").ToString()), _
-                                      IIf(lstDt.Rows(i).Item("DELIVERY_TYPE").ToString() = String.Empty, Nothing, lstDt.Rows(i).Item("DELIVERY_TYPE").ToString()), _
-                                      IIf(lstDt.Rows(i).Item("ORG_ID").ToString() = String.Empty, Nothing, lstDt.Rows(i).Item("ORG_ID").ToString()), _
-                                      tempDeliveryDate, _
-                                      gScannerID, IIf(lstDt.Rows(i).Item("SUPPLY_DATE").ToString() = String.Empty, Nothing, Convert.ToDateTime(lstDt.Rows(i).Item("SUPPLY_DATE").ToString()).ToString("dd-MM-yyyy hh:mm:ss tt")), _
-                                      Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, gScannerID, "N", gScannerID, _
-                                      IIf(lstDt.Rows(i).Item("SCAN_DATE").ToString() = String.Empty, Nothing, Convert.ToDateTime(lstDt.Rows(i).Item("SCAN_DATE").ToString()).ToString("dd-MM-yyyy hh:mm:ss tt")), _
-                                      Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "PL", _
-                                      IIf(lstDt.Rows(i).Item("SHOP_ID").ToString() = String.Empty, Nothing, lstDt.Rows(i).Item("SHOP_ID").ToString()), _
-                                      msgDesc)
-                            If msgCode = "OK" Then
-                                If Not KB.TRANSACTION_CODE = "02" Then
-                                    msgCode = ws_validationClient.processValidation(GetBatchID("PROGRESS_LANE", "4"), gScannerID, "SUPPLY", "306", _
                                     Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, _
                                     IIf(lstDt.Rows(i).Item("MODULE_ID").ToString() = String.Empty, Nothing, lstDt.Rows(i).Item("MODULE_ID").ToString()), _
                                     IIf(lstDt.Rows(i).Item("MODULE_NO").ToString() = String.Empty, Nothing, lstDt.Rows(i).Item("MODULE_NO").ToString()), _
@@ -3139,31 +3151,26 @@ Public Class frmProgressLane
                                     Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "PL", _
                                     IIf(lstDt.Rows(i).Item("SHOP_ID").ToString() = String.Empty, Nothing, lstDt.Rows(i).Item("SHOP_ID").ToString()), _
                                     msgDesc)
-                                End If
+                            If msgCode = "OK" Then
+                                lblPLStatusMsgAbn.Text = msgCode
+                                lblPLStatusMsgDescAbn.Text = msgDesc
+                                sSQL = String.Format("UPDATE {0} SET RETURN_VAL = '{1}' WHERE PDIO_NO = '{2}' AND P2_PART_NO = '{3}' AND P2_PART_SEQ_NO = {4} AND ORG_ID = {5}", TblJSPSupplyInterface, _
+                                                     msgCode, lstDt.Rows(i).Item("PDIO_NO").ToString(), lstDt.Rows(i).Item("P2_PART_NO").ToString(), lstDt.Rows(i).Item("P2_PART_SEQ_NO").ToString(), SQLQuote(org_ID))
+                                ExecuteSQL(sSQL)
+
+                                msgCode = ws_inventoryClient.processInventoryConsumption(GetBatchID("PROGRESS_LANE", "4"), "SUPPLY", "307", org_ID, Nothing, Nothing, _
+                                                                    Nothing, Nothing, Nothing, msgDesc)
                                 If msgCode = "OK" Then
                                     lblPLStatusMsgAbn.Text = msgCode
                                     lblPLStatusMsgDescAbn.Text = msgDesc
-                                    sSQL = String.Format("UPDATE {0} SET RETURN_VAL = '{1}' WHERE PDIO_NO = '{2}' AND P2_PART_NO = '{3}' AND P2_PART_SEQ_NO = {4}", TblJSPSupplyInterface, _
-                                                         msgCode, lstDt.Rows(i).Item("PDIO_NO").ToString(), lstDt.Rows(i).Item("P2_PART_NO").ToString(), lstDt.Rows(i).Item("P2_PART_SEQ_NO").ToString())
-                                    ExecuteSQL(sSQL)
-
-                                    msgCode = ws_inventoryClient.processInventoryConsumption(GetBatchID("PROGRESS_LANE", "4"), "SUPPLY", "307", org_ID, Nothing, Nothing, _
-                                                                        Nothing, Nothing, Nothing, msgDesc)
-                                    If msgCode = "OK" Then
-                                        lblPLStatusMsgAbn.Text = msgCode
-                                        lblPLStatusMsgDescAbn.Text = msgDesc
-                                        sSQL = String.Format("UPDATE {0} SET POSTED = '{1}' WHERE RCV_INTERFACE_BATCH_ID = '{2}'", TblJSPSupplyInterface, _
-                                                                           "Y", GetBatchID("PROGRESS_LANE", "4"))
-                                        If ExecuteSQL(sSQL) = True Then
-                                            UpdateBatch()
-                                        End If
-                                    Else
-                                        lblPLStatusMsgAbn.Text = msgCode
-                                        lblPLStatusMsgDescAbn.Text = msgDesc
+                                    sSQL = String.Format("UPDATE {0} SET POSTED = '{1}' WHERE RCV_INTERFACE_BATCH_ID = '{2}'", TblJSPSupplyInterface, _
+                                                          "Y", GetBatchID("PROGRESS_LANE", "4"))
+                                    If ExecuteSQL(sSQL) = True Then
+                                        UpdateBatch()
                                     End If
                                 Else
-                                    loadlstViewAbn(lstViewPosting, lblPostingTotalPdgAbn)
-                                    MsgBox("Failed to post: " & msgDesc, MsgBoxStyle.Information, Me.Text)
+                                    lblPLStatusMsgAbn.Text = msgCode
+                                    lblPLStatusMsgDescAbn.Text = msgDesc
                                 End If
                             Else
                                 loadlstViewAbn(lstViewPosting, lblPostingTotalPdgAbn)
@@ -3171,7 +3178,7 @@ Public Class frmProgressLane
                             End If
                         Next
                         loadlstViewAbn(lstViewPosting, lblPostingTotalPdgAbn)
-                        MsgBox(successMsg, MsgBoxStyle.Information, Me.Text)
+                        MsgBox(successMsgPart, MsgBoxStyle.Information, Me.Text)
                     Else
                         Cursor.Current = Cursors.Default
                         MsgBox("No records to post.", MsgBoxStyle.Critical, Me.Text)
@@ -3287,9 +3294,9 @@ Public Class frmProgressLane
             Dim dbReader As SqlCeDataReader
             'Part already scanned?
             If isForceScan Then
-                dbReader = OpenRecordset(String.Format("SELECT COUNT(*) FROM {0} WHERE P2_PART_NO = '{1}' AND P2_PART_SEQ_NO = '{2}'", TblJSPSupplyInterface, KB.PART_NO, KB.SEQ_NO), objConn)
+                dbReader = OpenRecordset(String.Format("SELECT COUNT(*) FROM {0} WHERE P2_PART_NO = '{1}' AND P2_PART_SEQ_NO = '{2}' AND ORG_ID = {3}", TblJSPSupplyInterface, KB.PART_NO, KB.SEQ_NO, SQLQuote(org_ID)), objConn)
             Else
-                dbReader = OpenRecordset(String.Format("SELECT COUNT(*) FROM {0} WHERE PDIO_NO = '{1}' AND P2_PART_NO = '{2}' AND P2_PART_SEQ_NO = '{3}'", TblJSPSupplyInterface, KB.PDIO_NO, KB.PART_NO, KB.SEQ_NO), objConn)
+                dbReader = OpenRecordset(String.Format("SELECT COUNT(*) FROM {0} WHERE PDIO_NO = '{1}' AND P2_PART_NO = '{2}' AND P2_PART_SEQ_NO = '{3}' AND ORG_ID = {4}", TblJSPSupplyInterface, KB.PDIO_NO, KB.PART_NO, KB.SEQ_NO, SQLQuote(org_ID)), objConn)
             End If
             If dbReader.Read Then
                 If CInt(dbReader(0)) > 0 Then
@@ -3356,9 +3363,9 @@ Public Class frmProgressLane
             Dim p2PartNo = KB.PART_NO.Replace("-", "")
             If (p2PartNo.Substring(0, 10) = PART.PARTS_NO) Then 'Part Matching?
                 Dim dbReader As SqlCeDataReader
-                dbReader = OpenRecordset(String.Format("SELECT COUNT(*) FROM {0} WHERE PXP_PART_NO = {1} AND PXP_PART_SEQ_NO = {2} AND MODULE_NO = {3} AND PART_BRANCH_NO = {4}", _
+                dbReader = OpenRecordset(String.Format("SELECT COUNT(*) FROM {0} WHERE PXP_PART_NO = {1} AND PXP_PART_SEQ_NO = {2} AND MODULE_NO = {3} AND PART_BRANCH_NO = {4} AND ORG_ID = {5}", _
                                                        TblJSPSupplyInterface, SQLQuote(PART.PARTS_NO), SQLQuote(PART.PART_SEQ_NUMBER), SQLQuote(PART.MODULE_NO), _
-                                                       SQLQuote(PART.PART_BRANCH_NUMBER)), objConn)
+                                                       SQLQuote(PART.PART_BRANCH_NUMBER), SQLQuote(org_ID)), objConn)
                 If dbReader.Read Then
                     If CInt(dbReader(0)) > 0 Then
                         lblPLStatusMsgAbn.BackColor = Color.Red
@@ -3420,6 +3427,7 @@ Public Class frmProgressLane
             MessageBox.Show(ex.Message)
         End Try
     End Sub
+
 #End Region
 
 End Class

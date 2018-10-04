@@ -1280,7 +1280,6 @@ Partial Public Class frmProgressLane
         '
         Me.txtFSKanbanSeqNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.txtFSKanbanSeqNo.Location = New System.Drawing.Point(75, 60)
-        Me.txtFSKanbanSeqNo.MaxLength = 2
         Me.txtFSKanbanSeqNo.Name = "txtFSKanbanSeqNo"
         Me.txtFSKanbanSeqNo.Size = New System.Drawing.Size(77, 19)
         Me.txtFSKanbanSeqNo.TabIndex = 104
@@ -1404,7 +1403,7 @@ Partial Public Class frmProgressLane
         Me.Panel21.Controls.Add(Me.lblPartNoInt)
         Me.Panel21.Controls.Add(Me.Label89)
         Me.Panel21.Controls.Add(Me.Label90)
-        Me.Panel21.Location = New System.Drawing.Point(10, 80)
+        Me.Panel21.Location = New System.Drawing.Point(10, 77)
         Me.Panel21.Name = "Panel21"
         Me.Panel21.Size = New System.Drawing.Size(293, 80)
         '

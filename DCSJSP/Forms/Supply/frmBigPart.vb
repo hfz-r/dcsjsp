@@ -303,7 +303,8 @@ Public Class frmBigPart
 
             GetShop(cmbShop)
             GetShop(cmbShopAbn)
-            GetReason()
+            'GetReason()
+            Call GetAbnReasonCode(lstViewRCVFScan)
             InitWebServices()
             bringPanelToFront(pnlBPMain, pnlBPScanModule)
             Cursor.Current = Cursors.Default
@@ -456,7 +457,9 @@ Public Class frmBigPart
                                                             Nothing, "BP", shop, msgDesc)
                 ElseIf forceStatus = "N" Then
                     msgCode = ws_validationClient.processValidation(GetBatchID("BIG_PART", "4"), GetScannerId(), "SUPPLY", "401", Nothing, _
-                                                            Nothing, moduleQR.Substring(6, 1), moduleQR.Substring(7, 5), Nothing, Nothing, Nothing, Nothing, _
+                                                            Nothing, IIf(Not String.IsNullOrEmpty(moduleQR.Substring(6, 1)), moduleQR.Substring(6, 1), Nothing), _
+                                                            IIf(Not String.IsNullOrEmpty(moduleQR.Substring(7, 5)), moduleQR.Substring(7, 5), Nothing), _
+                                                            Nothing, Nothing, Nothing, Nothing, _
                                                             moduleID, moduleNo, Nothing, Nothing, Nothing, Nothing, Nothing, _
                                                             Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, _
                                                             Nothing, Nothing, Nothing, Nothing, Nothing, orderNo, Nothing, _
@@ -602,8 +605,12 @@ Public Class frmBigPart
         Me.Text = strOnlineTitle
         ClearFS()
         If isNormal Then
+            txtModuleQR.Focus()
+            txtModuleQR.SelectAll()
             bringPanelToFront(pnlBPScanModule, pnlBPFScan)
         Else
+            txtModuleQRAbn.Focus()
+            txtModuleQRAbn.SelectAll()
             bringPanelToFront(pnlBPAbnScan, pnlBPFScan)
         End If
     End Sub
@@ -656,7 +663,8 @@ Public Class frmBigPart
         lblStatusMsgAbn.BackColor = Color.Transparent
         txtFSModuleNo.Focus()
         txtFSModuleNo.SelectAll()
-        GetReason()
+        'GetReason()
+        Call GetAbnReasonCode(lstViewRCVFScan)
         isNormal = False
         Me.Text = strOfflineTitle
         bringPanelToFront(pnlBPFScan, pnlBPAbnScan)

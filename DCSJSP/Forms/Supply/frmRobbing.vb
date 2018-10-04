@@ -171,10 +171,6 @@ Public Class frmRobbing
         total.Text = lstView.Items.Count
     End Sub
 
-    Function CheckOrgId(ByVal TempOrgID As String) As String
-        Return IIf(Not String.IsNullOrEmpty(TempOrgID), IIf(Not TempOrgID = "0", TempOrgID, org_ID), org_ID)
-    End Function
-
     Private Sub VerifyOrgId(ByVal MODULE_NO As String)
         Dim dt As DataTable = New DataTable()
 
@@ -349,7 +345,8 @@ Public Class frmRobbing
         Try
             Me.Text = strOnlineTitle
             footerStatusBar.Visible = False
-            GetReason()
+            'GetReason()
+            Call GetAbnReasonCode(lstViewRCVFScan)
             InitWebServices()
             bringPanelToFront(pnlRBMain, pnlRBScanPart)
             Cursor.Current = Cursors.Default
@@ -388,7 +385,7 @@ Public Class frmRobbing
         txtSeqNo.Text = String.Empty
         txtBranchNo.Text = String.Empty
         txtQty.Text = String.Empty
-        lblTotalScanned.Text = lstViewRCISummary.Items.Count
+        lblTotalScanned.Text = String.Empty
     End Sub
 
     Private Sub btnScanDetails_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnScanDetails.Click
@@ -475,10 +472,10 @@ Public Class frmRobbing
 
                 If forceStatus = "Y" Then
                     ptNo = partNo.Insert(5, "-") & "-" & partNoSfx
-                    dtDetail = ws_dcsClient.getData("QTY, MODULE_ID", TblJSPRobbingInfoView, _
-                                                                       " AND PART_NO = " & SQLQuote(ptNo) & _
-                                                                       " AND MODULE_NO = " & SQLQuote(moduleno) & _
-                                                                       " AND SEQUENCE_NO = " & seqNo)
+                    dtDetail = ws_dcsClient.getData("QTY, MODULE_ID, ORG_ID", TblJSPRobbingInfoView, _
+                                                    " AND PART_NO = " & SQLQuote(ptNo) & _
+                                                    " AND MODULE_NO = " & SQLQuote(moduleno) & _
+                                                    " AND SEQUENCE_NO = " & seqNo)
                     If dtDetail.Rows.Count > 0 Then
                         qty = dtDetail.Rows(0).Item("QTY").ToString()
                         msgCode = ws_validationClient.processValidation(GetBatchID("ROBBING", "5"), GetScannerId(), "ROBBING", "501", Nothing, _
@@ -490,7 +487,7 @@ Public Class frmRobbing
                                                     Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, _
                                                     Nothing, lotNo, module_cat, branch, Nothing, Nothing, Nothing, _
                                                     Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, _
-                                                    Nothing, Nothing, Nothing, Nothing, Nothing, CheckOrgId(dtDetail.Rows(0).Item("ORG_ID").ToString), _
+                                                    Nothing, Nothing, Nothing, Nothing, Nothing, org_ID, _
                                                     Nothing, Nothing, Nothing, Nothing, _
                                                     Nothing, gScannerID, currentDate, Nothing, Nothing, Nothing, Nothing, _
                                                     Nothing, currentDate, Nothing, Nothing, forceStatus, reason, Nothing, _
@@ -754,7 +751,8 @@ Public Class frmRobbing
         lblRBStatusMsgAbn.BackColor = Color.Transparent
         txtFSModuleNo.Focus()
         txtFSModuleNo.SelectAll()
-        GetReason()
+        'GetReason()
+        Call GetAbnReasonCode(lstViewRCVFScan)
         isNormal = False
         Me.Text = strOfflineTitle
         bringPanelToFront(pnlRBFScan, pnlRBAbnScan)
@@ -927,9 +925,9 @@ Public Class frmRobbing
                                 msgCode = ValidateAbnRecsForPost(lstDt.Rows(i), Nothing, Nothing, Nothing)
                             Else
                                 dtDetail = ws_dcsClient.getData("QTY, MODULE_ID", TblJSPRobbingInfoView, _
-                                                                                 " AND PART_NO = " & SQLQuote(lstDt.Rows(i).Item("PXP_PART_NO").ToString().Insert(5, "-") & "-" & lstDt.Rows(i).Item("PXP_PART_NO_SFX").ToString()) & _
-                                                                                 " AND MODULE_NO = " & SQLQuote(lstDt.Rows(i).Item("MODULE_NO").ToString()) & _
-                                                                                 " AND SEQUENCE_NO = " & SQLQuote(lstDt.Rows(i).Item("PXP_PART_SEQ_NO").ToString()))
+                                                                " AND PART_NO = " & SQLQuote(lstDt.Rows(i).Item("PXP_PART_NO").ToString().Insert(5, "-") & "-" & lstDt.Rows(i).Item("PXP_PART_NO_SFX").ToString()) & _
+                                                                " AND MODULE_NO = " & SQLQuote(lstDt.Rows(i).Item("MODULE_NO").ToString()) & _
+                                                                " AND SEQUENCE_NO = " & SQLQuote(lstDt.Rows(i).Item("PXP_PART_SEQ_NO").ToString()))
                                 If dtDetail.Rows.Count > 0 Then
                                     msgCode = ValidateAbnRecsForPost(lstDt.Rows(i), _
                                                                    dtDetail.Rows(0).Item("MODULE_ID").ToString, _
@@ -984,8 +982,7 @@ Public Class frmRobbing
                                             Optional ByVal REASON_ID As String = Nothing) As String
         Return ws_validationClient.processValidation(GetBatchID("ROBBING", "5"), GetScannerId(), "SUPPLY", "503", _
                       Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, _
-                      IIf(Not String.IsNullOrEmpty(dr.Item("MODULE_NO").ToString), dr.Item("MODULE_NO").ToString, Nothing), _
-                      Nothing, _
+                      IIf(Not String.IsNullOrEmpty(dr.Item("MODULE_NO").ToString), dr.Item("MODULE_NO").ToString, Nothing), Nothing, _
                       IIf(MODULE_ID IsNot Nothing, MODULE_ID, dr.Item("MODULE_CATEGORY").ToString() + dr.Item("LOT_NO").ToString()), _
                       IIf(Not String.IsNullOrEmpty(dr.Item("PXP_PART_NO").ToString), dr.Item("PXP_PART_NO").ToString, Nothing), _
                       IIf(Not String.IsNullOrEmpty(dr.Item("PXP_PART_NO_SFX").ToString), dr.Item("PXP_PART_NO_SFX").ToString, Nothing), _
@@ -1004,8 +1001,7 @@ Public Class frmRobbing
                       IIf(Not String.IsNullOrEmpty(dr.Item("ORDER_TYPE").ToString), dr.Item("ORDER_TYPE").ToString, Nothing), _
                       IIf(Not String.IsNullOrEmpty(dr.Item("KANBAN_CLASSIFICATION").ToString), dr.Item("KANBAN_CLASSIFICATION").ToString, Nothing), _
                       IIf(Not String.IsNullOrEmpty(dr.Item("MROS").ToString), dr.Item("MROS").ToString, Nothing), _
-                      IIf(Not String.IsNullOrEmpty(dr.Item("ORDER_NO").ToString), dr.Item("ORDER_NO").ToString, Nothing), _
-                      Nothing, _
+                      IIf(Not String.IsNullOrEmpty(dr.Item("ORDER_NO").ToString), dr.Item("ORDER_NO").ToString, Nothing), Nothing, _
                       IIf(Not String.IsNullOrEmpty(dr.Item("DELIVERY_NO").ToString), dr.Item("DELIVERY_NO").ToString, Nothing), _
                       IIf(Not String.IsNullOrEmpty(dr.Item("BACK_NUMBER").ToString), dr.Item("BACK_NUMBER").ToString, Nothing), _
                       IIf(Not String.IsNullOrEmpty(dr.Item("RUNOUT_FLAG").ToString), dr.Item("RUNOUT_FLAG").ToString, Nothing), _
@@ -1019,18 +1015,11 @@ Public Class frmRobbing
                       IIf(Not String.IsNullOrEmpty(dr.Item("PART_BRANCH_NO").ToString), dr.Item("PART_BRANCH_NO").ToString, Nothing), _
                       IIf(Not String.IsNullOrEmpty(dr.Item("DUMMY").ToString), dr.Item("DUMMY").ToString, Nothing), _
                       IIf(Not String.IsNullOrEmpty(dr.Item("VERSION_NO").ToString), dr.Item("VERSION_NO").ToString, Nothing), _
-                      Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, _
-                      Nothing, Nothing, Nothing, Nothing, Nothing, _
-                      CheckOrgId(dr.Item("ORG_ID").ToString), _
-                      Nothing, Nothing, Nothing, Nothing, _
-                      Nothing, _
-                      dr.Item("ROBBING_BY").ToString(), _
-                      Convert.ToDateTime(dr.Item("ROBBING_DATE").ToString()).ToString("dd-MM-yyyy hh:mm:ss tt"), _
-                      Nothing, Nothing, Nothing, Nothing, Nothing, _
+                      Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, _
+                      org_ID, Nothing, Nothing, Nothing, Nothing, Nothing, dr.Item("ROBBING_BY").ToString(), _
+                      Convert.ToDateTime(dr.Item("ROBBING_DATE").ToString()).ToString("dd-MM-yyyy hh:mm:ss tt"), Nothing, Nothing, Nothing, Nothing, Nothing, _
                       Convert.ToDateTime(dr.Item("SCAN_DATE").ToString()).ToString("dd-MM-yyyy hh:mm:ss tt"), _
-                      Nothing, Nothing, _
-                      dr.Item("FORCE_PXP_STATUS").ToString(), _
-                      IIf(REASON_ID IsNot Nothing, REASON_ID, Nothing), _
+                      Nothing, Nothing, dr.Item("FORCE_PXP_STATUS").ToString(), IIf(REASON_ID IsNot Nothing, REASON_ID, Nothing), _
                       Nothing, Nothing, Nothing, Nothing, msgDesc)
     End Function
 

@@ -20,9 +20,9 @@ Partial Public Class frmChildPart
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmChildPart))
-        Dim ListViewItem4 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem5 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
-        Dim ListViewItem6 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem7 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem8 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
+        Dim ListViewItem9 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem
         Me.pnlCPMain = New System.Windows.Forms.Panel
         Me.Label12 = New System.Windows.Forms.Label
         Me.btnAbnormalCP = New System.Windows.Forms.PictureBox
@@ -385,12 +385,12 @@ Partial Public Class frmChildPart
         Me.lstViewRCVFScan.Columns.Add(Me.ColumnHeader1)
         Me.lstViewRCVFScan.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.lstViewRCVFScan.FullRowSelect = True
-        ListViewItem4.Text = "QR Code Cannot Read"
-        ListViewItem5.Text = "QR Code Damage"
-        ListViewItem6.Text = "QR Code Missing"
-        Me.lstViewRCVFScan.Items.Add(ListViewItem4)
-        Me.lstViewRCVFScan.Items.Add(ListViewItem5)
-        Me.lstViewRCVFScan.Items.Add(ListViewItem6)
+        ListViewItem7.Text = "QR Code Cannot Read"
+        ListViewItem8.Text = "QR Code Damage"
+        ListViewItem9.Text = "QR Code Missing"
+        Me.lstViewRCVFScan.Items.Add(ListViewItem7)
+        Me.lstViewRCVFScan.Items.Add(ListViewItem8)
+        Me.lstViewRCVFScan.Items.Add(ListViewItem9)
         Me.lstViewRCVFScan.Location = New System.Drawing.Point(8, 130)
         Me.lstViewRCVFScan.Name = "lstViewRCVFScan"
         Me.lstViewRCVFScan.Size = New System.Drawing.Size(305, 80)

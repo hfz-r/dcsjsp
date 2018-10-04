@@ -27,9 +27,9 @@ Module GeneralVariables
     Public progressBar As ProgressBar
 
     '------------ Message Display ------------
-    Public successMsgPart As String = "All Parts Succesfully Scanned."
-    Public successMsgModule As String = "All Modules Succesfully Scanned."
-    Public successMsg As String = "Succesfully Scanned."
+    Public successMsgPart As String = "All Parts Successfully Scanned."
+    Public successMsgModule As String = "All Modules Successfully Scanned."
+    Public successMsg As String = "Successfully Scanned."
 
     Public gAppName As String = "JSP"
     Public gDBPath As String = "/Application/DCSJSP/"

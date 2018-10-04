@@ -122,7 +122,6 @@ Module GeneralFunction
         Dim dbReader As SqlCeDataReader = Nothing
 
         Try
-
             Dim sSQL As String = String.Format("SELECT * FROM {0}", TblSettingDb)
             dbReader = OpenRecordset(sSQL, objConn)
             dt.Load(dbReader)
@@ -175,7 +174,6 @@ Module GeneralFunction
     End Function
 
     Public Sub InitWebServices()
-
         ws_validationClient.Url = gStrOracleChckWebServiceURL
         ws_validationClient.PreAuthenticate = True
         ws_validationClient.Credentials = New NetworkCredential(gStrOraUserID, gStrOraUserPwd)
@@ -211,7 +209,7 @@ Module GeneralFunction
 
 #End Region
 
-#Region "Single Instance Application"
+#Region ". Single Instance Application ."
 
     <DllImport("coredll.dll", SetLastError:=True)> _
     Function CreateMutex(ByVal Attr As IntPtr, ByVal Own As Boolean, ByVal Name As String) As IntPtr
@@ -222,6 +220,30 @@ Module GeneralFunction
     End Function
 
     Const ERROR_ALREADY_EXISTS As Long = 183
+
+#End Region
+
+#Region ". Abnormal Reason Code ."
+
+    Public Sub GetAbnReasonCode(ByVal lstView As ListView)
+        If Not String.IsNullOrEmpty(org_ID) Then
+            Dim newItem As ListViewItem
+            Dim dtReason As DataTable = New DataTable
+
+            lstView.Items.Clear()
+            dtReason = getData(String.Format("SELECT REASON_CODE, REASON FROM {0} WHERE ORG_ID = {1}", TblJSPAbnormalReasonCodeDb, org_ID))
+            If dtReason.Rows.Count > 0 Then
+                For i As Integer = 0 To dtReason.Rows.Count - 1
+                    newItem = New ListViewItem
+                    newItem.Text = dtReason.Rows(i).Item("REASON").ToString
+                    newItem.SubItems.Add(dtReason.Rows(i).Item("REASON_CODE").ToString)
+                    lstView.Items.Add(newItem)
+                Next
+            End If
+        Else
+            lstView = New ListView
+        End If
+    End Sub
 
 #End Region
 

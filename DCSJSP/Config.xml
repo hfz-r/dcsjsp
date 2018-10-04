@@ -5,13 +5,13 @@
   <SQLDatabaseName>DBDCSJSP.sdf</SQLDatabaseName>
   <SQLUserID></SQLUserID>
   <SQLPassword></SQLPassword>
-  
+
   <!-- WEB SERVICE ORACLE -->
-  <WSOraChckURL>http://vawbmtd0.perodua.com.my:4559/ws/perodua.eai.process.inventory.ws:processValidationService/perodua_eai_process_inventory_ws_processValidationService_Port</WSOraChckURL>
-  <WSOraCpURL>http://vawbmtd0.perodua.com.my:4559/ws/perodua.eai.process.inventory.ws:processInventoryConsumptionService/perodua_eai_process_inventory_ws_processInventoryConsumptionService_Port</WSOraCpURL>
+  <WSOraChckURL>http://10.1.111.94:5559/ws/perodua.eai.process.inventory.ws:processValidationService/perodua_eai_process_inventory_ws_processValidationService_Port</WSOraChckURL>
+  <WSOraCpURL>http://10.1.111.94:5559/ws/perodua.eai.process.inventory.ws:processInventoryConsumptionService/perodua_eai_process_inventory_ws_processInventoryConsumptionService_Port</WSOraCpURL>
   <WSOraUserID>promiseusr</WSOraUserID>
   <WSOraPassword>promiseusr</WSOraPassword>
-  
+
   <!-- WEB SERVICE TTMS -->
-  <WSDcsURL>http://10.1.115.233:8084/DCSWebService.svc</WSDcsURL>
+  <WSDcsURL>http://10.1.111.164:8081/DCSWebService.svc</WSDcsURL>
 </Configuration>

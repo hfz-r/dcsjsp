@@ -21,7 +21,6 @@ Public Class frmProgress
         MsgBox("No connection. Please verify scanner date and time.")
         bringPanelToFront(pnlSetDatetime, pnlProgress)
         dtScannerDate.Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm tt")
-
     End Sub
 
     Private Sub DataImport()

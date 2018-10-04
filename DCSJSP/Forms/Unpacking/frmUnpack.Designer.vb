@@ -66,10 +66,12 @@ Partial Public Class frmUnpack
         Me.btnCloseAbnViewDet = New System.Windows.Forms.Button
         Me.lstViewUnpAbnModDet = New System.Windows.Forms.ListView
         Me.ColumnHeader28 = New System.Windows.Forms.ColumnHeader
+        Me.ColumnHeader35 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader13 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader14 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader15 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader24 = New System.Windows.Forms.ColumnHeader
+        Me.ColumnHeader32 = New System.Windows.Forms.ColumnHeader
         Me.lblUnpAbnModNoDet = New System.Windows.Forms.Label
         Me.pnlUnpackPosting = New System.Windows.Forms.Panel
         Me.lblUnpAbnScanPartTotalDet = New System.Windows.Forms.Label
@@ -80,10 +82,12 @@ Partial Public Class frmUnpack
         Me.btnClosePosting = New System.Windows.Forms.Button
         Me.lstViewUnpAbnPartDet = New System.Windows.Forms.ListView
         Me.ColumnHeader29 = New System.Windows.Forms.ColumnHeader
+        Me.ColumnHeader36 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader3 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader4 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader5 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader25 = New System.Windows.Forms.ColumnHeader
+        Me.ColumnHeader33 = New System.Windows.Forms.ColumnHeader
         Me.lblUnpAbnModNoDet2 = New System.Windows.Forms.Label
         Me.pnlUnpackDelete = New System.Windows.Forms.Panel
         Me.Label6 = New System.Windows.Forms.Label
@@ -93,10 +97,12 @@ Partial Public Class frmUnpack
         Me.btnCloseDelete = New System.Windows.Forms.Button
         Me.ListView2 = New System.Windows.Forms.ListView
         Me.ColumnHeader10 = New System.Windows.Forms.ColumnHeader
+        Me.ColumnHeader37 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader7 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader8 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader9 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader26 = New System.Windows.Forms.ColumnHeader
+        Me.ColumnHeader34 = New System.Windows.Forms.ColumnHeader
         Me.Label28 = New System.Windows.Forms.Label
         Me.pnlUnpackAbn = New System.Windows.Forms.Panel
         Me.Panel6 = New System.Windows.Forms.Panel
@@ -177,12 +183,14 @@ Partial Public Class frmUnpack
         Me.Label22 = New System.Windows.Forms.Label
         Me.Label73 = New System.Windows.Forms.Label
         Me.Panel18 = New System.Windows.Forms.Panel
-        Me.btnUnpackAbnScanPart = New System.Windows.Forms.Button
+        Me.btnBackUnpackAbnScanPart = New System.Windows.Forms.Button
         Me.Label75 = New System.Windows.Forms.Label
         Me.btnAbnFSPart = New System.Windows.Forms.PictureBox
         Me.txtAbnSPartKanban = New System.Windows.Forms.TextBox
         Me.Label77 = New System.Windows.Forms.Label
         Me.pnlUnpackFScanPart = New System.Windows.Forms.Panel
+        Me.txtUnpFSRobModNo = New System.Windows.Forms.TextBox
+        Me.Label8 = New System.Windows.Forms.Label
         Me.lblUnpFSPModNo = New System.Windows.Forms.Label
         Me.txtUnpFSPBranchNo = New System.Windows.Forms.TextBox
         Me.txtUnpFSPSeqNo = New System.Windows.Forms.TextBox
@@ -226,6 +234,9 @@ Partial Public Class frmUnpack
         Me.Label117 = New System.Windows.Forms.Label
         Me.Label118 = New System.Windows.Forms.Label
         Me.pnlUnpackAbnFscanPart = New System.Windows.Forms.Panel
+        Me.txtUnpAbnFSRobModNo = New System.Windows.Forms.TextBox
+        Me.lblRobModuleNo = New System.Windows.Forms.Label
+        Me.isMakeUp = New System.Windows.Forms.CheckBox
         Me.lblUnpAbnFSPartModNo = New System.Windows.Forms.Label
         Me.txtUnpAbnFSPartBranchNo = New System.Windows.Forms.TextBox
         Me.txtUnpAbnFSPartSeqNo = New System.Windows.Forms.TextBox
@@ -668,10 +679,12 @@ Partial Public Class frmUnpack
         'lstViewUnpAbnModDet
         '
         Me.lstViewUnpAbnModDet.Columns.Add(Me.ColumnHeader28)
+        Me.lstViewUnpAbnModDet.Columns.Add(Me.ColumnHeader35)
         Me.lstViewUnpAbnModDet.Columns.Add(Me.ColumnHeader13)
         Me.lstViewUnpAbnModDet.Columns.Add(Me.ColumnHeader14)
         Me.lstViewUnpAbnModDet.Columns.Add(Me.ColumnHeader15)
         Me.lstViewUnpAbnModDet.Columns.Add(Me.ColumnHeader24)
+        Me.lstViewUnpAbnModDet.Columns.Add(Me.ColumnHeader32)
         Me.lstViewUnpAbnModDet.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.lstViewUnpAbnModDet.FullRowSelect = True
         Me.lstViewUnpAbnModDet.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
@@ -686,6 +699,11 @@ Partial Public Class frmUnpack
         Me.ColumnHeader28.Text = "No"
         Me.ColumnHeader28.Width = 30
         '
+        'ColumnHeader35
+        '
+        Me.ColumnHeader35.Text = "Module No"
+        Me.ColumnHeader35.Width = 60
+        '
         'ColumnHeader13
         '
         Me.ColumnHeader13.Text = "Part No"
@@ -694,17 +712,22 @@ Partial Public Class frmUnpack
         'ColumnHeader14
         '
         Me.ColumnHeader14.Text = "Seq No"
-        Me.ColumnHeader14.Width = 50
+        Me.ColumnHeader14.Width = 40
         '
         'ColumnHeader15
         '
         Me.ColumnHeader15.Text = "Qty"
-        Me.ColumnHeader15.Width = 50
+        Me.ColumnHeader15.Width = 40
         '
         'ColumnHeader24
         '
         Me.ColumnHeader24.Text = "Branch No"
-        Me.ColumnHeader24.Width = 60
+        Me.ColumnHeader24.Width = 40
+        '
+        'ColumnHeader32
+        '
+        Me.ColumnHeader32.Text = "Make Up"
+        Me.ColumnHeader32.Width = 60
         '
         'lblUnpAbnModNoDet
         '
@@ -784,10 +807,12 @@ Partial Public Class frmUnpack
         'lstViewUnpAbnPartDet
         '
         Me.lstViewUnpAbnPartDet.Columns.Add(Me.ColumnHeader29)
+        Me.lstViewUnpAbnPartDet.Columns.Add(Me.ColumnHeader36)
         Me.lstViewUnpAbnPartDet.Columns.Add(Me.ColumnHeader3)
         Me.lstViewUnpAbnPartDet.Columns.Add(Me.ColumnHeader4)
         Me.lstViewUnpAbnPartDet.Columns.Add(Me.ColumnHeader5)
         Me.lstViewUnpAbnPartDet.Columns.Add(Me.ColumnHeader25)
+        Me.lstViewUnpAbnPartDet.Columns.Add(Me.ColumnHeader33)
         Me.lstViewUnpAbnPartDet.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.lstViewUnpAbnPartDet.FullRowSelect = True
         Me.lstViewUnpAbnPartDet.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
@@ -802,6 +827,11 @@ Partial Public Class frmUnpack
         Me.ColumnHeader29.Text = "No"
         Me.ColumnHeader29.Width = 30
         '
+        'ColumnHeader36
+        '
+        Me.ColumnHeader36.Text = "Module No"
+        Me.ColumnHeader36.Width = 60
+        '
         'ColumnHeader3
         '
         Me.ColumnHeader3.Text = "Part No"
@@ -810,17 +840,22 @@ Partial Public Class frmUnpack
         'ColumnHeader4
         '
         Me.ColumnHeader4.Text = "Seq No"
-        Me.ColumnHeader4.Width = 50
+        Me.ColumnHeader4.Width = 40
         '
         'ColumnHeader5
         '
         Me.ColumnHeader5.Text = "Qty"
-        Me.ColumnHeader5.Width = 50
+        Me.ColumnHeader5.Width = 40
         '
         'ColumnHeader25
         '
         Me.ColumnHeader25.Text = "Branch No"
-        Me.ColumnHeader25.Width = 60
+        Me.ColumnHeader25.Width = 40
+        '
+        'ColumnHeader33
+        '
+        Me.ColumnHeader33.Text = "Make Up"
+        Me.ColumnHeader33.Width = 60
         '
         'lblUnpAbnModNoDet2
         '
@@ -828,7 +863,6 @@ Partial Public Class frmUnpack
         Me.lblUnpAbnModNoDet2.Location = New System.Drawing.Point(2, 4)
         Me.lblUnpAbnModNoDet2.Name = "lblUnpAbnModNoDet2"
         Me.lblUnpAbnModNoDet2.Size = New System.Drawing.Size(315, 20)
-        Me.lblUnpAbnModNoDet2.Text = "Module No :"
         '
         'pnlUnpackDelete
         '
@@ -891,10 +925,12 @@ Partial Public Class frmUnpack
         'ListView2
         '
         Me.ListView2.Columns.Add(Me.ColumnHeader10)
+        Me.ListView2.Columns.Add(Me.ColumnHeader37)
         Me.ListView2.Columns.Add(Me.ColumnHeader7)
         Me.ListView2.Columns.Add(Me.ColumnHeader8)
         Me.ListView2.Columns.Add(Me.ColumnHeader9)
         Me.ListView2.Columns.Add(Me.ColumnHeader26)
+        Me.ListView2.Columns.Add(Me.ColumnHeader34)
         Me.ListView2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.ListView2.FullRowSelect = True
         Me.ListView2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
@@ -909,6 +945,11 @@ Partial Public Class frmUnpack
         Me.ColumnHeader10.Text = "No"
         Me.ColumnHeader10.Width = 30
         '
+        'ColumnHeader37
+        '
+        Me.ColumnHeader37.Text = "Module No"
+        Me.ColumnHeader37.Width = 60
+        '
         'ColumnHeader7
         '
         Me.ColumnHeader7.Text = "Part No"
@@ -917,17 +958,22 @@ Partial Public Class frmUnpack
         'ColumnHeader8
         '
         Me.ColumnHeader8.Text = "Seq No"
-        Me.ColumnHeader8.Width = 50
+        Me.ColumnHeader8.Width = 40
         '
         'ColumnHeader9
         '
         Me.ColumnHeader9.Text = "Qty"
-        Me.ColumnHeader9.Width = 50
+        Me.ColumnHeader9.Width = 40
         '
         'ColumnHeader26
         '
         Me.ColumnHeader26.Text = "Branch No"
-        Me.ColumnHeader26.Width = 60
+        Me.ColumnHeader26.Width = 40
+        '
+        'ColumnHeader34
+        '
+        Me.ColumnHeader34.Text = "Make Up"
+        Me.ColumnHeader34.Width = 60
         '
         'Label28
         '
@@ -1620,20 +1666,20 @@ Partial Public Class frmUnpack
         'Panel18
         '
         Me.Panel18.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Panel18.Controls.Add(Me.btnUnpackAbnScanPart)
+        Me.Panel18.Controls.Add(Me.btnBackUnpackAbnScanPart)
         Me.Panel18.Location = New System.Drawing.Point(0, 240)
         Me.Panel18.Name = "Panel18"
         Me.Panel18.Size = New System.Drawing.Size(320, 24)
         '
-        'btnUnpackAbnScanPart
+        'btnBackUnpackAbnScanPart
         '
-        Me.btnUnpackAbnScanPart.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.btnUnpackAbnScanPart.Location = New System.Drawing.Point(200, 2)
-        Me.btnUnpackAbnScanPart.Name = "btnUnpackAbnScanPart"
-        Me.btnUnpackAbnScanPart.Size = New System.Drawing.Size(110, 20)
-        Me.btnUnpackAbnScanPart.TabIndex = 34
-        Me.btnUnpackAbnScanPart.TabStop = False
-        Me.btnUnpackAbnScanPart.Text = "Back"
+        Me.btnBackUnpackAbnScanPart.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
+        Me.btnBackUnpackAbnScanPart.Location = New System.Drawing.Point(200, 2)
+        Me.btnBackUnpackAbnScanPart.Name = "btnBackUnpackAbnScanPart"
+        Me.btnBackUnpackAbnScanPart.Size = New System.Drawing.Size(110, 20)
+        Me.btnBackUnpackAbnScanPart.TabIndex = 34
+        Me.btnBackUnpackAbnScanPart.TabStop = False
+        Me.btnBackUnpackAbnScanPart.Text = "Back"
         '
         'Label75
         '
@@ -1670,6 +1716,8 @@ Partial Public Class frmUnpack
         'pnlUnpackFScanPart
         '
         Me.pnlUnpackFScanPart.BackColor = System.Drawing.Color.Transparent
+        Me.pnlUnpackFScanPart.Controls.Add(Me.txtUnpFSRobModNo)
+        Me.pnlUnpackFScanPart.Controls.Add(Me.Label8)
         Me.pnlUnpackFScanPart.Controls.Add(Me.lblUnpFSPModNo)
         Me.pnlUnpackFScanPart.Controls.Add(Me.txtUnpFSPBranchNo)
         Me.pnlUnpackFScanPart.Controls.Add(Me.txtUnpFSPSeqNo)
@@ -1687,6 +1735,23 @@ Partial Public Class frmUnpack
         Me.pnlUnpackFScanPart.Size = New System.Drawing.Size(320, 275)
         Me.pnlUnpackFScanPart.Visible = False
         '
+        'txtUnpFSRobModNo
+        '
+        Me.txtUnpFSRobModNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.txtUnpFSRobModNo.Location = New System.Drawing.Point(104, 111)
+        Me.txtUnpFSRobModNo.MaxLength = 6
+        Me.txtUnpFSRobModNo.Name = "txtUnpFSRobModNo"
+        Me.txtUnpFSRobModNo.Size = New System.Drawing.Size(77, 19)
+        Me.txtUnpFSRobModNo.TabIndex = 116
+        '
+        'Label8
+        '
+        Me.Label8.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.Label8.Location = New System.Drawing.Point(8, 111)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(95, 20)
+        Me.Label8.Text = "Rob Module No:"
+        '
         'lblUnpFSPModNo
         '
         Me.lblUnpFSPModNo.Location = New System.Drawing.Point(75, 34)
@@ -1697,6 +1762,7 @@ Partial Public Class frmUnpack
         '
         Me.txtUnpFSPBranchNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.txtUnpFSPBranchNo.Location = New System.Drawing.Point(213, 86)
+        Me.txtUnpFSPBranchNo.MaxLength = 2
         Me.txtUnpFSPBranchNo.Name = "txtUnpFSPBranchNo"
         Me.txtUnpFSPBranchNo.Size = New System.Drawing.Size(77, 19)
         Me.txtUnpFSPBranchNo.TabIndex = 105
@@ -1705,6 +1771,7 @@ Partial Public Class frmUnpack
         '
         Me.txtUnpFSPSeqNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.txtUnpFSPSeqNo.Location = New System.Drawing.Point(75, 86)
+        Me.txtUnpFSPSeqNo.MaxLength = 2
         Me.txtUnpFSPSeqNo.Name = "txtUnpFSPSeqNo"
         Me.txtUnpFSPSeqNo.Size = New System.Drawing.Size(77, 19)
         Me.txtUnpFSPSeqNo.TabIndex = 104
@@ -1729,6 +1796,7 @@ Partial Public Class frmUnpack
         '
         Me.txtUnpFSPartNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.txtUnpFSPartNo.Location = New System.Drawing.Point(75, 60)
+        Me.txtUnpFSPartNo.MaxLength = 14
         Me.txtUnpFSPartNo.Name = "txtUnpFSPartNo"
         Me.txtUnpFSPartNo.Size = New System.Drawing.Size(235, 19)
         Me.txtUnpFSPartNo.TabIndex = 95
@@ -1774,7 +1842,7 @@ Partial Public Class frmUnpack
         Me.lstviewUnpFSPReason.Columns.Add(Me.ColumnHeader16)
         Me.lstviewUnpFSPReason.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.lstviewUnpFSPReason.FullRowSelect = True
-        Me.lstviewUnpFSPReason.Location = New System.Drawing.Point(8, 130)
+        Me.lstviewUnpFSPReason.Location = New System.Drawing.Point(8, 135)
         Me.lstviewUnpFSPReason.Name = "lstviewUnpFSPReason"
         Me.lstviewUnpFSPReason.Size = New System.Drawing.Size(305, 80)
         Me.lstviewUnpFSPReason.TabIndex = 84
@@ -2035,6 +2103,7 @@ Partial Public Class frmUnpack
         '
         Me.txtFSAbnModNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.txtFSAbnModNo.Location = New System.Drawing.Point(8, 51)
+        Me.txtFSAbnModNo.MaxLength = 6
         Me.txtFSAbnModNo.Name = "txtFSAbnModNo"
         Me.txtFSAbnModNo.Size = New System.Drawing.Size(302, 19)
         Me.txtFSAbnModNo.TabIndex = 82
@@ -2058,6 +2127,9 @@ Partial Public Class frmUnpack
         'pnlUnpackAbnFscanPart
         '
         Me.pnlUnpackAbnFscanPart.BackColor = System.Drawing.Color.Transparent
+        Me.pnlUnpackAbnFscanPart.Controls.Add(Me.txtUnpAbnFSRobModNo)
+        Me.pnlUnpackAbnFscanPart.Controls.Add(Me.lblRobModuleNo)
+        Me.pnlUnpackAbnFscanPart.Controls.Add(Me.isMakeUp)
         Me.pnlUnpackAbnFscanPart.Controls.Add(Me.lblUnpAbnFSPartModNo)
         Me.pnlUnpackAbnFscanPart.Controls.Add(Me.txtUnpAbnFSPartBranchNo)
         Me.pnlUnpackAbnFscanPart.Controls.Add(Me.txtUnpAbnFSPartSeqNo)
@@ -2075,6 +2147,31 @@ Partial Public Class frmUnpack
         Me.pnlUnpackAbnFscanPart.Size = New System.Drawing.Size(320, 275)
         Me.pnlUnpackAbnFscanPart.Visible = False
         '
+        'txtUnpAbnFSRobModNo
+        '
+        Me.txtUnpAbnFSRobModNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.txtUnpAbnFSRobModNo.Location = New System.Drawing.Point(213, 112)
+        Me.txtUnpAbnFSRobModNo.MaxLength = 6
+        Me.txtUnpAbnFSRobModNo.Name = "txtUnpAbnFSRobModNo"
+        Me.txtUnpAbnFSRobModNo.Size = New System.Drawing.Size(77, 19)
+        Me.txtUnpAbnFSRobModNo.TabIndex = 114
+        '
+        'lblRobModuleNo
+        '
+        Me.lblRobModuleNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
+        Me.lblRobModuleNo.Location = New System.Drawing.Point(117, 112)
+        Me.lblRobModuleNo.Name = "lblRobModuleNo"
+        Me.lblRobModuleNo.Size = New System.Drawing.Size(95, 20)
+        Me.lblRobModuleNo.Text = "Rob Module No:"
+        '
+        'isMakeUp
+        '
+        Me.isMakeUp.Location = New System.Drawing.Point(6, 110)
+        Me.isMakeUp.Name = "isMakeUp"
+        Me.isMakeUp.Size = New System.Drawing.Size(100, 20)
+        Me.isMakeUp.TabIndex = 112
+        Me.isMakeUp.Text = "Make Up"
+        '
         'lblUnpAbnFSPartModNo
         '
         Me.lblUnpAbnFSPartModNo.Location = New System.Drawing.Point(75, 34)
@@ -2085,6 +2182,7 @@ Partial Public Class frmUnpack
         '
         Me.txtUnpAbnFSPartBranchNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.txtUnpAbnFSPartBranchNo.Location = New System.Drawing.Point(213, 86)
+        Me.txtUnpAbnFSPartBranchNo.MaxLength = 2
         Me.txtUnpAbnFSPartBranchNo.Name = "txtUnpAbnFSPartBranchNo"
         Me.txtUnpAbnFSPartBranchNo.Size = New System.Drawing.Size(77, 19)
         Me.txtUnpAbnFSPartBranchNo.TabIndex = 105
@@ -2093,6 +2191,7 @@ Partial Public Class frmUnpack
         '
         Me.txtUnpAbnFSPartSeqNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.txtUnpAbnFSPartSeqNo.Location = New System.Drawing.Point(75, 86)
+        Me.txtUnpAbnFSPartSeqNo.MaxLength = 2
         Me.txtUnpAbnFSPartSeqNo.Name = "txtUnpAbnFSPartSeqNo"
         Me.txtUnpAbnFSPartSeqNo.Size = New System.Drawing.Size(77, 19)
         Me.txtUnpAbnFSPartSeqNo.TabIndex = 104
@@ -2117,6 +2216,7 @@ Partial Public Class frmUnpack
         '
         Me.txtUnpAbnFSPartNo.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.txtUnpAbnFSPartNo.Location = New System.Drawing.Point(75, 60)
+        Me.txtUnpAbnFSPartNo.MaxLength = 14
         Me.txtUnpAbnFSPartNo.Name = "txtUnpAbnFSPartNo"
         Me.txtUnpAbnFSPartNo.Size = New System.Drawing.Size(235, 19)
         Me.txtUnpAbnFSPartNo.TabIndex = 95
@@ -2162,7 +2262,7 @@ Partial Public Class frmUnpack
         Me.lstViewUnpAbnFSPartReason.Columns.Add(Me.ColumnHeader2)
         Me.lstViewUnpAbnFSPartReason.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular)
         Me.lstViewUnpAbnFSPartReason.FullRowSelect = True
-        Me.lstViewUnpAbnFSPartReason.Location = New System.Drawing.Point(8, 130)
+        Me.lstViewUnpAbnFSPartReason.Location = New System.Drawing.Point(8, 136)
         Me.lstViewUnpAbnFSPartReason.Name = "lstViewUnpAbnFSPartReason"
         Me.lstViewUnpAbnFSPartReason.Size = New System.Drawing.Size(305, 80)
         Me.lstViewUnpAbnFSPartReason.TabIndex = 84
@@ -2406,7 +2506,6 @@ Partial Public Class frmUnpack
     Friend WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader4 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader5 As System.Windows.Forms.ColumnHeader
-    Friend WithEvents lblUnpAbnModNoDet2 As System.Windows.Forms.Label
     Friend WithEvents btnSubmitPosting As System.Windows.Forms.Button
     Friend WithEvents Label25 As System.Windows.Forms.Label
     Friend WithEvents lblUnpAbnScanPartTotalDet As System.Windows.Forms.Label
@@ -2486,7 +2585,7 @@ Partial Public Class frmUnpack
     Friend WithEvents Label22 As System.Windows.Forms.Label
     Friend WithEvents Label73 As System.Windows.Forms.Label
     Friend WithEvents Panel18 As System.Windows.Forms.Panel
-    Friend WithEvents btnUnpackAbnScanPart As System.Windows.Forms.Button
+    Friend WithEvents btnBackUnpackAbnScanPart As System.Windows.Forms.Button
     Friend WithEvents Label75 As System.Windows.Forms.Label
     Friend WithEvents btnAbnFSPart As System.Windows.Forms.PictureBox
     Friend WithEvents txtAbnSPartKanban As System.Windows.Forms.TextBox
@@ -2585,5 +2684,17 @@ Partial Public Class frmUnpack
     Friend WithEvents lblUsername As System.Windows.Forms.Label
     Friend WithEvents ColumnHeader30 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader31 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ColumnHeader32 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ColumnHeader33 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ColumnHeader34 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents isMakeUp As System.Windows.Forms.CheckBox
+    Friend WithEvents txtUnpAbnFSRobModNo As System.Windows.Forms.TextBox
+    Friend WithEvents lblRobModuleNo As System.Windows.Forms.Label
+    Friend WithEvents txtUnpFSRobModNo As System.Windows.Forms.TextBox
+    Friend WithEvents Label8 As System.Windows.Forms.Label
+    Friend WithEvents lblUnpAbnModNoDet2 As System.Windows.Forms.Label
+    Friend WithEvents ColumnHeader35 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ColumnHeader36 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ColumnHeader37 As System.Windows.Forms.ColumnHeader
 
 End Class

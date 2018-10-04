@@ -119,7 +119,7 @@
   </wsdl:binding>
   <wsdl:service name="processInventoryConsumptionService">
     <wsdl:port name="perodua_eai_process_inventory_ws_processInventoryConsumptionService_Port" binding="tns:perodua_eai_process_inventory_ws_processInventoryConsumptionService_Binder">
-      <soap:address location="http://VAWBMTD0.perodua.com.my:4559/ws/perodua.eai.process.inventory.ws:processInventoryConsumptionService/perodua_eai_process_inventory_ws_processInventoryConsumptionService_Port" />
+      <soap:address location="http://VAWBMTD0.perodua.com.my:5559/ws/perodua.eai.process.inventory.ws:processInventoryConsumptionService/perodua_eai_process_inventory_ws_processInventoryConsumptionService_Port" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

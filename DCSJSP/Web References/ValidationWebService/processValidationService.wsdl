@@ -723,7 +723,7 @@
   </wsdl:binding>
   <wsdl:service name="processValidationService">
     <wsdl:port name="perodua_eai_process_inventory_ws_processValidationService_Port" binding="tns1:perodua_eai_process_inventory_ws_processValidationService_Binder">
-      <soap:address location="http://VAWBMTD0.perodua.com.my:4559/ws/perodua.eai.process.inventory.ws:processValidationService/perodua_eai_process_inventory_ws_processValidationService_Port" />
+      <soap:address location="http://VAWBMTD0.perodua.com.my:5559/ws/perodua.eai.process.inventory.ws:processValidationService/perodua_eai_process_inventory_ws_processValidationService_Port" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

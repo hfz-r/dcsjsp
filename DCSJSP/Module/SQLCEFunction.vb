@@ -3,6 +3,7 @@ Imports System.Data.SqlServerCe
 Imports System.Data.Common
 Imports System.Reflection
 Imports System.Globalization
+Imports System.Net
 
 Module SQLCEFunction
 
@@ -898,7 +899,8 @@ Module SQLCEFunction
             'end
 
             CreateMasterTable = True
-
+        Catch ex As WebException
+            Throw ex
         Catch ex As Exception
             UnHandledError(ex.ToString(), ErrLoc)
         Finally

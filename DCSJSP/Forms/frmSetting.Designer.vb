@@ -681,7 +681,7 @@ Partial Public Class frmSetting
         Me.btnBackAut.Location = New System.Drawing.Point(32, 201)
         Me.btnBackAut.Name = "btnBackAut"
         Me.btnBackAut.Size = New System.Drawing.Size(129, 22)
-        Me.btnBackAut.TabIndex = 34
+        Me.btnBackAut.TabIndex = 3
         Me.btnBackAut.TabStop = False
         Me.btnBackAut.Text = "Back"
         '
@@ -690,7 +690,7 @@ Partial Public Class frmSetting
         Me.btnVerifyAut.Location = New System.Drawing.Point(167, 201)
         Me.btnVerifyAut.Name = "btnVerifyAut"
         Me.btnVerifyAut.Size = New System.Drawing.Size(130, 22)
-        Me.btnVerifyAut.TabIndex = 92
+        Me.btnVerifyAut.TabIndex = 3
         Me.btnVerifyAut.Text = "Verify"
         '
         'txtAutUser
@@ -700,7 +700,7 @@ Partial Public Class frmSetting
         Me.txtAutUser.MaxLength = 50
         Me.txtAutUser.Name = "txtAutUser"
         Me.txtAutUser.Size = New System.Drawing.Size(265, 21)
-        Me.txtAutUser.TabIndex = 86
+        Me.txtAutUser.TabIndex = 1
         '
         'Label16
         '
@@ -736,7 +736,7 @@ Partial Public Class frmSetting
         Me.txtAutPwd.Name = "txtAutPwd"
         Me.txtAutPwd.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtAutPwd.Size = New System.Drawing.Size(265, 21)
-        Me.txtAutPwd.TabIndex = 82
+        Me.txtAutPwd.TabIndex = 2
         '
         'Label4
         '

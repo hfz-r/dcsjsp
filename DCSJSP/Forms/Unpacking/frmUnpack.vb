@@ -427,6 +427,15 @@ Public Class frmUnpack
             End Set
         End Property
 
+        Private _robb_module_no As String = "N"
+        Property ROBB_MODD_NO() As String
+            Get
+                Return _robb_module_no
+            End Get
+            Set(ByVal value As String)
+                _robb_module_no = value
+            End Set
+        End Property
     End Class
 
 #End Region
@@ -441,10 +450,12 @@ Public Class frmUnpack
     Dim skipFlag As Boolean = False
     Dim cntPending As Integer = 0
     Dim cntScanned As Integer = 0
-    Dim cntAbns As Integer = 0
-    Dim cntAbnPost As Integer = 0
+    Dim cntAbnPartScanned As Integer = 0
+    Dim cntAbnTotal As Integer = 0
+    Dim cntAbnDelete As Integer = 0
     Dim showError As Boolean = True
     Dim offline1stTFlag As Boolean = True
+    Dim showPnlModule As Boolean = False
     Private Const strOnlineTitle As String = "Unpacking"
     Private Const strOfflineTitle As String = "Abnormal Unpacking"
     Private MODD As New Module_Input()
@@ -481,6 +492,8 @@ Public Class frmUnpack
             Call InitUnpackBatch()
             Cursor.Current = Cursors.Default
         Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "Unpack")
+            Exit Sub
         End Try
     End Sub
 
@@ -495,7 +508,6 @@ Public Class frmUnpack
     End Sub
 
     Private Sub btnAbnormalUnpack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAbnormalUnpacking.Click
-        Call LoadAbnModuleScan()
         mode = False
         timer.Enabled = True
         modScanOffline = True
@@ -503,12 +515,13 @@ Public Class frmUnpack
     End Sub
 
     Private Sub btnUnpackAbnScan_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUnpackAbnScan.Click
-        Call LoadAbnModuleScan()
+        Call LoadAbnModuleScan(True)
         bringPanelToFront(pnlUnpackAbnScanModule, pnlUnpackAbn)
     End Sub
 
     Private Sub btnUnpackAbnView_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUnpackAbnView.Click
-        Call LoadAbnUnpackDetails()
+        Call LoadAbnUnpackDetails(True)
+        showPnlModule = False
         bringPanelToFront(pnlUnpackAbnViewDet, pnlUnpackAbn)
     End Sub
 
@@ -574,8 +587,13 @@ Public Class frmUnpack
     End Sub
 
     Private Sub btnCloseViewDet_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCloseAbnViewDet.Click
-        Me.Text = strOfflineTitle
-        bringPanelToFront(pnlUnpackAbn, pnlUnpackAbnViewDet)
+        If showPnlModule Then
+            Call LoadAbnPartScan()
+            bringPanelToFront(pnlUnpackAbnScanPart, pnlUnpackAbnViewDet)
+        Else
+            Me.Text = strOfflineTitle
+            bringPanelToFront(pnlUnpackAbn, pnlUnpackAbnViewDet)
+        End If
     End Sub
 
     Private Sub btnClosePosting_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClosePosting.Click
@@ -601,13 +619,15 @@ Public Class frmUnpack
         Me.Text = strOnlineTitle
         txtModuleQR.Focus()
         txtModuleQR.SelectAll()
+        lblTotalScanned.Text = Counter("Scanned")
         bringPanelToFront(pnlUnpackScanModule, pnlUnpackScanPart)
     End Sub
 
-    Private Sub btnUnpackAbnScanPart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUnpackAbnScanPart.Click
+    Private Sub btnBackUnpackAbnScanPart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBackUnpackAbnScanPart.Click
         Me.Text = strOfflineTitle
-        txtModuleQR.Focus()
-        txtModuleQR.SelectAll()
+        txtAbnModNo.Focus()
+        txtAbnModNo.SelectAll()
+        lblAbnTotalScan.Text = Counter("AbnPartScanned")
         bringPanelToFront(pnlUnpackAbnScanModule, pnlUnpackAbnScanPart)
     End Sub
 
@@ -634,6 +654,24 @@ Public Class frmUnpack
     Private Sub btnBackUnpackAbnFscanModule_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBackUnpackAbnFscanModule.Click
         Call LoadAbnModuleScan()
         bringPanelToFront(pnlUnpackAbnScanModule, pnlUnpackAbnFscanModule)
+    End Sub
+
+    Private Sub isMakeUp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles isMakeUp.Click
+        If (isMakeUp.Checked) Then
+            lblRobModuleNo.Visible = True
+            txtUnpAbnFSRobModNo.Visible = True
+            btnUnpAbnFSPartSave.Enabled = False
+        Else
+            lblRobModuleNo.Visible = False
+            txtUnpAbnFSRobModNo.Visible = False
+            txtUnpAbnFSRobModNo.Text = String.Empty
+
+            If Not String.IsNullOrEmpty(txtUnpAbnFSPartNo.Text) And _
+            Not String.IsNullOrEmpty(txtUnpAbnFSPartBranchNo.Text) And _
+            Not String.IsNullOrEmpty(txtUnpAbnFSPartSeqNo.Text) Then
+                btnUnpAbnFSPartSave.Enabled = True
+            End If
+        End If
     End Sub
 
 #End Region
@@ -710,19 +748,15 @@ Public Class frmUnpack
                                        org_ID, Nothing, gScannerID, currentDate, gScannerID, currentDate, _
                                        Nothing, Nothing, Nothing, Nothing, gScannerID, "N", gScannerID, currentDate, _
                                        Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, msgDesc)
-
                 currentDate = dt.ToString("yyyy-MM-dd hh:mm:ss tt")
 
                 If msgCode = "OK" Then
                     Dim t As Thread = New Thread(AddressOf GetPartList)
                     t.IsBackground = True
                     t.Start()
-                    msgDesc = "Succesfully Updated"
                     SetPanelForResult("PanelModOK", msgCode, msgDesc, IsForceScan)
                 ElseIf msgCode = "NG" Then
-                    SetPanelForResult("PanelModError", msgCode, _
-                                      IIf(Not String.IsNullOrEmpty(msgDesc), msgDesc, "Unpack - Invalid Module"), _
-                                      IsForceScan)
+                    SetPanelForResult("PanelModError", msgCode, msgDesc, IsForceScan)
                 End If
             End If
         End If
@@ -732,7 +766,7 @@ Public Class frmUnpack
         Dim sqlStr As String = Nothing
         Dim dtPartList As DataTable = New DataTable
         If ws_dcsClient.isConnected Then '***
-            dtPartList = ws_dcsClient.getData("*", "JSP_UNPACKING_DETAILS_VIEW", " AND MODULE_NO = " & SQLQuote(MODD.MODULE_NO))
+            dtPartList = ws_dcsClient.getData("*", "JSP_UNPACKING_DETAILS_VIEW", String.Format(" AND MODULE_NO = {0} AND ORG_ID = {1}", SQLQuote(MODD.MODULE_NO), SQLQuote(org_ID)))
             If dtPartList.Rows.Count > 0 Then
                 For i As Integer = 0 To dtPartList.Rows.Count - 1
                     If UnpackTableReader(UNPACK_PENDING, _
@@ -740,12 +774,14 @@ Public Class frmUnpack
                                  dtPartList.Rows(i).Item("PART_NO").ToString.Replace("-", "").Substring(0, 10), _
                                  dtPartList.Rows(i).Item("PART_SEQ_NO").ToString, _
                                  dtPartList.Rows(i).Item("BRANCH_NO").ToString, _
+                                 dtPartList.Rows(i).Item("ORG_ID").ToString, _
                                  dtPartList.Rows(i).Item("ROBB_MODULE_NO").ToString) = 0 Then
                         If UnpackTableReader(UNPACK_INTERFACE, _
                                  dtPartList.Rows(i).Item("MODULE_NO").ToString, _
                                  dtPartList.Rows(i).Item("PART_NO").ToString.Replace("-", "").Substring(0, 10), _
                                  dtPartList.Rows(i).Item("PART_SEQ_NO").ToString, _
                                  dtPartList.Rows(i).Item("BRANCH_NO").ToString, _
+                                 dtPartList.Rows(i).Item("ORG_ID").ToString, _
                                  dtPartList.Rows(i).Item("ROBB_MODULE_NO").ToString) = 0 Then
                             sqlStr = "INSERT INTO [" & UNPACK_PENDING & "] (MODULE_ID, MODULE_NO, PART_NO, PART_NO_SFX, PART_NAME, QUANTITY_BOX, PART_SEQ_NO, " & _
                                      "BRANCH_NO, ORG_ID, ROBB_MODULE_ID, ROBB_MODULE_NO)"
@@ -788,7 +824,8 @@ Public Class frmUnpack
 
     Private Sub LoadModuleForceScan()
         Me.Text = strOnlineTitle
-        Call PopulateForceScan("Module")
+        'Call PopulateForceScan("Module")
+        Call GetAbnReasonCode(lstViewFSMod)
         Call InitWebServices()
         txtFSModNo.Text = String.Empty
         txtFSModOrder.Text = String.Empty
@@ -838,6 +875,19 @@ Public Class frmUnpack
                 Exit Sub
             End If
         Next
+
+        If String.IsNullOrEmpty(txtFSModNo.Text) Then
+            MsgBox("Module No is required", MsgBoxStyle.Critical, "Module Force Scan")
+            txtFSModNo.Focus()
+            txtFSModNo.SelectAll()
+            Exit Sub
+        ElseIf String.IsNullOrEmpty(txtFSModOrder.Text) Then
+            MsgBox("Order No is required", MsgBoxStyle.Critical, "Module Force Scan")
+            txtFSModOrder.Focus()
+            txtFSModOrder.SelectAll()
+            Exit Sub
+        End If
+
         MODD.MODULE_NO = txtFSModNo.Text.Trim
         MODD.ORDER_NO = txtFSModOrder.Text.Trim
         MODD.REASONID = lstViewFSMod.FocusedItem.SubItems(1).Text
@@ -913,11 +963,12 @@ Public Class frmUnpack
 
         Call InitWebServices()
         Cursor.Current = Cursors.WaitCursor
+
         If ws_dcsClient.isConnected Then
             If ws_dcsClient.isOracleConnected Then '***
                 dt = DateTime.ParseExact(GetServerTime, "dd-MM-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)
                 currentDate = dt.ToString("dd-MM-yyyy hh:mm:ss tt")
-
+                Call GetRobbModuleNo(IsForceScan, txtUnpFSRobModNo.Text)
                 msgCode = ws_validationClient.processValidation(curr_BATCH, gScannerID, "UNPACK", "202", Nothing, Nothing, MODD.PILLING_NO, _
                                        MODD.GROSS_WEIGHT.ToString, Nothing, Nothing, IIf(Not String.IsNullOrEmpty(MODD.REASONID), "Y", "N"), _
                                        MODD.REASONID, Nothing, MODD.MODULE_NO, PART.PARTS_NO, PART.PART_NO_SFX, PART.PART_SEQ_NUMBER, PART.QTY_BOX, _
@@ -929,24 +980,19 @@ Public Class frmUnpack
                                        Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, org_ID, PART.DELIVERY_DATE, _
                                        gScannerID, currentDate, gScannerID, currentDate, Nothing, Nothing, Nothing, Nothing, gScannerID, "N", gScannerID, currentDate, Nothing, Nothing, _
                                        IIf(IsForceScan, "Y", "N"), IIf(IsForceScan, PART.PARTREASONID, Nothing), Nothing, Nothing, Nothing, Nothing, msgDesc)
-
                 currentDate = dt.ToString("yyyy-MM-dd hh:mm:ss tt")
-
                 Select Case msgCode
                     Case "OK"
-                        Call AddToUnpackInterface("PartScan", "N", currentDate, IsForceScan, MODD, PART)
+                        Call AddToUnpackInterface("N", currentDate, IsForceScan, MODD, PART)
                         Call UpdateUnpackPendingDetails(MODD.MODULE_NO, PART.PARTS_NO, PART.PART_SEQ_NUMBER, PART.PART_BRANCH_NUMBER)
-                        Call UpdatePostStatus(MODD.MODULE_NO, PART.PARTS_NO, PART.PART_SEQ_NUMBER, PART.PART_BRANCH_NUMBER)
-                        msgDesc = "Succesfully Updated"
+                        Call UpdatePostStatus(MODD.MODULE_NO, PART.PARTS_NO, PART.PART_SEQ_NUMBER, PART.PART_BRANCH_NUMBER, PART.ROBB_MODD_NO)
                         SetPanelForResult("PanelPartOK", msgCode, msgDesc, IsForceScan)
                     Case "NG"
-                        SetPanelForResult("PanelPartError", msgCode, _
-                                          IIf(Not String.IsNullOrEmpty(msgDesc), msgDesc, "Invalid Part"), _
-                                          IsForceScan)
+                        SetPanelForResult("PanelPartError", msgCode, msgDesc, IsForceScan)
                     Case "CP"
-                        Call AddToUnpackInterface("PartScan", "N", currentDate, IsForceScan, MODD, PART)
+                        Call AddToUnpackInterface("N", currentDate, IsForceScan, MODD, PART)
                         Call UpdateUnpackPendingDetails(MODD.MODULE_NO, PART.PARTS_NO, PART.PART_SEQ_NUMBER, PART.PART_BRANCH_NUMBER)
-                        Call UpdatePostStatus(MODD.MODULE_NO, PART.PARTS_NO, PART.PART_SEQ_NUMBER, PART.PART_BRANCH_NUMBER)
+                        Call UpdatePostStatus(MODD.MODULE_NO, PART.PARTS_NO, PART.PART_SEQ_NUMBER, PART.PART_BRANCH_NUMBER, PART.ROBB_MODD_NO)
                         If ws_dcsClient.isOracleConnected Then '***
                             msgCode = ws_inventoryClient.processInventoryConsumption(curr_BATCH, "UNPACK", "203", org_ID, Nothing, _
                                                                             Nothing, Nothing, Nothing, Nothing, msgDesc)
@@ -962,31 +1008,29 @@ Public Class frmUnpack
         End If
     End Sub
 
-    Private Sub PartScanOffline()
+    Private Sub PartScanOffline(Optional ByVal IsForceScan As Boolean = Nothing)
         'o f f l i n e
         Dim dtPartList As DataTable = New DataTable()
-
         Try
             Cursor.Current = Cursors.WaitCursor
-
+            Call GetRobbModuleNo(IsForceScan, txtUnpFSRobModNo.Text)
             dtPartList = getData("SELECT * FROM [" & UNPACK_PENDING & "] " & _
                                  "WHERE MODULE_NO = " & SQLQuote(MODD.MODULE_NO) & " " & _
                                  "AND PART_NO = " & SQLQuote(PART.PARTS_NO) & " " & _
                                  "AND PART_SEQ_NO = " & CInt(PART.PART_SEQ_NUMBER) & " " & _
-                                 "AND BRANCH_NO = " & SQLQuote(PART.PART_BRANCH_NUMBER))
+                                 "AND BRANCH_NO = " & SQLQuote(PART.PART_BRANCH_NUMBER) & " " & _
+                                 "AND ORG_ID = " & SQLQuote(org_ID) & " " & _
+                                 "AND ROBB_MODULE_NO = " & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.ROBB_MODD_NO), PART.ROBB_MODD_NO, "N")))
             If dtPartList.Rows.Count > 0 Then
-                Call AddToUnpackInterface("OfflinePartScan", "Y", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss tt"), False, dtPartList.Rows(0), MODD)
-                Call UpdateUnpackPendingDetails(dtPartList.Rows(0).Item("MODULE_NO").ToString, _
-                                                dtPartList.Rows(0).Item("PART_NO").ToString, _
-                                                dtPartList.Rows(0).Item("PART_SEQ_NO").ToString, _
-                                                dtPartList.Rows(0).Item("BRANCH_NO").ToString)
+                Call AddToUnpackInterface("Y", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss tt"), IsForceScan, MODD, PART)
+                Call UpdateUnpackPendingDetails(MODD.MODULE_NO, PART.PARTS_NO, PART.PART_SEQ_NUMBER, PART.PART_BRANCH_NUMBER)
                 msgCode = "OK"
                 msgDesc = "Succesfully Updated"
-                SetPanelForResult("PanelPartOK", msgCode, msgDesc)
+                SetPanelForResult("PanelPartOK", msgCode, msgDesc, IsForceScan)
             Else
                 msgCode = "NG"
-                msgDesc = "Module Already Scanned."
-                SetPanelForResult("PanelPartError", msgCode, msgDesc)
+                msgDesc = "Part Already Scanned."
+                SetPanelForResult("PanelPartError", msgCode, msgDesc, IsForceScan)
             End If
         Catch ex As Exception
             MsgBox("Part scanned failed. ", MsgBoxStyle.Critical, "Unpack - Part Scan Offline Mode")
@@ -1003,15 +1047,18 @@ Public Class frmUnpack
     Private Sub LoadPartForceScan(Optional ByVal IsPopulate As Boolean = Nothing)
         Me.Text = strOnlineTitle
         lblUnpFSPModNo.Text = MODD.MODULE_NO
-        Call PopulateForceScan("Part")
+        'Call PopulateForceScan("Part")
+        Call GetAbnReasonCode(lstviewUnpFSPReason)
         If IsPopulate Then
             txtUnpFSPartNo.Text = lstUnpackModule.FocusedItem.SubItems(1).Text
             txtUnpFSPBranchNo.Text = lstUnpackModule.FocusedItem.SubItems(4).Text
             txtUnpFSPSeqNo.Text = lstUnpackModule.FocusedItem.SubItems(2).Text
+            txtUnpFSRobModNo.Text = lstUnpackModule.FocusedItem.SubItems(5).Text
         Else
             txtUnpFSPartNo.Text = String.Empty
             txtUnpFSPBranchNo.Text = String.Empty
             txtUnpFSPSeqNo.Text = String.Empty
+            txtUnpFSRobModNo.Text = String.Empty
         End If
     End Sub
 
@@ -1076,16 +1123,60 @@ Public Class frmUnpack
                 Exit Sub
             End If
         Next
-        If txtUnpFSPartNo.Text.Length <> 14 Then
+
+        If String.IsNullOrEmpty(txtUnpFSPartNo.Text) Then
+            MsgBox("Part No is required", MsgBoxStyle.Critical, "Part Force Scan")
+            txtUnpFSPartNo.Focus()
+            txtUnpFSPartNo.SelectAll()
+            Exit Sub
+        ElseIf txtUnpFSPartNo.Text.Length <> 14 Then
             MsgBox("Failed to save. Invalid Part No Format", MsgBoxStyle.Critical, "Part Force Scan")
             Exit Sub
+        ElseIf String.IsNullOrEmpty(txtUnpFSPSeqNo.Text) Then
+            MsgBox("Seq No is required", MsgBoxStyle.Critical, "Part Force Scan")
+            txtUnpFSPSeqNo.Focus()
+            txtUnpFSPSeqNo.SelectAll()
+            Exit Sub
+        ElseIf String.IsNullOrEmpty(txtUnpFSPBranchNo.Text) Then
+            MsgBox("Branch No is required", MsgBoxStyle.Critical, "Part Force Scan")
+            txtUnpFSPBranchNo.Focus()
+            txtUnpFSPBranchNo.SelectAll()
+            Exit Sub
         End If
-        PART.PARTS_NO = txtUnpFSPartNo.Text.Replace("-", "").Substring(0, 10)
-        PART.PART_NO_SFX = txtUnpFSPartNo.Text.Replace("-", "").Substring(10, 2)
-        PART.PART_SEQ_NUMBER = txtUnpFSPSeqNo.Text
-        PART.PART_BRANCH_NUMBER = txtUnpFSPBranchNo.Text
-        PART.PARTREASONID = lstviewUnpFSPReason.FocusedItem.SubItems(1).Text
-        Call LoadPartScanChecker(True)
+
+        Try
+            mode = True
+            PART.PARTS_NO = txtUnpFSPartNo.Text.Replace("-", "").Substring(0, 10)
+            PART.PART_NO_SFX = txtUnpFSPartNo.Text.Replace("-", "").Substring(10, 2)
+            PART.PART_SEQ_NUMBER = txtUnpFSPSeqNo.Text
+            PART.PART_BRANCH_NUMBER = txtUnpFSPBranchNo.Text
+            PART.PARTREASONID = lstviewUnpFSPReason.FocusedItem.SubItems(1).Text
+            Call LoadPartScanChecker(True)
+        Catch ex As WebException
+            mode = False
+            timer.Enabled = True
+            modScanOffline = True
+            If offline1stTFlag Then
+                If MessageBox.Show("Connection is down. Continue scan with offline mode?", _
+                                   "Unpack - Part Scan Offline Mode", MessageBoxButtons.YesNo, _
+                                   MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
+                    offline1stTFlag = False
+                    Call PartScanOffline(True)
+                Else
+                    Cursor.Current = Cursors.Default
+                    txtUnpFSPartNo.Focus()
+                    txtUnpFSPartNo.SelectAll()
+                    Exit Sub
+                End If
+            Else
+                Call PartScanOffline(True)
+            End If
+        Catch ex As Exception
+            MsgBox("Part scanned failed.", MsgBoxStyle.Critical, "Part Force Scan")
+            Cursor.Current = Cursors.Default
+            txtUnpFSPartNo.Focus()
+            txtUnpFSPartNo.SelectAll()
+        End Try
     End Sub
 
 #End Region
@@ -1123,6 +1214,7 @@ Public Class frmUnpack
                                "PART_SEQ_NO, QUANTITY_BOX, BRANCH_NO, ROBB_MODULE_NO " & _
                                "FROM [" & UNPACK_PENDING & "] " & _
                                "WHERE MODULE_NO = " & SQLQuote(MODULE_NO) & " " & _
+                               "AND ORG_ID = " & SQLQuote(org_ID) & " " & _
                                "ORDER BY PART_NO")
             For i As Integer = 0 To dt.Rows.Count - 1
                 lstViewItem = New ListViewItem
@@ -1147,6 +1239,7 @@ Public Class frmUnpack
                                "PXP_PART_SEQ_NO, QTY_BOX, PART_BRANCH_NO, ROBB_MODULE_NO " & _
                                "FROM [" & UNPACK_INTERFACE & "] " & _
                                "WHERE MODULE_NO = " & SQLQuote(MODULE_NO) & " " & _
+                               "AND ORG_ID = " & SQLQuote(org_ID) & " " & _
                                "GROUP BY PART_NO, PXP_PART_NO_SFX, PXP_PART_SEQ_NO, QTY_BOX, PART_BRANCH_NO, ROBB_MODULE_NO " & _
                                "ORDER BY PART_NO")
             Me.SetListViewItem(dt)
@@ -1195,7 +1288,7 @@ Public Class frmUnpack
 
 #Region ". Offline Module Scan ."
 
-    Private Sub LoadAbnModuleScan()
+    Private Sub LoadAbnModuleScan(Optional ByVal OnFirstLoad As Boolean = Nothing)
         Me.Text = strOfflineTitle
         txtAbnModNo.Focus()
         txtAbnModNo.Text = String.Empty
@@ -1204,7 +1297,11 @@ Public Class frmUnpack
         lblAbnMsgCode.BackColor = Color.LimeGreen
         lblAbnMsgCode.Text = "Scan.."
         lblAbnMsgDesc.Text = String.Empty
-        lblAbnTotalScan.Text = Counter("Abnormal")
+        If OnFirstLoad Then
+            lblAbnTotalScan.Text = String.Empty
+        Else
+            lblAbnTotalScan.Text = Counter("AbnPartScanned")
+        End If
     End Sub
 
     Private Sub txtAbnModNo_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtAbnModNo.KeyDown
@@ -1239,7 +1336,8 @@ Public Class frmUnpack
 
     Private Sub LoadAbnModuleForceScan()
         Me.Text = strOfflineTitle
-        Call PopulateForceScan("Abn_Module")
+        'Call PopulateForceScan("Abn_Module")
+        Call GetAbnReasonCode(lstViewAbnFSMod)
         txtFSAbnModNo.Text = String.Empty
         txtFSAbnOrdNo.Text = String.Empty
     End Sub
@@ -1288,6 +1386,19 @@ Public Class frmUnpack
                 Exit Sub
             End If
         Next
+
+        If String.IsNullOrEmpty(txtFSAbnModNo.Text) Then
+            MsgBox("Module No is required", MsgBoxStyle.Critical, "Abnormal Module Force Scan")
+            txtFSAbnModNo.Focus()
+            txtFSAbnModNo.SelectAll()
+            Exit Sub
+        ElseIf String.IsNullOrEmpty(txtFSAbnOrdNo.Text) Then
+            MsgBox("Order No is required", MsgBoxStyle.Critical, "Abnormal Module Force Scan")
+            txtFSAbnOrdNo.Focus()
+            txtFSAbnOrdNo.SelectAll()
+            Exit Sub
+        End If
+
         MODD.MODULE_NO = txtFSAbnModNo.Text.Trim
         MODD.ORDER_NO = txtFSAbnOrdNo.Text.Trim
         MODD.REASONID = lstViewAbnFSMod.FocusedItem.SubItems(1).Text
@@ -1312,7 +1423,7 @@ Public Class frmUnpack
         lblAbnSPartMsgC.BackColor = Color.LimeGreen
         lblAbnSPartMsgC.Text = "Scan.."
         lblAbnDesc.Text = String.Empty
-        lblAbnScanPartTotal.Text = Counter("Abnormal")
+        lblAbnScanPartTotal.Text = Counter("AbnPartScanned")
     End Sub
 
     Private Sub txtAbnSPartKanban_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtAbnSPartKanban.KeyDown
@@ -1338,12 +1449,15 @@ Public Class frmUnpack
 
     Private Sub LoadAbnPartChecker(Optional ByVal IsForceScan As Boolean = Nothing)
         Cursor.Current = Cursors.WaitCursor
+        Call GetRobbModuleNo(IsForceScan, IIf(isMakeUp.Checked, txtUnpAbnFSRobModNo.Text, String.Empty))
         If UnpackTableReader(UNPACK_INTERFACE, _
                              MODD.MODULE_NO, _
                              PART.PARTS_NO, _
                              PART.PART_SEQ_NUMBER, _
-                             PART.PART_BRANCH_NUMBER) = 0 Then
-            Call AddToUnpackInterface("PartScan", "Y", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss tt"), IsForceScan, MODD, PART)
+                             PART.PART_BRANCH_NUMBER, _
+                             org_ID, _
+                             IIf(Not String.IsNullOrEmpty(PART.ROBB_MODD_NO), PART.ROBB_MODD_NO, "N")) = 0 Then
+            Call AddToUnpackInterface("Y", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss tt"), IsForceScan, MODD, PART)
             Call UpdateUnpackPendingDetails(MODD.MODULE_NO, PART.PARTS_NO, PART.PART_SEQ_NUMBER, PART.PART_BRANCH_NUMBER)
             msgCode = "Success"
             msgDesc = "Succesfully Updated"
@@ -1362,10 +1476,14 @@ Public Class frmUnpack
     Private Sub LoadAbnPartForceScan()
         Me.Text = strOfflineTitle
         lblUnpAbnFSPartModNo.Text = MODD.MODULE_NO
-        Call PopulateForceScan("Abn_Part")
+        Call GetAbnReasonCode(lstViewUnpAbnFSPartReason)
+        'Call PopulateForceScan("Abn_Part")
         txtUnpAbnFSPartNo.Text = String.Empty
         txtUnpAbnFSPartBranchNo.Text = String.Empty
         txtUnpAbnFSPartSeqNo.Text = String.Empty
+        isMakeUp.Checked = False
+        lblRobModuleNo.Visible = False
+        txtUnpAbnFSRobModNo.Visible = False
     End Sub
 
     Private Sub btnAbnFSPart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAbnFSPart.Click
@@ -1378,6 +1496,8 @@ Public Class frmUnpack
             If String.IsNullOrEmpty(txtUnpAbnFSPartBranchNo.Text) Then
                 btnUnpAbnFSPartSave.Enabled = False
             ElseIf String.IsNullOrEmpty(txtUnpAbnFSPartSeqNo.Text) Then
+                btnUnpAbnFSPartSave.Enabled = False
+            ElseIf isMakeUp.Checked And String.IsNullOrEmpty(txtUnpAbnFSRobModNo.Text) Then
                 btnUnpAbnFSPartSave.Enabled = False
             Else
                 btnUnpAbnFSPartSave.Enabled = True
@@ -1393,6 +1513,24 @@ Public Class frmUnpack
                 btnUnpAbnFSPartSave.Enabled = False
             ElseIf String.IsNullOrEmpty(txtUnpAbnFSPartSeqNo.Text) Then
                 btnUnpAbnFSPartSave.Enabled = False
+            ElseIf isMakeUp.Checked And String.IsNullOrEmpty(txtUnpAbnFSRobModNo.Text) Then
+                btnUnpAbnFSPartSave.Enabled = False
+            Else
+                btnUnpAbnFSPartSave.Enabled = True
+            End If
+        Else
+            btnUnpAbnFSPartSave.Enabled = False
+        End If
+    End Sub
+
+    Private Sub txtUnpAbnFSRobModNo_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtUnpAbnFSRobModNo.TextChanged
+        If Not String.IsNullOrEmpty(txtUnpAbnFSRobModNo.Text) Then
+            If String.IsNullOrEmpty(txtUnpAbnFSPartNo.Text) Then
+                btnUnpAbnFSPartSave.Enabled = False
+            ElseIf String.IsNullOrEmpty(txtUnpAbnFSPartSeqNo.Text) Then
+                btnUnpAbnFSPartSave.Enabled = False
+            ElseIf String.IsNullOrEmpty(txtUnpAbnFSPartBranchNo.Text) Then
+                btnUnpAbnFSPartSave.Enabled = False
             Else
                 btnUnpAbnFSPartSave.Enabled = True
             End If
@@ -1406,6 +1544,8 @@ Public Class frmUnpack
             If String.IsNullOrEmpty(txtUnpAbnFSPartNo.Text) Then
                 btnUnpAbnFSPartSave.Enabled = False
             ElseIf String.IsNullOrEmpty(txtUnpAbnFSPartBranchNo.Text) Then
+                btnUnpAbnFSPartSave.Enabled = False
+            ElseIf isMakeUp.Checked And String.IsNullOrEmpty(txtUnpAbnFSRobModNo.Text) Then
                 btnUnpAbnFSPartSave.Enabled = False
             Else
                 btnUnpAbnFSPartSave.Enabled = True
@@ -1429,10 +1569,32 @@ Public Class frmUnpack
                 Exit Sub
             End If
         Next
-        If txtUnpAbnFSPartNo.Text.Length <> 14 Then
+
+        If String.IsNullOrEmpty(txtUnpAbnFSPartNo.Text) Then
+            MsgBox("Part No is required", MsgBoxStyle.Critical, "Abnormal Part Force Scan")
+            txtUnpAbnFSPartNo.Focus()
+            txtUnpAbnFSPartNo.SelectAll()
+            Exit Sub
+        ElseIf txtUnpAbnFSPartNo.Text.Length <> 14 Then
             MsgBox("Failed to save. Invalid Part No Format", MsgBoxStyle.Critical, "Abnormal Part Force Scan")
             Exit Sub
+        ElseIf String.IsNullOrEmpty(txtUnpAbnFSPartSeqNo.Text) Then
+            MsgBox("Seq No is required", MsgBoxStyle.Critical, "Abnormal Part Force Scan")
+            txtUnpAbnFSPartSeqNo.Focus()
+            txtUnpAbnFSPartSeqNo.SelectAll()
+            Exit Sub
+        ElseIf String.IsNullOrEmpty(txtUnpAbnFSPartBranchNo.Text) Then
+            MsgBox("Branch No is required", MsgBoxStyle.Critical, "Abnormal Part Force Scan")
+            txtUnpAbnFSPartBranchNo.Focus()
+            txtUnpAbnFSPartBranchNo.SelectAll()
+            Exit Sub
+        ElseIf isMakeUp.Checked And String.IsNullOrEmpty(txtUnpAbnFSRobModNo.Text) Then
+            MsgBox("Robbing Module No is required", MsgBoxStyle.Critical, "Abnormal Part Force Scan")
+            txtUnpAbnFSRobModNo.Focus()
+            txtUnpAbnFSRobModNo.SelectAll()
+            Exit Sub
         End If
+
         PART.PARTS_NO = txtUnpAbnFSPartNo.Text.Replace("-", "").Substring(0, 10)
         PART.PART_NO_SFX = txtUnpAbnFSPartNo.Text.Replace("-", "").Substring(10, 2)
         PART.PART_SEQ_NUMBER = txtUnpAbnFSPartSeqNo.Text
@@ -1445,19 +1607,31 @@ Public Class frmUnpack
 
 #Region ". Offline Populate Post/Delete/Details ."
 
-    Private Function GetAbnPostedDetails()
+    Private Function GetAbnPostedDetails(ByVal IsMain As Boolean)
         Dim dt As DataTable = New DataTable
-
-        dt = getData("SELECT COALESCE(SUBSTRING(PART_NO, 1, 5)+'-'+SUBSTRING(PART_NO, 6, 5)+'-'+" & _
+        If (IsMain) Then
+            dt = getData("SELECT COALESCE(SUBSTRING(PART_NO, 1, 5)+'-'+SUBSTRING(PART_NO, 6, 5)+'-'+" & _
                      "PXP_PART_NO_SFX, SUBSTRING(PART_NO, 1, 5)+'-'+SUBSTRING(PART_NO, 6, 5)) AS PART_NO," & _
-                     "PXP_PART_SEQ_NO, QTY_BOX, PART_BRANCH_NO " & _
+                     "PXP_PART_SEQ_NO, QTY_BOX, PART_BRANCH_NO, ROBB_MODULE_NO, MODULE_NO " & _
+                     "FROM [" & UNPACK_INTERFACE & "] " & _
+                     "WHERE ON_OFF_LINE_FLAG = 'Y' " & _
+                     "AND PROCESS_FLAG IS NULL OR PROCESS_FLAG = '' OR PROCESS_FLAG != 'POSTED' " & _
+                     "AND ORG_ID = " & SQLQuote(org_ID) & " " & _
+                     "GROUP BY PART_NO, PXP_PART_NO_SFX, PXP_PART_SEQ_NO, QTY_BOX, PART_BRANCH_NO, ROBB_MODULE_NO, MODULE_NO " & _
+                     "ORDER BY MODULE_NO, PART_NO, PXP_PART_SEQ_NO")
+        Else
+            dt = getData("SELECT COALESCE(SUBSTRING(PART_NO, 1, 5)+'-'+SUBSTRING(PART_NO, 6, 5)+'-'+" & _
+                     "PXP_PART_NO_SFX, SUBSTRING(PART_NO, 1, 5)+'-'+SUBSTRING(PART_NO, 6, 5)) AS PART_NO," & _
+                     "PXP_PART_SEQ_NO, QTY_BOX, PART_BRANCH_NO, ROBB_MODULE_NO, MODULE_NO " & _
                      "FROM [" & UNPACK_INTERFACE & "] " & _
                      "WHERE MODULE_NO = " & SQLQuote(MODD.MODULE_NO) & " " & _
                      "AND ON_OFF_LINE_FLAG = 'Y' " & _
-                     "AND PROCESS_FLAG IS NULL OR PROCESS_FLAG = '' " & _
-                     "OR PROCESS_FLAG != 'POSTED' " & _
-                     "GROUP BY PART_NO, PXP_PART_NO_SFX, PXP_PART_SEQ_NO, QTY_BOX, PART_BRANCH_NO " & _
-                     "ORDER BY PART_NO")
+                     "AND PROCESS_FLAG IS NULL OR PROCESS_FLAG = '' OR PROCESS_FLAG != 'POSTED' " & _
+                     "AND ORG_ID = " & SQLQuote(org_ID) & " " & _
+                     "GROUP BY PART_NO, PXP_PART_NO_SFX, PXP_PART_SEQ_NO, QTY_BOX, PART_BRANCH_NO, ROBB_MODULE_NO, MODULE_NO " & _
+                     "ORDER BY MODULE_NO, PART_NO, PXP_PART_SEQ_NO")
+        End If
+
         Return dt
     End Function
 
@@ -1466,12 +1640,12 @@ Public Class frmUnpack
 
         dt = getData("SELECT COALESCE(SUBSTRING(PART_NO, 1, 5)+'-'+SUBSTRING(PART_NO, 6, 5)+'-'+" & _
                      "PXP_PART_NO_SFX, SUBSTRING(PART_NO, 1, 5)+'-'+SUBSTRING(PART_NO, 6, 5)) AS PART_NO," & _
-                     "PXP_PART_SEQ_NO, QTY_BOX, PART_BRANCH_NO " & _
+                     "PXP_PART_SEQ_NO, QTY_BOX, PART_BRANCH_NO, ROBB_MODULE_NO, MODULE_NO " & _
                      "FROM [" & UNPACK_INTERFACE & "] " & _
-                     "WHERE MODULE_NO = " & SQLQuote(MODD.MODULE_NO) & " " & _
-                     "AND ON_OFF_LINE_FLAG = 'Y' " & _
-                     "GROUP BY PART_NO, PXP_PART_NO_SFX, PXP_PART_SEQ_NO, QTY_BOX, PART_BRANCH_NO " & _
-                     "ORDER BY PART_NO")
+                     "WHERE ON_OFF_LINE_FLAG = 'Y' " & _
+                     "AND ORG_ID = " & SQLQuote(org_ID) & " " & _
+                     "GROUP BY PART_NO, PXP_PART_NO_SFX, PXP_PART_SEQ_NO, QTY_BOX, PART_BRANCH_NO, ROBB_MODULE_NO, MODULE_NO " & _
+                     "ORDER BY MODULE_NO, PART_NO, PXP_PART_SEQ_NO")
         Return dt
     End Function
 
@@ -1479,40 +1653,53 @@ Public Class frmUnpack
 
 #Region ". Offline Unpack Details ."
 
-    Private Sub LoadAbnUnpackDetails()
+    Private Sub LoadAbnUnpackDetails(ByVal IsMain As Boolean)
         Me.Text = strOfflineTitle + " - View"
-        lblUnpAbnModNoDet.Text = IIf(Not String.IsNullOrEmpty(MODD.MODULE_NO), "Module No : " _
-                                     & MODD.MODULE_NO, String.Empty)
-        Call PopulateAbnUnpackDetails()
-        lblTotalUnpAbnModScan.Text = "Total Records: " & cntAbns.ToString
+
+        If (IsMain) Then
+            lblUnpAbnModNoDet.Text = String.Empty
+            lblUnpAbnModNoDet.Visible = False
+        Else
+            lblUnpAbnModNoDet.Visible = True
+            lblUnpAbnModNoDet.Text = IIf(Not String.IsNullOrEmpty(MODD.MODULE_NO), "Module No : " & MODD.MODULE_NO, String.Empty)
+        End If
+        Call PopulateAbnUnpackDetails(IsMain)
+        If IsMain Then
+            lblTotalUnpAbnModScan.Text = "Total Records: " & cntAbnTotal.ToString
+        Else
+            lblTotalUnpAbnModScan.Text = "Total Records: " & cntAbnPartScanned.ToString
+        End If
     End Sub
 
     Private Sub btnAbnScanViewDet_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAbnScanViewDet.Click
-        Call LoadAbnUnpackDetails()
+        Call LoadAbnUnpackDetails(False)
         bringPanelToFront(pnlUnpackAbnViewDet, pnlUnpackAbnScanModule)
     End Sub
 
     Private Sub btnAbnSPartViewDet_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAbnSPartViewDet.Click
-        Call LoadAbnUnpackDetails()
+        Call LoadAbnUnpackDetails(False)
+        showPnlModule = True
         bringPanelToFront(pnlUnpackAbnViewDet, pnlUnpackAbnScanPart)
     End Sub
 
-    Private Sub PopulateAbnUnpackDetails()
+    Private Sub PopulateAbnUnpackDetails(ByVal IsMain As Boolean)
         Dim lstViewItem As ListViewItem = New ListViewItem()
         Dim dt As DataTable = New DataTable()
 
         lstViewUnpAbnModDet.Items.Clear()
-        dt = GetAbnPostedDetails()
+        dt = GetAbnPostedDetails(IsMain)
         For i As Integer = 0 To dt.Rows.Count - 1
             lstViewItem = New ListViewItem
             lstViewItem.Text = i + 1
+            lstViewItem.SubItems.Add(dt.Rows(i).Item("MODULE_NO").ToString())
             lstViewItem.SubItems.Add(dt.Rows(i).Item("PART_NO").ToString())
             lstViewItem.SubItems.Add(dt.Rows(i).Item("PXP_PART_SEQ_NO").ToString())
             lstViewItem.SubItems.Add(dt.Rows(i).Item("QTY_BOX").ToString())
             lstViewItem.SubItems.Add(dt.Rows(i).Item("PART_BRANCH_NO").ToString())
+            lstViewItem.SubItems.Add(dt.Rows(i).Item("ROBB_MODULE_NO").ToString())
             lstViewUnpAbnModDet.Items.Add(lstViewItem)
         Next
-        cntAbns = dt.Rows.Count
+        cntAbnPartScanned = dt.Rows.Count
     End Sub
 
 #End Region
@@ -1522,7 +1709,7 @@ Public Class frmUnpack
     Private Sub LoadAbnUnpackDelete()
         Me.Text = strOfflineTitle + " - Delete"
         Call PopulateAbnDelete()
-        Label6.Text = "Total Records: " & cntAbns.ToString
+        Label6.Text = "Total Records: " & cntAbnDelete.ToString
     End Sub
 
     Private Sub PopulateAbnDelete()
@@ -1534,13 +1721,15 @@ Public Class frmUnpack
         For i As Integer = 0 To dt.Rows.Count - 1
             lstViewItem = New ListViewItem
             lstViewItem.Text = i + 1
+            lstViewItem.SubItems.Add(dt.Rows(i).Item("MODULE_NO").ToString())
             lstViewItem.SubItems.Add(dt.Rows(i).Item("PART_NO").ToString())
             lstViewItem.SubItems.Add(dt.Rows(i).Item("PXP_PART_SEQ_NO").ToString())
             lstViewItem.SubItems.Add(dt.Rows(i).Item("QTY_BOX").ToString())
             lstViewItem.SubItems.Add(dt.Rows(i).Item("PART_BRANCH_NO").ToString())
+            lstViewItem.SubItems.Add(dt.Rows(i).Item("ROBB_MODULE_NO").ToString())
             ListView2.Items.Add(lstViewItem)
         Next
-        cntAbns = dt.Rows.Count
+        cntAbnDelete = dt.Rows.Count
     End Sub
 
     Private Sub btnDeleteUnpack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteUnpack.Click
@@ -1573,10 +1762,8 @@ Public Class frmUnpack
 
     Private Sub LoadAbnUnpackPost()
         Me.Text = strOfflineTitle + " - Posting"
-        lblUnpAbnModNoDet2.Text = IIf(Not String.IsNullOrEmpty(MODD.MODULE_NO), "Module No : " _
-                                      & MODD.MODULE_NO, String.Empty)
         Call PopulateAbnPost()
-        lblUnpAbnScanPartTotalDet.Text = "Total Pending Posting Records: " & cntAbnPost.ToString
+        lblUnpAbnScanPartTotalDet.Text = "Total Pending Posting Records: " & cntAbnTotal.ToString
     End Sub
 
     Private Sub PopulateAbnPost()
@@ -1584,17 +1771,19 @@ Public Class frmUnpack
         Dim dt As DataTable = New DataTable()
 
         lstViewUnpAbnPartDet.Items.Clear()
-        dt = GetAbnPostedDetails()
+        dt = GetAbnPostedDetails(True)
         For i As Integer = 0 To dt.Rows.Count - 1
             lstViewItem = New ListViewItem
             lstViewItem.Text = i + 1
+            lstViewItem.SubItems.Add(dt.Rows(i).Item("MODULE_NO").ToString())
             lstViewItem.SubItems.Add(dt.Rows(i).Item("PART_NO").ToString())
             lstViewItem.SubItems.Add(dt.Rows(i).Item("PXP_PART_SEQ_NO").ToString())
             lstViewItem.SubItems.Add(dt.Rows(i).Item("QTY_BOX").ToString())
             lstViewItem.SubItems.Add(dt.Rows(i).Item("PART_BRANCH_NO").ToString())
+            lstViewItem.SubItems.Add(dt.Rows(i).Item("ROBB_MODULE_NO").ToString())
             lstViewUnpAbnPartDet.Items.Add(lstViewItem)
         Next
-        cntAbnPost = dt.Rows.Count
+        cntAbnTotal = dt.Rows.Count
     End Sub
 
     Private Sub btnSubmitPosting_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSubmitPosting.Click
@@ -1630,17 +1819,11 @@ Public Class frmUnpack
         Dim dt As DataTable = New DataTable()
         Dim forceScanModuleReasonID As String = String.Empty
         Dim forceScanReasonID As String = String.Empty
-        Dim ROBB_MODD_ID As String = "0"
-        Dim ROBB_MODD_NO As String = "N"
-        Dim dtPartList As DataTable = New DataTable()
-
         Call InitWebServices()
-
-        dtPartList = ws_dcsClient.getData("*", "JSP_UNPACKING_DETAILS_VIEW", String.Format(" AND MODULE_NO = {0}", SQLQuote(MODD.MODULE_NO)))
 
         dt = getData("SELECT * FROM [" & UNPACK_INTERFACE & "] " & _
                      "WHERE RCV_INTERFACE_BATCH_ID = " & SQLQuote(curr_BATCH) & " " & _
-                     "AND ON_OFF_LINE_FLAG = 'Y' ")
+                     "AND ON_OFF_LINE_FLAG = 'Y'")
         If dt.Rows.Count > 0 Then
             For i As Integer = 0 To dt.Rows.Count - 1
                 If ws_dcsClient.isOracleConnected Then '***
@@ -1656,19 +1839,10 @@ Public Class frmUnpack
                         forceScanModuleReasonID = dt.Rows(i).Item("FORCE_MODULE_REASON_ID").ToString()
                     End If
 
-                    Call GetIsRobbing(dt.Rows(i).Item("MODULE_NO").ToString, _
-                                      dt.Rows(i).Item("PART_NO").ToString.Insert(5, "-") + "-" + dt.Rows(i).Item("PXP_PART_NO_SFX").ToString, _
-                                      dt.Rows(i).Item("PXP_PART_SEQ_NO").ToString, _
-                                      dt.Rows(i).Item("PART_BRANCH_NO").ToString, _
-                                      dtPartList, _
-                                      ROBB_MODD_ID, ROBB_MODD_NO)
-
                     msgCode = ws_validationClient.processValidation(curr_BATCH, gScannerID, "UNPACK", "204", Nothing, Nothing, MODD.PILLING_NO, MODD.GROSS_WEIGHT.ToString, Nothing, Nothing, _
                                    dt.Rows(i).Item("FORCE_MODULE_STATUS").ToString, forceScanModuleReasonID, _
-                                   IIf(Not String.IsNullOrEmpty(dt.Rows(i).Item("MODULE_ID").ToString), _
-                                       IIf(Not ROBB_MODD_ID = "0", ROBB_MODD_ID, Nothing), Nothing), _
-                                   IIf(Not String.IsNullOrEmpty(dt.Rows(i).Item("MODULE_NO").ToString), _
-                                       IIf(Not ROBB_MODD_NO = "N", ROBB_MODD_NO, MODD.MODULE_NO), Nothing), _
+                                   IIf(Not String.IsNullOrEmpty(dt.Rows(i).Item("MODULE_ID").ToString), dt.Rows(i).Item("MODULE_ID").ToString, Nothing), _
+                                   IIf(Not String.IsNullOrEmpty(dt.Rows(i).Item("MODULE_NO").ToString), dt.Rows(i).Item("MODULE_NO").ToString, Nothing), _
                                    IIf(Not String.IsNullOrEmpty(dt.Rows(i).Item("PART_NO").ToString), dt.Rows(i).Item("PART_NO").ToString, Nothing), _
                                    IIf(Not String.IsNullOrEmpty(dt.Rows(i).Item("PXP_PART_NO_SFX").ToString), dt.Rows(i).Item("PXP_PART_NO_SFX").ToString, Nothing), _
                                    IIf(Not String.IsNullOrEmpty(dt.Rows(i).Item("PXP_PART_SEQ_NO").ToString), dt.Rows(i).Item("PXP_PART_SEQ_NO").ToString, Nothing), _
@@ -1702,8 +1876,10 @@ Public Class frmUnpack
                                    IIf(Not String.IsNullOrEmpty(dt.Rows(i).Item("DUMMY").ToString), dt.Rows(i).Item("DUMMY").ToString, Nothing), _
                                    IIf(Not String.IsNullOrEmpty(dt.Rows(i).Item("VERSION_NO").ToString), dt.Rows(i).Item("VERSION_NO").ToString, Nothing), _
                                    Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, SelectOrgIdForPosting(dt.Rows(i).Item("ORG_ID").ToString), _
-                                   dt.Rows(i).Item("DELIVERY_DATE").ToString, gScannerID, GetServerTime, gScannerID, GetServerTime, Nothing, Nothing, Nothing, Nothing, gScannerID, "Y", gScannerID, GetServerTime, _
-                                   Nothing, Nothing, dt.Rows(i).Item("FORCE_PXP_STATUS").ToString, forceScanReasonID, Nothing, Nothing, Nothing, Nothing, msgDesc)
+                                   IIf(Not String.IsNullOrEmpty(dt.Rows(i).Item("DELIVERY_DATE").ToString), dt.Rows(i).Item("DELIVERY_DATE").ToString, Nothing), _
+                                   gScannerID, GetServerTime, gScannerID, GetServerTime, Nothing, Nothing, Nothing, Nothing, gScannerID, "Y", gScannerID, GetServerTime, Nothing, Nothing, _
+                                   IIf(Not String.IsNullOrEmpty(dt.Rows(i).Item("FORCE_PXP_STATUS").ToString), dt.Rows(i).Item("FORCE_PXP_STATUS").ToString, Nothing), _
+                                   forceScanReasonID, Nothing, Nothing, Nothing, Nothing, msgDesc)
                     If msgCode = "OK" Then
                         Cursor.Current = Cursors.Default
                         Call UpdatePostStatus(dt.Rows(i).Item("MODULE_NO").ToString, _
@@ -1806,8 +1982,8 @@ Public Class frmUnpack
                     Exit Sub
                 Else
                     showError = True
-                    txtModuleQR.Focus()
-                    txtModuleQR.SelectAll()
+                    'txtModuleQR.Focus()
+                    'txtModuleQR.SelectAll()
                 End If
             End If
         End If
@@ -1818,12 +1994,12 @@ Public Class frmUnpack
             If mode = False Then
                 If ws_dcsClient.isConnected Then
                     If ws_dcsClient.isOracleConnected Then
-                        MsgBox("Connection is back. Please Try Again to Scan.", MsgBoxStyle.Information, Me.Text)
                         mode = True
                         offline1stTFlag = True
                         modScanOffline = False
                         timer.Enabled = False
                         timer.Dispose()
+                        MsgBox("Connection is back. Please Try Again to Scan.", MsgBoxStyle.Information, Me.Text)
                     End If
                 End If
             End If
@@ -1919,7 +2095,7 @@ Public Class frmUnpack
             lblAbnMsgCode.BackColor = Color.LimeGreen
             lblAbnMsgCode.Text = (IIf(String.IsNullOrEmpty(msg), Nothing, msg))
             lblAbnMsgDesc.Text = (IIf(String.IsNullOrEmpty(desc), Nothing, desc))
-            lblAbnTotalScan.Text = Counter("Abnormal")
+            lblAbnTotalScan.Text = Counter("AbnPartScanned")
             lblAbnModNo.Text = MODD.MODULE_NO
             lblAbnOrderNo.Text = MODD.ORDER_NO
             Call LoadAbnPartScan()
@@ -1936,7 +2112,7 @@ Public Class frmUnpack
             lblAbnSPartSeqNo.Text = PART.PART_SEQ_NUMBER
             Label3.Text = PART.QTY_BOX
             Label4.Text = PART.PART_BRANCH_NUMBER
-            lblAbnScanPartTotal.Text = Counter("Abnormal")
+            lblAbnScanPartTotal.Text = Counter("AbnPartScanned")
             txtAbnSPartKanban.Focus()
             txtAbnSPartKanban.SelectAll()
             If IsForceScan Then
@@ -1946,7 +2122,7 @@ Public Class frmUnpack
             lblAbnSPartMsgC.BackColor = Color.Red
             lblAbnSPartMsgC.Text = (IIf(String.IsNullOrEmpty(msg), Nothing, msg))
             lblAbnDesc.Text = (IIf(String.IsNullOrEmpty(desc), Nothing, desc))
-            lblAbnScanPartTotal.Text = Counter("Abnormal")
+            lblAbnScanPartTotal.Text = Counter("AbnPartScanned")
             lblAbnScanPartNo.Text = Nothing
             lblAbnSPartSeqNo.Text = Nothing
             Label3.Text = Nothing
@@ -1963,8 +2139,7 @@ Public Class frmUnpack
         End If
     End Sub
 
-    Private Sub AddToUnpackInterface(ByVal Category As String, _
-                                     ByVal ONOFFLINE_FLAG As String, _
+    Private Sub AddToUnpackInterface(ByVal ONOFFLINE_FLAG As String, _
                                      ByVal currentDate As String, _
                                      ByVal isForceScan As Boolean, _
                                      Optional ByVal object1 As Object = Nothing, _
@@ -1973,120 +2148,76 @@ Public Class frmUnpack
         Dim tempMODD As Module_Input = Nothing
         Dim tempPART As Part_Input = Nothing
         Dim dr As DataRow = Nothing
-        Dim ROBB_MODD_NO As String = String.Empty
-        If Category = "PartScan" Then
-            tempMODD = TryCast(object1, Module_Input)
-            If tempMODD IsNot Nothing Then
-                MODD = New Module_Input
-                MODD = tempMODD
+        tempMODD = TryCast(object1, Module_Input)
+        If tempMODD IsNot Nothing Then
+            MODD = New Module_Input
+            MODD = tempMODD
+        End If
+        tempPART = TryCast(object2, Part_Input)
+        If tempPART IsNot Nothing Then
+            PART = New Part_Input
+            PART = tempPART
+        End If
+        If UnpackTableReader(UNPACK_INTERFACE, _
+                       MODD.MODULE_NO, _
+                       PART.PARTS_NO, _
+                       PART.PART_SEQ_NUMBER, _
+                       PART.PART_BRANCH_NUMBER, _
+                       org_ID, _
+                       IIf(Not String.IsNullOrEmpty(PART.ROBB_MODD_NO), PART.ROBB_MODD_NO, "N")) = 0 Then
+            sql = "INSERT INTO [" & UNPACK_INTERFACE & "] (" + QueryColStr() + ") "
+            sql = sql & "VALUES ("
+            sql = sql & SQLQuote(curr_BATCH) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(MODD.MODULE_NO), MODD.MODULE_NO, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.PARTS_NO), PART.PARTS_NO, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.PART_NO_SFX), PART.PART_NO_SFX, Nothing)) & ", "
+            sql = sql & PART.PART_SEQ_NUMBER & ", "
+            sql = sql & IIf(Not PART.QTY_BOX = Nothing, PART.QTY_BOX, "null") & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.MANUFACTURE_CODE), PART.MANUFACTURE_CODE, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.SUPPLIER_CODE), PART.SUPPLIER_CODE, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.SUPPLIER_PLANT_CODE), PART.SUPPLIER_PLANT_CODE, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.SUPPLIER_SHIPPING_DOCK), PART.SUPPLIER_SHIPPING_DOCK, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.BEFORE_PACKING_ROUTING), PART.BEFORE_PACKING_ROUTING, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.RECEIVING_COMPANY_CODE), PART.RECEIVING_COMPANY_CODE, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.RECEIVING_PLANT_CODE), PART.RECEIVING_PLANT_CODE, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.RECEIVING_DOCK_CODE), PART.RECEIVING_DOCK_CODE, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.PACKING_ROUTING_CODE), PART.PACKING_ROUTING_CODE, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.GRANTER_CODE), PART.GRANTER_CODE, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.ORDER_TYPE), PART.ORDER_TYPE, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.KANBAN_CLASSIFICATION), PART.KANBAN_CLASSIFICATION, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.DELIVERY_DATE), PART.DELIVERY_DATE, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.DELIVERY_CODE), PART.DELIVERY_CODE, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.MROS), PART.MROS, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.ORDER_NUMBER), PART.ORDER_NUMBER, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.DELIVERY_NUMBER), PART.DELIVERY_NUMBER, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.BACK_NUMBER), PART.BACK_NUMBER, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.RUNOUT_FLAG), PART.RUNOUT_FLAG, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.BOX_TYPE), PART.BOX_TYPE, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.BRANCH_NUMBER), PART.BRANCH_NUMBER, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.ADDRESS), PART.ADDRESS, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.PACKING_DATE), PART.PACKING_DATE, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.KATASHIKI_JERSEY_NUMBER), PART.KATASHIKI_JERSEY_NUMBER, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.LOT_NO), PART.LOT_NO, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.MODULE_CATEGORY), PART.MODULE_CATEGORY, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.PART_BRANCH_NUMBER), PART.PART_BRANCH_NUMBER, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.DUMMY), PART.DUMMY, Nothing)) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.VERSION_NO), PART.VERSION_NO, Nothing)) & ", "
+            sql = sql & org_ID & ", "
+            sql = sql & SQLQuote(gScannerID) & ", "
+            sql = sql & SQLQuote(currentDate) & ", "
+            sql = sql & SQLQuote(ONOFFLINE_FLAG) & ", "
+            sql = sql & SQLQuote(currentDate) & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(MODD.REASONID), "Y", "N")) & ", "
+            sql = sql & IIf(Not String.IsNullOrEmpty(MODD.REASONID), MODD.REASONID, "null") & ", "
+            sql = sql & SQLQuote(IIf(isForceScan, "Y", "N")) & ", "
+            sql = sql & IIf(isForceScan, PART.PARTREASONID, "null") & ", "
+            sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(PART.ROBB_MODD_NO), PART.ROBB_MODD_NO, "N"))
+            sql = sql & ")"
+            If CeNonQuery(sql) = False Then
+                Throw New Exception("Failed to Create Local Part Table.")
             End If
-            tempPART = TryCast(object2, Part_Input)
-            If tempPART IsNot Nothing Then
-                PART = New Part_Input
-                PART = tempPART
-            End If
-            If PART.MODULE_CATEGORY & PART.LOT_NO = MODD.MODULE_NO Then
-                ROBB_MODD_NO = "N"
-            Else
-                ROBB_MODD_NO = PART.MODULE_CATEGORY & PART.LOT_NO
-            End If
-            If UnpackTableReader(UNPACK_INTERFACE, _
-                           MODD.MODULE_NO, _
-                           PART.PARTS_NO, _
-                           PART.PART_SEQ_NUMBER, _
-                           PART.PART_BRANCH_NUMBER, _
-                           ROBB_MODD_NO) = 0 Then
-                sql = "INSERT INTO [" & UNPACK_INTERFACE & "] (" + QueryColStr("PartScan") + ") "
-                sql = sql & "VALUES ("
-                sql = sql & SQLQuote(curr_BATCH) & ", "
-                sql = sql & SQLQuote(MODD.MODULE_NO) & ", "
-                sql = sql & SQLQuote(PART.PARTS_NO) & ", "
-                sql = sql & SQLQuote(PART.PART_NO_SFX) & ", "
-                sql = sql & PART.PART_SEQ_NUMBER & ", "
-                sql = sql & IIf(Not PART.QTY_BOX = Nothing, PART.QTY_BOX, "null") & ", "
-                sql = sql & SQLQuote(PART.MANUFACTURE_CODE) & ", "
-                sql = sql & SQLQuote(PART.SUPPLIER_CODE) & ", "
-                sql = sql & SQLQuote(PART.SUPPLIER_PLANT_CODE) & ", "
-                sql = sql & SQLQuote(PART.SUPPLIER_SHIPPING_DOCK) & ", "
-                sql = sql & SQLQuote(PART.BEFORE_PACKING_ROUTING) & ", "
-                sql = sql & SQLQuote(PART.RECEIVING_COMPANY_CODE) & ", "
-                sql = sql & SQLQuote(PART.RECEIVING_PLANT_CODE) & ", "
-                sql = sql & SQLQuote(PART.RECEIVING_DOCK_CODE) & ", "
-                sql = sql & SQLQuote(PART.PACKING_ROUTING_CODE) & ", "
-                sql = sql & SQLQuote(PART.GRANTER_CODE) & ", "
-                sql = sql & SQLQuote(PART.ORDER_TYPE) & ", "
-                sql = sql & SQLQuote(PART.KANBAN_CLASSIFICATION) & ", "
-                sql = sql & SQLQuote(PART.DELIVERY_DATE) & ", "
-                sql = sql & SQLQuote(PART.DELIVERY_CODE) & ", "
-                sql = sql & SQLQuote(PART.MROS) & ", "
-                sql = sql & SQLQuote(PART.ORDER_NUMBER) & ", "
-                sql = sql & SQLQuote(PART.DELIVERY_NUMBER) & ", "
-                sql = sql & SQLQuote(PART.BACK_NUMBER) & ", "
-                sql = sql & SQLQuote(PART.RUNOUT_FLAG) & ", "
-                sql = sql & SQLQuote(PART.BOX_TYPE) & ", "
-                sql = sql & SQLQuote(PART.BRANCH_NUMBER) & ", "
-                sql = sql & SQLQuote(PART.ADDRESS) & ", "
-                sql = sql & SQLQuote(PART.PACKING_DATE) & ", "
-                sql = sql & SQLQuote(PART.KATASHIKI_JERSEY_NUMBER) & ", "
-                sql = sql & SQLQuote(PART.LOT_NO) & ", "
-                sql = sql & SQLQuote(PART.MODULE_CATEGORY) & ", "
-                sql = sql & SQLQuote(PART.PART_BRANCH_NUMBER) & ", "
-                sql = sql & SQLQuote(PART.DUMMY) & ", "
-                sql = sql & SQLQuote(PART.VERSION_NO) & ", "
-                sql = sql & org_ID & ", "
-                sql = sql & SQLQuote(gScannerID) & ", "
-                sql = sql & SQLQuote(currentDate) & ", "
-                sql = sql & SQLQuote(ONOFFLINE_FLAG) & ", "
-                sql = sql & SQLQuote(currentDate) & ", "
-                sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(MODD.REASONID), "Y", "N")) & ", "
-                sql = sql & IIf(Not String.IsNullOrEmpty(MODD.REASONID), MODD.REASONID, "null") & ", "
-                sql = sql & SQLQuote(IIf(isForceScan, "Y", "N")) & ", "
-                sql = sql & IIf(isForceScan, PART.PARTREASONID, "null") & ", "
-                sql = sql & SQLQuote(ROBB_MODD_NO)
-                sql = sql & ")"
-                If CeNonQuery(sql) = False Then
-                    Throw New Exception("Failed to Create Local Part Table.")
-                End If
-            Else
-                Throw New Exception("Part Already Existed On Local Database.")
-            End If
-        ElseIf Category = "OfflinePartScan" Then
-            If TryCast(object1, DataRow) IsNot Nothing Then
-                dr = DirectCast(object1, DataRow)
-            End If
-            If TryCast(object1, Module_Input) IsNot Nothing Then
-                MODD = New Module_Input
-                MODD = DirectCast(object1, Module_Input)
-            End If
-            If UnpackTableReader(UNPACK_INTERFACE, _
-                           dr.Item("MODULE_NO").ToString, _
-                           dr.Item("PART_NO").ToString, _
-                           dr.Item("PART_SEQ_NO").ToString, _
-                           dr.Item("BRANCH_NO").ToString) = 0 Then
-                sql = "INSERT INTO [" & UNPACK_INTERFACE & "] (" + QueryColStr("OfflinePartScan") + ") "
-                sql = sql & "VALUES ("
-                sql = sql & SQLQuote(curr_BATCH) & ", "
-                sql = sql & SQLQuote(dr.Item("MODULE_ID").ToString) & ", "
-                sql = sql & SQLQuote(dr.Item("MODULE_NO").ToString) & ", "
-                sql = sql & SQLQuote(dr.Item("PART_NO").ToString) & ", "
-                sql = sql & SQLQuote(dr.Item("PART_NO_SFX").ToString) & ", "
-                sql = sql & SQLQuote(dr.Item("QUANTITY_BOX").ToString) & ", "
-                sql = sql & SQLQuote(dr.Item("PART_SEQ_NO").ToString) & ", "
-                sql = sql & SQLQuote(dr.Item("BRANCH_NO").ToString) & ", "
-                sql = sql & SQLQuote(dr.Item("ORG_ID").ToString) & ", "
-                sql = sql & SQLQuote(gScannerID) & ", "
-                sql = sql & SQLQuote(GetServerTime) & ", "
-                sql = sql & SQLQuote(ONOFFLINE_FLAG) & ", "
-                sql = sql & SQLQuote(GetServerTime) & ", "
-                sql = sql & SQLQuote(IIf(Not String.IsNullOrEmpty(MODD.REASONID), "Y", "N")) & ", "
-                sql = sql & SQLQuote(MODD.REASONID)
-                sql = sql & ")"
-                If CeNonQuery(sql) = False Then
-                    Throw New Exception("Failed to Create Local Part Table.")
-                End If
-            Else
-                Throw New Exception("Part Already Existed On Local Database.")
-            End If
+        Else
+            Throw New Exception("Part Already Existed On Local Database.")
         End If
     End Sub
 
@@ -2100,6 +2231,7 @@ Public Class frmUnpack
                           "WHERE MODULE_NO = " & SQLQuote(MODULE_NO) & " " & _
                           "AND PART_NO = " & SQLQuote(PART_NO) & " " & _
                           "AND PART_SEQ_NO = " & CInt(PART_SEQ_NO) & " " & _
+                          "AND ORG_ID = " & SQLQuote(org_ID) & " " & _
                           "AND BRANCH_NO = " & SQLQuote(PART_BRANCH_NO))
         If dt.Rows.Count > 0 Then
             If dt.Rows.Count > 1 Then
@@ -2113,6 +2245,7 @@ Public Class frmUnpack
                              "AND PART_NO = " & SQLQuote(PART_NO) & " " & _
                              "AND PART_SEQ_NO = " & CInt(PART_SEQ_NO) & " " & _
                              "AND BRANCH_NO = " & SQLQuote(PART_BRANCH_NO) & " " & _
+                             "AND ORG_ID = " & SQLQuote(org_ID) & " " & _
                              "AND ROBB_MODULE_NO = " & SQLQuote(ROBB_MODD_NO)) Then
                     Throw New Exception("Failed to Create Local Part Table.")
                 End If
@@ -2121,6 +2254,7 @@ Public Class frmUnpack
                              "WHERE MODULE_NO = " & SQLQuote(MODULE_NO) & " " & _
                              "AND PART_NO = " & SQLQuote(PART_NO) & " " & _
                              "AND PART_SEQ_NO = " & CInt(PART_SEQ_NO) & " " & _
+                             "AND ORG_ID = " & SQLQuote(org_ID) & " " & _
                              "AND BRANCH_NO = " & SQLQuote(PART_BRANCH_NO)) Then
                     Throw New Exception("Failed to Create Local Part Table.")
                 End If
@@ -2138,26 +2272,21 @@ Public Class frmUnpack
                          "WHERE MODULE_NO = " & SQLQuote(MODULE_NO) & " " & _
                          "AND PART_NO = " & SQLQuote(PART_NO) & " " & _
                          "AND PXP_PART_SEQ_NO = " & CInt(PART_SEQ_NO) & " " & _
-                         "AND PART_BRANCH_NO = " & SQLQuote(PART_BRANCH_NO)) Then
+                         "AND PART_BRANCH_NO = " & SQLQuote(PART_BRANCH_NO) & " " & _
+                         "AND ORG_ID = " & SQLQuote(org_ID) & " " & _
+                         "AND ROBB_MODULE_NO = " & SQLQuote(ROBB_MODD_NO)) Then
             Throw New Exception("Failed to Create Local Part Table.")
         End If
     End Sub
 
-    Public Function QueryColStr(ByVal Category As String) As String
+    Public Function QueryColStr() As String
         Dim buildQuery As String = Nothing
-
-        Select Case Category
-            Case "PartScan"
-                buildQuery = "RCV_INTERFACE_BATCH_ID, MODULE_NO, PART_NO, PXP_PART_NO_SFX, PXP_PART_SEQ_NO, QTY_BOX, MANUFACTURE_CODE, SUPPLIER_CODE, SUPPLIER_PLANT_CODE, "
-                buildQuery = buildQuery + "SUPPLIER_SHIPPING_DOCK, BEFORE_PACKING_ROUTING, RECEIVING_COMPANY_CODE, RECEIVING_PLANT_CODE, RECEIVING_DOCK_CODE, "
-                buildQuery = buildQuery + "PACKING_ROUTING_CODE, GRANTER_CODE, ORDER_TYPE, KANBAN_CLASSIFICATION, DELIVERY_DATE, DELIVERY_CODE, MROS, ORDER_NO, "
-                buildQuery = buildQuery + "DELIVERY_NO, BACK_NUMBER, RUNOUT_FLAG, BOX_TYPE, BRANCH_NO, ADDRESS, PACKING_DATE, KATASHIKI_JERSEY_NO, LOT_NO, "
-                buildQuery = buildQuery + "MODULE_CATEGORY, PART_BRANCH_NO, DUMMY, VERSION_NO, ORG_ID, UNPACK_BY, UNPACK_DATE, ON_OFF_LINE_FLAG, SCAN_DATE, "
-                buildQuery = buildQuery + "FORCE_MODULE_STATUS, FORCE_MODULE_REASON_ID, FORCE_PXP_STATUS, FORCE_PXP_REASON_ID, ROBB_MODULE_NO"
-            Case "OfflinePartScan"
-                buildQuery = "RCV_INTERFACE_BATCH_ID, MODULE_ID, MODULE_NO, PART_NO, PXP_PART_NO_SFX, QTY_BOX, PXP_PART_SEQ_NO, PART_BRANCH_NO, ORG_ID, "
-                buildQuery = buildQuery + "UNPACK_BY, UNPACK_DATE, ON_OFF_LINE_FLAG, SCAN_DATE, FORCE_MODULE_STATUS, FORCE_MODULE_REASON_ID"
-        End Select
+        buildQuery = "RCV_INTERFACE_BATCH_ID, MODULE_NO, PART_NO, PXP_PART_NO_SFX, PXP_PART_SEQ_NO, QTY_BOX, MANUFACTURE_CODE, SUPPLIER_CODE, SUPPLIER_PLANT_CODE, "
+        buildQuery = buildQuery + "SUPPLIER_SHIPPING_DOCK, BEFORE_PACKING_ROUTING, RECEIVING_COMPANY_CODE, RECEIVING_PLANT_CODE, RECEIVING_DOCK_CODE, "
+        buildQuery = buildQuery + "PACKING_ROUTING_CODE, GRANTER_CODE, ORDER_TYPE, KANBAN_CLASSIFICATION, DELIVERY_DATE, DELIVERY_CODE, MROS, ORDER_NO, "
+        buildQuery = buildQuery + "DELIVERY_NO, BACK_NUMBER, RUNOUT_FLAG, BOX_TYPE, BRANCH_NO, ADDRESS, PACKING_DATE, KATASHIKI_JERSEY_NO, LOT_NO, "
+        buildQuery = buildQuery + "MODULE_CATEGORY, PART_BRANCH_NO, DUMMY, VERSION_NO, ORG_ID, UNPACK_BY, UNPACK_DATE, ON_OFF_LINE_FLAG, SCAN_DATE, "
+        buildQuery = buildQuery + "FORCE_MODULE_STATUS, FORCE_MODULE_REASON_ID, FORCE_PXP_STATUS, FORCE_PXP_REASON_ID, ROBB_MODULE_NO"
         Return buildQuery
     End Function
 
@@ -2170,9 +2299,15 @@ Public Class frmUnpack
         ElseIf state = "Scanned" Then
             Call PopulateUnpackScannedDetails(MODD.MODULE_NO)
             result = cntScanned.ToString()
-        ElseIf state = "Abnormal" Then
+        ElseIf state = "AbnPartScanned" Then
+            Call PopulateAbnUnpackDetails(False)
+            result = cntAbnPartScanned.ToString
+        ElseIf state = "AbnDelete" Then
+            Call PopulateAbnDelete()
+            result = cntAbnDelete.ToString
+        ElseIf state = "AbnTotal" Then
             Call PopulateAbnPost()
-            result = cntAbnPost.ToString
+            result = cntAbnTotal.ToString
         End If
         Return result
     End Function
@@ -2186,12 +2321,10 @@ Public Class frmUnpack
     End Function
 
     Private Sub VerifyOrgId()
-        Dim dtPartList As DataTable = New DataTable()
-
-        dtPartList = ws_dcsClient.getData("*", "JSP_UNPACKING_DETAILS_VIEW", " AND MODULE_NO = " & SQLQuote(MODD.MODULE_NO))
+        Dim dtPartList As DataTable = ws_dcsClient.getData("*", "JSP_UNPACKING_DETAILS_VIEW", String.Format(" AND MODULE_NO = {0} AND ORG_ID = {1}", SQLQuote(MODD.MODULE_NO), SQLQuote(org_ID)))
         If dtPartList.Rows.Count > 0 Then
             If Not org_ID = dtPartList.Rows(0).Item("ORG_ID").ToString.TrimStart("0"c) Then
-                Throw New CustomException("Organization ID does not match Setting configuration.")
+                Throw New CustomException
             End If
         End If
     End Sub
@@ -2225,34 +2358,30 @@ Public Class frmUnpack
     End Sub
     'Module Force Scan All Mode - end
 
-    Private Sub GetIsRobbing(ByVal module_no As String, _
-                             ByVal part_no As String, _
-                             ByVal part_seq_no As String, _
-                             ByVal branch_no As String, _
-                             ByVal partList As DataTable, _
-                             Optional ByRef ROBB_MODD_ID As String = "0", _
-                             Optional ByRef ROBB_MODD_NO As String = "N")
-
-        If partList.Rows.Count > 0 Then
-            For i As Integer = 0 To partList.Rows.Count - 1
-                If partList.Rows.Count > 1 Then
-                    If module_no = partList.Rows(i).Item("ROBB_MODULE_NO").ToString And _
-                    part_no = partList.Rows(i).Item("PART_NO").ToString And _
-                    part_seq_no = partList.Rows(i).Item("PART_SEQ_NO").ToString And _
-                    branch_no = partList.Rows(i).Item("BRANCH_NO").ToString Then
-                        ROBB_MODD_NO = partList.Rows(i).Item("ROBB_MODD_NO").ToString
-                        ROBB_MODD_ID = partList.Rows(i).Item("ROBB_MODD_ID").ToString
-                        Exit Sub
-                    ElseIf module_no = partList.Rows(i).Item("MODULE_NO").ToString And _
-                    part_no = partList.Rows(i).Item("PART_NO").ToString And _
-                    part_seq_no = partList.Rows(i).Item("PART_SEQ_NO").ToString And _
-                    branch_no = partList.Rows(i).Item("BRANCH_NO").ToString Then
-                        ROBB_MODD_NO = "N"
-                        ROBB_MODD_ID = "0"
-                        Exit Sub
-                    End If
+    Private Sub GetRobbModuleNo(Optional ByVal TForceScan As Boolean = False, _
+                                Optional ByVal TTextField As String = Nothing)
+        If TForceScan Then
+            If Not String.IsNullOrEmpty(TTextField.Trim) Then
+                If TTextField.Trim.Length <> 6 Then
+                    PART.MODULE_CATEGORY = MODD.MODULE_NO.Substring(0, 2)
+                    PART.LOT_NO = MODD.MODULE_NO.Substring(2, 4)
+                    PART.ROBB_MODD_NO = "N"
+                Else
+                    PART.MODULE_CATEGORY = TTextField.Substring(0, 2)
+                    PART.LOT_NO = TTextField.Substring(2, 4)
+                    PART.ROBB_MODD_NO = TTextField
                 End If
-            Next
+            Else
+                PART.MODULE_CATEGORY = MODD.MODULE_NO.Substring(0, 2)
+                PART.LOT_NO = MODD.MODULE_NO.Substring(2, 4)
+                PART.ROBB_MODD_NO = "N"
+            End If
+        Else
+            If (PART.MODULE_CATEGORY & PART.LOT_NO) = MODD.MODULE_NO Then
+                PART.ROBB_MODD_NO = "N"
+            Else
+                PART.ROBB_MODD_NO = (PART.MODULE_CATEGORY & PART.LOT_NO)
+            End If
         End If
     End Sub
 
@@ -2735,7 +2864,11 @@ Public Class frmUnpack
         'MODULE_NO - START
         temp_module_no = input.Substring(0, UNPACK_MODULE_NO_LENGTH)
         If Not String.IsNullOrEmpty(temp_module_no) Then
-            MODD.MODULE_NO = temp_module_no
+            If IsEmptyString(temp_module_no) Then
+                MODD.MODULE_NO = Nothing
+            Else
+                MODD.MODULE_NO = temp_module_no
+            End If
         Else
             Throw New FormatException(errorMsg)
         End If
@@ -2744,7 +2877,11 @@ Public Class frmUnpack
         'PILLING_NO - START
         temp_pilling_no = input.Substring(6, UNPACK_PILLING_NO_LENGTH)
         If Not String.IsNullOrEmpty(temp_pilling_no) Then
-            MODD.PILLING_NO = temp_pilling_no
+            If IsEmptyString(temp_pilling_no) Then
+                MODD.PILLING_NO = Nothing
+            Else
+                MODD.PILLING_NO = temp_pilling_no
+            End If
         Else
             Throw New FormatException(errorMsg)
         End If
@@ -2753,7 +2890,11 @@ Public Class frmUnpack
         'GROSS_WEIGHT - START
         temp_gross_weight = input.Substring(7, UNPACK_GROSS_WEIGHT_LENGTH)
         If Not String.IsNullOrEmpty(temp_gross_weight) And IsNumber(temp_gross_weight) Then
-            MODD.GROSS_WEIGHT = temp_gross_weight
+            If IsEmptyString(temp_gross_weight) Then
+                MODD.GROSS_WEIGHT = Nothing
+            Else
+                MODD.GROSS_WEIGHT = temp_gross_weight
+            End If
         Else
             Throw New FormatException(errorMsg)
         End If
@@ -2761,7 +2902,11 @@ Public Class frmUnpack
 
         temp_order_no = input.Substring(12, UNPACK_ORDER_NO_LENGTH)
         If Not String.IsNullOrEmpty(temp_order_no) Then
-            MODD.ORDER_NO = temp_order_no
+            If IsEmptyString(temp_order_no) Then
+                MODD.ORDER_NO = Nothing
+            Else
+                MODD.ORDER_NO = temp_order_no
+            End If
         Else
             Throw New FormatException(errorMsg)
         End If

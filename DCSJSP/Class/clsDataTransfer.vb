@@ -5,7 +5,6 @@ Imports System.Xml
 Imports System.Reflection
 Imports System.Data.SqlServerCe
 
-
 Public Class clsDataTransfer
 
 #Region ". Prepare Table For Scanner ."

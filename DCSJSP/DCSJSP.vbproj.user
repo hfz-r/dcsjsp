@@ -2,6 +2,8 @@
   <PropertyGroup>
     <DeployDeviceID>81551346-886F-43a2-B707-A91FAE1B33A7</DeployDeviceID>
     <ProjectView>ProjectFiles</ProjectView>
+    <EnableSigning>false</EnableSigning>
+    <ProvisionStore>none</ProvisionStore>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <StartAction>Project</StartAction>

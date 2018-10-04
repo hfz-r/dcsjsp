@@ -20,7 +20,6 @@ Partial Public Class frmProgress
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.pnlProgress = New System.Windows.Forms.Panel
-        Me.btnSTBack = New System.Windows.Forms.Button
         Me.pnlDataTransfer = New System.Windows.Forms.Panel
         Me.ProgressBar = New System.Windows.Forms.ProgressBar
         Me.lblMessage = New System.Windows.Forms.Label
@@ -43,23 +42,11 @@ Partial Public Class frmProgress
         'pnlProgress
         '
         Me.pnlProgress.BackColor = System.Drawing.Color.Transparent
-        Me.pnlProgress.Controls.Add(Me.btnSTBack)
         Me.pnlProgress.Controls.Add(Me.pnlDataTransfer)
         Me.pnlProgress.Controls.Add(Me.Panel1)
         Me.pnlProgress.Location = New System.Drawing.Point(5, 3)
         Me.pnlProgress.Name = "pnlProgress"
         Me.pnlProgress.Size = New System.Drawing.Size(320, 275)
-        '
-        'btnSTBack
-        '
-        Me.btnSTBack.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular)
-        Me.btnSTBack.Location = New System.Drawing.Point(179, 185)
-        Me.btnSTBack.Name = "btnSTBack"
-        Me.btnSTBack.Size = New System.Drawing.Size(124, 26)
-        Me.btnSTBack.TabIndex = 1
-        Me.btnSTBack.TabStop = False
-        Me.btnSTBack.Text = "Back"
-        Me.btnSTBack.Visible = False
         '
         'pnlDataTransfer
         '
@@ -114,7 +101,7 @@ Partial Public Class frmProgress
         Me.pnlSetDatetime.Controls.Add(Me.btnDateSave)
         Me.pnlSetDatetime.Controls.Add(Me.dtScannerDate)
         Me.pnlSetDatetime.Controls.Add(Me.lblScannerDate)
-        Me.pnlSetDatetime.Location = New System.Drawing.Point(331, 4)
+        Me.pnlSetDatetime.Location = New System.Drawing.Point(331, 3)
         Me.pnlSetDatetime.Name = "pnlSetDatetime"
         Me.pnlSetDatetime.Size = New System.Drawing.Size(320, 275)
         '
@@ -190,7 +177,6 @@ Partial Public Class frmProgress
     Friend WithEvents pnlProgress As System.Windows.Forms.Panel
     Friend WithEvents lblTitle As System.Windows.Forms.Label
     Friend WithEvents StatusBar1 As System.Windows.Forms.StatusBar
-    Friend WithEvents btnSTBack As System.Windows.Forms.Button
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents pnlDataTransfer As System.Windows.Forms.Panel
     Friend WithEvents ProgressBar As System.Windows.Forms.ProgressBar

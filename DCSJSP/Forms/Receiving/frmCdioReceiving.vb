@@ -11,7 +11,7 @@ Imports DCSJSP.GeneralFunction
 
 Public Class frmCdioReceiving
 
-#Region ", Properties ."
+#Region ". Properties ."
 
     Private Class CDIO_input
         Private _cdio_id As String
@@ -559,10 +559,9 @@ Public Class frmCdioReceiving
                                     Nothing, msgDesc)
                 If msgCode = "OK" Then
                     Call GetModuleList()
-                    msgDesc = "Succesfully Updated"
                     SetPanelForResult("PanelOk", msgCode, msgDesc)
                 ElseIf msgCode = "NG" Then
-                    SetPanelForResult("PanelError", msgCode, IIf(Not String.IsNullOrEmpty(msgDesc), msgDesc, "Invalid CDIO No"))
+                    SetPanelForResult("PanelError", msgCode, msgDesc)
                 End If
             End If
         End If
@@ -575,14 +574,16 @@ Public Class frmCdioReceiving
         Dim dt As DataTable = New DataTable()
 
         If ws_dcsClient.isConnected Then '***
-            dtModuleList = ws_dcsClient.getData("*", "JSP_CDIO_DETAILS_VIEW", " AND CDIO_NO = " & SQLQuote(CDIO.CDIO_NO))
+            dtModuleList = ws_dcsClient.getData("*", "JSP_CDIO_DETAILS_VIEW", String.Format(" AND CDIO_NO = {0} AND ORG_ID = {1}", SQLQuote(CDIO.CDIO_NO), SQLQuote(org_ID)))
             If dtModuleList.Rows.Count > 0 Then
                 For i As Integer = 0 To dtModuleList.Rows.Count - 1
                     dbReader = OpenRecordset("SELECT COUNT(*) FROM [" & CDIO_PENDING & "] WHERE MODULE_NO = " & _
-                                             SQLQuote(dtModuleList.Rows(i).Item("MODULE_NO").ToString), objConn)
+                                             SQLQuote(dtModuleList.Rows(i).Item("MODULE_NO").ToString & " " & _
+                                             "AND ORG_ID = " & SQLQuote(org_ID)), objConn)
                     If dbReader.Read Then
                         If CInt(dbReader(0)) = 0 Then
-                            dt = getData("SELECT * FROM [" & CDIO_INTERFACE & "] WHERE MODULE_NO = " & SQLQuote(dtModuleList.Rows(i).Item("MODULE_NO").ToString))
+                            dt = getData("SELECT * FROM [" & CDIO_INTERFACE & "] WHERE MODULE_NO = " & SQLQuote(dtModuleList.Rows(i).Item("MODULE_NO").ToString) & " " & _
+                                         "AND ORG_ID = " & SQLQuote(org_ID))
                             If dt.Rows.Count = 0 Then
                                 sqlStr = "INSERT INTO [" & CDIO_PENDING & "] (CDIO_ID, CDIO_NO, MODULE_ID, MODULE_NO, MODULE_NAME, ORDER_NO, ORG_ID)"
                                 sqlStr = sqlStr & " VALUES (" & SQLQuote(dtModuleList.Rows(i).Item("CDIO_ID").ToString.PadLeft(10, "0")) & " , "
@@ -623,7 +624,8 @@ Public Class frmCdioReceiving
 
     Private Sub LoadForceScan(Optional ByVal IsPopulate As Boolean = Nothing)
         Me.Text = strOnlineTitle
-        Call PopulateCDIOForceScan(Nothing)
+        'Call PopulateCDIOForceScan(Nothing)
+        Call GetAbnReasonCode(lstViewRCVFScan)
         If IsPopulate Then
             txtFSModuleNo.Text = lstCdioRcvModule.FocusedItem.SubItems(2).Text
             txtFSOrderNo.Text = lstCdioRcvModule.FocusedItem.SubItems(1).Text
@@ -710,10 +712,9 @@ Public Class frmCdioReceiving
                                             CDIO.ORG_ID, IIf(IsForceScan, MODD.REASON_CD, Nothing), "N", currentDate)
                     Call UpdateCDIOPendingDetails(MODD.MODULE_NO, MODD.ORDER_NO)
                     Call UpdatePostStatus(MODD.MODULE_NO, MODD.ORDER_NO)
-                    msgDesc = "Succesfully Updated"
                     SetPanelForResult("PanelModOk", msgCode, msgDesc, IsForceScan)
                 ElseIf msgCode = "NG" Then
-                    SetPanelForResult("PanelModError", msgCode, IIf(Not String.IsNullOrEmpty(msgDesc), msgDesc, "Invalid Module No"), IsForceScan)
+                    SetPanelForResult("PanelModError", msgCode, msgDesc, IsForceScan)
                 ElseIf msgCode = "CP" Then
                     Call AddToCDIOInterface(CDIO.CDIO_ID, CDIO.CDIO_NO, Nothing, MODD.MODULE_NO, MODD.PILLING_NO, MODD.GROSS_WEIGHT, MODD.ORDER_NO, _
                                             CDIO.ORG_ID, IIf(IsForceScan, MODD.REASON_CD, Nothing), "N", currentDate)
@@ -740,7 +741,8 @@ Public Class frmCdioReceiving
 
         Try
             Cursor.Current = Cursors.WaitCursor
-            dtModuleList = getData(String.Format("SELECT * FROM [{0}] WHERE MODULE_NO = {1}", CDIO_PENDING, SQLQuote(MODD.MODULE_NO)))
+            dtModuleList = getData(String.Format("SELECT * FROM [{0}] WHERE MODULE_NO = {1} AND ORG_ID = {2}", _
+                                                 CDIO_PENDING, SQLQuote(MODD.MODULE_NO), SQLQuote(org_ID)))
             If dtModuleList.Rows.Count > 0 Then
                 Call AddToCDIOInterface(dtModuleList.Rows(0).Item("CDIO_ID"), _
                                         dtModuleList.Rows(0).Item("CDIO_NO").ToString, _
@@ -790,8 +792,8 @@ Public Class frmCdioReceiving
                     Exit Sub
                 Else
                     showError = True
-                    txtCDIONo.Focus()
-                    txtCDIONo.SelectAll()
+                    'txtCDIONo.Focus()
+                    'txtCDIONo.SelectAll()
                 End If
             End If
         End If
@@ -802,11 +804,11 @@ Public Class frmCdioReceiving
             If mode = False Then
                 If ws_dcsClient.isConnected Then
                     If ws_dcsClient.isOracleConnected Then
-                        MsgBox("Connection is back. Please Try Again to Scan.", MsgBoxStyle.Information, Me.Text)
                         mode = True
                         modScanOffline = False
                         timer.Enabled = False
                         timer.Dispose()
+                        MsgBox("Connection is back. Please Try Again to Scan.", MsgBoxStyle.Information, Me.Text)
                     End If
                 End If
             End If
@@ -944,7 +946,8 @@ Public Class frmCdioReceiving
         Dim dbReader As SqlCeDataReader = Nothing
         Dim sqlStr As String = Nothing
 
-        dbReader = OpenRecordset("SELECT COUNT(*) FROM [" & CDIO_INTERFACE & "] WHERE MODULE_NO = " & SQLQuote(MODULE_NO), objConn)
+        dbReader = OpenRecordset("SELECT COUNT(*) FROM [" & CDIO_INTERFACE & "] WHERE MODULE_NO = " & SQLQuote(MODULE_NO) & " " & _
+                                 "AND ORG_ID = " & SQLQuote(ORG_ID), objConn)
         If dbReader.Read Then
             If CInt(dbReader(0)) = 0 Then
                 sqlStr = "INSERT INTO [" & CDIO_INTERFACE & "] (RCV_INTERFACE_BATCH_ID, CDIO_ID, CDIO_NO, MODULE_ID, MODULE_NO, PILLING_ORDER, GROSS_WEIGHT, ORDER_NO, ORG_ID, " _
@@ -976,9 +979,10 @@ Public Class frmCdioReceiving
 
     Private Sub UpdatePostStatus(ByVal MODULE_NO As String, ByVal ORDER_NO As String)
         If Not ExecuteSQL("UPDATE [" & CDIO_INTERFACE & "] " & _
-                              "SET PROCESS_FLAG = 'POSTED' " & _
-                              "WHERE MODULE_NO = " & SQLQuote(MODULE_NO) & " " & _
-                              "AND ORDER_NO = " & SQLQuote(ORDER_NO)) Then
+                          "SET PROCESS_FLAG = 'POSTED' " & _
+                          "WHERE MODULE_NO = " & SQLQuote(MODULE_NO) & " " & _
+                          "AND ORDER_NO = " & SQLQuote(ORDER_NO) & " " & _
+                          "AND ORG_ID = " & SQLQuote(org_ID)) Then
             Throw New Exception("Failed to Update Local Flag.")
         End If
     End Sub
@@ -987,12 +991,14 @@ Public Class frmCdioReceiving
         Dim dt As DataTable = New DataTable()
 
         dt = getData("SELECT * FROM [" & CDIO_PENDING & "] " & _
-                                      "WHERE MODULE_NO = " & SQLQuote(MODULE_NO) & " " & _
-                                      "AND ORDER_NO = " & SQLQuote(ORDER_NO))
+                     "WHERE MODULE_NO = " & SQLQuote(MODULE_NO) & " " & _
+                     "AND ORDER_NO = " & SQLQuote(ORDER_NO) & " " & _
+                     "AND ORG_ID = " & SQLQuote(org_ID))
         If dt.Rows.Count > 0 Then
             If Not ExecuteSQL("DELETE FROM [" & CDIO_PENDING & "] " & _
                          "WHERE MODULE_NO = " & SQLQuote(MODULE_NO) & " " & _
-                         "AND ORDER_NO = " & SQLQuote(ORDER_NO)) Then
+                         "AND ORDER_NO = " & SQLQuote(ORDER_NO) & " " & _
+                         "AND ORG_ID = " & SQLQuote(org_ID)) Then
                 Throw New Exception("Failed to Create Local Module Table.")
             End If
         End If
@@ -1039,7 +1045,11 @@ Public Class frmCdioReceiving
         'CDIO_ID - start
         temp_cdio_id = input.Substring(0, CDIO_ID_LENGTH)
         If Not String.IsNullOrEmpty(temp_cdio_id) And IsNumber(temp_cdio_id) Then
-            CDIO.CDIO_ID = temp_cdio_id
+            If IsEmptyString(temp_cdio_id) Then
+                CDIO.CDIO_ID = Nothing
+            Else
+                CDIO.CDIO_ID = temp_cdio_id
+            End If
         Else
             Throw New FormatException(errorMsg)
         End If
@@ -1048,14 +1058,17 @@ Public Class frmCdioReceiving
         'CDIO_NO - start
         temp_cdio_no = input.Substring(10, CDIO_NO_LENGTH)
         If Not String.IsNullOrEmpty(temp_cdio_no) Then
-            CDIO.CDIO_NO = temp_cdio_no
+            If IsEmptyString(temp_cdio_no) Then
+                CDIO.CDIO_NO = Nothing
+            Else
+                CDIO.CDIO_NO = temp_cdio_no
+            End If
         Else
             Throw New FormatException(errorMsg)
         End If
         'CDIO_NO - end
 
         'PRODUCTION_DATE - start
-
         temp_prod_date = input.Substring(23, PROD_DATE_LENGTH)
         If Not String.IsNullOrEmpty(temp_prod_date) Then
             Try
@@ -1072,7 +1085,11 @@ Public Class frmCdioReceiving
         'EXPORTER_CODE - start
         temp_exporter_code = input.Substring(33, EXPORTER_CODE_LENGTH)
         If Not String.IsNullOrEmpty(temp_exporter_code) Then
-            CDIO.EXPORTER_CODE = temp_exporter_code
+            If IsEmptyString(temp_exporter_code) Then
+                CDIO.EXPORTER_CODE = Nothing
+            Else
+                CDIO.EXPORTER_CODE = temp_exporter_code
+            End If
         Else
             Throw New FormatException(errorMsg)
         End If
@@ -1083,7 +1100,11 @@ Public Class frmCdioReceiving
         If expLength <= EXPORTER_LENGTH Then
             temp_exporter = input.Substring(36, expLength)
             If Not String.IsNullOrEmpty(temp_exporter) Then
-                CDIO.EXPORTER = temp_exporter
+                If IsEmptyString(temp_exporter) Then
+                    CDIO.EXPORTER = Nothing
+                Else
+                    CDIO.EXPORTER = temp_exporter
+                End If
             Else
                 Throw New FormatException(errorMsg)
             End If
@@ -1096,7 +1117,11 @@ Public Class frmCdioReceiving
         cidNewIndex = 36 + expLength
         temp_container_id = input.Substring(cidNewIndex, CONTAINER_ID_LENGTH)
         If Not String.IsNullOrEmpty(temp_container_id) And IsNumber(temp_container_id) Then
-            CDIO.CONTAINER_ID = temp_container_id
+            If IsEmptyString(temp_container_id) Then
+                CDIO.CONTAINER_ID = Nothing
+            Else
+                CDIO.CONTAINER_ID = temp_container_id
+            End If
         Else
             Throw New FormatException(errorMsg)
         End If
@@ -1106,7 +1131,11 @@ Public Class frmCdioReceiving
         cnoNewIndex = cidNewIndex + CONTAINER_ID_LENGTH
         temp_container_no = input.Substring(cnoNewIndex, CONTAINER_NO_LENGTH)
         If Not String.IsNullOrEmpty(temp_container_no) Then
-            CDIO.CONTAINER_NO = temp_container_no
+            If IsEmptyString(temp_container_no) Then
+                CDIO.CONTAINER_NO = Nothing
+            Else
+                CDIO.CONTAINER_NO = temp_container_no
+            End If
         Else
             Throw New FormatException(errorMsg)
         End If
@@ -1116,7 +1145,11 @@ Public Class frmCdioReceiving
         orgidNewIndex = cnoNewIndex + CONTAINER_NO_LENGTH
         temp_org_id = input.Substring(orgidNewIndex, ORG_ID_LENGTH)
         If Not String.IsNullOrEmpty(temp_org_id) And IsNumber(temp_org_id) Then
-            CDIO.ORG_ID = temp_org_id
+            If IsEmptyString(temp_org_id) Then
+                CDIO.ORG_ID = Nothing
+            Else
+                CDIO.ORG_ID = temp_org_id
+            End If
         Else
             Throw New FormatException(errorMsg)
         End If
@@ -1127,7 +1160,11 @@ Public Class frmCdioReceiving
         scnflagNewIndex = orgidNewIndex + ORG_ID_LENGTH
         temp_scan_flag = input.Substring(scnflagNewIndex, SCAN_FLAG_LENGTH)
         If Not String.IsNullOrEmpty(temp_scan_flag) Then
-            CDIO.SCAN_FLAG = temp_scan_flag
+            If IsEmptyString(temp_scan_flag) Then
+                CDIO.SCAN_FLAG = Nothing
+            Else
+                CDIO.SCAN_FLAG = temp_scan_flag
+            End If
         Else
             Throw New FormatException(errorMsg)
         End If
@@ -1148,7 +1185,11 @@ Public Class frmCdioReceiving
             'MODULE_NO - start
             temp_mod_no = input.Substring(0, MODULE_NO_LENGTH)
             If Not String.IsNullOrEmpty(temp_mod_no) Then
-                MODD.MODULE_NO = temp_mod_no
+                If IsEmptyString(temp_mod_no) Then
+                    MODD.MODULE_NO = Nothing
+                Else
+                    MODD.MODULE_NO = temp_mod_no
+                End If
             Else
                 Throw New FormatException(errorMsg)
             End If
@@ -1157,7 +1198,11 @@ Public Class frmCdioReceiving
             'PILLING_NO - start
             temp_pill_no = input.Substring(6, PILLING_NO_LENGTH)
             If Not String.IsNullOrEmpty(temp_pill_no) Then
-                MODD.PILLING_NO = temp_pill_no
+                If IsEmptyString(temp_pill_no) Then
+                    MODD.PILLING_NO = Nothing
+                Else
+                    MODD.PILLING_NO = temp_pill_no
+                End If
             Else
                 Throw New FormatException(errorMsg)
             End If
@@ -1166,7 +1211,11 @@ Public Class frmCdioReceiving
             'GROSS_WEIGHT - start
             temp_gross_weight = input.Substring(7, GROSS_WEIGHT_LENGTH)
             If Not String.IsNullOrEmpty(temp_gross_weight) And IsNumber(temp_gross_weight) Then
-                MODD.GROSS_WEIGHT = temp_gross_weight
+                If IsEmptyString(temp_gross_weight) Then
+                    MODD.GROSS_WEIGHT = Nothing
+                Else
+                    MODD.GROSS_WEIGHT = temp_gross_weight
+                End If
             Else
                 Throw New FormatException(errorMsg)
             End If
@@ -1175,7 +1224,11 @@ Public Class frmCdioReceiving
             'ORDER_NO - start
             temp_ord_no = input.Substring(12, ORDER_NO_LENGTH)
             If Not String.IsNullOrEmpty(temp_ord_no) Then
-                MODD.ORDER_NO = temp_ord_no
+                If IsEmptyString(temp_ord_no) Then
+                    MODD.ORDER_NO = Nothing
+                Else
+                    MODD.ORDER_NO = temp_ord_no
+                End If
             Else
                 Throw New FormatException(errorMsg)
             End If
@@ -1214,6 +1267,10 @@ Public Class frmCdioReceiving
         Return Regex.IsMatch(input, "^[0-9 ]+$")
     End Function
 
+    Private Function IsEmptyString(ByVal input As String) As Boolean
+        Return Regex.IsMatch(input, "\s")
+    End Function
+
 #End Region
 
 #Region ". Batch Helper ."
@@ -1223,7 +1280,7 @@ Public Class frmCdioReceiving
     End Sub
 
     Private Sub UpdateBatch()
-        Dim currentNo As String = DateTime.ParseExact(ws_dcsClient.getTime, "MM-dd-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture).ToString("yyyyMMddHHmmss")
+        Dim currentNo As String = DateTime.ParseExact(ws_dcsClient.getTime, "dd-MM-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture).ToString("yyyyMMddHHmmss")
         If Not ExecuteSQL(String.Format("UPDATE [{0}] SET CURRENT_NO = {1} WHERE CATEGORY = 'CDIO'", TblBatch, SQLQuote(currentNo))) Then
             Throw New Exception("Failed to Update Batch.")
         End If
@@ -1284,6 +1341,7 @@ Public Class frmCdioReceiving
             lstDt = getData("SELECT MODULE_NO, ORDER_NO " & _
                             "FROM [" & CDIO_INTERFACE & "] " & _
                             "WHERE CDIO_NO = " & SQLQuote(CDIO_NO) & " " & _
+                            "AND ORG_ID = " & SQLQuote(org_ID) & " " & _
                             "GROUP BY MODULE_NO, ORDER_NO " & _
                             "ORDER BY ORDER_NO")
             For i As Integer = 0 To lstDt.Rows.Count - 1
@@ -1306,6 +1364,7 @@ Public Class frmCdioReceiving
             lstDt = getData("SELECT MODULE_NO, ORDER_NO " & _
                             "FROM [" & CDIO_PENDING & "] " & _
                             "WHERE CDIO_NO = " & SQLQuote(CDIO_NO) & " " & _
+                            "AND ORG_ID = " & SQLQuote(org_ID) & " " & _
                             "ORDER BY MODULE_NO")
             For i As Integer = 0 To lstDt.Rows.Count - 1
                 lstViewItem = New ListViewItem
@@ -1364,14 +1423,15 @@ Public Class frmCdioReceiving
         'o f f l i n e
         dtModuleList = getData("SELECT * FROM [" & CDIO_INTERFACE & "] " & _
                                "WHERE MODULE_NO = " & SQLQuote(MODD.MODULE_NO) & " " & _
-                               "AND ORDER_NO = " & SQLQuote(MODD.ORDER_NO))
+                               "AND ORDER_NO = " & SQLQuote(MODD.ORDER_NO) & " " & _
+                               "AND ORG_ID = " & SQLQuote(org_ID))
         If dtModuleList.Rows.Count > 0 Then
             msgCode = "Failed"
             msgDesc = "Duplicate Module No."
             SetPanelForResult("PanelAbnModError", msgCode, msgDesc, IsForceScan)
         Else
             Call AddToCDIOInterface(Nothing, Nothing, Nothing, MODD.MODULE_NO, MODD.PILLING_NO, MODD.GROSS_WEIGHT, MODD.ORDER_NO, _
-                                    Nothing, IIf(IsForceScan, MODD.REASON_CD, Nothing), "Y", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss tt"))
+                                    org_ID, IIf(IsForceScan, MODD.REASON_CD, Nothing), "Y", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss tt"))
             Call UpdateCDIOPendingDetails(MODD.MODULE_NO, MODD.ORDER_NO)
             msgCode = "Success"
             msgDesc = "Succesfully Updated"
@@ -1385,7 +1445,8 @@ Public Class frmCdioReceiving
 
     Private Sub LoadAbnForceScan()
         Me.Text = strOfflineTitle
-        Call PopulateCDIOForceScan("Abn")
+        'Call PopulateCDIOForceScan("Abn")
+        Call GetAbnReasonCode(ListView3)
         txtFSAbnModuleNo.Text = String.Empty
         txtFSAbnOrderNo.Text = String.Empty
     End Sub
@@ -1400,8 +1461,8 @@ Public Class frmCdioReceiving
         dt = getData("SELECT ORDER_NO, MODULE_NO " & _
                      "FROM [" & CDIO_INTERFACE & "] " & _
                      "WHERE ON_OFF_LINE_FLAG = 'Y' " & _
-                     "AND PROCESS_FLAG IS NULL OR PROCESS_FLAG = '' " & _
-                     "OR PROCESS_FLAG != 'POSTED' " & _
+                     "AND PROCESS_FLAG IS NULL OR PROCESS_FLAG = '' OR PROCESS_FLAG != 'POSTED' " & _
+                     "AND ORG_ID = " & SQLQuote(org_ID) & " " & _
                      "GROUP BY ORDER_NO, MODULE_NO " & _
                      "ORDER BY ORDER_NO")
         Return dt
@@ -1413,6 +1474,7 @@ Public Class frmCdioReceiving
         dt = getData("SELECT ORDER_NO, MODULE_NO " & _
                      "FROM [" & CDIO_INTERFACE & "] " & _
                      "WHERE ON_OFF_LINE_FLAG = 'Y' " & _
+                     "AND ORG_ID = " & SQLQuote(org_ID) & " " & _
                      "GROUP BY ORDER_NO, MODULE_NO " & _
                      "ORDER BY ORDER_NO")
         Return dt
