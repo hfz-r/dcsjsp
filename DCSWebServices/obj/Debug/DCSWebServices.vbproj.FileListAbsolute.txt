@@ -1,0 +1,11 @@
+C:\DCSWebServices\bin\DCSWebService.dll
+C:\DCSWebServices\bin\DCSWebService.pdb
+C:\DCSWebServices\bin\DCSWebService.xml
+C:\DCSWebServices\bin\Oracle.ManagedDataAccess.dll
+C:\DCSWebServices\obj\Debug\DCSWebService.Resources.resources
+C:\DCSWebServices\obj\Debug\DCSWebServices.vbproj.GenerateResource.Cache
+C:\DCSWebServices\obj\Debug\DCSWebService.dll
+C:\DCSWebServices\obj\Debug\DCSWebService.xml
+C:\DCSWebServices\obj\Debug\DCSWebService.pdb
+C:\DCSWebServices\bin\GZipEncoder.pdb
+C:\DCSWebServices\obj\Debug\DCSWebServices.vbprojResolveAssemblyReference.cache

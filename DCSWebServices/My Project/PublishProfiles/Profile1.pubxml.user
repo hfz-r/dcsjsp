@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile>2018-05-19T13:21:25.3383439+08:00</TimeStampOfAssociatedLegacyPublishXmlFile>
+    <_PublishTargetUrl>C:\inetpub\wwwroot\DCSWebService</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="App_Data/connection_settings.xml">
+      <publishTime>04/25/2018 11:07:36</publishTime>
+    </File>
+    <File Include="bin/DCSWebService.dll">
+      <publishTime>08/10/2018 15:27:11</publishTime>
+    </File>
+    <File Include="bin/DCSWebService.xml">
+      <publishTime>08/10/2018 15:27:11</publishTime>
+    </File>
+    <File Include="bin/GZipEncoder.dll">
+      <publishTime>07/18/2018 17:42:51</publishTime>
+    </File>
+    <File Include="bin/Oracle.ManagedDataAccess.dll">
+      <publishTime>05/24/2017 12:07:46</publishTime>
+    </File>
+    <File Include="DCSWebService.svc">
+      <publishTime>12/28/2015 14:41:46</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>08/10/2018 15:27:11</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

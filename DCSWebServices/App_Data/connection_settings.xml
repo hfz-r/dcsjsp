@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppSettings>
+  <ConnectionString>
+    
+       <!--<FATS>Data Source=.\SQL2008R2;Initial Catalog=FATSWeb;User ID=sa;Password=solution;</FATS>-->
+    <!--<WTS>server=10.0.0.5\SQL2008R2;Initial Catalog=WTS;User ID=sa;Password=solution1!;</WTS>-->
+    <!--<DCS>Data Source=xe_system;User Id=system;Password=solution;</DCS>-->
+    <DCS>Data Source=10.1.115.91,1521; Initial Catalog=DEVJP2;User Id=PRSATOSR;Password=oracle;</DCS>
+     
+  </ConnectionString>
+</AppSettings>

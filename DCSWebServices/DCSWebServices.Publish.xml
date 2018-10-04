@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="C:\inetpub\wwwroot\DCSWebService" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="DCSWebService.svc" publishTime="12/28/2015 14:41:46" />
+    <file relUrl="App_Data/connection_settings.xml" publishTime="04/25/2018 11:07:36" />
+    <file relUrl="Web.config" publishTime="05/19/2018 13:21:22" />
+    <file relUrl="bin/DCSWebService.xml" publishTime="05/14/2018 12:16:27" />
+    <file relUrl="bin/DCSWebService.pdb" publishTime="05/14/2018 12:16:27" />
+    <file relUrl="bin/DCSWebService.dll" publishTime="05/14/2018 12:16:27" />
+  </publishProfile>
+</publishData>
